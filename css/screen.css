@@ -1220,7 +1220,7 @@ blockquote p {
 @media print {
   * {
     background: transparent !important;
-    color: black !important;
+    color: #000 !important;
     /* Black prints faster: h5bp.com/s */
     box-shadow: none !important;
     text-shadow: none !important; }
@@ -1242,7 +1242,7 @@ blockquote p {
 
   pre,
   blockquote {
-    border: 1px solid #999999;
+    border: 1px solid #999;
     page-break-inside: avoid; }
 
   thead {
@@ -2711,7 +2711,7 @@ form.custom {
       right: 0px;
       width: 11px;
       height: 14px;
-      border: solid 4px black;
+      border: solid 4px #000;
       border-top: none;
       border-bottom: none; }
     .orbit-container .orbit-timer.paused > span {
@@ -2720,7 +2720,7 @@ form.custom {
       width: 11px;
       height: 14px;
       border: solid 8px;
-      border-color: transparent transparent transparent black; }
+      border-color: transparent transparent transparent #000; }
   .orbit-container:hover .orbit-timer > span {
     display: block; }
   .orbit-container .orbit-prev,
@@ -2747,17 +2747,17 @@ form.custom {
   .orbit-container .orbit-prev {
     left: 0; }
     .orbit-container .orbit-prev > span {
-      border-color: transparent white transparent transparent; }
+      border-color: transparent #fff transparent transparent; }
     .orbit-container .orbit-prev:hover > span {
-      border-color: transparent #cccccc transparent transparent; }
+      border-color: transparent #ccc transparent transparent; }
   .orbit-container .orbit-next {
     right: 0; }
     .orbit-container .orbit-next > span {
-      border-color: transparent transparent transparent white;
+      border-color: transparent transparent transparent #fff;
       left: 50%;
       margin-left: -8px; }
     .orbit-container .orbit-next:hover > span {
-      border-color: transparent transparent transparent #cccccc; }
+      border-color: transparent transparent transparent #ccc; }
 
 .orbit-bullets {
   margin: 0 auto 30px auto;
@@ -2771,7 +2771,7 @@ form.custom {
     background: #fff;
     float: left;
     margin-right: 6px;
-    border: solid 2px black;
+    border: solid 2px #000;
     -webkit-border-radius: 1000px;
     border-radius: 1000px; }
     .orbit-bullets li.active {
@@ -2953,9 +2953,9 @@ form.custom {
   text-decoration: none;
   font-size: 30px;
   font-weight: normal;
-  line-height: 0.5 !important; }
+  line-height: .5 !important; }
   .joyride-close-tip:hover, .joyride-close-tip:focus {
-    color: #eeeeee !important; }
+    color: #eee !important; }
 
 .joyride-modal-bg {
   position: fixed;
@@ -4076,7 +4076,7 @@ html {
     left: 10px;
     width: 17px;
     height: 17px;
-    border: 1px solid red;
+    border: 1px solid #f00;
     border-width: 1px;
     border-width: 0 0 1px 1px;
     border-color: #6b6e69 transparent transparent #6b6e69;
@@ -4234,7 +4234,7 @@ html {
     text-align: center;
     border-bottom: none; }
     .drop li:first-child h4 {
-      padding: 0.25em 0;
+      padding: .25em 0;
       color: whitesmoke;
       background: -webkit-linear-gradient(white, #dedede);
       -webkit-background-clip: text;
@@ -4532,7 +4532,7 @@ html {
         border-width: 4px 0 0 3px;
         border-color: transparent transparent transparent #4a0f2f;
         line-height: 0px;
-        _border-color: black black black #4a0f2f;
+        _border-color: #000000 #000000 #000000 #4a0f2f;
         _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
         -webkit-transform: rotate(360deg);
         border-style: inset; }
@@ -4573,7 +4573,7 @@ html {
       margin-bottom: 0;
       max-width: none;
       *zoom: 1;
-      padding: 0 0.5em; }
+      padding: 0 .5em; }
       .post .content .post-img:before, .post .content .post-img:after {
         content: " ";
         display: table; }
@@ -4918,7 +4918,7 @@ html {
   float: left; }
 .edit.profile-details label,
 .new-post label {
-  margin: 0.5em 0 1em; }
+  margin: .5em 0 1em; }
 .edit.profile-details input[type="text"],
 .new-post input[type="text"] {
   padding-top: 1.5em;

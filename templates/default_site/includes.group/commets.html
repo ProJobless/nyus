@@ -1,26 +1,27 @@
-<p><strong>Post a Comment:</strong></p>
- 
-{exp:friends:profile_wall_form friend_id="{embed:id_member}" }
-    <p><textarea name="friends_wall_comment"></textarea></p>
-    <p><input type="submit" name="submit" value="Comment" /></p>
- 
-{/exp:friends:profile_wall_form}
-
-
-<p><strong>Wall Comments:</strong></p>
-		 
 {exp:friends:profile_wall friend_id="{embed:id_member}" }
 		 
-<p class="wall">
-{friends_comment}<br/>By:
+<p class="comment">
+    {friends_comment}
+    <br/>
 	{if logged_in_member_id == friends_member_id}
-		<b>You</b>
+	<strong>You</strong>
 	{if:else}
-		<a href="{path='profile/index'}/{friends_member_id}/"> {friends_screen_name} </a>
+	<span>
+        <a href="{path='profile/index'}/{friends_member_id}/"> {friends_screen_name}</a>
 	{/if}
-on {friends_entry_date format="%F %j, %Y at %h:%i %a"}
+        on {friends_entry_date format="%F %j, %Y at %h:%i %a"}
+    </span>
 </p>
+
 {if friends_no_results}
-	<p>There are currently no comments for this profile.</p>
+<p class="comment">
+    Be the first person to comment.
+</p>
 {/if}
+
 {/exp:friends:profile_wall}
+
+{exp:friends:profile_wall_form friend_id="{embed:id_member}" }
+    <textarea name="friends_wall_comment"></textarea>
+    <input type="submit" name="submit" value="Comment" />
+{/exp:friends:profile_wall_form}

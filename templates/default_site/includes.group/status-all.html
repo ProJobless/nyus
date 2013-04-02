@@ -1,0 +1,31 @@
+{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' ORDER BY status_date DESC"}
+	{exp:user:stats member_id='{member_id}'}
+	<article class="post">
+		<div class="post-header">
+			<div class="user-img">
+		        {if photo_filename}
+		    	<img src="{photo_url}{photo_filename}" />
+		    	{if:else}
+		    	<img src="/2017introductions/img/imagen.jpg" />
+		    	{/if}
+		    </div> <!-- .user-img -->
+	        <div class="details">
+	        	<h4>{screen_name}</h4>
+	        	<p>{status_date format='%F %j, %Y'}<br>from {occupation}</p>
+	        </div> <!-- .details -->	    
+		</div><!-- .post-header -->
+	    
+	    <div class="content">
+	    	<p>{status}</p>
+	    	{embed='includes/commets' id_member='{member_id}'}
+	    </div> <!-- .content -->	
+	   
+	   <div class="comment-bar">
+		   <div class="comment-count">
+			   <a href="#" class="comment-icon"></a>
+			   <span>99+</span>
+		   </div> <!-- .comment-count -->
+	   </div> <!-- .comment-bar -->    
+	</article>
+	{/exp:user:stats}
+{/exp:query}

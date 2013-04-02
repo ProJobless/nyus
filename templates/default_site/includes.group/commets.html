@@ -1,0 +1,26 @@
+<p><strong>Post a Comment:</strong></p>
+ 
+{exp:friends:profile_wall_form friend_id="{embed:id_member}" }
+    <p><textarea name="friends_wall_comment"></textarea></p>
+    <p><input type="submit" name="submit" value="Comment" /></p>
+ 
+{/exp:friends:profile_wall_form}
+
+
+<p><strong>Wall Comments:</strong></p>
+		 
+{exp:friends:profile_wall friend_id="{embed:id_member}" }
+		 
+<p class="wall">
+{friends_comment}<br/>By:
+	{if logged_in_member_id == friends_member_id}
+		<b>You</b>
+	{if:else}
+		<a href="{path='profile/index'}/{friends_member_id}/"> {friends_screen_name} </a>
+	{/if}
+on {friends_entry_date format="%F %j, %Y at %h:%i %a"}
+</p>
+{if friends_no_results}
+	<p>There are currently no comments for this profile.</p>
+{/if}
+{/exp:friends:profile_wall}

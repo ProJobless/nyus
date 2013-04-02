@@ -1,0 +1,61 @@
+{embed='includes/header'}
+
+{exp:user:stats}
+    <div class="page">
+        <section class="full-profile">
+        <!-- all profiles are contained in .full-profile -->
+            <div class="button-wrapper">
+                <a href="/2017introductions/member-list">Back to Members List</a>
+            </div> <!-- .button-wrapper; profile details fall below this -->
+            <div class="profile-photo"> <!-- takes up the left column on larger screens, stacks on smaller screens -->
+            	{if photo_filename}
+                <img src="{photo_url}{photo_filename}">
+                {if:else}
+                <img src="http://placehold.it/300x240&text=[PROFILE]" />
+                {/if}
+                
+                {exp:friends:members member_id="{segment_3}"} 
+				    <div class="name">
+				    <p>
+				    {friends_screen_name}’s Profile<br>
+				    Email: {friends_email}<br>
+				    Total Entries: {friends_total_entries}<br>
+				    Join Date: {friends_join_date  format="%m %d, %Y"}
+				    </p>
+				    </div>
+				{/exp:friends:members}                
+                
+                
+            </div> <!-- .profile-photo -->
+            
+            <div class="profile-details">
+                
+                <div>
+				{exp:friends:add
+				    notification_request="friends_notifications/friend_request"
+				    notification_confirm="friends_notifications/friend_confirm"
+				    subject_request="{friends_inviter_screen_name} added you as a friend!"
+				    subject_confirm="{friends_inviter_screen_name} confirmed your friend request!"
+				}
+				 
+				    {if success}
+				        <h3>Successful!</h3>
+				    {/if}
+				    {if failure}
+				        <h3>Error!</h3>
+				    {/if}
+				 
+				    <p>{friends_message}</p>
+				 
+				{/exp:friends:add}                
+                
+                </div>
+                
+            </div> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
+        
+        </section> <!-- .full-profile -->
+    
+    </div> <!-- .page -->
+{/exp:user:stats}
+
+{embed='includes/footer'}

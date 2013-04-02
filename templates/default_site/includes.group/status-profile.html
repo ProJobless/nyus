@@ -1,0 +1,24 @@
+{exp:friends:status limit="25" member_id="{segment_3}"}
+<article class="post">
+	<div class="post-header">
+		<div class="user-img">
+	    	<img src="{friends_photo_url}" />
+	    </div> <!-- .user-img -->
+        <div class="details">
+        	<h4>{friends_screen_name}</h4>
+        	<p>{friends_status_date format="%F %j, %Y"}<br>from {friends_occupation}</p>
+        </div> <!-- .details -->	    
+	</div><!-- .post-header -->
+    
+    <div class="content">
+    	<p>{friends_status}</p>
+    </div> <!-- .content -->	
+   
+   <div class="comment-bar">
+	   <div class="comment-count">
+		   <a href="#" class="comment-icon"></a>
+		   <span>99+</span>
+	   </div> <!-- .comment-count -->
+   </div> <!-- .comment-bar -->    
+</article>
+{/exp:friends:status}

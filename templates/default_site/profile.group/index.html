@@ -1,0 +1,63 @@
+{embed='includes/header'}
+
+
+        <section class="full-profile">
+        <!-- all profiles are contained in .full-profile -->
+            
+            {exp:user:edit dynamic="off" member_id="{segment_2}" override_return="profile/index" return="profile/index"  password_required="n" }
+            <div class="profile-header clearfix">
+                <!-- takes up the left column on larger screens, stacks on smaller screens -->
+                <div class="user-img">
+	                <img src="{photo_url}{photo_filename}" width="94" />
+                </div> <!-- .profile-photo -->
+                <div class="name">
+                    <h4>{screen_name}</h4>
+                    <p><input type="submit" name="remove_photo" value="Remove Photo" /><br>
+	                Upload a New Photo: <input type="file" name="photo_filename" /><br>
+	                </p>
+	                
+                </div> <!-- .name -->
+
+            </div> <!-- .profile-header -->
+   
+            <section class="profile-details">
+                <h4>Living</h4>
+                <table class="profile-info">
+                    <tbody>
+                        <tr>
+                            <th scope="rowgroup">Hometown</th>
+                            <td class="data"><input name="location" value="{location}"></td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="rowgroup">Current City</th>
+                            <td class="data"><input name="occupation" value="{occupation}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Interests</h4>
+                <a href="edit-interests.php" class="edit-btn" id="edit-interests"  data-icon="✎"><span class="visuallyhidden">Edit Interests</span></a>
+                <div class="interests">
+                    <p><input name="interests" value="{interests}"></p>
+                </div> <!-- .interests -->
+                <div class="interests">
+                	<p><input type="submit" value="Update Information" /></p>
+                </div>
+            </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
+        
+        </section> <!-- .full-profile -->
+        {/exp:user:edit}        
+        
+        <section class="recent-activity">
+            <!-- Recent activity. Identical structure to the Great Wall. A .post container contains 1 .post-header div and 1 .content div. 0 or more .comment divs may be nested within .content -->
+            
+            <h3>Your Recent Activity</h3>
+          
+            <!--See profile Status-->
+	        {embed='includes/status-profile'}
+
+            <!-- End Feed Entry -->
+        </section>
+
+
+{embed='includes/footer'}

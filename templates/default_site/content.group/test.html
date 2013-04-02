@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <title>NYU Shanghai-net</title>
+        
+        <!-- link rel="stylesheet" href="/2017introductions/css/normalize.css" / -->
+        <!-- link rel="stylesheet" href="/2017introductions/css/screen.css" / -->
+        <!-- script src="/2017introductions/js/vendor/custom.modernizr.js"></script -->
+	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>        
+    </head>
+    <body>
+
+	        {if logged_out}
+				<?php
+				// process SSO
+				// $_POST['eppn'] = '';
+				// user passed NYU authentication
+				if (isset($_SERVER['eppn']) && !empty($_SERVER['eppn']) ) {
+					// ) {
+/*
+echo "<pre>";
+print_r($_SERVER);
+echo "</pre>";
+*/
+				?>
+{exp:ajax_form class="Member" method="member_login"}
+<div style="display:hidden">
+<form id="loginForm" method='post' action='{post_url}'>
+<input type='hidden' name='XID' value='{xid}' />
+<input type='hidden' name='ACT' value='{action_id}' />
+<input type='text' id='username' name='username' value="<?php echo $_SERVER['eppn']; ?>" />
+<input type='submit' value='Login' id='btnLogin' />
+</form>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//$("#btnLogin").click(function(){
+	$("#loginForm").submit(function(e){
+		e.preventDefault();	
+		console.log('submitted');
+		$.ajax({
+		  type: "POST",
+		  url: "{post_url}",
+		  data: $("#loginForm").serializeArray()
+		}).done(function( msg ) {
+			// take action based on response
+			console.log(msg);
+			 var v = msg.charAt(0);
+			if (v == 0){
+				// go to ERROR page - user not in approved list
+				// window.location();
+			} else if (v == 1){
+				// normal login
+				// window.location({path="content"});
+				
+			} else if (v == 2){
+				// new user created
+				// window.location({path="actions"});
+			} 
+		  
+		});		
+
+	}); // end click
+
+if ($('#username').val() != '') {
+	$("#btnLogin").click();
+} 
+
+});
+</script>
+{/exp:ajax_form}
+<?php
+		}
+?>
+
+		{/if}        
+	        
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <title>NYU Shanghai-net</title>
+        
+        <link rel="stylesheet" href="/2017introductions/css/normalize.css" />
+        <link rel="stylesheet" href="/2017introductions/css/screen.css" />
+        <script src="/2017introductions/js/vendor/custom.modernizr.js"></script>
+        
+    </head>
+    <body>
+        <ul id="notifications" class="notifications drop" data-dropdown-content>
+            <li><h4>Notifications</h4></li>
+            <li><a href="#"><img src="img/josh-smith_feed_47px.jpg"><p><span>Josh Smith</span> dolor sit amet, consectetur adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
+            <li><a href="#"><img src="img/juan-marin_feed_47px.jpg"><p><span>Juan Marin</span> dolor sit amet, consectetur adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
+        </ul>
+        <ul id="actions" class="actions drop" data-dropdown-content>
+            <li><h4>Actions</h4></li>
+            <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
+adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
+            <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
+adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
+            <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
+adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
+        </ul>
+        <div id="outer-wrap" class="outer-wrap">
+        	{if segment_2=='profile'} 
+            <div class="profile page" id="page">
+            {if:else}
+            <div class="page" id="page">
+            {/if}
+            <!-- Header and Nav -->
+                <header class="global" id="top" role="banner">
+
+                    <h1 class="visuallyhidden">NYU Shanghai-Net</h1>
+                    <div class="header-left">
+                        <div class="menu">
+                        {if segment_2=='profile'}  
+                            <a id="back" class="back" href="index.php" data-title="BACK"></a>
+                        {if:else}
+                            <a id="nav-open-btn" class="nav-btn" href="#nav" data-icon="☰">
+                            <span class="visuallyhidden">Navigate</span>
+                            </a>           
+                        {/if}
+                        </div>
+                        
+                        <div class="first ribbon">
+                            <div class="notifications-count" id="notifications-count"><span>1</span></div>
+                            <a href="#" data-dropdown="notifications" class="notifications-icon"></a>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="second ribbon">
+                            <div class="actions-count" id="actions-count"><span>99+</span></div>
+                            <a href="#" data-dropdown="actions" class="actions-icon"></a>
+                        </div>
+                        {if segment_2=='profile'}  
+                        <div class="post-icon">
+                            <a id="post-open-btn" class="nav-btn" href="new-post.php" data-icon="✎"><span class="visuallyhidden">New Post</span></a>
+                        </div>
+	                    {/if}
+                    </div>
+                </header>
+                <nav id="nav" class="nav" role="navigation">
+                    <h3 class="name hide-for-medium">
+                    {exp:user:stats}
+                        <a href="/2017introductions/profile/{member_id}">{screen_name}</a>
+                    {/exp:user:stats}
+                    <ul>
+                        <li>Filter By</li>
+                        <li><a href="/2017introductions/">All</a></li>
+                        <li><a href="#">Questions</a></li>
+                        <li><a href="/2017introductions/member-list">Students</a></li>
+                        <li>
+	                        {exp:user:logout return="template_group/template_name"}
+	                        <a href="{url}">Logout</a>
+	                        {/exp:user:logout}
+                        </li>
+                    </ul>
+                    <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a>
+                </nav>
+                <div id="main" class="main">

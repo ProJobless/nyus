@@ -1,13 +1,15 @@
-{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' ORDER BY status_date DESC"}
+{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' ORDER BY status_date DESC limit 10"}
 {exp:user:stats member_id='{member_id}'}
 <article class="post" data-section>
     <div class="post-header">
         <div class="user-img">
+            <a href="/profile/{member_id}">
             {if photo_filename}
             <img src="{photo_url}{photo_filename}" />
             {if:else}
             <img src="/2017introductions/img/imagen.jpg" />
             {/if}
+            </a>
         </div> <!-- .user-img -->
         <div class="details">
             <h4>{screen_name}</h4>
@@ -21,8 +23,12 @@
             
     <section class="comments">
         <div class="controls title">
-            <a href="#" class="comment-icon"><span>99+</span></a>
-            
+            <a href="#" class="comment-icon">
+	            {embed='includes/comment-counter' id_status='{status_id}'}
+            </a>
+            <div>
+            {embed='includes/commets' id_member='{member_id}' id_status='{status_id}' summary='yes'}
+            </div>
         </div> <!-- .comment-count -->
         <div class="comment-feed">
             {embed='includes/commets' id_member='{member_id}' id_status='{status_id}'}

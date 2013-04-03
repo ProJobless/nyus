@@ -1,5 +1,7 @@
+# System Files
 .DS_Store
 .htaccess
+.sass-cache/
 
 # Images
 images/avatars/
@@ -15,7 +17,7 @@ thumbs/
 _thumbs/
 */expressionengine/cache/*
 
-# System Files 
+# EE Files 
 nyusocial/
 pma/
 themes/

@@ -147,15 +147,16 @@ $(document).ready(function(){
 })
 
 
-
-jwplayer("v1").setup({
-     file: "uploads/img_1966.mov",
-    image: "uploads/img_1966_poster.png",
-    width: "100%"
-});
-
-jwplayer('a1').setup({
-    file: 'uploads/regina-spektor-dont-leave-me.mp3',
-    width: '100%',
-    height: '30'
-})
+try {
+    jwplayer("v1").setup({
+         file: "uploads/img_1966.mov",
+        image: "uploads/img_1966_poster.png",
+        width: "100%"
+    });
+    
+    jwplayer('a1').setup({
+        file: 'uploads/regina-spektor-dont-leave-me.mp3',
+        width: '100%',
+        height: '30'
+    })
+} catch(e) {}

@@ -1,4 +1,5 @@
 /*jslint unparam: true, browser: true, indent: 2 */
+// COMMENTED OUT LINE 145 TO KEEP ALL SECTIONS CLOSED ON LOAD 
 
 ;(function ($, window, document, undefined) {
   'use strict';
@@ -141,7 +142,7 @@
           && !self.is_accordion($this)) {
 
           var first = $this.find('section, .section').first();
-          first.addClass('active');
+          //first.addClass('active');
 
           if (self.small($this)) {
             first.attr('style', '');

@@ -65,7 +65,7 @@ body {
 
 body {
   background: #2e2e2e;
-  color: #919191;
+  color: #333333;
   padding: 0;
   margin: 0;
   font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
@@ -101,7 +101,7 @@ img {
 .left {
   float: left !important; }
 
-.right, .post .comment-bar .comment-count span, .full-profile .edit-btn,
+.right, .full-profile .edit-btn,
 .edit-profile .edit-btn {
   float: right !important; }
 
@@ -1144,7 +1144,7 @@ abbr,
 acronym {
   text-transform: uppercase;
   font-size: 90%;
-  color: #919191;
+  color: #333333;
   border-bottom: 1px dotted #dddddd;
   cursor: help; }
 
@@ -2161,158 +2161,386 @@ form.custom {
     height: 100%; }
 
 /* Sections */
-.section-container, .section-container.auto {
+.section-container, .post, .section-container.auto, .auto.post {
   width: 100%;
   display: block;
   margin-bottom: 1.25em;
   border: 1px solid #cccccc;
   border-top: none; }
-  .section-container section,
-  .section-container .section, .section-container.auto section,
-  .section-container.auto .section {
+  .section-container section, .post section,
+  .section-container .section,
+  .post .section,
+  .post .comments, .section-container.auto section, .auto.post section,
+  .section-container.auto .section,
+  .auto.post .section,
+  .section-container.auto .post .comments,
+  .post .section-container.auto .comments,
+  .auto.post .comments {
     border-top: 1px solid #cccccc;
     position: relative; }
-    .section-container section .title,
-    .section-container .section .title, .section-container.auto section .title,
-    .section-container.auto .section .title {
+    .section-container section .title, .post section .title,
+    .section-container .section .title,
+    .post .section .title,
+    .post .comments .title, .section-container.auto section .title, .auto.post section .title,
+    .section-container.auto .section .title,
+    .auto.post .section .title,
+    .section-container.auto .post .comments .title,
+    .post .section-container.auto .comments .title,
+    .auto.post .comments .title {
       top: 0;
       cursor: pointer;
       width: 100%;
       margin: 0;
       background-color: #efefef; }
-      .section-container section .title a,
-      .section-container .section .title a, .section-container.auto section .title a,
-      .section-container.auto .section .title a {
+      .section-container section .title a, .post section .title a,
+      .section-container .section .title a,
+      .post .section .title a,
+      .post .comments .title a, .section-container.auto section .title a, .auto.post section .title a,
+      .section-container.auto .section .title a,
+      .auto.post .section .title a,
+      .section-container.auto .post .comments .title a,
+      .post .section-container.auto .comments .title a,
+      .auto.post .comments .title a {
         padding: 0.9375em;
         display: inline-block;
         color: #333333;
         font-size: 0.875em;
         white-space: nowrap;
         width: 100%; }
-      .section-container section .title:hover,
-      .section-container .section .title:hover, .section-container.auto section .title:hover,
-      .section-container.auto .section .title:hover {
+      .section-container section .title:hover, .post section .title:hover,
+      .section-container .section .title:hover,
+      .post .section .title:hover,
+      .post .comments .title:hover, .section-container.auto section .title:hover, .auto.post section .title:hover,
+      .section-container.auto .section .title:hover,
+      .auto.post .section .title:hover,
+      .section-container.auto .post .comments .title:hover,
+      .post .section-container.auto .comments .title:hover,
+      .auto.post .comments .title:hover {
         background-color: #e2e2e2; }
-    .section-container section .content,
-    .section-container .section .content, .section-container.auto section .content,
-    .section-container.auto .section .content {
+    .section-container section .content, .post section .content, .section-container section .post .comments .comment-feed, .post .comments .section-container section .comment-feed, .post section .comments .comment-feed, .post .comments section .comment-feed,
+    .section-container .section .content,
+    .post .section .content,
+    .section-container .post .comments .content,
+    .post .section-container .comments .content,
+    .post .comments .content,
+    .section-container .section .post .comments .comment-feed,
+    .post .comments .section-container .section .comment-feed,
+    .post .section .comments .comment-feed,
+    .post .comments .section .comment-feed,
+    .section-container .post .comments .comment-feed,
+    .post .section-container .comments .comment-feed,
+    .post .comments .comment-feed, .section-container.auto section .content, .auto.post section .content, .section-container.auto section .post .comments .comment-feed, .post .comments .section-container.auto section .comment-feed, .auto.post section .comments .comment-feed, .auto.post .comments section .comment-feed,
+    .section-container.auto .section .content,
+    .auto.post .section .content,
+    .section-container.auto .post .comments .content,
+    .post .section-container.auto .comments .content,
+    .auto.post .comments .content,
+    .post .comments .section-container.auto .section .comment-feed,
+    .section-container.auto .post .comments .comment-feed,
+    .post .section-container.auto .comments .comment-feed,
+    .auto.post .comments .comment-feed {
       display: none;
       padding: 0.9375em;
       background-color: white; }
-      .section-container section .content > *:last-child,
-      .section-container .section .content > *:last-child, .section-container.auto section .content > *:last-child,
-      .section-container.auto .section .content > *:last-child {
+      .section-container section .content > *:last-child, .post section .content > *:last-child, .section-container section .post .comments .comment-feed > *:last-child, .post .comments .section-container section .comment-feed > *:last-child, .post section .comments .comment-feed > *:last-child, .post .comments section .comment-feed > *:last-child,
+      .section-container .section .content > *:last-child,
+      .post .section .content > *:last-child,
+      .section-container .post .comments .content > *:last-child,
+      .post .section-container .comments .content > *:last-child,
+      .post .comments .content > *:last-child,
+      .post .section .comments .comment-feed > *:last-child,
+      .post .comments .section .comment-feed > *:last-child,
+      .section-container .post .comments .comment-feed > *:last-child,
+      .post .section-container .comments .comment-feed > *:last-child,
+      .post .comments .comment-feed > *:last-child, .section-container.auto section .content > *:last-child, .auto.post section .content > *:last-child, .section-container.auto section .post .comments .comment-feed > *:last-child, .post .comments .section-container.auto section .comment-feed > *:last-child, .auto.post section .comments .comment-feed > *:last-child, .auto.post .comments section .comment-feed > *:last-child,
+      .section-container.auto .section .content > *:last-child,
+      .auto.post .section .content > *:last-child,
+      .section-container.auto .post .comments .content > *:last-child,
+      .post .section-container.auto .comments .content > *:last-child,
+      .auto.post .comments .content > *:last-child,
+      .post .comments .section-container.auto .section .comment-feed > *:last-child,
+      .section-container.auto .post .comments .comment-feed > *:last-child,
+      .post .section-container.auto .comments .comment-feed > *:last-child,
+      .auto.post .comments .comment-feed > *:last-child {
         margin-bottom: 0; }
-      .section-container section .content > *:first-child,
-      .section-container .section .content > *:first-child, .section-container.auto section .content > *:first-child,
-      .section-container.auto .section .content > *:first-child {
+      .section-container section .content > *:first-child, .post section .content > *:first-child, .section-container section .post .comments .comment-feed > *:first-child, .post .comments .section-container section .comment-feed > *:first-child, .post section .comments .comment-feed > *:first-child, .post .comments section .comment-feed > *:first-child,
+      .section-container .section .content > *:first-child,
+      .post .section .content > *:first-child,
+      .section-container .post .comments .content > *:first-child,
+      .post .section-container .comments .content > *:first-child,
+      .post .comments .content > *:first-child,
+      .post .section .comments .comment-feed > *:first-child,
+      .post .comments .section .comment-feed > *:first-child,
+      .section-container .post .comments .comment-feed > *:first-child,
+      .post .section-container .comments .comment-feed > *:first-child,
+      .post .comments .comment-feed > *:first-child, .section-container.auto section .content > *:first-child, .auto.post section .content > *:first-child, .section-container.auto section .post .comments .comment-feed > *:first-child, .post .comments .section-container.auto section .comment-feed > *:first-child, .auto.post section .comments .comment-feed > *:first-child, .auto.post .comments section .comment-feed > *:first-child,
+      .section-container.auto .section .content > *:first-child,
+      .auto.post .section .content > *:first-child,
+      .section-container.auto .post .comments .content > *:first-child,
+      .post .section-container.auto .comments .content > *:first-child,
+      .auto.post .comments .content > *:first-child,
+      .post .comments .section-container.auto .section .comment-feed > *:first-child,
+      .section-container.auto .post .comments .comment-feed > *:first-child,
+      .post .section-container.auto .comments .comment-feed > *:first-child,
+      .auto.post .comments .comment-feed > *:first-child {
         padding-top: 0; }
-      .section-container section .content > *:last-child,
-      .section-container .section .content > *:last-child, .section-container.auto section .content > *:last-child,
-      .section-container.auto .section .content > *:last-child {
+      .section-container section .content > *:last-child, .post section .content > *:last-child, .section-container section .post .comments .comment-feed > *:last-child, .post .comments .section-container section .comment-feed > *:last-child, .post section .comments .comment-feed > *:last-child, .post .comments section .comment-feed > *:last-child,
+      .section-container .section .content > *:last-child,
+      .post .section .content > *:last-child,
+      .section-container .post .comments .content > *:last-child,
+      .post .section-container .comments .content > *:last-child,
+      .post .comments .content > *:last-child,
+      .post .section .comments .comment-feed > *:last-child,
+      .post .comments .section .comment-feed > *:last-child,
+      .section-container .post .comments .comment-feed > *:last-child,
+      .post .section-container .comments .comment-feed > *:last-child,
+      .post .comments .comment-feed > *:last-child, .section-container.auto section .content > *:last-child, .auto.post section .content > *:last-child, .section-container.auto section .post .comments .comment-feed > *:last-child, .post .comments .section-container.auto section .comment-feed > *:last-child, .auto.post section .comments .comment-feed > *:last-child, .auto.post .comments section .comment-feed > *:last-child,
+      .section-container.auto .section .content > *:last-child,
+      .auto.post .section .content > *:last-child,
+      .section-container.auto .post .comments .content > *:last-child,
+      .post .section-container.auto .comments .content > *:last-child,
+      .auto.post .comments .content > *:last-child,
+      .post .comments .section-container.auto .section .comment-feed > *:last-child,
+      .section-container.auto .post .comments .comment-feed > *:last-child,
+      .post .section-container.auto .comments .comment-feed > *:last-child,
+      .auto.post .comments .comment-feed > *:last-child {
         padding-bottom: 0; }
-    .section-container section.active .content,
-    .section-container .section.active .content, .section-container.auto section.active .content,
-    .section-container.auto .section.active .content {
+    .section-container section.active .content, .post section.active .content, .section-container section.active .post .comments .comment-feed, .post .comments .section-container section.active .comment-feed, .post section.active .comments .comment-feed, .post .comments section.active .comment-feed,
+    .section-container .section.active .content,
+    .post .section.active .content,
+    .section-container .post .active.comments .content,
+    .post .section-container .active.comments .content,
+    .post .active.comments .content,
+    .section-container .section.active .post .comments .comment-feed,
+    .post .section.active .comments .comment-feed,
+    .post .comments .section.active .comment-feed,
+    .section-container .post .active.comments .comment-feed,
+    .post .section-container .active.comments .comment-feed,
+    .post .active.comments .comment-feed, .section-container.auto section.active .content, .auto.post section.active .content, .section-container.auto section.active .post .comments .comment-feed, .post .comments .section-container.auto section.active .comment-feed, .auto.post section.active .comments .comment-feed, .auto.post .comments section.active .comment-feed,
+    .section-container.auto .section.active .content,
+    .auto.post .section.active .content,
+    .section-container.auto .post .active.comments .content,
+    .post .section-container.auto .active.comments .content,
+    .auto.post .active.comments .content,
+    .section-container.auto .section.active .post .comments .comment-feed,
+    .post .comments .section-container.auto .section.active .comment-feed,
+    .auto.post .section.active .comments .comment-feed,
+    .auto.post .comments .section.active .comment-feed,
+    .section-container.auto .post .active.comments .comment-feed,
+    .post .section-container.auto .active.comments .comment-feed,
+    .auto.post .active.comments .comment-feed {
       display: block; }
-    .section-container section.active .title,
-    .section-container .section.active .title, .section-container.auto section.active .title,
-    .section-container.auto .section.active .title {
+    .section-container section.active .title, .post section.active .title,
+    .section-container .section.active .title,
+    .post .section.active .title,
+    .section-container .post .active.comments .title,
+    .post .section-container .active.comments .title,
+    .post .active.comments .title, .section-container.auto section.active .title, .auto.post section.active .title,
+    .section-container.auto .section.active .title,
+    .auto.post .section.active .title,
+    .section-container.auto .post .active.comments .title,
+    .post .section-container.auto .active.comments .title,
+    .auto.post .active.comments .title {
       background: #d5d5d5; }
 
-.section-container.tabs {
+.section-container.tabs, .tabs.post {
   border: 0;
   position: relative; }
-  .section-container.tabs section,
-  .section-container.tabs .section {
+  .section-container.tabs section, .tabs.post section,
+  .section-container.tabs .section,
+  .tabs.post .section,
+  .section-container.tabs .post .comments,
+  .post .section-container.tabs .comments,
+  .tabs.post .comments {
     padding-top: 0;
     border: 0;
     position: static; }
-    .section-container.tabs section .title,
-    .section-container.tabs .section .title {
+    .section-container.tabs section .title, .tabs.post section .title,
+    .section-container.tabs .section .title,
+    .tabs.post .section .title,
+    .section-container.tabs .post .comments .title,
+    .post .section-container.tabs .comments .title,
+    .tabs.post .comments .title {
       width: auto;
       border: 1px solid #cccccc;
       border-right: 0;
       border-bottom: 0;
       position: absolute;
       z-index: 1; }
-      .section-container.tabs section .title a,
-      .section-container.tabs .section .title a {
+      .section-container.tabs section .title a, .tabs.post section .title a,
+      .section-container.tabs .section .title a,
+      .tabs.post .section .title a,
+      .section-container.tabs .post .comments .title a,
+      .post .section-container.tabs .comments .title a,
+      .tabs.post .comments .title a {
         width: 100%; }
-    .section-container.tabs section:last-child .title,
-    .section-container.tabs .section:last-child .title {
+    .section-container.tabs section:last-child .title, .tabs.post section:last-child .title,
+    .section-container.tabs .section:last-child .title,
+    .tabs.post .section:last-child .title,
+    .section-container.tabs .post .comments:last-child .title,
+    .post .section-container.tabs .comments:last-child .title,
+    .tabs.post .comments:last-child .title {
       border-right: 1px solid #cccccc; }
-    .section-container.tabs section .content,
-    .section-container.tabs .section .content {
+    .section-container.tabs section .content, .tabs.post section .content, .section-container.tabs section .post .comments .comment-feed, .post .comments .section-container.tabs section .comment-feed, .tabs.post section .comments .comment-feed, .tabs.post .comments section .comment-feed,
+    .section-container.tabs .section .content,
+    .tabs.post .section .content,
+    .section-container.tabs .post .comments .content,
+    .post .section-container.tabs .comments .content,
+    .tabs.post .comments .content,
+    .post .comments .section-container.tabs .section .comment-feed,
+    .section-container.tabs .post .comments .comment-feed,
+    .post .section-container.tabs .comments .comment-feed,
+    .tabs.post .comments .comment-feed {
       border: 1px solid #cccccc;
       position: absolute;
       z-index: 10;
       top: -1px; }
-    .section-container.tabs section.active .title,
-    .section-container.tabs .section.active .title {
+    .section-container.tabs section.active .title, .tabs.post section.active .title,
+    .section-container.tabs .section.active .title,
+    .tabs.post .section.active .title,
+    .section-container.tabs .post .active.comments .title,
+    .post .section-container.tabs .active.comments .title,
+    .tabs.post .active.comments .title {
       background-color: white;
       z-index: 11;
       border-bottom: 0; }
-    .section-container.tabs section.active .content,
-    .section-container.tabs .section.active .content {
+    .section-container.tabs section.active .content, .tabs.post section.active .content, .section-container.tabs section.active .post .comments .comment-feed, .post .comments .section-container.tabs section.active .comment-feed, .tabs.post section.active .comments .comment-feed, .tabs.post .comments section.active .comment-feed,
+    .section-container.tabs .section.active .content,
+    .tabs.post .section.active .content,
+    .section-container.tabs .post .active.comments .content,
+    .post .section-container.tabs .active.comments .content,
+    .tabs.post .active.comments .content,
+    .section-container.tabs .section.active .post .comments .comment-feed,
+    .post .comments .section-container.tabs .section.active .comment-feed,
+    .tabs.post .section.active .comments .comment-feed,
+    .tabs.post .comments .section.active .comment-feed,
+    .section-container.tabs .post .active.comments .comment-feed,
+    .post .section-container.tabs .active.comments .comment-feed,
+    .tabs.post .active.comments .comment-feed {
       position: relative; }
 
 @media only screen and (min-width: 48em) {
-  .section-container.auto {
+  .section-container.auto, .auto.post {
     border: 0;
     position: relative; }
-    .section-container.auto section,
-    .section-container.auto .section {
+    .section-container.auto section, .auto.post section,
+    .section-container.auto .section,
+    .auto.post .section,
+    .section-container.auto .post .comments,
+    .post .section-container.auto .comments,
+    .auto.post .comments {
       padding-top: 0;
       border: 0;
       position: static; }
-      .section-container.auto section .title,
-      .section-container.auto .section .title {
+      .section-container.auto section .title, .auto.post section .title,
+      .section-container.auto .section .title,
+      .auto.post .section .title,
+      .section-container.auto .post .comments .title,
+      .post .section-container.auto .comments .title,
+      .auto.post .comments .title {
         width: auto;
         border: 1px solid #cccccc;
         border-right: 0;
         border-bottom: 0;
         position: absolute;
         z-index: 1; }
-        .section-container.auto section .title a,
-        .section-container.auto .section .title a {
+        .section-container.auto section .title a, .auto.post section .title a,
+        .section-container.auto .section .title a,
+        .auto.post .section .title a,
+        .section-container.auto .post .comments .title a,
+        .post .section-container.auto .comments .title a,
+        .auto.post .comments .title a {
           width: 100%; }
-      .section-container.auto section:last-child .title,
-      .section-container.auto .section:last-child .title {
+      .section-container.auto section:last-child .title, .auto.post section:last-child .title,
+      .section-container.auto .section:last-child .title,
+      .auto.post .section:last-child .title,
+      .section-container.auto .post .comments:last-child .title,
+      .post .section-container.auto .comments:last-child .title,
+      .auto.post .comments:last-child .title {
         border-right: 1px solid #cccccc; }
-      .section-container.auto section .content,
-      .section-container.auto .section .content {
+      .section-container.auto section .content, .auto.post section .content, .section-container.auto section .post .comments .comment-feed, .post .comments .section-container.auto section .comment-feed, .auto.post section .comments .comment-feed, .auto.post .comments section .comment-feed,
+      .section-container.auto .section .content,
+      .auto.post .section .content,
+      .section-container.auto .post .comments .content,
+      .post .section-container.auto .comments .content,
+      .auto.post .comments .content,
+      .post .comments .section-container.auto .section .comment-feed,
+      .section-container.auto .post .comments .comment-feed,
+      .post .section-container.auto .comments .comment-feed,
+      .auto.post .comments .comment-feed {
         border: 1px solid #cccccc;
         position: absolute;
         z-index: 10;
         top: -1px; }
-      .section-container.auto section.active .title,
-      .section-container.auto .section.active .title {
+      .section-container.auto section.active .title, .auto.post section.active .title,
+      .section-container.auto .section.active .title,
+      .auto.post .section.active .title,
+      .section-container.auto .post .active.comments .title,
+      .post .section-container.auto .active.comments .title,
+      .auto.post .active.comments .title {
         background-color: white;
         z-index: 11;
         border-bottom: 0; }
-      .section-container.auto section.active .content,
-      .section-container.auto .section.active .content {
+      .section-container.auto section.active .content, .auto.post section.active .content, .section-container.auto section.active .post .comments .comment-feed, .post .comments .section-container.auto section.active .comment-feed, .auto.post section.active .comments .comment-feed, .auto.post .comments section.active .comment-feed,
+      .section-container.auto .section.active .content,
+      .auto.post .section.active .content,
+      .section-container.auto .post .active.comments .content,
+      .post .section-container.auto .active.comments .content,
+      .auto.post .active.comments .content,
+      .section-container.auto .section.active .post .comments .comment-feed,
+      .post .comments .section-container.auto .section.active .comment-feed,
+      .auto.post .section.active .comments .comment-feed,
+      .auto.post .comments .section.active .comment-feed,
+      .section-container.auto .post .active.comments .comment-feed,
+      .post .section-container.auto .active.comments .comment-feed,
+      .auto.post .active.comments .comment-feed {
         position: relative; }
 
-  .section-container.accordion .section {
+  .section-container.accordion .section, .accordion.post .section, .section-container.accordion .post .comments, .post .section-container.accordion .comments, .accordion.post .comments {
     padding-top: 0 !important; }
 
-  .section-container.vertical-nav {
+  .section-container.vertical-nav, .vertical-nav.post {
     border: 1px solid #cccccc;
     border-top: none; }
-    .section-container.vertical-nav section,
-    .section-container.vertical-nav .section {
+    .section-container.vertical-nav section, .vertical-nav.post section,
+    .section-container.vertical-nav .section,
+    .vertical-nav.post .section,
+    .section-container.vertical-nav .post .comments,
+    .post .section-container.vertical-nav .comments,
+    .vertical-nav.post .comments {
       padding-top: 0 !important; }
-      .section-container.vertical-nav section .title a,
-      .section-container.vertical-nav .section .title a {
+      .section-container.vertical-nav section .title a, .vertical-nav.post section .title a,
+      .section-container.vertical-nav .section .title a,
+      .vertical-nav.post .section .title a,
+      .section-container.vertical-nav .post .comments .title a,
+      .post .section-container.vertical-nav .comments .title a,
+      .vertical-nav.post .comments .title a {
         display: block;
         width: 100%; }
-      .section-container.vertical-nav section .content,
-      .section-container.vertical-nav .section .content {
+      .section-container.vertical-nav section .content, .vertical-nav.post section .content, .section-container.vertical-nav section .post .comments .comment-feed, .post .comments .section-container.vertical-nav section .comment-feed, .vertical-nav.post section .comments .comment-feed, .vertical-nav.post .comments section .comment-feed,
+      .section-container.vertical-nav .section .content,
+      .vertical-nav.post .section .content,
+      .section-container.vertical-nav .post .comments .content,
+      .post .section-container.vertical-nav .comments .content,
+      .vertical-nav.post .comments .content,
+      .post .comments .section-container.vertical-nav .section .comment-feed,
+      .section-container.vertical-nav .post .comments .comment-feed,
+      .post .section-container.vertical-nav .comments .comment-feed,
+      .vertical-nav.post .comments .comment-feed {
         display: none; }
-      .section-container.vertical-nav section.active .content,
-      .section-container.vertical-nav .section.active .content {
+      .section-container.vertical-nav section.active .content, .vertical-nav.post section.active .content, .section-container.vertical-nav section.active .post .comments .comment-feed, .post .comments .section-container.vertical-nav section.active .comment-feed, .vertical-nav.post section.active .comments .comment-feed, .vertical-nav.post .comments section.active .comment-feed,
+      .section-container.vertical-nav .section.active .content,
+      .vertical-nav.post .section.active .content,
+      .section-container.vertical-nav .post .active.comments .content,
+      .post .section-container.vertical-nav .active.comments .content,
+      .vertical-nav.post .active.comments .content,
+      .section-container.vertical-nav .section.active .post .comments .comment-feed,
+      .post .comments .section-container.vertical-nav .section.active .comment-feed,
+      .vertical-nav.post .section.active .comments .comment-feed,
+      .vertical-nav.post .comments .section.active .comment-feed,
+      .section-container.vertical-nav .post .active.comments .comment-feed,
+      .post .section-container.vertical-nav .active.comments .comment-feed,
+      .vertical-nav.post .active.comments .comment-feed {
         display: block;
         position: absolute;
         left: 100%;
@@ -2321,31 +2549,62 @@ form.custom {
         min-width: 12.5em;
         border: 1px solid #cccccc; }
 
-  .section-container.horizontal-nav {
+  .section-container.horizontal-nav, .horizontal-nav.post {
     position: relative;
     background: #efefef;
     border: 1px solid #cccccc; }
-    .section-container.horizontal-nav section,
-    .section-container.horizontal-nav .section {
+    .section-container.horizontal-nav section, .horizontal-nav.post section,
+    .section-container.horizontal-nav .section,
+    .horizontal-nav.post .section,
+    .section-container.horizontal-nav .post .comments,
+    .post .section-container.horizontal-nav .comments,
+    .horizontal-nav.post .comments {
       padding-top: 0;
       border: 0;
       position: static; }
-      .section-container.horizontal-nav section .title,
-      .section-container.horizontal-nav .section .title {
+      .section-container.horizontal-nav section .title, .horizontal-nav.post section .title,
+      .section-container.horizontal-nav .section .title,
+      .horizontal-nav.post .section .title,
+      .section-container.horizontal-nav .post .comments .title,
+      .post .section-container.horizontal-nav .comments .title,
+      .horizontal-nav.post .comments .title {
         width: auto;
         border: 1px solid #cccccc;
         border-left: 0;
         top: -1px;
         position: absolute;
         z-index: 1; }
-        .section-container.horizontal-nav section .title a,
-        .section-container.horizontal-nav .section .title a {
+        .section-container.horizontal-nav section .title a, .horizontal-nav.post section .title a,
+        .section-container.horizontal-nav .section .title a,
+        .horizontal-nav.post .section .title a,
+        .section-container.horizontal-nav .post .comments .title a,
+        .post .section-container.horizontal-nav .comments .title a,
+        .horizontal-nav.post .comments .title a {
           width: 100%; }
-      .section-container.horizontal-nav section .content,
-      .section-container.horizontal-nav .section .content {
+      .section-container.horizontal-nav section .content, .horizontal-nav.post section .content, .section-container.horizontal-nav section .post .comments .comment-feed, .post .comments .section-container.horizontal-nav section .comment-feed, .horizontal-nav.post section .comments .comment-feed, .horizontal-nav.post .comments section .comment-feed,
+      .section-container.horizontal-nav .section .content,
+      .horizontal-nav.post .section .content,
+      .section-container.horizontal-nav .post .comments .content,
+      .post .section-container.horizontal-nav .comments .content,
+      .horizontal-nav.post .comments .content,
+      .post .comments .section-container.horizontal-nav .section .comment-feed,
+      .section-container.horizontal-nav .post .comments .comment-feed,
+      .post .section-container.horizontal-nav .comments .comment-feed,
+      .horizontal-nav.post .comments .comment-feed {
         display: none; }
-      .section-container.horizontal-nav section.active .content,
-      .section-container.horizontal-nav .section.active .content {
+      .section-container.horizontal-nav section.active .content, .horizontal-nav.post section.active .content, .section-container.horizontal-nav section.active .post .comments .comment-feed, .post .comments .section-container.horizontal-nav section.active .comment-feed, .horizontal-nav.post section.active .comments .comment-feed, .horizontal-nav.post .comments section.active .comment-feed,
+      .section-container.horizontal-nav .section.active .content,
+      .horizontal-nav.post .section.active .content,
+      .section-container.horizontal-nav .post .active.comments .content,
+      .post .section-container.horizontal-nav .active.comments .content,
+      .horizontal-nav.post .active.comments .content,
+      .section-container.horizontal-nav .section.active .post .comments .comment-feed,
+      .post .comments .section-container.horizontal-nav .section.active .comment-feed,
+      .horizontal-nav.post .section.active .comments .comment-feed,
+      .horizontal-nav.post .comments .section.active .comment-feed,
+      .section-container.horizontal-nav .post .active.comments .comment-feed,
+      .post .section-container.horizontal-nav .active.comments .comment-feed,
+      .horizontal-nav.post .active.comments .comment-feed {
         display: block;
         position: absolute;
         z-index: 999;
@@ -2907,7 +3166,7 @@ form.custom {
     border-right-color: transparent !important;
     bottom: -28px;
     bottom: none; }
-  .joyride-tip-guide .joyride-nub.right, .joyride-tip-guide .post .comment-bar .comment-count span.joyride-nub, .post .comment-bar .comment-count .joyride-tip-guide span.joyride-nub, .joyride-tip-guide .full-profile .joyride-nub.edit-btn, .full-profile .joyride-tip-guide .joyride-nub.edit-btn,
+  .joyride-tip-guide .joyride-nub.right, .joyride-tip-guide .full-profile .joyride-nub.edit-btn, .full-profile .joyride-tip-guide .joyride-nub.edit-btn,
   .joyride-tip-guide .edit-profile .joyride-nub.edit-btn,
   .edit-profile .joyride-tip-guide .joyride-nub.edit-btn {
     right: -28px; }
@@ -2981,7 +3240,7 @@ form.custom {
       border-right-color: transparent !important;
       bottom: -28px;
       bottom: none; }
-    .joyride-tip-guide .joyride-nub.right, .joyride-tip-guide .post .comment-bar .comment-count span.joyride-nub, .post .comment-bar .comment-count .joyride-tip-guide span.joyride-nub, .joyride-tip-guide .full-profile .joyride-nub.edit-btn, .full-profile .joyride-tip-guide .joyride-nub.edit-btn,
+    .joyride-tip-guide .joyride-nub.right, .joyride-tip-guide .full-profile .joyride-nub.edit-btn, .full-profile .joyride-tip-guide .joyride-nub.edit-btn,
     .joyride-tip-guide .edit-profile .joyride-nub.edit-btn,
     .edit-profile .joyride-tip-guide .joyride-nub.edit-btn {
       border-color: black !important;
@@ -3345,7 +3604,7 @@ kbd {
   padding: 1.25em;
   background: #f2f2f2; }
   .panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p {
-    color: #919191; }
+    color: #333333; }
   .panel > :first-child {
     margin-top: 0; }
   .panel > :last-child {
@@ -3838,11 +4097,11 @@ table {
     top: -14px;
     left: 9px;
     z-index: 98; }
-  .f-dropdown.right:before, .post .comment-bar .comment-count span.f-dropdown:before, .full-profile .f-dropdown.edit-btn:before,
+  .f-dropdown.right:before, .full-profile .f-dropdown.edit-btn:before,
   .edit-profile .f-dropdown.edit-btn:before {
     left: auto;
     right: 10px; }
-  .f-dropdown.right:after, .post .comment-bar .comment-count span.f-dropdown:after, .full-profile .f-dropdown.edit-btn:after,
+  .f-dropdown.right:after, .full-profile .f-dropdown.edit-btn:after,
   .edit-profile .f-dropdown.edit-btn:after {
     left: auto;
     right: 9px; }
@@ -3856,7 +4115,7 @@ table {
       background: #eeeeee; }
     .f-dropdown li a {
       color: #555555; }
-  .f-dropdown.content {
+  .f-dropdown.content, .post .comments .f-dropdown.comment-feed {
     position: absolute;
     left: -9999px;
     top: -9999px;
@@ -3870,9 +4129,9 @@ table {
     font-size: 16px;
     z-index: 99;
     max-width: 200px; }
-    .f-dropdown.content *:first-child {
+    .f-dropdown.content *:first-child, .post .comments .f-dropdown.comment-feed *:first-child {
       margin-top: 0; }
-    .f-dropdown.content *:last-child {
+    .f-dropdown.content *:last-child, .post .comments .f-dropdown.comment-feed *:last-child {
       margin-bottom: 0; }
   .f-dropdown.tiny {
     max-width: 200px; }
@@ -3945,8 +4204,10 @@ html {
   speak: none;
   /* Not to be trusted, but hey. */ }
 
-.page {
-  background: #2e2e2e url(../img/pinstripes-black.png) repeat; }
+.page,
+.nav {
+  max-width: 62.5em;
+  margin: 0 auto; }
 
 .profile.page {
   background: #cccccc url(../img/pinstripes-white.png) repeat; }
@@ -3954,7 +4215,8 @@ html {
 .outer-wrap {
   position: relative;
   overflow: hidden;
-  width: 100%; }
+  width: 100%;
+  background: #2e2e2e url(../img/pinstripes-black.png) repeat; }
 
 .page {
   position: relative;
@@ -4303,97 +4565,115 @@ html {
 .post-icon {
   float: right; }
 
-.nav {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  max-width: 62.5em;
-  *zoom: 1;
-  z-index: 200;
-  overflow: hidden;
-  color: #fff;
-  background: #333333;
-  position: absolute;
-  top: 0;
-  padding-top: 5.25em; }
-  .nav:before, .nav:after {
-    content: " ";
-    display: table; }
-  .nav:after {
-    clear: both; }
-  .nav .name {
-    position: relative;
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-    width: 100%;
-    float: left; }
-  .nav ul > li {
-    width: 100%;
-    padding: 0 10px 10px; }
-    .nav ul > li:nth-of-type(1n+1) {
-      clear: both; }
-
+/*
 .nav .close-btn {
-  position: absolute;
-  top: 1.25em;
-  left: 1.875em; }
+    position: absolute;
+    top: 1.25em;
+    left: 1.875em;
+}
 
 .close-btn {
-  display: block;
-  width: 2.625em;
-  height: 2.25em;
-  padding: 0;
-  border: 0;
-  outline: none;
-  background: #333333 url("../img/close-btn.svg") left center no-repeat;
-  background-size: 1.875em 1.875em;
-  overflow: hidden;
-  white-space: nowrap;
-  text-indent: 100%;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-
+    display: block;
+    width: 2.625em;
+    height: 2.25em;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: #333333 url("../img/close-btn.svg") left center no-repeat;
+    background-size: 1.875em 1.875em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 100%;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 .no-svg .close-btn {
-  background-image: url("../img/close-btn.png"); }
-
+    background-image: url("../img/close-btn.png");
+}
 .close-btn:focus, .close-btn:hover {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1; }
-
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
 #nav:target .close-btn {
-  display: block; }
+    display: block;
+}
+*/
+.nav {
+  z-index: 200;
+  overflow: hidden;
+  background: rgba(155, 155, 155, 0.5);
+  position: absolute;
+  top: 0; }
+  .nav > li {
+    width: 100%;
+    padding: 0 10px 10px; }
+    .nav > li:nth-of-type(1n+1) {
+      clear: both; }
+  .nav a, .nav li {
+    color: #dedede; }
+  .nav .name {
+    font-weight: normal;
+    color: #dedede;
+    margin: 0;
+    padding: 0.8em 1em;
+    font-size: 1.125em;
+    line-height: 1em; }
+    .nav .name a {
+      padding: 0; }
+    .nav .name:before {
+      font-size: 1.875em;
+      line-height: 0em; }
+  .nav ul {
+    *zoom: 1;
+    border-bottom: 1px #dedede solid; }
+  .nav li {
+    border-top: 1px #dedede solid;
+    border-bottom: 1px #333333 solid;
+    text-shadow: 0 -1px 0 #333; }
+  .nav li:first-child {
+    font-size: 0.875em;
+    line-height: 1.71429em;
+    padding: .25em 1em;
+    text-transform: uppercase;
+    background: rgba(20, 20, 20, 0.5); }
+  .nav a {
+    padding: .25em 1em; }
 
 #nav ul {
-  *zoom: 1;
-  display: block; }
+      /*
+*zoom: 1;
+      display: block;
+*/ }
 
 #nav li {
-  display: block; }
+  /*     display: block; */ }
 
 #nav li a {
   display: block;
-  color: #ccc;
-  font-size: 0.875em;
-  line-height: 1.28571em;
-  font-weight: bold;
-  outline: none; }
+  /*
+      color: #ccc;
+      font-size: 0.875em;
+      line-height: 1.28571em;
+      font-weight: bold;
+      outline: none;
+  */ }
 
 #nav li a:focus, #nav li a:hover {
   color: #fff;
   background: rgba(255, 255, 255, 0.1); }
 
 #nav li.is-active a {
-  color: #fff; }
+  /*     color: #fff; */ }
 
 #nav li {
-  position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  /*
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+  */ }
 
 #nav li:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  /*     border-bottom: 1px solid rgba(255, 255, 255, 0.1); */ }
 
 #nav li.is-active:after {
   z-index: 50;
@@ -4466,7 +4746,7 @@ html {
   margin: 0 auto 1em;
   position: relative; }
   .post h1, .post h2, .post h3, .post h4, .post h5, .post h6, .post p {
-    color: #919191; }
+    color: #333333; }
   .post > :first-child {
     margin-top: 0; }
   .post > :last-child {
@@ -4484,7 +4764,8 @@ html {
     margin-bottom: 0;
     max-width: 62.5em;
     *zoom: 1;
-    border-bottom: 1px solid #dedede; }
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 1em; }
     .post .post-header:before, .post .post-header:after {
       content: " ";
       display: table; }
@@ -4510,10 +4791,10 @@ html {
         line-height: 0.75em;
         margin-top: 0;
         margin-bottom: .7em; }
-      .post .post-header .details p {
+      .post .post-header .details span {
         font-size: 0.75em;
         line-height: 1.2em;
-        color: #ccc;
+        color: #bcbcbc;
         margin-bottom: 1em; }
     .post .post-header .question {
       background: url(../img/question.png) no-repeat;
@@ -4536,7 +4817,7 @@ html {
         _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
         -webkit-transform: rotate(360deg);
         border-style: inset; }
-  .post .content {
+  .post .status {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -4545,19 +4826,19 @@ html {
     max-width: 62.5em;
     *zoom: 1;
     padding-top: 0.5em; }
-    .post .content:before, .post .content:after {
+    .post .status:before, .post .status:after {
       content: " ";
       display: table; }
-    .post .content:after {
+    .post .status:after {
       clear: both; }
-    .post .content p {
+    .post .status p {
       position: relative;
       padding-left: 0.9375em;
       padding-right: 0.9375em;
       width: 100%;
       float: left;
       margin-bottom: 0.5em; }
-    .post .content .jwplayer {
+    .post .status .jwplayer {
       position: relative;
       width: 100%;
       padding-left: 0;
@@ -4565,7 +4846,7 @@ html {
       padding-left: 0;
       padding-right: 0;
       float: left; }
-    .post .content .post-img {
+    .post .status .post-img {
       width: auto;
       margin-left: -0.9375em;
       margin-right: -0.9375em;
@@ -4574,59 +4855,60 @@ html {
       max-width: none;
       *zoom: 1;
       padding: 0 .5em; }
-      .post .content .post-img:before, .post .content .post-img:after {
+      .post .status .post-img:before, .post .status .post-img:after {
         content: " ";
         display: table; }
-      .post .content .post-img:after {
+      .post .status .post-img:after {
         clear: both; }
-      .post .content .post-img img {
+      .post .status .post-img img {
         -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
         -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
         box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2); }
-  .post .comment-bar {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    max-width: 62.5em;
-    *zoom: 1;
-    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSgyNTUsIDI1NSwgMjU1LCAwKSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2RlZGVkZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
-    background-size: 100%;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #dedede));
-    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #dedede);
-    background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #dedede);
-    background-image: -o-linear-gradient(rgba(255, 255, 255, 0), #dedede);
-    background-image: linear-gradient(rgba(255, 255, 255, 0), #dedede);
-    border-top: 1px solid #dedede;
-    margin-top: 0.5em; }
-    .post .comment-bar:before, .post .comment-bar:after {
-      content: " ";
-      display: table; }
-    .post .comment-bar:after {
-      clear: both; }
-    .post .comment-bar .comment-count {
-      position: relative;
-      padding-left: 0.9375em;
-      padding-right: 0.9375em;
-      width: 25%;
-      float: left;
-      margin-top: 0.25em;
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
-      padding-right: 0.5em;
-      margin-bottom: 0.25em;
-      border-right: 1px solid #bcbcbc; }
-      .post .comment-bar .comment-count span {
-        color: #60128f;
-        font-size: 0.875em;
-        line-height: 1.02857em;
-        font-weight: bold; }
-    .post .comment-bar .comment-icon {
-      background: url(../img/comment-icon.png) no-repeat;
-      display: inline-block;
-      width: 17px;
-      height: 16px; }
+  .post .comments {
+    border-top: 1px solid #dedede; }
+    .post .comments .controls {
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSgyNTUsIDI1NSwgMjU1LCAwKSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2RlZGVkZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+      background-size: 100%;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #dedede));
+      background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #dedede);
+      background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #dedede);
+      background-image: -o-linear-gradient(rgba(255, 255, 255, 0), #dedede);
+      background-image: linear-gradient(rgba(255, 255, 255, 0), #dedede); }
+      .post .comments .controls .comment-icon {
+        padding-top: .5em;
+        padding-bottom: .5em;
+        margin-top: .5em;
+        margin-bottom: .5em;
+        width: 80px;
+        border-right: 1px solid #dedede; }
+        .post .comments .controls .comment-icon:before {
+          content: '';
+          background: url(../img/comment-icon.png) no-repeat;
+          display: inline-block;
+          width: 17px;
+          height: 16px; }
+        .post .comments .controls .comment-icon span {
+          display: inline-block;
+          color: #60128f;
+          font-size: 0.875em;
+          line-height: 0.68571em;
+          font-weight: bold;
+          vertical-align: middle;
+          height: 16px;
+          position: relative;
+          left: 5px; }
+    .post .comments .comment-feed {
+      background: none; }
+    .post .comments .comment span {
+      font-size: 0.75em;
+      line-height: 1.2em;
+      color: #bcbcbc; }
+    .post .comments textarea {
+      resize: none;
+      height: inherit;
+      margin-bottom: 0; }
+    .post .comments input[type="submit"] {
+      margin-top: 1em; }
 
 .full-profile,
 .edit-profile {
@@ -4828,7 +5110,7 @@ html {
     margin: 0;
     max-width: none;
     *zoom: 1;
-    border: 1px solid #919191; }
+    border: 1px solid #333333; }
     .new-post .media:before, .new-post .media:after {
       content: " ";
       display: table; }
@@ -4849,7 +5131,7 @@ html {
       background-image: -moz-linear-gradient(#954bca, #5c0f8c);
       background-image: -o-linear-gradient(#954bca, #5c0f8c);
       background-image: linear-gradient(#954bca, #5c0f8c);
-      border-right: 1px solid #919191;
+      border-right: 1px solid #333333;
       cursor: pointer; }
       .new-post .media .post-button:last-child {
         border-right: none; }
@@ -4910,21 +5192,31 @@ html {
 .edit.profile-details input[type="text"],
 .new-post h4,
 .new-post label,
-.new-post input[type="text"] {
+.new-post input[type="text"],
+.comments h4,
+.comments label,
+.comments input[type="text"] {
   position: relative;
   padding-left: 0.9375em;
   padding-right: 0.9375em;
   width: 100%;
   float: left; }
+.edit.profile-details form,
+.new-post form,
+.comments form {
+  text-align: right; }
 .edit.profile-details label,
-.new-post label {
+.new-post label,
+.comments label {
   margin: .5em 0 1em; }
 .edit.profile-details input[type="text"],
-.new-post input[type="text"] {
+.new-post input[type="text"],
+.comments input[type="text"] {
   padding-top: 1.5em;
   padding-bottom: 1.5em; }
 .edit.profile-details .cancel,
-.new-post .cancel {
+.new-post .cancel,
+.comments .cancel {
   color: #60128f;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2NmY2ZjZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
   background-size: 100%;
@@ -4934,7 +5226,8 @@ html {
   background-image: -o-linear-gradient(#ffffff, #cfcfcf);
   background-image: linear-gradient(#ffffff, #cfcfcf); }
 .edit.profile-details input[type="submit"],
-.new-post input[type="submit"] {
+.new-post input[type="submit"],
+.comments input[type="submit"] {
   color: whitesmoke;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk1NGJjYSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzVjMGY4YyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
   background-size: 100%;
@@ -4942,12 +5235,13 @@ html {
   background-image: -webkit-linear-gradient(#954bca, #5c0f8c);
   background-image: -moz-linear-gradient(#954bca, #5c0f8c);
   background-image: -o-linear-gradient(#954bca, #5c0f8c);
-  background-image: linear-gradient(#954bca, #5c0f8c);
-  float: right; }
+  background-image: linear-gradient(#954bca, #5c0f8c); }
 .edit.profile-details .cancel,
 .edit.profile-details input[type="submit"],
 .new-post .cancel,
-.new-post input[type="submit"] {
+.new-post input[type="submit"],
+.comments .cancel,
+.comments input[type="submit"] {
   font-weight: normal;
   border: 1px solid #bcbcbc;
   padding: 13px 13px;
@@ -5024,8 +5318,9 @@ html {
       padding-left: 0.9375em;
       padding-right: 0.9375em;
       width: 16.66667%;
-      float: left; }
-    .great-wall .post .content {
+      float: left;
+      height: auto; }
+    .great-wall .post .status {
       position: relative;
       padding-left: 0.9375em;
       padding-right: 0.9375em;
@@ -5044,7 +5339,7 @@ html {
     padding-right: 0.9375em;
     width: 66.66667%;
     float: left; } }
-@media screen and (max-width: 45em) {
+@media screen and (max-width: 48em) {
   #nav:not(:target) {
     z-index: 1;
     height: 0; }
@@ -5061,7 +5356,6 @@ html {
   .js-ready #nav {
     height: 100%;
     width: 70%;
-    background: #333333;
     -webkit-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
     -moz-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
     box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25); }

@@ -3,11 +3,11 @@
 <article class="post" data-section>
     <div class="post-header">
         <div class="user-img">
-            <a href="/profile/{member_id}">
+            <a href="{path='profile'}/{member_id}">
             {if photo_filename}
             <img src="{photo_url}{photo_filename}" />
             {if:else}
-            <img src="/2017introductions/img/imagen.jpg" />
+            <img src="{site_url}img/imagen.jpg" />
             {/if}
             </a>
         </div> <!-- .user-img -->

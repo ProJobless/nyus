@@ -1,6 +1,5 @@
-
 {if embed:summary!='yes'}
-{exp:safecracker channel="wall_posts" return="/2017introductions/content/index" dynamic="no" safecracker_head="no" secure_action="yes" secure_return="yes"}
+{exp:safecracker channel="wall_posts" return="{path='content/index'}" dynamic="no" safecracker_head="no" secure_action="yes" secure_return="yes"}
 <input type="hidden" name="title" id="title" value="a wall post" />
 <input type="hidden" name="entry_date" value="{entry_date}" />
 <input type="hidden" name="author_id" value="{logged_in_member_id}" />
@@ -17,14 +16,14 @@
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='10' dynamic='no' {if embed:summary!='yes'} limit='2' {if:else} offset='2' {/if}}
 <p class="comment">
 	{exp:user:stats member_id='{author_id}'}
-	<a href="/2017introductions/member-list/profile-view/{author_id}">
+	<a href="{path='member-list/profile-view'}/{author_id}">
 	    {if photo_filename}
 	    	<img src="{photo_url}" width="40"/>
 	    {if:else}
-	    	<img src="/2017introductions/img/imagen.jpg"  width="40"/>
+	    	<img src="{site_url}img/imagen.jpg"  width="40"/>
 	    {/if}
 	</a>
-    <a href="/2017introductions/profile/{author_id}">{screen_name}</a> <br>{thepost}<br>
+    <a href="{path='profile'}/{author_id}">{screen_name}</a> <br>{thepost}<br>
     {exp:user:stats}
     <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
 </p>

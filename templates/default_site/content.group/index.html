@@ -4,7 +4,11 @@
 
     <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
 
-        <div class="great-wall">    
+        <div class="great-wall">
+        
+	        {if logged_out}
+				{embed='includes/login'}
+			{/if}        
 	        
 	        <!--See all Status-->
 	        {embed='includes/status-all'}

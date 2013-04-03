@@ -1,0 +1,69 @@
+<?php
+/*
+if (isset($_POST['eppn'])) {
+	// SSO values passed - fill in form and auto submit it!
+}
+?>
+
+{exp:ajax_form class="Member" method="member_login"}
+
+<form id="loginForm" method='post' action='{post_url}'>
+<input type='hidden' name='XID' value='{xid}' />
+<input type='hidden' name='ACT' value='{action_id}' />
+<input type='text' name='username' value="chris.muro" />
+<input type='password' name='password' value="chris001" />
+<input type='button' name='Login' id='btnLogin'/>
+</form>
+
+<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+<script type="text/javascript">
+	$("#btnLogin").click(function(){
+		$.post('{post_url}',
+			$("#loginForm").serializeArray(),
+			function(data){
+			// handle response here, parse html, or
+			// json if using my output class mod.
+			window.location = '/profile/index';
+		}); // end post
+	}); // end click
+
+</script>
+{/exp:ajax_form}
+
+  <?php 
+  */
+?>
+          <article class="post">
+          	<div class="content">
+				<p><strong>Sign In</strong></p>
+				{exp:member:login_form id="loginform" return="/profile/index"}
+				<p>
+				<label>Username</label><br>
+				<input type="text" id="username" name="username" value="" maxlength="32" size="25">
+				</p>
+				
+				<p>
+				<label>Password</label><br>
+				<input type="password" id="password" name="password" value="" maxlength="32" size="25">
+				</p>
+				        
+				{if auto_login}
+				<p><input type="checkbox" name="auto_login" value="1"> Auto-login on future visits</p>
+				{/if}
+				
+				<p><input type="checkbox" name="anon" value="1" checked="checked"> Show my name in the online users list</p>
+				<p><input type="submit" name="submit" value="Submit"></p>
+				{/exp:member:login_form}	
+			</div>	
+        </article>
+
+<?php /* <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+	$('#username').val("chris.muro");
+	$('#password').val("chris001");
+	$('#loginform').submit();
+});
+</script>
+*/
+?>

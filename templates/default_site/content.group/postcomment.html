@@ -1,0 +1,13 @@
+<p><strong>Post a Comment:</strong></p>
+
+{exp:safecracker channel="wall_posts" return="{path='content'}" dynamic="no" safecracker_head="no" secure_action="yes" secure_return="yes"}
+<input type="hidden" name="title" id="title" value="a wall post" />
+<input type="hidden" name="entry_date" value="{entry_date}" />
+<input type="hidden" name="author_id" value="{logged_in_member_id}" />
+<input type="hidden" name="url_title" id="url_title" value="{url_title}" />
+<input type="hidden" name="status_owner" value="1" /> 
+
+<input type="text" name="thepost" value="Write something..." style="margin-bottom:2px; display:inline" onfocus="if
+(this.value==this.defaultValue) this.value='';">
+<input type="submit" name="submit" alt="Submit">
+{/exp:safecracker}

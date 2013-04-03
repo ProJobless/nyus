@@ -1,0 +1,1071 @@
+/******../index.php
+ ***
+ *** NYU SHANGHI-NET
+ ***
+ ******/
+
+ // FOUNDATION IMPORTS
+
+// Global Foundation Settings
+@import "settings";
+
+// Comment out this import if you are customizing you imports below
+@import "foundation";
+
+// Import specific parts of Foundation by commenting the import "foundation"
+// and uncommenting what you want below. You must uncomment the following if customizing
+
+// @import "foundation/foundation-global"; // *always required
+// @import "foundation/components/global"; // *always required
+// @import "foundation/components/grid";
+// @import "foundation/components/visibility";
+// @import "foundation/components/block-grid";
+// @import "foundation/components/type";
+// @import "foundation/components/buttons";
+// @import "foundation/components/forms"; // *requires components/buttons
+// @import "foundation/components/custom-forms"; // *requires components/buttons, components/forms
+// @import "foundation/components/button-groups"; // *requires components/buttons
+// @import "foundation/components/dropdown-buttons"; // *requires components/buttons
+// @import "foundation/components/split-buttons"; // *requires components/buttons
+// @import "foundation/components/flex-video";
+// @import "foundation/components/section";
+// @import "foundation/components/top-bar";  // *requires components/grid
+// @import "foundation/components/orbit";
+// @import "foundation/components/reveal";
+// @import "foundation/components/joyride";
+// @import "foundation/components/clearing";
+// @import "foundation/components/alert-boxes";
+// @import "foundation/components/breadcrumbs";
+// @import "foundation/components/keystrokes";
+// @import "foundation/components/labels";
+// @import "foundation/components/inline-lists";
+// @import "foundation/components/pagination";
+// @import "foundation/components/panels";
+// @import "foundation/components/pricing-tables";
+// @import "foundation/components/progress-bars";
+// @import "foundation/components/side-nav";
+// @import "foundation/components/sub-nav";
+// @import "foundation/components/switch";
+// @import "foundation/components/magellan";
+// @import "foundation/components/tables";
+// @import "foundation/components/thumbs";
+// @import "foundation/components/tooltips";
+// @import "foundation/components/dropdown"; 
+ 
+ // IMPORTS
+
+@import "_settings";
+
+@include establish-baseline($base-font-size);
+
+[data-icon]:before {
+  font-family: "Entypo"; /* BYO icon font, mapped smartly */
+  content: attr(data-icon);
+  speak: none; /* Not to be trusted, but hey. */
+}
+
+.page,
+.nav {
+//    background: #2e2e2e url(../img/pinstripes-black.png) repeat;
+    max-width: 62.5em;
+    margin: 0 auto;
+}
+
+.profile.page {
+    background: #ccc url(../img/pinstripes-white.png) repeat;
+}
+
+.outer-wrap {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: #2e2e2e url(../img/pinstripes-black.png) repeat;
+}
+
+.page {
+    position: relative;
+    padding-bottom: 1em;
+}
+
+.global {
+    @include grid-row;
+    position: relative;
+    z-index: 100;
+    background: $primary-color url(../img/header-pattern.png) repeat -2px -3px;
+    padding: 0.25em 0.75em 0.2em;
+}
+
+.header-left,
+.header-right {
+    @include grid-column(6, $collapse: true);
+}
+
+.menu {
+    float: left;
+}
+
+.nav-btn {
+    @include adjust-font-size-to(60px, 1.1);
+    @include single-text-shadow;
+    @include black-sheen;
+    display: block;
+    width: 0.65em;
+    height: 0.65em;
+    text-align: center;
+    color: #f1f1f1;
+    padding: 0;
+    border: 0;
+    outline: none;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    
+}
+
+.nav-btn:hover, .nav-btn:focus {
+    color: #999;
+}
+
+.back {
+    @include back-arrow;
+    top: 6px;
+    float: left;
+}
+
+.ribbon {
+    background: url(../img/header-ribbon.png) no-repeat;
+    width: 27px;
+    height: 41px;
+    top: -0.25em;
+    position: relative;
+}
+
+.first.ribbon {
+    float: right;
+    margin-right: 5px;
+}
+
+.second.ribbon {
+    float: left;
+    margin-left: 5px;
+}
+
+.notifications-icon,
+.actions-icon {
+    display: block;
+    width: 17px;
+    height: 100%;
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    @include box-shadow(0 1px 2px o rgba(0,0,0,0.5));
+}
+
+.notifications-icon {
+    background: url(../img/activity.png) no-repeat;
+}
+
+.actions-icon {
+    background: url(../img/action.png) no-repeat;
+}
+
+.drop { // dropdowns. revealed when .activity is clicked
+    @include dropdown-container ($content: list, $triangle: false, $max-width: 100px);
+    border-width: 2px;
+    
+    li { 
+        @include dropdown-style; 
+        border-bottom: 1px solid $light-gray;
+        
+        p {
+            @include adjust-font-size-to(15px, .7);
+        }
+        
+        &:not(:first-child) {
+            padding: 0.3em 1em 0.2em;
+        }
+        
+        a { 
+            color: $dark-gray;
+            display: block; 
+        }
+    }
+    
+    li:first-child {
+        @include purple-gradient;
+        text-align: center;
+        border-bottom: none;
+        
+        h4 {
+            padding: .25em 0;
+            color: $white;
+            background: -webkit-linear-gradient(#fff, $light-gray);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            @include adjust-font-size-to(16px);
+            // consider using text-gradient: http://stackoverflow.com/questions/3802218/how-do-i-combined-css-text-shadow-and-background-image-webkit-gradient
+        }
+    }
+}
+
+.drop.open ~ .outer-wrap .main {
+    top: 200px;
+    position: relative;
+}
+
+.actions {
+    li:not(:first-child):before {
+        content: "";
+        background-image: url(../img/purple-flower.png);
+        display: block;
+        float: left;
+        width: 27px;
+        height: 27px;
+        margin-top: 10px;
+    }
+    
+    a {
+        margin-left: 42px;
+    }
+}
+
+.notifications {
+    
+    li:not(:first-child) {
+        padding: 0;
+    }
+    
+    img {
+        float: left;
+    }
+    
+    p {
+        margin-left: 44px;
+        padding: 0.3em 1em 0;
+    }
+    
+    span { color: $light-purple; }
+
+}
+
+.notifications-count,
+.actions-count {
+    @include purple-notice-bubble;
+    @include adjust-leading-to(.4);
+    
+    span {
+        display: block;
+        padding: 0 0.1em;
+        color: $white;
+        font-weight: bold;
+        @include adjust-font-size-to(10px, .9);
+    }
+}
+
+.notifications-count {
+    left: -15px
+}
+
+.actions-count {
+    right: -15px;
+}
+
+.post-icon {
+    float: right;
+}
+
+/*
+.nav .close-btn {
+    position: absolute;
+    top: 1.25em;
+    left: 1.875em;
+}
+
+.close-btn {
+    display: block;
+    width: 2.625em;
+    height: 2.25em;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: #333333 url("../img/close-btn.svg") left center no-repeat;
+    background-size: 1.875em 1.875em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 100%;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.no-svg .close-btn {
+    background-image: url("../img/close-btn.png");
+}
+.close-btn:focus, .close-btn:hover {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+#nav:target .close-btn {
+    display: block;
+}
+*/
+.nav {
+//    @include grid-row;
+    @include block-grid(1, $base-style: false);
+    z-index: 200;
+    overflow: hidden;
+    background: rgba(155, 155, 155, 0.5);
+    position: absolute;
+    top: 0;
+//    padding-top: 5.25em;
+    
+    a, li {
+        color: $light-gray;
+    }
+    
+    .name {
+//        @include grid-column(12);
+        font-weight: normal;
+        color: $light-gray;
+        margin: 0;
+        padding: 0.8em 1em;
+        @include adjust-font-size-to(18px, 0.75);
+        
+        a {padding: 0; }
+        
+        &:before { @include adjust-font-size-to(30px, 0); }
+    }
+    
+    ul {
+        *zoom: 1;
+        border-bottom: 1px #dedede solid;
+    }
+    
+    li {
+        border-top: 1px $light-gray solid;
+        border-bottom: 1px $black solid;
+        text-shadow: 0 -1px 0 #333;
+    }
+    
+    li:first-child {
+        @include adjust-font-size-to(14px);
+        padding: .25em 1em;
+        text-transform: uppercase;
+        background: rgba(20,20,20,0.5);
+    }
+    
+    a {
+        padding: .25em 1em;
+    }
+    
+    ul {
+//        @include block-grid(1, $base-style: false);
+    }
+}
+
+
+#nav ul {
+      /*
+*zoom: 1;
+      display: block;
+*/
+}
+
+#nav li {
+/*     display: block; */
+}
+#nav li a {
+    display: block;
+/*
+    color: #ccc;
+    font-size: 0.875em;
+    line-height: 1.28571em;
+    font-weight: bold;
+    outline: none;
+*/
+
+}
+#nav li a:focus, #nav li a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+#nav li.is-active a {
+/*     color: #fff; */
+}
+
+#nav li {
+/*
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+*/
+}
+#nav li:last-child {
+/*     border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+}
+#nav li.is-active:after { // TRIANGLES
+    z-index: 50;
+    display: block;
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -0.03125em;
+    margin-top: -0.625em;
+    border-top: 0.625em transparent solid;
+    border-bottom: 0.625em transparent solid;
+    border-right: 0.625em white solid;
+}
+
+
+.js-ready #page {
+    left: 0;
+}
+
+.js-nav #page {
+    left: 70%;
+}
+
+.main {
+    @include grid-row;
+}
+
+.profile-container {
+    @include grid-column(12);
+}
+
+.great-wall {
+    @include grid-column(12);
+    @include teeth;
+    margin-top: 1em;
+}
+
+.post {
+/*     @include grid-row(nest); */
+    @include panel($padding:1em 0 0 0);
+    @include shadow;
+    @extend .section-container;
+    margin: 0 auto 1em;
+    position: relative;
+    
+    .post-header {
+        @include grid-row;
+        border-bottom: 1px solid $light-gray;
+        padding-bottom: 1em;
+        
+        .user-img {
+            @include grid-column(3.5);
+        }
+        .details {
+            @include grid-column(8.5, $collapse: true);
+            
+            h4 {
+                color: $purple;
+                @include adjust-font-size-to(16px, .5);
+                margin-top: 0;
+                margin-bottom: .7em;
+            }
+
+            span {
+                @include timestamp;
+                margin-bottom: 1em;
+            }
+        }
+        
+        .question {
+            background: url(../img/question.png) no-repeat;
+            width: 27px;
+            height: 51px;
+            position: absolute;
+            right: 10px;
+            top: -5px;
+            
+            &:after {
+                content: "";
+                position: absolute;
+                right: -3px;
+                width: 0px;
+                height: 0px;
+                border-style: solid;
+                border-width: 4px 0 0 3px;
+                border-color: transparent transparent transparent #4a0f2f;
+                line-height: 0px;
+                _border-color: #000000 #000000 #000000 #4a0f2f;
+                _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+                -webkit-transform:rotate(360deg);
+                border-style:inset;
+            }
+            
+        }
+    }
+    
+    .status {
+        @include grid-row;
+        padding-top: 0.5em;
+        
+        p { 
+            @include grid-column(12); 
+            margin-bottom: 0.5em;
+        }
+        
+        .jwplayer {
+            @include grid-column(12, $collapse: true);
+        }
+        
+        .post-img { 
+            @include grid-row(nest);
+            padding: 0 .5em;
+            
+            img {
+                @include shadow;
+            }
+        }
+    }
+    
+    .comments {
+        @extend .section;
+        border-top: 1px solid $light-gray;
+        
+        .controls {
+            @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
+            
+            .comment-icon {
+                padding-top: .5em;
+                padding-bottom: .5em;
+                margin-top: .5em;
+                margin-bottom: .5em;
+                width: 80px;
+                border-right: 1px solid $light-gray;
+                
+                &:before {
+                    content: '';
+                    background: url(../img/comment-icon.png) no-repeat;
+                    display: inline-block;
+                    width: 17px;
+                    height: 16px;
+                }
+                        
+                span {
+                    display: inline-block;
+                    color: $primary-color;
+                    @include adjust-font-size-to(14px, .4);
+                    font-weight: bold;
+                    vertical-align: middle;
+                    height: 16px;
+                    position: relative;
+                    left: 5px;
+                }
+            }               
+        }
+        
+        .comment-feed {
+            @extend .content;
+            background: none;
+        }
+        
+        .comment span {
+            @include timestamp;
+        }
+        
+        form {
+
+        }
+        
+        textarea {
+            resize: none;
+            height: inherit;
+            margin-bottom: 0;
+        }
+        
+        input[type="submit"] {
+            margin-top: 1em;
+        }
+    }
+}
+
+
+.full-profile,
+.edit-profile { // nested within .page on your-profile.php
+    @include grid-column(12);
+    @include teeth;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    
+    .profile-header {
+        @include grid-row(collapse);
+        position: relative;
+        
+        .user-img {
+            @include grid-column(4, $collapse: true);
+            height: 94px;
+            background: url(../img/juan-marin_profile_94px.jpg) no-repeat;
+            
+            img {
+                @include shadow;
+            }
+        }
+        
+        .edit-btn {
+            @include adjust-font-size-to(35px, .9);
+            position: absolute;
+            left: 107px;
+            bottom: 0;
+        }
+        
+        .name {
+            position: absolute;
+            left: 110px;
+            
+            
+            h4 {
+                margin: 0;
+                @include adjust-font-size-to(16px, .65);
+            }
+            
+            h4:before {
+                color: #999;
+                margin-right: .25em;
+                @include adjust-font-size-to(26px, 0);
+            }
+        }
+    }
+
+    .profile-details { // all profile components
+        @include grid-row(nest);
+        position: relative;
+        padding-top: .25em;
+        margin-top: 0.5em;
+        margin-left: 0;
+        margin-right: 0;
+        border-top: 1px solid $light-gray;
+        
+        h4 {
+            @include grid-column(6);
+            @include adjust-font-size-to(14px, .65);
+            margin: 0.5em 0;
+        }   
+        
+        .profile-info {
+            @include grid-column(12);
+            @include shadow;
+            margin: 0.5em 0;
+            
+            
+            th {
+                text-align: left;
+                color: #bbb;
+            }
+            
+            td {
+                text-align: right;
+                font-weight: bold;
+            }
+            
+            tr {
+                border-bottom: 1px solid $light-gray;
+            }
+            
+            tr:last-child {
+                border-bottom: none;
+            }   
+        }
+        
+        .interests {
+            background: white;
+            padding-top: 1em;
+            margin-top: 0.5em;
+            @include shadow;
+        }
+    }
+
+    .edit-btn {
+        color: #666;
+        display: block;
+        width: 30px;
+        height: 30px;
+        border: 1px solid $medium-gray;
+        text-align: center;
+        
+        @include background-image(linear-gradient(#fff #d0d0d0));
+        @include adjust-font-size-to(40px, 0.89);
+        @extend .right;
+    }
+    
+    .interests {
+        @include grid-column(12);
+    }
+    
+    .button-wrapper {
+        margin-bottom: 0.25em;
+    }
+} 
+
+.recent-activity {
+    @include grid-column(12);
+    @include teeth;
+}
+
+.new-post {
+    @include grid-column(12);
+    background: rgba(255,255,255,0.8);
+    padding-top: 1em;
+    
+    textarea {
+        resize: none;
+        height: inherit;
+        margin-bottom: 0;
+    }
+    
+    .media {
+        @include grid-row(nest-collapse);
+        border: 1px solid $black;
+        
+        .post-button {
+            @include grid-column(4, $collapse: true);
+            @include purple-gradient;
+            border-right: 1px solid $black;
+            cursor: pointer;
+
+            &:last-child {
+                border-right: none;
+            }
+            
+            &:before {
+                content: "";
+                display: block;
+            }
+            
+            a {
+                position: relative;
+                display: block;
+                text-align: center;
+                @include adjust-font-size-to(35px, 1);
+                color: white;
+                
+                &:before { font-weight: normal; }
+            }
+        }
+        
+        input[type="file"] {
+            bottom: 0;
+            cursor: inherit;
+            margin: 0;
+            opacity: 0;
+            padding: 0;
+            position: absolute;
+            right: 0;
+            left: 0;
+            top: 0;
+        }
+    }
+    
+    .question {
+        @include grid-column(3, $offset: 9, $collapse: true);
+        text-align: right;
+        margin-top: .75em;
+        position: relative;
+    
+        &:after {
+            content: "";
+            display: inline-block;
+            background: url(../img/question.png) no-repeat;
+            width: 27px;
+            height: 51px;
+            margin-left: .75em;
+            margin-bottom: .75em;
+            @include single-text-shadow;
+        }
+        
+        input {
+            position: absolute;
+            top: 50%;
+            margin-top: -14px;
+            margin-left: -14px;
+        }
+    }
+    
+    .post {
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+}
+
+.edit.profile-details,
+.new-post,
+.comments {
+    h4,
+    label,
+    input[type="text"] {
+        @include grid-column(12);
+    }
+    
+    form {
+        text-align: right;
+    }
+    
+    label {
+        margin: .5em 0 1em;
+    }
+    
+    input[type="text"] {
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+    }
+    
+    .cancel {
+        color: $primary-color;
+        @include background-image(linear-gradient(#fff #cfcfcf));
+    }
+    
+    input[type="submit"] {
+        color: $white;
+        @include purple-gradient;
+    }
+    
+    .cancel,
+    input[type="submit"] {
+        font-weight: normal;
+        border: 1px solid $medium-gray;
+        padding: 13px 13px;
+        @include adjust-font-size-to(14px, .5);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}
+
+
+@media #{$small} {
+    #page {
+        position: static;
+    }
+    
+    #top .nav-btn {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    
+    #nav {
+        position: relative;
+        padding-top: 0;
+    }
+    
+    #nav .close-btn {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    
+    #nav ul {
+        text-align: center;
+        white-space: nowrap;
+        @include block-grid(5, $base-style: false);
+    }
+    #nav li {
+        display: inline-block;
+//        padding: 0.42857em 0.85714em;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: none;
+    }
+    #nav li:last-child {
+        border: none;
+    }
+    
+    .profile-container { // contains the profile on the great wall
+        @include grid-column(3, $pull: 9);
+    }
+    
+    .great-wall {
+        @include grid-column(9, $push: 3);
+        
+        .post {
+            .user-img {
+                @include grid-column(2);
+                height: auto;
+            }
+            .status {
+                @include grid-column(10);
+            }
+        }
+    }
+    
+    .full-profile {
+        .profile-photo {
+            @include grid-column(4);
+        }
+        
+        .profile-details{
+            @include grid-column(8);
+        } 
+    }
+       
+}
+
+@media screen and (max-width: 48em) {
+    #nav:not(:target) {
+        z-index: 1;
+        height: 0;
+    }
+    .js-ready #nav .close-btn {
+        display: block;
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+        opacity: 0.7;
+    }
+    .js-ready #nav .close-btn:focus, .js-ready #nav .close-btn:hover {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+    .js-ready #nav {
+        height: 100%;
+        width: 70%;
+//        background: #333333;
+        -webkit-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+        box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+    }
+    .js-ready #nav .block {
+        background: transparent;
+    }
+    
+    .js-ready #nav {
+        left: -70%;
+    }
+    
+    .csstransforms3d.csstransitions.js-ready #top {
+       -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);    
+    }
+    
+    .csstransforms3d.csstransitions.js-ready #nav {
+        left: 0;
+        -webkit-transform: translate3d(-100%, 0, 0);
+        -moz-transform: translate3d(-100%, 0, 0);
+        -ms-transform: translate3d(-100%, 0, 0);
+        -o-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    .csstransforms3d.csstransitions.js-ready #page {
+        left: 0 !important;
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-transition: -webkit-transform 500ms ease;
+        -moz-transition: -moz-transform 500ms ease;
+        -o-transition: -o-transform 500ms ease;
+        transition: transform 500ms ease;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    
+    .csstransforms3d.csstransitions.js-nav #page {
+        -webkit-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
+        -moz-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
+        -ms-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
+        -o-transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
+        transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
+    }
+    
+    .csstransforms3d.csstransitions.js-ready #nav .block {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+        opacity: 0.7;
+        -webkit-transition: opacity 300ms 100ms, -webkit-transform 500ms ease;
+        -webkit-transition-delay: ease, 0s;
+        -moz-transition: opacity 300ms 100ms ease, -moz-transform 500ms ease;
+        -o-transition: opacity 300ms 100ms ease, -o-transform 500ms ease;
+        transition: opacity 300ms 100ms ease, transform 500ms ease;
+        -webkit-transform: translate3d(70%, 0, 0) scale3d(0.9, 0.9, 0.9);
+        -moz-transform: translate3d(70%, 0, 0) scale3d(0.9, 0.9, 0.9);
+        -ms-transform: translate3d(70%, 0, 0) scale3d(0.9, 0.9, 0.9);
+        -o-transform: translate3d(70%, 0, 0) scale3d(0.9, 0.9, 0.9);
+        transform: translate3d(70%, 0, 0) scale3d(0.9, 0.9, 0.9);
+        -webkit-transform-origin: 50% 0%;
+        -moz-transform-origin: 50% 0%;
+        -ms-transform-origin: 50% 0%;
+        -o-transform-origin: 50% 0%;
+        transform-origin: 50% 0%;
+    }
+    
+    .csstransforms3d.csstransitions.js-nav #nav .block {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) {
+    
+    .page {
+        background: #2e2e2e url(../img/pinstripes-black@2x.png) repeat;
+        background-size: 21px 26px;
+    }
+    
+    .profile.page {
+        background: #ccc url(../img/pinstripes-white@2x.png) repeat;
+        background-size: 21px 26px;
+    }
+    
+    .global {
+        background: $primary-color url(../img/header-pattern@2x.png) repeat -2px -3px;
+        background-size: 15px 15px;
+    }
+    
+    .ribbon {
+        background: url(../img/header-ribbon@2x.png) no-repeat;
+        background-size: 27px 41px;
+    }   
+    
+    .notifications-icon {
+        background: url(../img/activity@2x.png) no-repeat;
+        background-size: 17px 16px;
+    }
+    
+    .actions-icon {
+        background: url(../img/action@2x.png) no-repeat;
+        background-size: 16px 16px;
+    }
+    
+    .question {
+        background: url(../img/question@2x.png) no-repeat;
+        background-size: 27px 51px;
+    }	
+    .comment-icon {
+        background: url(../img/comment-icon@2x.png) no-repeat;
+        background-size: 17px 16px;
+    }
+    
+    .profile-header .user-img {
+        background: url(../img/juan-marin_profile_@2x.jpg) no-repeat;
+        background-size: 94px 94px;
+    }
+    
+    .drop li:not(:first-child):before {
+        background-image: url(../img/purple-flower@2x.png);
+        background-size: 27px 27px;
+    }
+}

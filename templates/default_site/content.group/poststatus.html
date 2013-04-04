@@ -1,0 +1,58 @@
+{embed='includes/header'}
+
+<section class="new-post">
+	{exp:friends:status_form return="content/poststatus/?flag=1" form_name="form1"}
+		<input type="hidden" name="friends_status_private" id="friends_status_private" value="n" />
+		<button id="cancel" name="cancel" value="Cancel" class="cancel">Cancel</button>
+		<textarea id="post" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
+		<input type="submit" value="Add Media" id="post" class="post" onclick="javascript:first_form()">
+	
+		{exp:friends:status limit="1" member_id="{logged_in_member_id}"}
+		<?php echo $member_owner_id= '{friends_status_id}'; ?> 
+		{/exp:friends:status} 
+	
+	{/exp:friends:status_form} 
+    
+    {exp:safecracker channel="media" return="content/index" dynamic="no" safecracker_head='yes' include_jquery='yes' json='no'}
+		<input type="hidden" name="title" id="title" value="Status Media Elements" />
+		<input type="hidden" name="entry_date" value="{entry_date}" />
+		<input type="hidden" name="author_id" value="{logged_in_member_id}" />
+		<input type="hidden" name="url_title" id="url_title" value="{url_title}" />
+		<input type="hidden" name="member_owner_id" value="<?php echo $member_owner_id; ?>" />
+		
+                            <div class="media">
+                                <div class="post-button photo" id="photo">
+                                    <a href="#" rel="ignore" data-icon="📷">
+                                        <span class="visuallyhidden">Upload an Image</span>
+                                        <input type="file" accept="image/*" name="media_images" value="image">
+                                    </a>
+                                </div>
+                                <div class="post-button video">
+                                    <a href="#" rel="ignore" data-icon="🎬">
+                                        <span class="visuallyhidden">Upload a Video</span>
+                                        <input type="file" accept="video/*" name="media_video" value="video">
+                                    </a>
+                                </div>
+                                <div class="post-button audio">
+                                    <a href="#" rel="ignore" data-icon="♫">
+                                        <span class="visuallyhidden">Upload an audio file</span>
+                                        <input type="file" accept="audio/*" name="media_audio" value="audio">
+                                    </a>
+                                </div>
+                            </div> <!-- .media -->
+                            <div class="question">
+                                <input type="checkbox" name="question" value="1" id="question">
+                            </div>
+         <input type="submit" value="Post" id="post" class="post">                   
+       {/exp:safecracker}                     
+                           
+</section>
+
+<script language='javascript'>
+<!--
+function first_form()
+{
+document.form1.submit();
+}
+-->
+</script>

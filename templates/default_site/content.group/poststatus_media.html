@@ -1,0 +1,35 @@
+
+<?php echo 'Aqui'; ?>
+{logged_in_member_id}
+
+	{exp:safecracker channel="media" return="content/index" dynamic="no" }
+		<input type="hidden" name="title" id="title" value="Status Media Elements" />
+		<input type="hidden" name="entry_date" value="{entry_date}" />
+		<input type="hidden" name="author_id" value="{logged_in_member_id}" />
+		<input type="hidden" name="url_title" id="url_title" value="{url_title}" />
+		<input type="hidden" name="status_owner_media" value="{embed:id_status}" />
+		
+		<div class="media">
+			<div class="post-button photo" id="photo">
+				<a href="#" rel="ignore" data-icon="📷">
+				<span class="visuallyhidden">Upload an Image</span>
+				<input type="file" accept="image/*" name="image" value="image">
+				</a>
+			</div>
+			<div class="post-button video">
+				<a href="#" rel="ignore" data-icon="🎬">
+				<span class="visuallyhidden">Upload a Video</span>
+				<input type="file" accept="video/*" name="video" value="video">
+				</a>
+			</div>
+			<div class="post-button audio">
+				<a href="#" rel="ignore" data-icon="♫">
+				<span class="visuallyhidden">Upload an audio file</span>
+				<input type="file" accept="audio/*" name="audio" value="audio">
+				</a>
+			</div>
+		</div> <!-- .media -->
+		<div class="question">
+			<input type="checkbox" name="question" value="question" id="question">
+		</div>
+	{/exp:safecracker}

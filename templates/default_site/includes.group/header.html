@@ -26,12 +26,13 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
             <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
 adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
         </ul>
-        <div id="outer-wrap" class="outer-wrap">
-        	{if segment_2=='profile'} 
-            <div class="profile page" id="page">
-            {if:else}
+    	{if segment_1=='profile'} 
+        <div class="outer-wrap profile" id="outer-wrap">
+        {if:else}
+        <div class="outer-wrap" id="outer-wrap">
+        {/if}
+            
             <div class="page" id="page">
-            {/if}
             <!-- Header and Nav -->
                 <header class="global" id="top" role="banner">
 
@@ -39,11 +40,9 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                     <div class="header-left">
                         <div class="menu">
                         {if segment_2=='profile'}  
-                            <a id="back" class="back" href="{site_url}" data-title="BACK"></a>
+                            <a href="{site_url}" class="back" data-title="BACK" id="back"><span class="visuallyhidden">Back</span></a>
                         {if:else}
-                            <a id="nav-open-btn" class="nav-btn" href="#nav" data-icon="☰">
-                            <span class="visuallyhidden">Navigate</span>
-                            </a>           
+                            <a href="#nav" class="menu-btn" data-icon="☰" id="menu-btn"><span class="visuallyhidden">Navigate</span></a>           
                         {/if}
                         </div>
                         
@@ -57,11 +56,9 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                             <div class="actions-count" id="actions-count"><span>99+</span></div>
                             <a href="#" data-dropdown="actions" class="actions-icon"></a>
                         </div>
-                        {if segment_2=='profile'}  
                         <div class="post-icon">
-                            <a id="post-open-btn" class="nav-btn" href="new-post.php" data-icon="✎"><span class="visuallyhidden">New Post</span></a>
+                            <a href="new-post.php" class="post-btn"  data-icon="✎" id="post-btn"><span class="visuallyhidden">New Post</span></a>
                         </div>
-	                    {/if}
                     </div>
                 </header>
                 <nav id="nav" class="nav" role="navigation">

@@ -73,15 +73,15 @@
     margin: 0 auto;
 }
 
-.profile.page {
-    background: #ccc url(../img/pinstripes-white.png) repeat;
-}
-
 .outer-wrap {
     position: relative;
     overflow: hidden;
     width: 100%;
     background: #2e2e2e url(../img/pinstripes-black.png) repeat;
+}
+
+.profile.outer-wrap {
+    background: #ccc url(../img/pinstripes-white.png) repeat;
 }
 
 .page {
@@ -106,24 +106,13 @@
     float: left;
 }
 
-.nav-btn {
-    @include adjust-font-size-to(60px, 1.1);
-    @include single-text-shadow;
-    @include black-sheen;
-    display: block;
-    width: 0.65em;
-    height: 0.65em;
-    text-align: center;
-    color: #f1f1f1;
-    padding: 0;
-    border: 0;
-    outline: none;
-    white-space: nowrap;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    
+.menu-btn,
+.post-btn {
+    @include small-black-square;
 }
 
-.nav-btn:hover, .nav-btn:focus {
+.menu-btn:hover, .menu-btn:focus,
+.post-btn:hover, .post-btn:focus {
     color: #999;
 }
 
@@ -451,25 +440,6 @@
         border-bottom: 1px solid $light-gray;
         padding-bottom: 1em;
         
-        .photo {
-            @include grid-column(3.5);
-        }
-        .info {
-            @include grid-column(8.5, $collapse: true);
-            
-            h4 {
-                color: $purple;
-                @include adjust-font-size-to(16px, .5);
-                margin-top: 0;
-                margin-bottom: .7em;
-            }
-
-            span {
-                @include timestamp;
-                margin-bottom: 1em;
-            }
-        }
-        
         .question {
             background: url(../img/question.png) no-repeat;
             width: 27px;
@@ -496,6 +466,27 @@
             
         }
     }
+    
+    .photo {
+        @include grid-column(3.5);
+    }
+    
+    .info {
+        @include grid-column(8.5, $collapse: true);
+        
+        h4 {
+            color: $purple;
+            @include adjust-font-size-to(16px, .5);
+            margin-top: 0;
+            margin-bottom: .7em;
+        }
+
+        span {
+            @include timestamp;
+            margin-bottom: 1em;
+        }
+    }
+
     
     .post-content {
         @include grid-row;
@@ -623,14 +614,16 @@
         .user-img {
             @include grid-column(4, $collapse: true);
             height: 94px;
-            background: url(../img/juan-marin_profile_94px.jpg) no-repeat;
+//            background: url(../img/juan-marin_profile_94px.jpg) no-repeat;
             
             img {
                 @include shadow;
+                width: 94px; // USE CHANNEL IMAGES TO RESIZE IMAGES AND DELETE THIS STYLE
             }
         }
         
-        .edit-btn {
+        .edit-photo {
+            @include small-gray-square;
             @include adjust-font-size-to(35px, .9);
             position: absolute;
             left: 107px;
@@ -703,17 +696,9 @@
         }
     }
 
-    .edit-btn {
-        color: #666;
-        display: block;
-        width: 30px;
-        height: 30px;
-        border: 1px solid $medium-gray;
-        text-align: center;
-        
-        @include background-image(linear-gradient(#fff #d0d0d0));
-        @include adjust-font-size-to(40px, 0.89);
-        @extend .right;
+    .edit-details {
+        @include small-gray-square;
+        float: right;
     }
     
     .interests {
@@ -859,13 +844,17 @@
     }
 }
 
+.student-list {
+    @include panel;
+}
+
 
 @media #{$small} {
-    #page {
+    .page {
         position: static;
     }
     
-    #top .nav-btn {
+    .global .menu-btn {
         border: 0;
         clip: rect(0 0 0 0);
         height: 1px;
@@ -876,12 +865,13 @@
         width: 1px;
     }
     
-    #nav {
+    .nav {
         position: relative;
         padding-top: 0;
     }
     
-    #nav .close-btn {
+    /*
+#nav .close-btn {
         border: 0;
         clip: rect(0 0 0 0);
         height: 1px;
@@ -891,19 +881,20 @@
         position: absolute;
         width: 1px;
     }
+*/
     
-    #nav ul {
+    .nav ul {
         text-align: center;
         white-space: nowrap;
         @include block-grid(5, $base-style: false);
     }
-    #nav li {
+    .nav li {
         display: inline-block;
 //        padding: 0.42857em 0.85714em;
         border-right: 1px solid rgba(255, 255, 255, 0.1);
         border-top: none;
     }
-    #nav li:last-child {
+    .nav li:last-child {
         border: none;
     }
     
@@ -913,54 +904,79 @@
     
     .great-wall {
         @include grid-column(9, $push: 3);
-        
-        .post {
-            .user-img {
-                @include grid-column(2);
-                height: auto;
-            }
-            .status {
-                //@include grid-column(10);
-            }
-            
-            .comment {
-                .photo {
-                    @include grid-column(1.5);
-                }
-                .info {
-                    @include grid-column(10.5);
-                }
-            }
+    }
+
+    .post {
+        .user-img {
+            @include grid-column(2);
+            height: auto;
         }
+        .status {
+            //@include grid-column(10);
+        }
+        .photo {
+            @include grid-column(1.5);
+        }
+        .info {
+            @include grid-column(10.5);
+        }            
     }
     
     .full-profile {
-        .profile-photo {
+        .profile-header {
             @include grid-column(4);
+            
+            .user-img,
+            .name {
+                @include grid-row(nest-collapse);
+            }
+            
+            .user-img {
+                float: none;
+                height: auto;
+                
+                img { width: auto; } // USE CHANNEL IMAGES TO RESIZE IMAGES AND DELETE THIS STYLE
+            }
+            
+            .name {
+                position: static;
+                margin-top: 1em;
+                @include adjust-font-size-to(20px, 1);
+            }
+            
+            .edit-photo {
+                position: static;
+                margin-top: .25em;
+            }
         }
         
         .profile-details{
             @include grid-column(8);
         } 
     }
+    
+    .comment {
+        
+    }
+
        
 }
 
 @media screen and (max-width: 48em) {
-    #nav:not(:target) {
+    .nav:not(:target) {
         z-index: 1;
         height: 0;
     }
-    .js-ready #nav .close-btn {
+    .js-ready .nav .close-btn {
         display: block;
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
         opacity: 0.7;
     }
-    .js-ready #nav .close-btn:focus, .js-ready #nav .close-btn:hover {
+    .js-ready .nav .close-btn:focus, .js-ready #nav .close-btn:hover {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
         opacity: 1;
     }
-    .js-ready #nav {
+    .js-ready .nav {
         height: 100%;
         width: 70%;
 //        background: #333333;
@@ -968,11 +984,11 @@
         -moz-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
         box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
     }
-    .js-ready #nav .block {
+    .js-ready .nav .block {
         background: transparent;
     }
     
-    .js-ready #nav {
+    .js-ready .nav {
         left: -70%;
     }
     
@@ -1098,7 +1114,7 @@
     }
     
     .profile-header .user-img {
-        background: url(../img/juan-marin_profile_@2x.jpg) no-repeat;
+//        background: url(../img/juan-marin_profile_@2x.jpg) no-repeat;
         background-size: 94px 94px;
     }
     

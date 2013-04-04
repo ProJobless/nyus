@@ -1,39 +1,39 @@
-{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' AND member_id='{segment_3}' ORDER BY status_date DESC limit 10"}
+{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' AND member_id='{segment_2}' ORDER BY status_date DESC limit 10"}
 {exp:user:stats member_id='{segment_3}'}
-<article class="post" data-section>
-    <div class="post-header">
-        <div class="user-img">
-            <a href="profile/{member_id}">
-            {if photo_filename}
-            <img src="{photo_url}{photo_filename}" />
-            {if:else}
-            <img src="{site_url}img/imagen.jpg" />
-            {/if}
+
+<article class="post section-container accordion" data-section="accordion">
+    <div class="post-header author">
+        <div class="user-img photo">
+            <a href="{path='profile'}/{member_id}">
+                {if photo_filename}
+                <img src="{photo_url}{photo_filename}">
+                {if:else}
+                <img src="http://placehold.it/90x90&text=NO IMAGE">
+                {/if}
             </a>
-        </div> <!-- .user-img -->
-        <div class="details">
-            <h4>{screen_name}</h4>
+        </div> <!-- .photo -->
+        <div class="details info">
+            <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
             <span>{status_date format='%F %j, %Y'}<br>from {occupation}</span>
-        </div> <!-- .details -->	    
-    </div><!-- .post-header -->
+        </div> <!-- .info -->	    
+    </div><!-- .author -->
             
-    <div class="status">
+    <div class="status post-content">
         <p>{status}</p>
-    </div> <!-- .content -->	
+    </div> <!-- .post-content -->	
             
-    <section class="comments">
+    <section class="comments section">
         <div class="controls title">
-            <a href="#" class="comment-icon">
-	            {embed='includes/comment-counter' id_status='{status_id}'}
+            <a href="#" class="comment-icon" rel="ignore">
+                {embed='includes/comment-counter' id_status='{status_id}'} <!-- Counter of Comments -->
             </a>
-            <div>
-            {embed='includes/commets' id_member='{member_id}' id_status='{status_id}' summary='yes' section_page='profile'}
-            </div>
+            {embed='includes/comments' id_member='{member_id}' id_status='{status_id}' summary='yes'}
         </div> <!-- .comment-count -->
-        <div class="comment-feed">
-            {embed='includes/commets' id_member='{member_id}' id_status='{status_id}'}
+        <div class="comment-feed content">
+            {embed='includes/comments' id_member='{member_id}' id_status='{status_id}'}
         </div>
     </section> <!-- .comments -->    
 </article>
+
 {/exp:user:stats}
 {/exp:query}

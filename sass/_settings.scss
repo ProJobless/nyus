@@ -46,6 +46,34 @@ $dark-gray: #909090;
     @include box-shadow(inset 0px 1px 2px 0px rgba(0,0,0,0.5), 0 1px 2px 0 rgba(255,255,255,0.5));
 }
 
+@mixin small-gray-square {
+    color: #666;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid $medium-gray;
+    text-align: center;
+    
+    @include background-image(linear-gradient(#fff #d0d0d0));
+    @include adjust-font-size-to(40px, 0.89);
+}
+
+@mixin small-black-square {
+    @include adjust-font-size-to(60px, 1.1);
+    @include single-text-shadow;
+    @include black-sheen;
+    display: block;
+    width: 0.65em;
+    height: 0.65em;
+    text-align: center;
+    color: #f1f1f1;
+    padding: 0;
+    border: 0;
+    outline: none;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 @mixin teeth {
     background: rgba(255,255,255, 0.8);
     background-clip: padding-box;

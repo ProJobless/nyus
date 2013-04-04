@@ -1,4 +1,5 @@
-{exp:safecracker channel="wall_posts" return="content/index" dynamic="no" safecracker_head="no" secure_action="yes" secure_return="yes"}
+{if embed:summary!='yes'}
+{exp:safecracker channel="wall_posts" return="{path='content/index'}" dynamic="no" safecracker_head="no" secure_action="yes" secure_return="yes"}
 <input type="hidden" name="title" id="title" value="a wall post" />
 <input type="hidden" name="entry_date" value="{entry_date}" />
 <input type="hidden" name="author_id" value="{logged_in_member_id}" />
@@ -10,39 +11,20 @@
 <input type="submit" name="submit" alt="Submit">
 
 {/exp:safecracker}
+{/if}
 
-
-{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='10' dynamic='no'}
+{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='10' dynamic='no' {if embed:summary!='yes'} limit='2' {if:else} offset='2' {/if}}
 <p class="comment">
-    <a href="{path="/profile/{author_id}"}">{author}</a> wrote: {thepost}
+	{exp:user:stats member_id='{author_id}'}
+	<a href="{path='member-list/profile-view'}/{author_id}">
+	    {if photo_filename}
+	    	<img src="{photo_url}" width="40"/>
+	    {if:else}
+	    	<img src="{site_url}img/imagen.jpg"  width="40"/>
+	    {/if}
+	</a>
+    <a href="{path='profile'}/{author_id}">{screen_name}</a> <br>{thepost}<br>
+    {exp:user:stats}
     <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
 </p>
 {/exp:channel:entries}
-
-<!-- 
-{!--exp:friends:profile_wall_form friend_id="{embed:id_member}" --}
-    <p><textarea name="friends_wall_comment"></textarea></p>
-    <p><input type="submit" name="submit" value="Comment" /></p>
- 
-{!--/exp:friends:profile_wall_form--}
--->
-
-<!--
-<p><strong>Wall Comments:</strong></p>
-		 
-{!--exp:friends:profile_wall friend_id="{embed:id_member}" --}
-		 
-<p class="wall">
-{!--friends_comment}<br/>By:
-	{!--if logged_in_member_id == friends_member_id--}
-		<b>You</b>
-	{!--if:else--}
-		<a href="{path='profile/index'}/{friends_member_id}/"> {friends_screen_name} </a>
-	{!--/if--}
-on {!--friends_entry_date format="%F %j, %Y at %h:%i %a"--}
-</p>
-{!--if friends_no_results--}
-	<p>There are currently no comments for this profile.</p>
-{!--/if--}
-{!--/exp:friends:profile_wall----}
--->

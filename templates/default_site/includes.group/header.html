@@ -7,10 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <title>NYU Shanghai-net</title>
         
-        <link rel="stylesheet" href="/2017introductions/css/normalize.css" />
-        <link rel="stylesheet" href="/2017introductions/css/screen.css" />
-        <script src="/2017introductions/js/vendor/custom.modernizr.js"></script>
-        
+        <link rel="stylesheet" href="{site_url}css/normalize.css" />
+        <link rel="stylesheet" href="{site_url}css/screen.css" />
+        <script src="{site_url}js/vendor/custom.modernizr.js"></script>        
     </head>
     <body>
         <ul id="notifications" class="notifications drop" data-dropdown-content>
@@ -40,7 +39,7 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                     <div class="header-left">
                         <div class="menu">
                         {if segment_2=='profile'}  
-                            <a id="back" class="back" href="index.php" data-title="BACK"></a>
+                            <a id="back" class="back" href="{site_url}" data-title="BACK"></a>
                         {if:else}
                             <a id="nav-open-btn" class="nav-btn" href="#nav" data-icon="☰">
                             <span class="visuallyhidden">Navigate</span>
@@ -68,14 +67,14 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                 <nav id="nav" class="nav" role="navigation">
                     <h3 class="name show-for-small" data-icon="👤">
                     {exp:user:stats}
-                        <a href="/2017introductions/profile/{member_id}">{screen_name}</a>
+                        <a href="{path='profile'}/{member_id}">{screen_name}</a>
                     {/exp:user:stats}
                     </h3>
                     <ul>
                         <li>Filter By</li>
-                        <li><a href="/2017introductions/">All</a></li>
+                        <li><a href="{site_url}">All</a></li>
                         <li><a href="#">Questions</a></li>
-                        <li><a href="/2017introductions/member-list">Students</a></li>
+                        <li><a href="{path='member-list/'}">Students</a></li>
                         <li>
 	                        {exp:user:logout return="template_group/template_name"}
 	                        <a href="{url}">Logout</a>

@@ -1,8 +1,8 @@
 {exp:user:stats}
 	{if photo_filename}
-		<a href="/2017introductions/profile/{member_id}"><img src="{photo_url}{photo_filename}" /></a>
+		<a href="{path='profile'}/{member_id}"><img src="{photo_url}{photo_filename}" /></a>
 	{if:else}
-		<a href="/2017introductions/profile/{member_id}"><img src="http://placehold.it/300x240&text=[PROFILE]" /></a>
+		<a href="{path='profile'}/{member_id}"><img src="http://placehold.it/300x240&text=[PROFILE]" /></a>
 	{/if}
-	<h5><a href="/2017introductions/profile/{member_id}">{screen_name}</a></h5>
+	<h5><a href="{path='profile'}/{member_id}">{screen_name}</a></h5>
 {/exp:user:stats}                

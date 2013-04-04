@@ -1,37 +1,39 @@
-<h6>Submit a new Status:</h6>
- 
-{exp:friends:status_form return="profile/index"}
-    <p>
-        {friends_screen_name}
-        <input type="text" name="friends_status" value="is " />
-    </p>
-        <input type="hidden" name="friends_status_private" id="friends_status_private" value="y" />
-    <p>
-        <input type="submit" name="submit" value="Add" />
-    </p>
-{/exp:friends:status_form}
-
-{exp:friends:status limit="25" member_id="{segment_3}"}
-<article class="post">
-	<div class="post-header">
-		<div class="user-img">
-	    	<img src="{friends_photo_url}" />
-	    </div> <!-- .user-img -->
+{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' AND member_id='{segment_3}' ORDER BY status_date DESC limit 10"}
+{exp:user:stats member_id='{segment_3}'}
+<article class="post" data-section>
+    <div class="post-header">
+        <div class="user-img">
+            <a href="{path='profile'}/{member_id}">
+            {if photo_filename}
+            <img src="{photo_url}{photo_filename}" />
+            {if:else}
+            <img src="{site_url}img/imagen.jpg" />
+            {/if}
+            </a>
+        </div> <!-- .user-img -->
         <div class="details">
-        	<h4>{friends_screen_name}</h4>
-        	<p>{friends_status_date format="%F %j, %Y"}<br>from {friends_occupation}</p>
+            <h4>{screen_name}</h4>
+            <span>{status_date format='%F %j, %Y'}<br>from {occupation}</span>
         </div> <!-- .details -->	    
-	</div><!-- .post-header -->
-    
-    <div class="content">
-    	<p>{friends_status}</p>
+    </div><!-- .post-header -->
+            
+    <div class="status">
+        <p>{status}</p>
     </div> <!-- .content -->	
-   
-   <div class="comment-bar">
-	   <div class="comment-count">
-		   <a href="#" class="comment-icon"></a>
-		   <span>99+</span>
-	   </div> <!-- .comment-count -->
-   </div> <!-- .comment-bar -->    
+            
+    <section class="comments">
+        <div class="controls title">
+            <a href="#" class="comment-icon">
+	            {embed='includes/comment-counter' id_status='{status_id}'}
+            </a>
+            <div>
+            {embed='includes/commets' id_member='{member_id}' id_status='{status_id}' summary='yes'}
+            </div>
+        </div> <!-- .comment-count -->
+        <div class="comment-feed">
+            {embed='includes/commets' id_member='{member_id}' id_status='{status_id}'}
+        </div>
+    </section> <!-- .comments -->    
 </article>
-{/exp:friends:status}
+{/exp:user:stats}
+{/exp:query}

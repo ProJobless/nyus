@@ -21,8 +21,19 @@
 	            	<h4>Select a Student from the list</h4>
 	            	
 	            	<ul>
-	            	{exp:user:users orderby="screen_name" sort="asc" limit="25" paginate="bottom"}
-						<li><a href="{path='/member-list/profile-view'}/{member_id}">{screen_name}</a></li>
+	            	{exp:user:users orderby="screen_name" sort="asc" limit="25" paginate="bottom" orderby="screen_name" sort="asc"}
+						{exp:user:stats}
+							<li>
+							<a href="{path='member-list/profile-view'}/{member_id}">
+							    {if photo_filename}
+							    	<img src="{photo_url}{photo_filename}" width="80"/>
+							    {if:else}
+							    	<img src="{site_url}img/imagen.jpg"  width="80"/>
+							    {/if}
+							</a>
+							<a href="{path='member-list/profile-view'}/{member_id}">{screen_name}</a>
+							</li>
+						{/exp:user:stats}
 							
 						{if user_no_results}
 							Sorry, no results were found.
@@ -42,5 +53,4 @@
         </div>
         
     </div> <!-- #main --> 
-
 {embed='includes/footer'}

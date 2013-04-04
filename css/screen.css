@@ -4191,7 +4191,7 @@ html {
   border: solid 1px #cccccc;
   font-size: 16px;
   z-index: 99;
-  max-width: 100px;
+  max-width: 200px;
   border-width: 2px; }
   .drop *:first-child {
     margin-top: 0; }
@@ -4331,7 +4331,6 @@ html {
 }
 */
 .nav {
-  z-index: 200;
   overflow: hidden;
   background: rgba(155, 155, 155, 0.5);
   position: absolute;
@@ -5042,23 +5041,54 @@ html {
   appearance: none; }
 
 .student-list {
+  margin-top: 1em;
+  padding: 1em;
+  background: rgba(255, 255, 255, 0.8);
+  background-clip: padding-box;
+  padding-bottom: 1em;
+  padding-top: 1em;
   border-style: solid;
-  border-width: 1px;
-  border-color: #d9d9d9;
-  margin-bottom: 1.25em;
-  padding: 1.25em;
-  background: #f2f2f2; }
-  .student-list h1, .student-list h2, .student-list h3, .student-list h4, .student-list h5, .student-list h6, .student-list p {
-    color: #333333; }
-  .student-list > :first-child {
-    margin-top: 0; }
-  .student-list > :last-child {
-    margin-bottom: 0; }
-  .student-list h1, .student-list h2, .student-list h3, .student-list h4, .student-list h5, .student-list h6 {
-    line-height: 1;
-    margin-bottom: 0.625em; }
-    .student-list h1.subheader, .student-list h2.subheader, .student-list h3.subheader, .student-list h4.subheader, .student-list h5.subheader, .student-list h6.subheader {
-      line-height: 1.4; }
+  border-width: 7px 0px;
+  -webkit-border-image: url(../img/teeth.png) 7 2 repeat;
+  -moz-border-image: url(../img/teeth.png) 7 2 repeat;
+  -o-border-image: url(../img/teeth.png) 7 2 repeat;
+  border-image: url(../img/teeth.png) 7 2 fill repeat; }
+  .student-list .row {
+    margin-bottom: 1em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #d9d9d9;
+    margin-bottom: 1.25em;
+    padding: 1em 0;
+    background: #f2f2f2;
+    -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2); }
+    .student-list .row h1, .student-list .row h2, .student-list .row h3, .student-list .row h4, .student-list .row h5, .student-list .row h6, .student-list .row p {
+      color: #333333; }
+    .student-list .row > :first-child {
+      margin-top: 0; }
+    .student-list .row > :last-child {
+      margin-bottom: 0; }
+    .student-list .row h1, .student-list .row h2, .student-list .row h3, .student-list .row h4, .student-list .row h5, .student-list .row h6 {
+      line-height: 1;
+      margin-bottom: 0.625em; }
+      .student-list .row h1.subheader, .student-list .row h2.subheader, .student-list .row h3.subheader, .student-list .row h4.subheader, .student-list .row h5.subheader, .student-list .row h6.subheader {
+        line-height: 1.4; }
+    .student-list .row:last-child {
+      margin-bottom: 0; }
+    .student-list .row .name {
+      border-bottom: 1px #bcbcbc solid;
+      display: block;
+      margin-top: .75em;
+      padding-bottom: 1em; }
+    .student-list .row .columns {
+      margin-top: 1em; }
+      .student-list .row .columns:first-child {
+        margin-top: 0; }
+      .student-list .row .columns:last-child .name {
+        border-bottom: none;
+        padding-bottom: 0; }
 
 @media only screen and (min-width: 48em) {
   .page {
@@ -5107,14 +5137,18 @@ html {
   .nav li:last-child {
     border: none; }
 
+  .drop {
+    max-width: 400px; }
+
   .profile-container {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
-    width: 25%;
+    width: 22.91667%;
     right: 75%;
     left: auto;
-    float: left; }
+    float: left;
+    margin-top: 1em; }
 
   .great-wall {
     position: relative;
@@ -5183,7 +5217,13 @@ html {
     padding-left: 0.9375em;
     padding-right: 0.9375em;
     width: 66.66667%;
-    float: left; } }
+    float: left; }
+
+  .student-list .row .columns {
+    margin-top: 0; }
+  .student-list .row .name {
+    border-bottom: none;
+    padding-bottom: 0; } }
 @media screen and (max-width: 48em) {
   .nav:not(:target) {
     z-index: 1;

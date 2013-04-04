@@ -160,7 +160,7 @@
 }
 
 .drop { // dropdowns. revealed when .activity is clicked
-    @include dropdown-container ($content: list, $triangle: false, $max-width: 100px);
+    @include dropdown-container ($content: list, $triangle: false);
     border-width: 2px;
     
     li { 
@@ -301,7 +301,7 @@
 .nav {
 //    @include grid-row;
     @include block-grid(1, $base-style: false);
-    z-index: 200;
+//    z-index: 200;
     overflow: hidden;
     background: rgba(155, 155, 155, 0.5);
     position: absolute;
@@ -845,7 +845,39 @@
 }
 
 .student-list {
-    @include panel;
+    margin-top: 1em;
+    padding: 1em;
+    @include teeth;
+    
+    .row {
+        margin-bottom: 1em;
+        @include panel($padding:1em 0);
+        @include shadow;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+        
+        .name {
+            border-bottom: 1px $medium-gray solid;
+            display: block;
+            margin-top: .75em;
+            padding-bottom: 1em;
+        }
+        
+        .columns {
+            
+            margin-top: 1em;
+            
+            &:first-child {
+                margin-top: 0;
+            }
+            
+            &:last-child {
+                .name { border-bottom: none; padding-bottom: 0; }
+            }
+        }
+    }
 }
 
 
@@ -898,8 +930,13 @@
         border: none;
     }
     
+    .drop {
+        max-width: 400px;
+    }
+    
     .profile-container { // contains the profile on the great wall
-        @include grid-column(3, $pull: 9);
+        @include grid-column(2.75, $pull: 9);
+        margin-top: 1em;
     }
     
     .great-wall {
@@ -955,8 +992,9 @@
         } 
     }
     
-    .comment {
-        
+    .student-list .row {
+        .columns { margin-top: 0; }
+        .name { border-bottom: none; padding-bottom: 0; }
     }
 
        

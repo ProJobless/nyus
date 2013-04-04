@@ -8,7 +8,10 @@
             <div class="profile-header clearfix">
                 <!-- takes up the left column on larger screens, stacks on smaller screens -->
                 <div class="user-img">
-	                <img src="{photo_url}{photo_filename}" width="94" />
+                    {if photo_filename}
+	                <img src="{photo_url}{photo_filename}" />
+	                {if:else}
+	                <img src="http://placehold.it/94x94&text=NO PHOTO">
                 </div> <!-- .profile-photo -->
                 <div class="name">
                     <h4>{screen_name}</h4>

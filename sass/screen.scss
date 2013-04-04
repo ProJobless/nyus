@@ -4,6 +4,8 @@
  ***
  ******/
 
+
+
  // FOUNDATION IMPORTS
 
 // Global Foundation Settings
@@ -440,19 +442,19 @@
 /*     @include grid-row(nest); */
     @include panel($padding:1em 0 0 0);
     @include shadow;
-    @extend .section-container;
+//    @extend .section-container;
     margin: 0 auto 1em;
     position: relative;
     
-    .post-header {
+    .author {
         @include grid-row;
         border-bottom: 1px solid $light-gray;
         padding-bottom: 1em;
         
-        .user-img {
+        .photo {
             @include grid-column(3.5);
         }
-        .details {
+        .info {
             @include grid-column(8.5, $collapse: true);
             
             h4 {
@@ -495,7 +497,7 @@
         }
     }
     
-    .status {
+    .post-content {
         @include grid-row;
         padding-top: 0.5em;
         
@@ -519,11 +521,12 @@
     }
     
     .comments {
-        @extend .section;
+//        @extend .section;
         border-top: 1px solid $light-gray;
         
         .controls {
             @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
+            @include grid-row;
             
             .comment-icon {
                 padding-top: .5em;
@@ -532,6 +535,7 @@
                 margin-bottom: .5em;
                 width: 80px;
                 border-right: 1px solid $light-gray;
+                @include grid-column(2.5);
                 
                 &:before {
                     content: '';
@@ -551,26 +555,51 @@
                     position: relative;
                     left: 5px;
                 }
+            }
+            
+            .most-recent {
+                @include grid-column(9.5);
+                @include adjust-font-size-to(8px, .5);
+                padding-top: 1em;
+                padding-bottom: 1em;
+                
+                a { display: inline; padding: 0; color: $purple; }
+                a:hover { text-decoration: underline; }
+                
+                p {
+                    @include adjust-font-size-to(22px, .1);
+                    margin: .75em 0;
+                    
+                }
+                
+                span { 
+                    @include timestamp;
+                    @include adjust-font-size-to(18px, .5);
+                }
+            }
+            
+            .comment {
+                margin-bottom: 0;
             }               
         }
         
         .comment-feed {
-            @extend .content;
+//            @extend .content;
             background: none;
+            
+            .comment:first-child {
+                padding-top: 1em;
+            }
         }
         
-        .comment span {
-            @include timestamp;
-        }
-        
-        form {
-
-        }
-        
-        textarea {
-            resize: none;
-            height: inherit;
-            margin-bottom: 0;
+        .comment {
+            @extend .post;
+            
+            a {
+                display: inline;
+                padding: 0;
+                color: $purple;
+            }
         }
         
         input[type="submit"] {
@@ -788,7 +817,7 @@
 
 .edit.profile-details,
 .new-post,
-.comments {
+.comment-form {
     h4,
     label,
     input[type="text"] {
@@ -891,7 +920,16 @@
                 height: auto;
             }
             .status {
-                @include grid-column(10);
+                //@include grid-column(10);
+            }
+            
+            .comment {
+                .photo {
+                    @include grid-column(1.5);
+                }
+                .info {
+                    @include grid-column(10.5);
+                }
             }
         }
     }

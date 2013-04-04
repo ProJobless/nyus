@@ -1,0 +1,55 @@
+{if embed:summary=='yes'}
+
+{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='1' dynamic='no'}
+
+<article class="most-recent">
+{exp:user:stats member_id='{author_id}'}
+    <h5>Most recent comment by <a href="{path='member-list/profile-view'}/{author_id}">{screen_name}</a></h5>
+    <p>{thepost}</p>
+    <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
+{/exp:user:stats}
+</article>
+{/exp:channel:entries}
+
+{if:else}
+
+{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='no'}
+
+<article class="comment">
+    {exp:user:stats member_id='{author_id}'}
+    <div class="author">
+        <div class="photo">
+            <a href="{path='member-list/profile-view'}/{author_id}">
+                {if photo_filename}
+    	    	<img src="{photo_url}">
+        	    {if:else}
+                <img src="http://placehold.it/40x40&text=NO IMAGE">
+                {/if}
+            </a>
+        </div> <!-- .photo -->
+        <div class="info">
+            <h4><a href="{path='member-list/profile-view'}/{author_id}">{screen_name}</a></h4>
+            <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
+        </div> <!-- .info -->	    
+    </div><!-- .author -->
+            
+    <div class="post-content">
+        <p>{thepost}</p>
+    </div> <!-- .post-content -->	
+    {exp:user:stats}
+</article>
+{/exp:channel:entries}
+
+{exp:safecracker channel="wall_posts" class="comment-form" return="{path='content/index'}" dynamic="no" safecracker_head="no" secure_action="no" secure_return="no"}
+<input type="hidden" name="title" id="title" value="a wall post" />
+<input type="hidden" name="entry_date" value="{entry_date}" />
+<input type="hidden" name="author_id" value="{logged_in_member_id}" />
+<input type="hidden" name="url_title" id="url_title" value="{url_title}" />
+<input type="hidden" name="status_owner" value="{embed:id_status}" /> 
+
+<input type="text" name="thepost" placeholder="Write something...">
+<input type="submit" name="submit" value="Submit">
+
+{/exp:safecracker}
+
+{/if}

@@ -3,6 +3,7 @@
 .htaccess
 .sass-cache/
 .bak/
+assets/
 
 # Images
 images/avatars/

@@ -142,7 +142,7 @@
           && !self.is_accordion($this)) {
 
           var first = $this.find('section, .section').first();
-          //first.addClass('active');
+          first.addClass('active');
 
           if (self.small($this)) {
             first.attr('style', '');

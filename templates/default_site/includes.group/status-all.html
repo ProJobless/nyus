@@ -19,6 +19,11 @@
             
     <div class="status post-content">
         <p>{status}</p>
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
+        <div class="post-img">
+	    	<img src="{media_images}" />
+        </div> <!-- .post-img -->   
+        {/exp:channel:entries}     
     </div> <!-- .post-content -->	
             
     <section class="comments section">

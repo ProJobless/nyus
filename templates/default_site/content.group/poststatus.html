@@ -5,26 +5,25 @@
 		<input type="hidden" name="friends_status_private" id="friends_status_private" value="n" />
 		<button id="cancel" name="cancel" value="Cancel" class="cancel">Cancel</button>
 		<textarea id="post" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
-		<input type="submit" value="Add Media" id="post" class="post" onclick="javascript:first_form()">
+		<p><input type="submit" value="Add Media" id="post" class="post" onclick="javascript:first_form()"></p>
 	
 		{exp:friends:status limit="1" member_id="{logged_in_member_id}"}
-		<?php echo $member_owner_id= '{friends_status_id}'; ?> 
+		<?php $status_owner_id= '{friends_status_id}'; ?> 
 		{/exp:friends:status} 
 	
 	{/exp:friends:status_form} 
     
-    {exp:safecracker channel="media" return="content/index" dynamic="no" safecracker_head='yes' include_jquery='yes' json='no'}
+    {exp:safecracker channel="media" return="content/index" dynamic="yes" include_jquery="yes"}
 		<input type="hidden" name="title" id="title" value="Status Media Elements" />
 		<input type="hidden" name="entry_date" value="{entry_date}" />
 		<input type="hidden" name="author_id" value="{logged_in_member_id}" />
 		<input type="hidden" name="url_title" id="url_title" value="{url_title}" />
-		<input type="hidden" name="member_owner_id" value="<?php echo $member_owner_id; ?>" />
-		
+		<input type="hidden" name="status_owner_id" value="<?php echo $status_owner_id; ?>" />	
                             <div class="media">
                                 <div class="post-button photo" id="photo">
                                     <a href="#" rel="ignore" data-icon="📷">
                                         <span class="visuallyhidden">Upload an Image</span>
-                                        <input type="file" accept="image/*" name="media_images" value="image">
+	                                    <input type="file" accept="image/*" id="media_images" name="media_images" value="image">
                                     </a>
                                 </div>
                                 <div class="post-button video">

@@ -14,7 +14,6 @@
 {if:else}
 
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='no'}
-
 <article class="comment">
     {exp:user:stats member_id='{author_id}'}
     <div class="author">

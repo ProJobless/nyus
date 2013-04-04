@@ -4,7 +4,7 @@
         <section class="full-profile">
         <!-- all profiles are contained in .full-profile -->
             
-            {exp:user:edit dynamic="off" member_id="{segment_2}" override_return="profile/index" return="profile/index"  password_required="n" }
+            {exp:user:edit dynamic='off' member_id='{segment_3}' override_return='profile/index' return='profile/index'  password_required='n' }
             <div class="profile-header clearfix">
                 <!-- takes up the left column on larger screens, stacks on smaller screens -->
                 <div class="user-img">
@@ -12,6 +12,7 @@
 	                <img src="{photo_url}{photo_filename}" />
 	                {if:else}
 	                <img src="http://placehold.it/94x94&text=NO PHOTO">
+	                {/if}
                 </div> <!-- .profile-photo -->
                 <div class="name">
                     <h4>{screen_name}</h4>

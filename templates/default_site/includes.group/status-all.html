@@ -3,7 +3,7 @@
 <article class="post" data-section>
     <div class="post-header">
         <div class="user-img">
-            <a href="{path='profile'}/{member_id}">
+            <a href="member-list/profile-view/{member_id}">
             {if photo_filename}
             <img src="{photo_url}{photo_filename}" />
             {if:else}
@@ -12,7 +12,7 @@
             </a>
         </div> <!-- .user-img -->
         <div class="details">
-            <h4>{screen_name}</h4>
+            <h4><a href="member-list/profile-view/{member_id}">{screen_name}</a></h4>
             <span>{status_date format='%F %j, %Y'}<br>from {occupation}</span>
         </div> <!-- .details -->	    
     </div><!-- .post-header -->
@@ -24,14 +24,14 @@
     <section class="comments">
         <div class="controls title">
             <a href="#" class="comment-icon" rel="ignore">
-                {embed='includes/comment-counter' id_status='{status_id}'}
+                {embed='includes/comment-counter' id_status='{status_id}'} <!-- Counter of Comments -->
             </a>
             <div>
-            {!--embed='includes/commets' id_member='{member_id}' id_status='{status_id}' summary='yes'--}
+            	{embed='includes/commets' id_member='{member_id}' id_status='{status_id}' summary='yes'} <!-- Get latest 2 comments -->
             </div>
         </div> <!-- .comment-count -->
         <div class="comment-feed">
-            {embed='includes/commets' id_member='{member_id}' id_status='{status_id}'}
+            {embed='includes/commets' id_member='{member_id}' id_status='{status_id}'}	<!-- Get full list of comments -->
         </div>
     </section> <!-- .comments -->    
 </article>

@@ -3950,14 +3950,14 @@ html {
   max-width: 62.5em;
   margin: 0 auto; }
 
-.profile.page {
-  background: #cccccc url(../img/pinstripes-white.png) repeat; }
-
 .outer-wrap {
   position: relative;
   overflow: hidden;
   width: 100%;
   background: #2e2e2e url(../img/pinstripes-black.png) repeat; }
+
+.profile.outer-wrap {
+  background: #cccccc url(../img/pinstripes-white.png) repeat; }
 
 .page {
   position: relative;

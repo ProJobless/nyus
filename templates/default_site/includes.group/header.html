@@ -26,12 +26,13 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
             <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
 adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
         </ul>
-        <div id="outer-wrap" class="outer-wrap">
-        	{if segment_2=='profile'} 
-            <div class="profile page" id="page">
-            {if:else}
+    	{if segment_1=='profile'} 
+        <div class="outer-wrap profile" id="outer-wrap">
+        {if:else}
+        <div class="outer-wrap" id="outer-wrap">
+        {/if}
+            
             <div class="page" id="page">
-            {/if}
             <!-- Header and Nav -->
                 <header class="global" id="top" role="banner">
 

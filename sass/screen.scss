@@ -73,15 +73,15 @@
     margin: 0 auto;
 }
 
-.profile.page {
-    background: #ccc url(../img/pinstripes-white.png) repeat;
-}
-
 .outer-wrap {
     position: relative;
     overflow: hidden;
     width: 100%;
     background: #2e2e2e url(../img/pinstripes-black.png) repeat;
+}
+
+.profile.outer-wrap {
+    background: #ccc url(../img/pinstripes-white.png) repeat;
 }
 
 .page {

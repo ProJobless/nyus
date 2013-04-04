@@ -11,7 +11,6 @@
 <input type="submit" name="submit" alt="Submit">
 {/exp:safecracker}
 
-
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='10' dynamic='no'}
 <p class="comment">
 	{exp:user:stats member_id='{author_id}'}
@@ -27,3 +26,24 @@
     <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
 </p>
 {/exp:channel:entries}
+
+{if:else}
+
+{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='1' dynamic='no'}
+
+<p class="comment">
+	{exp:user:stats member_id='{author_id}'}
+	<a href="{path='member-list/profile-view'}/{author_id}">
+	    {if photo_filename}
+	    	<img src="{photo_url}" width="40"/>
+	    {if:else}
+	    	<img src="{site_url}img/imagen.jpg"  width="40"/>
+	    {/if}
+	</a>
+    <a href="{path='profile'}/{author_id}">{screen_name}</a> <br>{thepost}<br>
+    {exp:user:stats}
+    <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
+</p>
+{/exp:channel:entries}
+
+{/if}

@@ -17,6 +17,7 @@ sized/
 thumbs/
 _thumbs/
 */expressionengine/cache/*
+codekit-config.json
 
 # EE Files 
 nyusocial/

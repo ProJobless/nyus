@@ -143,7 +143,7 @@ function findIgnores(){
 
 $(document).ready(function(){
     findIgnores()
-/*     $ignoreMe.on('click', function(){ return false; }) */
+    $ignoreMe.on('click', function(){ return false; })
 })
 
 

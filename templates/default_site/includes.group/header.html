@@ -72,11 +72,13 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                         <li><a href="{site_url}">All</a></li>
                         <li><a href="#">Questions</a></li>
                         <li><a href="{path='member-list/'}">Students</a></li>
+                        {if logged_in}
                         <li>
-	                        {exp:user:logout return="template_group/template_name"}
+	                        {exp:user:logout return=""}
 	                        <a href="{url}">Logout</a>
 	                        {/exp:user:logout}
                         </li>
+                        {/if}
                     </ul>
                    <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                 </nav>

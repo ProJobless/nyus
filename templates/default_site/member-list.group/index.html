@@ -5,32 +5,39 @@
     <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
 
         <section class="student-list">
+            <!-- <div class="panel"> -->
+                <div class="row">
+                <?php $count = 0; ?>
+                {exp:user:users orderby="screen_name" sort="asc" limit="25" paginate="bottom" orderby="screen_name" sort="asc"}
+                    {exp:user:stats}
+                    <div class="large-3 columns">
+                        <a href="{path='profile'}/{member_id}">
+                        {if photo_filename}
+                        	<img src="{photo_url}{photo_filename}">
+                        {if:else}
+                        	<img src="http://placehold.it/400x400&text=NO IMAGE">
+                        {/if}
+                        </a>
+                        <a href="{path='profile'}/{member_id}" class="name">{screen_name}</a>
+                    </div>
+                    {/exp:user:stats}
+                <?php 
+                    $count++; 
+                    if ($count%4 == 0) {
+                        echo '</div><div class="row">';
+                    }
+                ?>
             
-            <ul>
-            {exp:user:users orderby="screen_name" sort="asc" limit="25" paginate="bottom" orderby="screen_name" sort="asc"}
-                {exp:user:stats}
-                <li>
-                    <a href="{path='profile'}/{member_id}">
-                    {if photo_filename}
-                    	<img src="{photo_url}{photo_filename}">
-                    {if:else}
-                    	<img src="http://placehold.it/94x94&text=NO IMAGE">
+                    {if user_no_results}
+                    <p>Sorry, no results were found.</p>
                     {/if}
-                    </a>
-                    <a href="{path='profile'}/{member_id}">{screen_name}</a>
-                </li>
-                {/exp:user:stats}
-            
-                {if user_no_results}
-                <p>Sorry, no results were found.</p>
-                {/if}
                 {/exp:user:users}
-            </ul>
+                <?php 
+                    if ($count%4 != 0) {
+                        echo '</div>';
+                    }
+                ?>
+            <!-- </div>  --><!-- .panel -->
         </section>
-        <!-- This is source ordered to be pulled to the left on larger screens -->
-        <div class="profile-container panel hide-for-small">
-	        {embed='includes/sidebar-profile'}
-        </div>
-        
     </div> <!-- #main --> 
 {embed='includes/footer'}

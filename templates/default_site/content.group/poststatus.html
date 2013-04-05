@@ -3,27 +3,33 @@
 
 <section class="new-post">
 
-	{exp:friends:status limit="1" member_id="{logged_in_member_id}"}
-		<?php $status_owner_id= '{friends_status_id}'; ?> 
-	{/exp:friends:status} 
+	
+	{exp:query sql="select status_id, member_id from `exp_friends_status` where member_id='{segment_3}' order by status_date DESC limit 1"}
+        <?php $status_owner_id='{status_id}'; ?>
+    {/exp:query}
 
 	
-	{exp:friends:status_form {if segment_3} return="content/poststatus/flag" {if:else} return="content/index" {/if} form_name="form1"}
+	{if segment_4==''}
+	{exp:friends:status_form return="content/poststatus/{logged_in_member_id}/flag" form_name="form1"}
+	{if:else}
+	{exp:friends:status_form return="content/poststatus/{logged_in_member_id}/flag" form_name="form2"}
+	{/if}
 		<input type="hidden" name="friends_status_private" id="friends_status_private" value="n" />
 		<button id="cancel" name="cancel" value="Cancel" class="cancel">Cancel</button>
 		
-		{if segment_3=='flag'}
+		{if segment_4=='flag'}
 		<textarea id="post" name="friends_status" placeholder="Show, tell, or ask." rows="8">{exp:friends:status limit="1" member_id="{logged_in_member_id}"}{friends_status}{/exp:friends:status}</textarea>
 		{if:else}
 		<textarea id="post" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
 		{/if}
-		
-		{if !segment_3}
-		<p><input type="submit" value="Add Media" id="post" class="post" onclick="javascript:first_form()"></p>
+
+		{if segment_4!='flag'}
+		<p><input type="submit" value="Add Media" id="post" class="post" onclick="javascript:first_form()"> <input type="submit" value="Post" id="post" class="post" onclick="javascript:second_form()"></p>
 		{/if}
+		
 	{/exp:friends:status_form} 
 	
-    
+    {if segment_4=='flag'}
     {exp:safecracker channel="media" return="content/index" dynamic="yes" include_jquery="yes"}
 		<input type="hidden" name="title" id="title" value="Status Media Elements" />
 		<input type="hidden" name="entry_date" value="{entry_date}" />
@@ -53,10 +59,11 @@
                             <div class="question">
                                 <input type="checkbox" name="question" value="1" id="question">
                             </div>
-         {if segment_3=='flag'}                   
+                  
          <input type="submit" value="Post" id="post" class="post">   
-         {/if}                
-     {/exp:safecracker}                     
+               
+     {/exp:safecracker}  
+     {/if}                   
                            
 </section>
 
@@ -65,6 +72,11 @@
 function first_form()
 {
 document.form1.submit();
+}
+
+function second_form()
+{
+document.form2.submit();
 }
 -->
 </script>

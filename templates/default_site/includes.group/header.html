@@ -14,8 +14,11 @@
     <body>
         <ul id="notifications" class="notifications drop" data-dropdown-content>
             <li><h4>Notifications</h4></li>
-            <li><a href="#"><img src="img/josh-smith_feed_47px.jpg"><p><span>Josh Smith</span> dolor sit amet, consectetur adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
-            <li><a href="#"><img src="img/juan-marin_feed_47px.jpg"><p><span>Juan Marin</span> dolor sit amet, consectetur adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
+            {exp:user:stats}  
+		        {exp:query sql="select exp_friends_profile_comments.comment, exp_friends_profile_comments.friend_id, exp_friends_profile_comments.entry_date, exp_members.screen_name as screen_name_comment_user, exp_members.photo_filename as photo_filename_comment_user from exp_friends_profile_comments, exp_members where exp_friends_profile_comments.friend_id=exp_members.member_id AND author_id='{member_id}' order by entry_date DESC limit 5"}
+	            <li><a href="#"><img src="images/member_photos/{photo_filename_comment_user}" width="40"><p><span>{screen_name_comment_user}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a></li>
+	            {/exp:query}
+            {/exp:user:stats}
         </ul>
         <ul id="actions" class="actions drop" data-dropdown-content>
             <li><h4>Actions</h4></li>
@@ -47,8 +50,12 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                         </div>
                         
                         <div class="first ribbon">
-                            <div class="notifications-count" id="notifications-count"><span>1</span></div>
-                            <a href="#" data-dropdown="notifications" class="notifications-icon"></a>
+	                    {exp:user:stats}  
+	                        {exp:query sql="select count(*) as count_comments from `exp_friends_profile_comments` where author_id='{member_id}' "}
+	                            <div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
+	                            <a href="#" data-dropdown="notifications" class="notifications-icon"></a>
+	                        {/exp:query}
+                        {/exp:user:stats}    
                         </div>
                     </div>
                     <div class="header-right">
@@ -63,23 +70,14 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                 </header>
                 <nav id="nav" class="nav" role="navigation">
                     <h3 class="name show-for-small" data-icon="👤">
-                    {exp:user:stats}
-                        <a href="{path='profile'}/{member_id}">{screen_name}</a>
-                    {/exp:user:stats}
+                    
                     </h3>
                     <ul>
                         <li>Filter By</li>
-                        <li><a href="{site_url}">All</a></li>
+                        <li><a href="https://shanghai.nyu.edu/introductions/">All</a></li>
                         <li><a href="#">Questions</a></li>
-                        <li><a href="{path='member-list/'}">Students</a></li>
-                        {if logged_in}
-                        <li>
-	                        {exp:user:logout return=""}
-	                        <a href="{url}">Logout</a>
-	                        {/exp:user:logout}
-                        </li>
-                        {/if}
-                    </ul>
+                        <li><a href="https://shanghai.nyu.edu/introductions/index.php?/member-list">Students</a></li>
+                                            </ul>
                    <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                 </nav>
                 <div id="main" class="main">

@@ -22,12 +22,9 @@
         </ul>
         <ul id="actions" class="actions drop" data-dropdown-content>
             <li><h4>Actions</h4></li>
-            <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
-adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
-            <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
-adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
-            <li><a href="#"><p>Lorem ipsum dolor sit amet, consectetur
-adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
+            {exp:channel:entries channel='actions'}
+            <li><a href="{link}"><p>{description}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a></li>
+            {/exp:channel:entries}
         </ul>
     	{if segment_1=='profile'} 
         <div class="outer-wrap profile" id="outer-wrap">
@@ -60,8 +57,10 @@ adipiscing elit.<br><small>6 hours ago from <span></span></small></p></a></li>
                     </div>
                     <div class="header-right">
                         <div class="second ribbon">
-                            <div class="actions-count" id="actions-count"><span>99+</span></div>
+                        {exp:channel:entries channel='actions'}
+                            <div class="actions-count" id="actions-count"><span>{count}</span></div>
                             <a href="#" data-dropdown="actions" class="actions-icon"></a>
+                        {/exp:channel:entries}    
                         </div>
                         <div class="post-icon">
                             <a href="{path='content/poststatus'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn"><span class="visuallyhidden">New Post</span></a>

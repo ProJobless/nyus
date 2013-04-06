@@ -28,7 +28,8 @@
 		        WHERE 
 		        exp_channel_data.field_id_2=exp_friends_status.status_id AND
 		        exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
-		        exp_friends_status.member_id='{member_id}' 
+		        exp_friends_status.member_id='{member_id}' AND
+		        
 		        ORDER BY entry_date DESC limit 5
 		        "}
 		        		{exp:user:users member_id='{comment_owner}'}

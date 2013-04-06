@@ -15,8 +15,26 @@
         <ul id="notifications" class="notifications drop" data-dropdown-content>
             <li><h4>Notifications</h4></li>
             {exp:user:stats}  
-		        {exp:query sql="select exp_friends_profile_comments.comment, exp_friends_profile_comments.friend_id, exp_friends_profile_comments.entry_date, exp_members.screen_name as screen_name_comment_user, exp_members.photo_filename as photo_filename_comment_user from exp_friends_profile_comments, exp_members where exp_friends_profile_comments.friend_id=exp_members.member_id AND author_id='{member_id}' order by entry_date DESC limit 5"}
-	            <li><a href="#"><img src="images/member_photos/{photo_filename_comment_user}" width="40"><p><span>{screen_name_comment_user}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a></li>
+		        {exp:query sql="
+		        SELECT 
+		        exp_channel_data.field_id_1 as comment, 
+		        exp_channel_data.field_id_2 as status_owner, 
+		        exp_channel_data.field_id_13 as comment_owner,
+		        exp_channel_titles.entry_date 
+		        FROM 
+		        exp_channel_data, 
+		        exp_friends_status, 
+		        exp_channel_titles
+		        WHERE 
+		        exp_channel_data.field_id_2=exp_friends_status.status_id AND
+		        exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
+		        exp_friends_status.member_id='{member_id}' 
+		        ORDER BY entry_date DESC limit 5
+		        "}
+		        		{exp:user:users member_id='{comment_owner}'}
+		            	<li><a href="#"><img src="images/member_photos/{photo_filename}" width="40"><p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a></li>
+		            	{/exp:user:users}
+
 	            {/exp:query}
             {/exp:user:stats}
         </ul>
@@ -48,7 +66,7 @@
                         
                         <div class="first ribbon">
 	                    {exp:user:stats}  
-	                        {exp:query sql="select count(*) as count_comments from `exp_friends_profile_comments` where author_id='{member_id}' "}
+	                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
 	                            <div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
 	                            <a href="#" data-dropdown="notifications" class="notifications-icon"></a>
 	                        {/exp:query}

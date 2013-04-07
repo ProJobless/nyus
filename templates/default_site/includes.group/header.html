@@ -28,8 +28,7 @@
 		        WHERE 
 		        exp_channel_data.field_id_2=exp_friends_status.status_id AND
 		        exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
-		        exp_friends_status.member_id='{member_id}' AND
-		        
+		        exp_friends_status.member_id='{member_id}'
 		        ORDER BY entry_date DESC limit 5
 		        "}
 		        		{exp:user:users member_id='{comment_owner}'}
@@ -92,9 +91,9 @@
                     </h3>
                     <ul>
                         <li>Filter By</li>
-                        <li><a href="https://shanghai.nyu.edu/introductions/">All</a></li>
-                        <li><a href="#">Questions</a></li>
-                        <li><a href="https://shanghai.nyu.edu/introductions/index.php?/member-list">Students</a></li>
+                        <li><a href="{path='content/index'}">All</a></li>
+                        <li><a href="path='content/questions'}">Questions</a></li>
+                        <li><a href="{path='member-list/index'}">Students</a></li>
                                             </ul>
                    <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                 </nav>

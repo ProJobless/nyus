@@ -107,9 +107,11 @@
                 </header>
                 {if segment_1!='setup'}
                 <nav id="nav" class="nav" role="navigation">
+                    {exp:user:stats}
                     <h3 class="name show-for-small" data-icon="👤">
-                    
+                    <a href="{path='profile'}">{screen_name}</a>
                     </h3>
+                    {/exp:user:stats}
                     <ul>
                         <li>Filter By</li>
                         <li><a href="{path='content/index'}">All</a></li>

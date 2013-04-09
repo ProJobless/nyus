@@ -3,7 +3,7 @@
 <article class="post section-container accordion" data-section="accordion">
     <div class="post-header author">
         <div class="user-img photo">
-            <a href="{path='profile'}/{member_id}}">
+            <a href="{path='profile'}/{member_id}">
                 {if photo_filename}
                 <img src="{photo_url}{photo_filename}">
                 {if:else}
@@ -28,7 +28,7 @@
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
 	        {if media_images}
 		        <div class="post-img">
-			    	<img src="{site_url}/images/media_images/{media_images}" />
+			    	<img src="{site_url}images/media_images/{media_images}" />
 		        </div> <!-- .post-img -->
 	        {/if}
 	        
@@ -37,9 +37,9 @@
 	
 				<script type="text/javascript">
 				    jwplayer("myAudio{status_id}").setup({
-				        file: "{site_url}/images/media_audio/{media_audio}",
+				        file: "{path='images/media_audio'}/{media_audio}",
 				        image: "/uploads/myPoster.jpg",
-				        skin: '{site_url}/js/six.xml'
+				        skin: "{site_url}js/six.xml"
 				        
 				    });
 				</script> 	         
@@ -50,9 +50,9 @@
 	
 				<script type="text/javascript">
 				    jwplayer("myVideos{status_id}").setup({
-				        file: "{site_url}/images/media_videos/{media_video}",
+				        file: "{path='images/media_videos'}/{media_video}",
 				        image: "/uploads/myPoster.jpg",
-				        skin: '{site_url}/js/five.xml'
+				        skin: "{site_url}js/five.xml"
 				    });
 				</script>  
 			{/if}	

@@ -152,7 +152,9 @@ $(document).ready(function(){
     })
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
-    if (document.URL.match(/setup/).length === 1) { $('#actions-icon').trigger('click') }
+    try {
+        if (document.URL.match(/setup/).length === 1) { $('#actions-icon').trigger('click') }
+    } catch(e) {}
 })
 
 

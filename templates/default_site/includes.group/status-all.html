@@ -24,23 +24,24 @@
             
     <div class="status post-content">
         <p>{status}</p>
+        
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
 	        {if media_images}
 		        <div class="post-img">
-			    	<img src="{media_images}" />
+			    	<img src="{site_url}/images/media_images/{media_images}" />
 		        </div> <!-- .post-img -->
 	        {/if}
 	        
 	        {if media_audio}   
 		        <audio controls>
-				  <source src="{media_audio}" type="audio/mpeg">
+				  <source src="{site_url}/images/media_audio/{media_audio}" type="audio/m4a">
 				Your browser does not support the audio element.
 				</audio>
 			{/if}
 			
 	        {if media_video}   
 		        <video width="320" height="240" controls>
-				  <source src="{media_video}" type="video/mp4">
+				  <source src="{site_url}/images/media_video/{media_video}" type="video/mp4">
 				Your browser does not support the audio element.
 				</video>
 			{/if}			

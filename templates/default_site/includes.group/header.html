@@ -11,7 +11,11 @@
         <link rel="stylesheet" href="{site_url}css/screen.css" />
         <script src="{site_url}js/vendor/custom.modernizr.js"></script>        
     </head>
+	{if segment_1=='profile' || segment_1=='setup'} 
+    <body class="profile">
+    {if:else}
     <body>
+    {/if}
         <ul id="notifications" class="notifications drop" data-dropdown-content>
             <li><h4>Notifications</h4></li>
             {exp:user:stats}  
@@ -39,16 +43,24 @@
             {/exp:user:stats}
         </ul>
         <ul id="actions" class="actions drop" data-dropdown-content>
-            <li><h4>Actions</h4></li>
-            {exp:channel:entries channel='actions'}
-            <li><a href="{link}"><p>{description}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a></li>
+            {if segment_1=='setup' && segment_2==''}
+            <li><h4>Welcome!</h4></li>
+            {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc'}
+            <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
             {/exp:channel:entries}
+            {if:elseif segment_2=='step-two'}
+            <li><h4>Actions</h4></li>
+            {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc'}
+            <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+            {/exp:channel:entries}
+            {if:else}
+            <li><h4>Actions</h4></li>
+            {exp:channel:entries channel='actions' category='not 1'}
+            <li><a href="{link}" rel="ignore"><p>{title}<br><small>{entry_date format='%F %j, %Y'} <span>location?</span></small></p></a></li>
+            {/exp:channel:entries}
+            {/if}
         </ul>
-    	{if segment_1=='profile'} 
-        <div class="outer-wrap profile" id="outer-wrap">
-        {if:else}
         <div class="outer-wrap" id="outer-wrap">
-        {/if}
             
             <div class="page" id="page">
             <!-- Header and Nav -->
@@ -58,9 +70,9 @@
                     <div class="header-left">
                         <div class="menu">
                         {if segment_2=='profile'}  
-                            <a href="{site_url}" class="back" data-title="BACK" id="back"><span class="visuallyhidden">Back</span></a>
+                            <a href="{site_url}" class="back" data-title="BACK" id="back" rel="ignore"><span class="visuallyhidden">Back</span></a>
                         {if:else}
-                            <a href="#nav" class="menu-btn" data-icon="☰" id="menu-btn"><span class="visuallyhidden">Navigate</span></a>           
+                            <a href="#nav" class="menu-btn" data-icon="☰" id="menu-btn" rel="ignore"><span class="visuallyhidden">Navigate</span></a>           
                         {/if}
                         </div>
                         
@@ -68,23 +80,35 @@
 	                    {exp:user:stats}  
 	                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
 	                            <div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
-	                            <a href="#" data-dropdown="notifications" class="notifications-icon"></a>
+	                            <a href="#" class="notifications-icon" data-dropdown="notifications"></a>
 	                        {/exp:query}
                         {/exp:user:stats}    
                         </div>
                     </div>
                     <div class="header-right">
                         <div class="second ribbon">
+<<<<<<< HEAD
                         {exp:channel:entries channel='actions' dynamic='off'}
+=======
+                        {if segment_1=='setup'}
+                        {exp:channel:entries channel='actions' category='1'}
+>>>>>>> 30163190edc2d1be17f233d8ebf6638f261e34b3
                             <div class="actions-count" id="actions-count"><span>{count}</span></div>
-                            <a href="#" data-dropdown="actions" class="actions-icon"></a>
+                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
                         {/exp:channel:entries}    
+                        {if:else}
+                        {exp:channel:entries channel='actions' category='not 1'}
+                            <div class="actions-count" id="actions-count"><span>{count}</span></div>
+                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
+                        {/exp:channel:entries}    
+                        {/if}
                         </div>
                         <div class="post-icon">
                             <a href="{path='content/poststatus'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn"><span class="visuallyhidden">New Post</span></a>
                         </div>
                     </div>
                 </header>
+                {if segment_1!='setup'}
                 <nav id="nav" class="nav" role="navigation">
                     <h3 class="name show-for-small" data-icon="👤">
                     
@@ -94,7 +118,9 @@
                         <li><a href="{path='content/index'}">All</a></li>
                         <li><a href="{path='content/question'}">Questions</a></li>
                         <li><a href="{path='member-list/index'}">Students</a></li>
-                                            </ul>
+                        {if logged_in}<li><a href="{path='LOGOUT'}">Log Out</a></li>{/if}
+                    </ul>
                    <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                 </nav>
+                {/if}
                 <div id="main" class="main">

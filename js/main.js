@@ -143,7 +143,16 @@ function findIgnores(){
 
 $(document).ready(function(){
     findIgnores()
-    $ignoreMe.on('click', function(){ return false; })
+    $ignoreMe.on('click', function(e){ e.preventDefault() })
+    
+    
+    // SHOW/HIDE EDIT PROFILE FORM
+    $('#edit-details').on('click', function(){
+        $('#form, #instructions').toggleClass('visuallyhidden')
+    })
+    
+    // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
+    if (document.URL.match(/setup/).length === 1) { $('#actions-icon').trigger('click') }
 })
 
 

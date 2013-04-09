@@ -60,6 +60,14 @@
 
 @include establish-baseline($base-font-size);
 
+body {
+    background: #2e2e2e url(../img/pinstripes-black.png) repeat;
+}
+
+body.profile {
+    background: #ccc url(../img/pinstripes-white.png) repeat;
+}
+
 [data-icon]:before {
   font-family: "Entypo"; /* BYO icon font, mapped smartly */
   content: attr(data-icon);
@@ -75,13 +83,8 @@
 
 .outer-wrap {
     position: relative;
-    overflow: hidden;
+/*     overflow: hidden; */
     width: 100%;
-    background: #2e2e2e url(../img/pinstripes-black.png) repeat;
-}
-
-.profile.outer-wrap {
-    background: #ccc url(../img/pinstripes-white.png) repeat;
 }
 
 .page {
@@ -168,11 +171,12 @@
         border-bottom: 1px solid $light-gray;
         
         p {
-            @include adjust-font-size-to(15px, .7);
+            @include adjust-font-size-to(16px, .9);
         }
         
         &:not(:first-child) {
-            padding: 0.3em 1em 0.2em;
+            padding: 0.5em 1em;
+            height: 51px;
         }
         
         a { 
@@ -211,7 +215,7 @@
         float: left;
         width: 27px;
         height: 27px;
-        margin-top: 10px;
+        margin-top: 7px;
     }
     
     a {
@@ -663,31 +667,6 @@
             margin: 0.5em 0;
         }   
         
-        .profile-info {
-            @include grid-column(12);
-            @include shadow;
-            margin: 0.5em 0;
-            
-            
-            th {
-                text-align: left;
-                color: #bbb;
-            }
-            
-            td {
-                text-align: right;
-                font-weight: bold;
-            }
-            
-            tr {
-                border-bottom: 1px solid $light-gray;
-            }
-            
-            tr:last-child {
-                border-bottom: none;
-            }   
-        }
-        
         .interests {
             background: white;
             padding-top: 1em;
@@ -709,6 +688,33 @@
         margin-bottom: 0.25em;
     }
 } 
+
+.profile-info {
+    @include grid-column(12);
+    @include shadow;
+    margin: 0.5em 0;
+    
+    
+    th,
+    label {
+        text-align: left;
+        color: #bbb;
+        font-weight: bold;
+    }
+    
+    td {
+        text-align: right;
+        font-weight: bold;
+    }
+    
+    tr {
+        border-bottom: 1px solid $light-gray;
+    }
+    
+    tr:last-child {
+        border-bottom: none;
+    }   
+}
 
 .recent-activity {
     @include grid-column(12);
@@ -818,30 +824,58 @@
     }
     
     input[type="text"] {
+/*
         padding-top: 1.5em;
         padding-bottom: 1.5em;
+*/
     }
+}
+
+.cancel {
+    color: $primary-color;
+    @include background-image(linear-gradient(#fff #cfcfcf));
+}
+
+input[type="submit"],
+.approve {
+    color: $white;
+    @include purple-gradient;
+}
+
+.cancel,
+.approve,
+input[type="submit"] {
+    font-weight: normal;
+    border: 1px solid $medium-gray;
+    padding: 13px 13px;
+    @include adjust-font-size-to(14px, .5);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.profile-setup {
+    @extend .full-profile;
     
-    .cancel {
-        color: $primary-color;
-        @include background-image(linear-gradient(#fff #cfcfcf));
+    .user-img {
+        background: url(../img/profile-setup.jpg) no-repeat;
     }
+}
+
+.step-one > b {
+    @include grid-column(3, $push: 9);
+}
+
+.step-two > b {
+    @include grid-column(6, $push: 6);
+    text-align: right;
+}
+
+.step-one > b,
+.step-two > b { // non-semantic column wrapper for step-one next button
+    margin-top: 1em;
     
-    input[type="submit"] {
-        color: $white;
-        @include purple-gradient;
-    }
-    
-    .cancel,
-    input[type="submit"] {
-        font-weight: normal;
-        border: 1px solid $medium-gray;
-        padding: 13px 13px;
-        @include adjust-font-size-to(14px, .5);
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-    }
+    input { float: right; }
 }
 
 .student-list {
@@ -1156,8 +1190,15 @@
         background-size: 94px 94px;
     }
     
+    .profile-setup {
+        .user-img {
+            background: url(../img/profile-setup@2x.jpg);
+            background-size: 94px 94px;
+        }
+    }
+    
     .drop li:not(:first-child):before {
-        background-image: url(../img/purple-flower@2x.png);
+        background-image: url(../img/purple-flower@2x.png) no-repeat;
         background-size: 27px 27px;
     }
 }

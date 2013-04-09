@@ -34,18 +34,29 @@
 		        </div> <!-- .post-img -->
 	        {/if}
 	        
-	        {if media_audio}   
-		        <audio controls>
-				  <source src="{site_url}/images/media_audio/{media_audio}" type="audio/mpeg">
-				Your browser does not support the audio element.
-				</audio>
+	        {if media_audio}  
+		        <div id="myAudio{status_id}">Loading the player...</div>
+	
+				<script type="text/javascript">
+				    jwplayer("myAudio{status_id}").setup({
+				        file: "{site_url}/images/media_audio/{media_audio}",
+				        image: "/uploads/myPoster.jpg",
+				        skin: '{site_url}/js/six.xml'
+				        
+				    });
+				</script> 	         
 			{/if}
 			
-	        {if media_video}   
-		        <video width="320" height="240" controls>
-				  <source src="{site_url}/images/media_videos/{media_video}" type="video/mp4">
-				Your browser does not support the audio element.
-				</video>
+	        {if media_video} 
+		        <div id="myVideos{status_id}">Loading the player...</div>
+	
+				<script type="text/javascript">
+				    jwplayer("myVideos{status_id}").setup({
+				        file: "{site_url}/images/media_videos/{media_video}",
+				        image: "/uploads/myPoster.jpg",
+				        skin: '{site_url}/js/five.xml'
+				    });
+				</script>  
 			{/if}			
         {/exp:channel:entries}   
     </div> <!-- .post-content -->	

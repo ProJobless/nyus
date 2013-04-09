@@ -28,10 +28,37 @@
     <div class="status post-content">
         <p>{status}</p>
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
-        <div class="post-img">
-	    	<img src="{media_images}" />
-        </div> <!-- .post-img -->   
-        {/exp:channel:entries}     
+	        {if media_images}
+		        <div class="post-img">
+			    	<img src="{site_url}/images/media_images/{media_images}" />
+		        </div> <!-- .post-img -->
+	        {/if}
+	        
+	        {if media_audio}  
+		        <div id="myAudio{status_id}">Loading the player...</div>
+	
+				<script type="text/javascript">
+				    jwplayer("myAudio{status_id}").setup({
+				        file: "{site_url}/images/media_audio/{media_audio}",
+				        image: "/uploads/myPoster.jpg",
+				        skin: '{site_url}/js/six.xml'
+				        
+				    });
+				</script> 	         
+			{/if}
+			
+	        {if media_video} 
+		        <div id="myVideos{status_id}">Loading the player...</div>
+	
+				<script type="text/javascript">
+				    jwplayer("myVideos{status_id}").setup({
+				        file: "{site_url}/images/media_videos/{media_video}",
+				        image: "/uploads/myPoster.jpg",
+				        skin: '{site_url}/js/five.xml'
+				    });
+				</script>  
+			{/if}			
+        {/exp:channel:entries}   
     </div> <!-- .post-content -->	
             
     <section class="comments section">

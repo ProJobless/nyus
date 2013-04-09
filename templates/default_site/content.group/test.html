@@ -32,11 +32,7 @@ echo "</pre>";
 <form id="loginForm" method='post' action='{post_url}'>
 <input type='hidden' name='XID' value='{xid}' />
 <input type='hidden' name='ACT' value='{action_id}' />
-<<<<<<< HEAD
 <input type='text' id='username' name='username' value="<?php echo $_SERVER['eppn']; ?>" />
-=======
-<input type='text' id='username' name='username' value="<?php echo $_POST['eppn']; ?>" />
->>>>>>> local-ahead
 <input type='submit' value='Login' id='btnLogin' />
 </form>
 </div>
@@ -65,7 +61,7 @@ $(document).ready(function() {
 				
 			} else if (v == 2){
 				// new user created
-				// window.location({path="actions"});
+				// window.location({path="setup"});
 			} 
 		});		
 

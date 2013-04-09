@@ -1,0 +1,64 @@
+{embed='includes/header'}
+{exp:user:edit dynamic='off' override_return='setup/step-two' return='setup/step-two'  password_required='n' form:class="step-one"}
+        <b><input class="approve" name="next" id="next" type="submit" value="Next"></b>
+
+        <section class="profile-setup">
+        <!-- all profiles are contained in .full-profile -->
+        
+
+            <div class="profile-header clearfix">
+                <!-- takes up the left column on larger screens, stacks on smaller screens -->
+                <div class="user-img"></div> <!-- .profile-photo -->
+                <div class="name">
+                    <h4 data-icon="👤">{screen_name}</h4>
+                </div> <!-- .name -->
+                <a href="#" class="edit-photo" data-icon="📷" id="edit-photo"><span class="visuallyhidden">Edit Photo</span></a>
+            </div> <!-- .profile-header -->
+   
+            <section class="profile-details">
+                <h4>Living</h4>
+                <a href="#" class="edit-details" data-icon="✎" id="edit-details"><span class="visuallyhidden">Edit Interests</span></a>
+                <div class="instructions" id="instructions">
+                    <table class="profile-info">
+                        <tbody>
+                            <tr>
+                                <th scope="rowgroup">Hometown</th>
+                                <td class="data">Where are you from?</td>
+                            </tr>
+                            
+                            <tr>
+                                <th scope="rowgroup">Current City</th>
+                                <td class="data">Where do you live?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Interests</h4>
+                    <div class="interests">
+                        <p>Tell your classmates a little more about yourself...</p>
+                    </div> <!-- .interests -->
+                </div> <!-- .instructions -->
+                
+                <div class="form visuallyhidden" id="form">
+                    <table class="profile-info">
+                        <tbody>
+                            <tr>
+                                <th scope="rowgroup"><label for="location">Hometown</label></th>
+                                <td class="data"><input id="location" name="location" placeholder="e.g. London, UK" value="{location}" ></td>
+                            </tr>
+                            
+                            <tr>
+                                <th scope="rowgroup"><label for="occupation">Current City</label></th>
+                                <td class="data"><input id="occupation" name="occupation" placeholder="e.g. Shanghai, China" value="{occupation}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4><label for="interests">Interests</label></h4>
+                    <div class="interests">
+                        <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." value="{interests}">{interests}</textarea>
+                    </div> <!-- .interests -->
+                </div> <!-- .form -->
+            </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
+        {/exp:user:edit}  
+        </section> <!-- .full-profile -->
+
+{embed='includes/footer'}

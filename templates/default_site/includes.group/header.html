@@ -90,8 +90,10 @@
                         <div class="second ribbon">
                         {if segment_1=='setup'}
                         {exp:channel:entries channel='actions' category='1' dynamic='off'}
+                        	{if count=='0'} 
                             <div class="actions-count" id="actions-count"><span>{count}</span></div>
                             <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
+                            {/if}
                         {/exp:channel:entries}    
                         {if:else}
                         {exp:channel:entries channel='actions' category='not 1'}

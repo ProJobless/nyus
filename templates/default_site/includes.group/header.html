@@ -7,9 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <title>NYU Shanghai-net</title>
         
-        <link rel="stylesheet" href="{site_url}css/normalize.css" />
-        <link rel="stylesheet" href="{site_url}css/screen.css" />
-        <script src="{site_url}js/vendor/custom.modernizr.js"></script>        
+        <link rel="stylesheet" href="{site_url}css/normalize.css">
+        <link rel="stylesheet" href="{site_url}css/screen.css">
+        <link rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox.css">
+        <link rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox-buttons.css">
+
+        <script src="{site_url}js/vendor/custom.modernizr.js"></script>
+        
     </head>
 	{if segment_1=='profile' || segment_1=='setup'} 
     <body class="profile">
@@ -80,7 +84,7 @@
 	                    {exp:user:stats}  
 	                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
 	                            <div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
-	                            <a href="#" class="notifications-icon" data-dropdown="notifications"></a>
+	                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon"></a>
 	                        {/exp:query}
                         {/exp:user:stats}    
                         </div>
@@ -88,27 +92,33 @@
                     <div class="header-right">
                         <div class="second ribbon">
                         {if segment_1=='setup'}
-                        {exp:channel:entries channel='actions' category='1'}
+                        {exp:channel:entries channel='actions' category='1' dynamic='off'}
+                        	{if count!='0'} 
                             <div class="actions-count" id="actions-count"><span>{count}</span></div>
+                            {/if}
                             <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
                         {/exp:channel:entries}    
                         {if:else}
-                        {exp:channel:entries channel='actions' category='not 1'}
+                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
+                            {if count!='0'}
                             <div class="actions-count" id="actions-count"><span>{count}</span></div>
+                            {/if}
                             <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
                         {/exp:channel:entries}    
                         {/if}
                         </div>
                         <div class="post-icon">
-                            <a href="{path='content/poststatus'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn"><span class="visuallyhidden">New Post</span></a>
+                            <a href="{path='post'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn"><span class="visuallyhidden">New Post</span></a>
                         </div>
                     </div>
                 </header>
                 {if segment_1!='setup'}
                 <nav id="nav" class="nav" role="navigation">
+                    {exp:user:stats}
                     <h3 class="name show-for-small" data-icon="👤">
-                    
+                    <a href="{path='profile'}">{screen_name}</a>
                     </h3>
+                    {/exp:user:stats}
                     <ul>
                         <li>Filter By</li>
                         <li><a href="{path='content/index'}">All</a></li>

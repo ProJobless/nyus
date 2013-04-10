@@ -3,7 +3,7 @@
 <article class="post section-container accordion" data-section="accordion">
     <div class="post-header author">
         <div class="user-img photo">
-            <a href="{path='profile'}/{member_id}}">
+            <a href="{path='profile'}/{member_id}">
                 {if photo_filename}
                 <img src="{photo_url}{photo_filename}">
                 {if:else}
@@ -24,10 +24,25 @@
             
     <div class="status post-content">
         <p>{status}</p>
+        
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
-        <div class="post-img">
-	    	<img src="{media_images}" />
-        </div> <!-- .post-img -->   
+	        {if media_images}
+		        <div class="post-img">
+			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}"></a>
+		        </div> <!-- .post-img -->
+	        {/if}
+	        
+	        {if media_audio}
+	           <div class="media-container">
+	               <a href="{path='includes/player'}" class="posted-audio" data-path="{path='images/media_audio'}/{media_audio}" data-audio="true">click here for audio</a>
+	           </div> <!-- .media-container -->
+			{/if}
+			
+	        {if media_video}
+	           <div class="media-container">
+	               <a href="{path='includes/player'}" class="posted-video" data-path="{path='images/media_videos'}/{media_video}">click here for video</a>
+	           </div> <!-- .media-container -->
+			{/if}	
         {/exp:channel:entries}     
     </div> <!-- .post-content -->	
             

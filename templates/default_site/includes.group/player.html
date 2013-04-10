@@ -1,0 +1,29 @@
+<div id="player">
+    Loading...
+</div>
+
+<script type="text/javascript">
+var file = { 
+    path : '<?php echo $_POST['path']; ?>',
+    audio : ('<?php echo $_POST['audio']; ?>' === 'true') ? true : false,
+    width : Number('<?php echo $_POST['width']; ?>') - 70
+}
+
+if (file.audio) {
+    jwplayer('player').setup({
+        file: file.path,
+        height: 30,
+        width: file.width,
+        skin: '{site_url}js/six.xml'
+    });
+
+} else {
+    jwplayer('player').setup({
+        file: file.path,
+        width: file.width,
+        skin: '{site_url}js/six.xml'
+    })
+}
+
+jwplayer().onReady(function(){this.play()})
+</script>

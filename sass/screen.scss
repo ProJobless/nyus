@@ -246,6 +246,7 @@ body.profile {
 .actions-count {
     @include purple-notice-bubble;
     @include adjust-leading-to(.4);
+    @include transition();
     
     span {
         display: block;
@@ -256,12 +257,28 @@ body.profile {
     }
 }
 
+.csstransforms3d.csstransitions {
+    .notifications-count,
+    .actions-count {
+        @include translate3d(0,0,0);
+    }
+    
+    .viewed {
+        @include scale3d($scale-x: .8, $scale-y: .8);
+    }
+}
+
 .notifications-count {
-    left: -15px
+    left: -15px;
+    opacity: 1;
 }
 
 .actions-count {
     right: -15px;
+}
+
+.viewed {
+    opacity: 0;
 }
 
 .post-icon {
@@ -501,8 +518,8 @@ body.profile {
             margin-bottom: 0.5em;
         }
         
-        .jwplayer {
-            @include grid-column(12, $collapse: true);
+        .media-container {
+            @include grid-column(12);
         }
         
         .post-img { 
@@ -604,8 +621,8 @@ body.profile {
 }
 
 
-.full-profile,
-.edit-profile { // nested within .page on your-profile.php
+.full-profile
+/* .edit-profile */ { // nested within .page on your-profile.php
     @include grid-column(12);
     @include teeth;
     margin-top: 1em;
@@ -632,6 +649,9 @@ body.profile {
             position: absolute;
             left: 107px;
             bottom: 0;
+            padding: 0em 0em 0 0.1em;
+            width: 31px;
+            cursor: pointer;
         }
         
         .name {
@@ -683,6 +703,8 @@ body.profile {
     .interests {
         @include grid-column(12);
     }
+    
+    b { @include grid-column(12, $collapse: true); margin-top: 1em;}
     
     .button-wrapper {
         margin-bottom: 0.25em;

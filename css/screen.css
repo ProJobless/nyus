@@ -4280,7 +4280,11 @@ body.profile {
   top: 15px;
   z-index: 1;
   text-align: center;
-  line-height: 0.6em; }
+  line-height: 0.6em;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s; }
   .notifications-count span,
   .actions-count span {
     display: block;
@@ -4290,11 +4294,29 @@ body.profile {
     font-size: 0.625em;
     line-height: 2.16em; }
 
+.csstransforms3d.csstransitions .notifications-count,
+.csstransforms3d.csstransitions .actions-count {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+.csstransforms3d.csstransitions .viewed {
+  -webkit-transform: scale3d(0.8, 0.8, 1.25);
+  -moz-transform: scale3d(0.8, 0.8, 1.25);
+  -ms-transform: scale3d(0.8, 0.8, 1.25);
+  -o-transform: scale3d(0.8, 0.8, 1.25);
+  transform: scale3d(0.8, 0.8, 1.25); }
+
 .notifications-count {
-  left: -15px; }
+  left: -15px;
+  opacity: 1; }
 
 .actions-count {
   right: -15px; }
+
+.viewed {
+  opacity: 0; }
 
 .post-icon {
   float: right; }
@@ -4571,13 +4593,11 @@ body.profile {
       width: 100%;
       float: left;
       margin-bottom: 0.5em; }
-    .post .post-content .jwplayer {
+    .post .post-content .media-container {
       position: relative;
+      padding-left: 0.9375em;
+      padding-right: 0.9375em;
       width: 100%;
-      padding-left: 0;
-      padding-right: 0;
-      padding-left: 0;
-      padding-right: 0;
       float: left; }
     .post .post-content .post-img {
       width: auto;
@@ -4686,8 +4706,7 @@ body.profile {
     .post .comments input[type="submit"] {
       margin-top: 1em; }
 
-.full-profile, .profile-setup,
-.edit-profile {
+.full-profile, .profile-setup {
   position: relative;
   padding-left: 0.9375em;
   padding-right: 0.9375em;
@@ -4705,23 +4724,18 @@ body.profile {
   border-image: url(../img/teeth.png) 7 2 fill repeat;
   margin-top: 1em;
   margin-bottom: 1em; }
-  .full-profile .profile-header, .profile-setup .profile-header,
-  .edit-profile .profile-header {
+  .full-profile .profile-header, .profile-setup .profile-header {
     width: 100%;
     margin: 0;
     max-width: 62.5em;
     *zoom: 1;
     position: relative; }
-    .full-profile .profile-header:before, .profile-setup .profile-header:before, .full-profile .profile-header:after, .profile-setup .profile-header:after,
-    .edit-profile .profile-header:before,
-    .edit-profile .profile-header:after {
+    .full-profile .profile-header:before, .profile-setup .profile-header:before, .full-profile .profile-header:after, .profile-setup .profile-header:after {
       content: " ";
       display: table; }
-    .full-profile .profile-header:after, .profile-setup .profile-header:after,
-    .edit-profile .profile-header:after {
+    .full-profile .profile-header:after, .profile-setup .profile-header:after {
       clear: both; }
-    .full-profile .profile-header .user-img, .profile-setup .profile-header .user-img,
-    .edit-profile .profile-header .user-img {
+    .full-profile .profile-header .user-img, .profile-setup .profile-header .user-img {
       position: relative;
       width: 33.33333%;
       padding-left: 0;
@@ -4730,14 +4744,12 @@ body.profile {
       padding-right: 0;
       float: left;
       height: 94px; }
-      .full-profile .profile-header .user-img img, .profile-setup .profile-header .user-img img,
-      .edit-profile .profile-header .user-img img {
+      .full-profile .profile-header .user-img img, .profile-setup .profile-header .user-img img {
         -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
         -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
         box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
         width: 94px; }
-    .full-profile .profile-header .edit-photo, .profile-setup .profile-header .edit-photo,
-    .edit-profile .profile-header .edit-photo {
+    .full-profile .profile-header .edit-photo, .profile-setup .profile-header .edit-photo {
       color: #666;
       display: block;
       width: 30px;
@@ -4757,24 +4769,23 @@ body.profile {
       line-height: 0.61714em;
       position: absolute;
       left: 107px;
-      bottom: 0; }
-    .full-profile .profile-header .name, .profile-setup .profile-header .name,
-    .edit-profile .profile-header .name {
+      bottom: 0;
+      padding: 0em 0em 0 0.1em;
+      width: 31px;
+      cursor: pointer; }
+    .full-profile .profile-header .name, .profile-setup .profile-header .name {
       position: absolute;
       left: 110px; }
-      .full-profile .profile-header .name h4, .profile-setup .profile-header .name h4,
-      .edit-profile .profile-header .name h4 {
+      .full-profile .profile-header .name h4, .profile-setup .profile-header .name h4 {
         margin: 0;
         font-size: 1em;
         line-height: 0.975em; }
-      .full-profile .profile-header .name h4:before, .profile-setup .profile-header .name h4:before,
-      .edit-profile .profile-header .name h4:before {
+      .full-profile .profile-header .name h4:before, .profile-setup .profile-header .name h4:before {
         color: #999;
         margin-right: .25em;
         font-size: 1.625em;
         line-height: 0em; }
-  .full-profile .profile-details, .profile-setup .profile-details,
-  .edit-profile .profile-details {
+  .full-profile .profile-details, .profile-setup .profile-details {
     width: auto;
     margin-left: -0.9375em;
     margin-right: -0.9375em;
@@ -4788,16 +4799,12 @@ body.profile {
     margin-left: 0;
     margin-right: 0;
     border-top: 1px solid #dedede; }
-    .full-profile .profile-details:before, .profile-setup .profile-details:before, .full-profile .profile-details:after, .profile-setup .profile-details:after,
-    .edit-profile .profile-details:before,
-    .edit-profile .profile-details:after {
+    .full-profile .profile-details:before, .profile-setup .profile-details:before, .full-profile .profile-details:after, .profile-setup .profile-details:after {
       content: " ";
       display: table; }
-    .full-profile .profile-details:after, .profile-setup .profile-details:after,
-    .edit-profile .profile-details:after {
+    .full-profile .profile-details:after, .profile-setup .profile-details:after {
       clear: both; }
-    .full-profile .profile-details h4, .profile-setup .profile-details h4,
-    .edit-profile .profile-details h4 {
+    .full-profile .profile-details h4, .profile-setup .profile-details h4 {
       position: relative;
       padding-left: 0.9375em;
       padding-right: 0.9375em;
@@ -4806,16 +4813,14 @@ body.profile {
       font-size: 0.875em;
       line-height: 1.11429em;
       margin: 0.5em 0; }
-    .full-profile .profile-details .interests, .profile-setup .profile-details .interests,
-    .edit-profile .profile-details .interests {
+    .full-profile .profile-details .interests, .profile-setup .profile-details .interests {
       background: white;
       padding-top: 1em;
       margin-top: 0.5em;
       -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
       -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
       box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2); }
-  .full-profile .edit-details, .profile-setup .edit-details,
-  .edit-profile .edit-details {
+  .full-profile .edit-details, .profile-setup .edit-details {
     color: #666;
     display: block;
     width: 30px;
@@ -4832,15 +4837,22 @@ body.profile {
     font-size: 2.5em;
     line-height: 0.534em;
     float: right; }
-  .full-profile .interests, .profile-setup .interests,
-  .edit-profile .interests {
+  .full-profile .interests, .profile-setup .interests {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
     width: 100%;
     float: left; }
-  .full-profile .button-wrapper, .profile-setup .button-wrapper,
-  .edit-profile .button-wrapper {
+  .full-profile b, .profile-setup b {
+    position: relative;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+    margin-top: 1em; }
+  .full-profile .button-wrapper, .profile-setup .button-wrapper {
     margin-bottom: 0.25em; }
 
 .profile-info {

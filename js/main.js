@@ -141,6 +141,33 @@ function findIgnores(){
     
 }
 
+// FILE HANDLER FOR UPLOADED PROFILE IMAGE PREVIEWS
+// MORE INFO HERE: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
+
+function handleFiles(files, preview) {
+    var file = files[0];
+    var imageType = /image.*/;
+    var img = document.createElement("img");
+    var $preview = $(preview)
+    var reader = new FileReader();
+     
+    if (!file.type.match(imageType)) {
+      return
+    }
+    
+    img.classList.add("thumb");
+    img.file = file;
+    $preview.html(img);
+     
+    reader.onload = (function(aImg) { 
+        return function(e) { 
+            aImg.src = e.target.result;
+        }; 
+    })(img);
+    
+    reader.readAsDataURL(file);
+}
+
 $(document).ready(function(){
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
@@ -148,26 +175,60 @@ $(document).ready(function(){
     
     // SHOW/HIDE EDIT PROFILE FORM
     $('#edit-details').on('click', function(){
-        $('#form, #instructions').toggleClass('visuallyhidden')
+        if ($('#intructions').length === 1 ) {
+            $('#form, #instructions').toggleClass('visuallyhidden')
+        } else if ($('#info').length === 1) {
+            $('#form, #info').toggleClass('visuallyhidden')
+        }
     })
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
     try {
         if (document.URL.match(/setup/).length === 1) { $('#actions-icon').trigger('click') }
     } catch(e) {}
-})
-
-
-try {
-    jwplayer("v1").setup({
-         file: "uploads/img_1966.mov",
-        image: "uploads/img_1966_poster.png",
-        width: "100%"
-    });
     
-    jwplayer('a1').setup({
-        file: 'uploads/regina-spektor-dont-leave-me.mp3',
-        width: '100%',
-        height: '30'
+    $('.posted-img').fancybox({
+        helpers : {
+            title : {},
+            closeClick: true,
+            overlay : {
+                css : {
+                'background': 'black'
+                }
+            }
+        }
     })
-} catch(e) {}
+    
+    var path;
+    
+    // FANCYBOX FOR AUDIO AND VIDEO OBJECTS ON GREAT WALL
+    $('.posted-audio, .posted-video').click(function(e){
+        e.preventDefault()
+        path = $(this).attr('data-path')
+        audio = $(this).attr('data-audio')
+        width = window.innerWidth
+        $.fancybox(this, {
+            type : 'ajax',
+            ajax : {
+                type : 'POST',
+                data : 'path=' + path + '&audio=' + audio + '&width=' + width
+            },
+            helpers : {
+                closeClick: true,
+                overlay : {
+                    css : {
+                        'background' : 'black'
+                        }
+                }
+            }
+        })
+    })
+    
+    $('#notifications-icon').click(function(){
+        $('.notifications-count').addClass('viewed')
+    })    
+    
+    $('#actions-icon').click(function(){
+        $('.actions-count').addClass('viewed')
+    })
+})

@@ -4,23 +4,23 @@
 
 <script type="text/javascript">
 var file = { 
-    path : '<?php echo $_POST['path']; ?>',
+    path : '{path='images/media_audio'}/<?php echo urlencode($_POST['path']); ?>',
     audio : ('<?php echo $_POST['audio']; ?>' === 'true') ? true : false,
-    width : Number('<?php echo $_POST['width']; ?>') - 70
+    width : Number('<?php echo $_POST['width']; ?>')
 }
 
-if (file.audio) {
+if (file.audio) { // Set the Height to 30px so that audio only gets a control bar
     jwplayer('player').setup({
-        file: file.path,
+        file: '<?php echo $_POST['path']; ?>',
         height: 30,
-        width: file.width,
+        width: file.width <= 320 ? file.width - 70: 480,
         skin: '{site_url}js/six.xml'
     });
 
 } else {
     jwplayer('player').setup({
-        file: file.path,
-        width: file.width,
+        file: '<?php echo $_POST['path']; ?>',
+        width: file.width <= 320 ? file.width - 70 : 720,
         skin: '{site_url}js/six.xml'
     })
 }

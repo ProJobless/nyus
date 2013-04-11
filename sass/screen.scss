@@ -525,6 +525,7 @@ body.profile {
         .post-img { 
             @include grid-row(nest);
             padding: 0 .5em;
+            text-align: center;
             
             img {
                 @include shadow;
@@ -748,6 +749,22 @@ body.profile {
     background: rgba(255,255,255,0.8);
     padding-top: 1em;
     
+    .preview { @include grid-row(nest); margin-bottom: 1em; }
+    .thumb { @include grid-column(4); }
+    .size { @include grid-column(8); text-align: left; }
+    button {display: block; margin-top: 1em; margin-bottom: 0;}
+    
+
+    
+    .submit-post[disabled] {
+        @include small-gray-square;
+        @include adjust-font-size-to(14px, .25);
+        padding: 1em;
+        width: auto;
+        height: auto;
+        display: inline-block;
+    }
+    
     textarea {
         resize: none;
         height: inherit;
@@ -763,24 +780,36 @@ body.profile {
             @include purple-gradient;
             border-right: 1px solid $black;
             cursor: pointer;
+            position: relative;
+//            display: block;
+            text-align: center;
+            @include adjust-font-size-to(35px, 1);
+            color: white;
+            height: 30px;
+            
+            &.disabled { 
+                @include background-image(linear-gradient(#fff #d0d0d0));
+                @include adjust-font-size-to(40px, 0.89);
+                color: #666;
+                cursor:not-allowed; 
+            }
+            
+            &:before { font-weight: normal; }
 
             &:last-child {
                 border-right: none;
             }
             
-            &:before {
+  /*
+          &:before {
                 content: "";
                 display: block;
             }
+*/
             
             a {
-                position: relative;
-                display: block;
-                text-align: center;
-                @include adjust-font-size-to(35px, 1);
-                color: white;
-                
-                &:before { font-weight: normal; }
+                cursor: default;
+
             }
         }
         

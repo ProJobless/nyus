@@ -6,6 +6,10 @@
 
         <section class="great-wall">    
 	        
+	        {if segment_2=='comment-posted'}
+	        	{exp:status_filter}
+	        {/if}
+	        
 	        <!--See all Status-->
 	        {embed='includes/status-all'}
         

@@ -1,4 +1,5 @@
-{exp:query sql="
+
+{exp:query limit="10" sql="
 SELECT
 status_id, 
 member_id, 
@@ -6,11 +7,15 @@ status,
 status_date
 FROM 
 exp_friends_status
-ORDER BY status_date DESC 
-limit 20 
+ORDER BY status_date DESC
 "}
+
 {exp:user:stats member_id='{member_id}'}
+
+
 <article class="post section-container accordion" data-section="accordion">
+
+
     <div class="post-header author">
         <div class="user-img photo">
             <a href="{path='profile'}/{member_id}">
@@ -68,6 +73,21 @@ limit 20
             {embed='includes/comments' id_member='{member_id}' id_status='{status_id}'}
         </div>
     </section> <!-- .comments -->    
+
+  
 </article>
+
+
 {/exp:user:stats}
+
+	{paginate}
+        {if previous_page}
+            <a href="{auto_path}">Previous Page</a> &nbsp;
+        {/if}	
+		{if next_page}
+            <a href="{auto_path}">Next Page</a>
+        {/if}
+	{/paginate}
+
 {/exp:query}
+

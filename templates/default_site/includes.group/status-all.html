@@ -1,19 +1,12 @@
 {exp:query sql="
-SELECT DISTINCT
-exp_friends_status.status_id as status_id, 
-exp_friends_status.member_id as member_id, 
-exp_friends_status.status as status, 
-exp_friends_status.status_date as status_date, 
-exp_channel_titles.entry_id 
+SELECT
+status_id, 
+member_id, 
+status, 
+status_date
 FROM 
 exp_friends_status
-LEFT JOIN
-exp_channel_data
-ON exp_channel_data.field_id_2=exp_friends_status.status_id
-LEFT JOIN
-exp_channel_titles
-ON exp_channel_titles.entry_id=exp_channel_data.entry_id
-ORDER BY exp_friends_status.status_date DESC, exp_channel_titles.entry_id DESC 
+ORDER BY status_date DESC 
 limit 20 
 "}
 {exp:user:stats member_id='{member_id}'}
@@ -41,7 +34,7 @@ limit 20
             
     <div class="status post-content">
     
-        <p>{status_id}{status}</p>
+        <p>{status}</p>
         
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
 	        {if media_images}

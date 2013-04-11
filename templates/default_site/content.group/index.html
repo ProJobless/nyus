@@ -5,9 +5,8 @@
     <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
 
         <section class="great-wall">    
-	        
-	        {if segment_2=='comment-posted'}
-	        	{exp:status_filter}
+	        {if segment_1}
+	        	{exp:status_filter current_date='{current_time}' status_owner='{segment_1}'}
 	        {/if}
 	        
 	        <!--See all Status-->

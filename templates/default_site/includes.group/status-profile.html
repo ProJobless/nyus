@@ -1,4 +1,12 @@
-{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' AND member_id='{segment_2}' ORDER BY status_date DESC limit 10"}
+{exp:query sql="
+SELECT 
+status_id, member_id, status, status_date 
+FROM exp_friends_status 
+WHERE 
+site_id ='1' AND 
+member_id='{segment_2}' 
+ORDER BY status_date DESC limit 10
+"}
 {exp:user:stats member_id='{segment_3}'}
 
 <article class="post section-container accordion" data-section="accordion">

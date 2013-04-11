@@ -1,5 +1,16 @@
 
-{exp:query sql="SELECT exp_friends_status.status_id as status_id, exp_friends_status.member_id as member_id, exp_friends_status.status as status, exp_friends_status.status_date as status_date FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_4=exp_friends_status.status_id AND exp_channel_data.channel_id='2' AND exp_channel_data.field_id_5='1' ORDER BY status_date DESC "}
+{exp:query sql="
+SELECT exp_friends_status.status_id as status_id, 
+exp_friends_status.member_id as member_id, 
+exp_friends_status.status as status, 
+exp_friends_status.status_date as status_date 
+FROM 
+exp_channel_data, 
+exp_friends_status 
+WHERE exp_channel_data.field_id_4=exp_friends_status.status_id AND 
+exp_channel_data.channel_id='2' AND 
+exp_channel_data.field_id_5='1' 
+ORDER BY status_date DESC "}
 
 
 {exp:user:stats member_id='{member_id}'}

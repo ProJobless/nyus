@@ -1,40 +1,41 @@
 <section class="new-post">
 
 	{if segment_3!='flag'}
-	<form action="{path='post'}/{logged_in_member_id}/flag" method="post" enctype="multipart/form-data">
-	<textarea id="post" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
+	<form action="{path='post'}/{logged_in_member_id}/flag" enctype="multipart/form-data" method="post" name="new-post">
+		<div class="preview" id="preview"><span class="size" id="size"></span></div>
+    	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
 
-                            <div class="media">
-                                <div class="post-button photo" id="photo">
-                                    <a href="#" data-icon="&#128247;">
-                                        <span class="visuallyhidden">Upload an Image</span>
-	                                    <input type="file" accept="image/*" id="media_images" name="media_images" value="image">
-                                    </a>
-                                </div>
-                                <div class="post-button video">
-                                    <a href="#" data-icon="&#127916;">
-                                        <span class="visuallyhidden">Upload a Video</span>
-                                        <input type="file" accept="video/*" id="media_video" name="media_video" value="video">
-                                    </a>
-                                </div>
-                                <div class="post-button audio">
-                                    <a href="#" data-icon="&#9835;">
-                                        <span class="visuallyhidden">Upload an audio file</span>
-                                        <input type="file" accept="audio/*" id="media_audio" name="media_audio" value="audio">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="question">
-                                <input type="checkbox" name="question" value="1" id="question">
-                            </div>	
+            <div class="media">
+                <div class="post-button photo" data-icon="&#128247;">
+
+                        <span class="visuallyhidden">Upload an Image</span>
+                        <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this.files, $('#preview'))" name="media_images" type="file" value="image">
+
+                </div>
+                <div class="post-button video" data-icon="&#127916;">
+
+                        <span class="visuallyhidden">Upload a Video</span>
+                        <input accept="video/*" class="video-input" id="video-input" onchange="handleFiles(this.files, $('#preview'))" name="media_video" type="file" value="video">
+
+                </div>
+                <div class="post-button audio" data-icon="&#9835;">
+
+                        <span class="visuallyhidden">Upload an audio file</span>
+                        <input accept="audio/*" class="audio-input" id="audio-input" onchange="handleFiles(this.files, $('#preview'))" name="media_audio" type="file" value="audio">
+
+                </div>
+            </div>
+            <div class="question">
+                <input type="checkbox" name="question" value="1" id="question">
+            </div>	
 	
-	<input type="submit" value="Post" id="post" class="post" >
+    	<input type="submit" value="Post" id="submit-post" class="submit-post" >
 	</form>
 	{/if}
 	
 	{if segment_3=='flag'}
 	{exp:status_updates author_id='{segment_2}' date_of_entry='{current_time}'}
-	<p>Your Status was updates</p>
+	{redirect='/'}
 	{/if}
 	
 </section> <!-- .new-post -->

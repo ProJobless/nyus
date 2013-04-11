@@ -141,37 +141,110 @@ function findIgnores(){
     
 }
 
-// FILE HANDLER FOR UPLOADED PROFILE IMAGE PREVIEWS
+// FILE HANDLER FOR UPLOADED IMAGE PREVIEWS
+// SHOWS FILE NAME, SIZE AND IMAGE, JUST FILE NAME AND SIZE FOR VIDEO AND AUDIO
 // MORE INFO HERE: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
 
-function handleFiles(files, preview) {
-    var file = files[0];
-    var imageType = /image.*/;
-    var img = document.createElement("img");
-    var $preview = $(preview)
-    var reader = new FileReader();
-     
-    if (!file.type.match(imageType)) {
-      return
+function updateSize(file) {
+    /*
+var nBytes = 0,
+        nFiles = files.length
+        
+    for (var nFileId = 0; nFileId < nFiles; nFileId++) {
+        nBytes += files[nFileId].size
+    }
+*/
+    var nBytes = file.size
+    var output = nBytes + ' bytes'
+    for (var multiples = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
+        output = approx.toFixed(3) + ' ' + multiples[n] + ' (' + nBytes + ' bytes)'
     }
     
-    img.classList.add("thumb");
-    img.file = file;
-    $preview.html(img);
-     
-    reader.onload = (function(aImg) { 
-        return function(e) { 
-            aImg.src = e.target.result;
-        }; 
-    })(img);
+    return output
     
-    reader.readAsDataURL(file);
+}
+
+function checkFileSize(file) {
+    var input;
+    var fileLimit;
+    var limitAbb;
+    var imageType = /image.*/
+    var videoType = /video.*/
+    var audioType = /audio.*/
+    
+    if (file.type.match(imageType)) {
+        fileLimit = 2500000
+        limitAbb = '2.5 MB'
+        input = document.getElementById('photo-input')
+    } else if (file.type.match(audioType)) {
+        fileLimit = 10000000
+        limitAbb = '10 MB'
+        input = document.getElementById('audio-input')
+    } else {
+        fileLimit = 15000000
+        limitAbb = '15 MB'
+        input = document.getElementById('video-input')
+    }
+    
+    if (file.size > fileLimit) {
+        $('#size').html('Too Big! Choose another file')
+        $('#submit-post').prop('disabled', true)
+        return
+    }
+    
+    $('#submit-post').prop('disabled', false)
+
+    return input    
+}
+
+function handleFiles(files, preview) {  
+    var file = files[0]
+    var name = file.name
+    var $preview = $(preview)
+    var reader = new FileReader()
+    var clearButton = $('<button/>').attr({'id':'clear','type':'button'}).html('Clear File')
+
+    var input = checkFileSize(file)
+    var size = updateSize(file)
+    
+    if (input.className.match('photo')) {
+        var img = document.createElement("img")
+        img.classList.add("thumb")
+        img.file = file
+        $preview.prepend(img)
+
+        reader.onload = (function(aImg) { 
+            return function(e) { 
+                aImg.src = e.target.result
+            };
+        })(img)
+        reader.readAsDataURL(file)
+    }
+    
+    if ($('#size').length > 0) { 
+        $preview.children('#size').html(name + ' , ' + size)
+            .append(clearButton)
+            .on('click', '#clear', function(){ fileClear() } )
+        
+    }
+    
+    $notSelected = $('input[type=file]').not(input)
+    $notSelected.parent().addClass('disabled')
+    $notSelected.prop('disabled', true)
+}
+
+function fileClear(){
+    $inputs = $('input[type=file]')
+    $inputs.val('').prop('disabled', false)
+    $inputs.parent().removeClass('disabled')
+    var size = $('<span/>').addClass('size').attr('id','size')
+    $('#preview').html(size)
 }
 
 $(document).ready(function(){
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
-    
+//    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
     
     // SHOW/HIDE EDIT PROFILE FORM
     $('#edit-details').on('click', function(){

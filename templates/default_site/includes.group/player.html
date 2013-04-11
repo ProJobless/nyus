@@ -3,27 +3,24 @@
 </div>
 
 <script type="text/javascript">
-var file = { 
-    path : '{path='images/media_audio'}/<?php echo urlencode($_POST['path']); ?>',
-    audio : ('<?php echo $_POST['audio']; ?>' === 'true') ? true : false,
-    width : Number('<?php echo $_POST['width']; ?>')
-}
+var audio = ("<?php echo $_POST['audio']; ?>" === "true") ? true : false
+var path = "<?php echo $_POST['path']; ?>"
+var width = parseInt("<?php echo $_POST['width']; ?>")
 
-if (file.audio) { // Set the Height to 30px so that audio only gets a control bar
-    jwplayer('player').setup({
-        file: '<?php echo $_POST['path']; ?>',
-        height: 30,
-        width: file.width <= 320 ? file.width - 70: 480,
-        skin: '{site_url}js/six.xml'
-    });
-
+if (width <= 320) {
+    width -= 70
+} else if (audio) {
+    width = 480
 } else {
-    jwplayer('player').setup({
-        file: '<?php echo $_POST['path']; ?>',
-        width: file.width <= 320 ? file.width - 70 : 720,
-        skin: '{site_url}js/six.xml'
-    })
+    width = 720
 }
 
-jwplayer().onReady(function(){this.play()})
+init = {
+    file : ((audio) ? "{path='images/media_audio'}" : "{path='images/media_videos'}") + "/" + path,
+    height : (audio) ? 30 : window.innerHeight - 200,
+    width: width,
+    skin : "{site_url}js/six.xml"
+}
+
+jwplayer('player').setup(init).onReady(function(){this.play()})
 </script>

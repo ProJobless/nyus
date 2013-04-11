@@ -1,4 +1,14 @@
-{exp:query sql="SELECT status_id, member_id, status, status_date FROM exp_friends_status WHERE site_id ='1' ORDER BY status_date DESC limit 10"}
+{exp:query sql="
+SELECT
+status_id, 
+member_id, 
+status, 
+status_date
+FROM 
+exp_friends_status
+ORDER BY status_date DESC 
+limit 20 
+"}
 {exp:user:stats member_id='{member_id}'}
 <article class="post section-container accordion" data-section="accordion">
     <div class="post-header author">
@@ -23,6 +33,7 @@
     </div><!-- .author -->
             
     <div class="status post-content">
+    
         <p>{status}</p>
         
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}

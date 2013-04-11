@@ -42,7 +42,12 @@
 		        ORDER BY entry_date DESC limit 5
 		        "}
 		        		{exp:user:users member_id='{comment_owner}'}
-		            	<li><a href="#"><img src="images/member_photos/{photo_filename}" width="40"><p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a></li>
+		        		<li>
+		            	 <a href="#">
+		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
+		            	     
+		            	     <p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a>
+		            	</li>
 		            	{/exp:user:users}
 
 	            {/exp:query}

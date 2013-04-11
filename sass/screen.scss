@@ -168,21 +168,30 @@ body.profile {
     
     li { 
         @include dropdown-style; 
+        @include grid-row;
         border-bottom: 1px solid $light-gray;
+        
+        a { 
+            color: $dark-gray;
+            display: table-row;
+        }
         
         p {
             @include adjust-font-size-to(16px, .9);
+            @include grid-column(9, $collapse: true, $float: false);
+            padding-left: 0.5em;
+            display: table-cell;
+/*
+            overflow: auto;
+            padding-left: .5em;
+*/
         }
         
         &:not(:first-child) {
             padding: 0.5em 1em;
-            height: 51px;
+/*             height: 51px; */
         }
         
-        a { 
-            color: $dark-gray;
-            display: block; 
-        }
     }
     
     li:first-child {
@@ -229,13 +238,20 @@ body.profile {
         padding: 0;
     }
     
-    img {
-        float: left;
+    .user-img {
+        @include grid-column(3, $collapse: true);
+        float: none;
+        display: table-cell;
+        vertical-align: middle;
+        
+        img {display: block;}
     }
     
     p {
+/*
         margin-left: 44px;
         padding: 0.3em 1em 0;
+*/
     }
     
     span { color: $light-purple; }

@@ -11,7 +11,7 @@ var file = {
 
 if (file.audio) { // Set the Height to 30px so that audio only gets a control bar
     jwplayer('player').setup({
-        file: '{path='images/media_audio'}/<?php echo $_POST['path']; ?>',
+        file: '<?php echo $_POST['path']; ?>',
         height: 30,
         width: file.width <= 320 ? file.width - 70: 480,
         skin: '{site_url}js/six.xml'
@@ -19,7 +19,7 @@ if (file.audio) { // Set the Height to 30px so that audio only gets a control ba
 
 } else {
     jwplayer('player').setup({
-        file: '{path='images/media_video'}/<?php echo $_POST['path']; ?>',
+        file: '<?php echo $_POST['path']; ?>',
         width: file.width <= 320 ? file.width - 70 : 720,
         skin: '{site_url}js/six.xml'
     })

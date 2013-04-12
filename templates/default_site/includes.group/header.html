@@ -43,9 +43,8 @@
 		        "}
 		        		{exp:user:users member_id='{comment_owner}'}
 		        		<li>
-		            	 <a href="#">
+		            	 <a href="{path='includes/view-status'}/{member_id}/{status_owner}" data-member="{member_id}" data-related-status="{status_owner}">
 		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
-		            	     
 		            	     <p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a>
 		            	</li>
 		            	{/exp:user:users}
@@ -59,11 +58,26 @@
             {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc'}
             <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
             {/exp:channel:entries}
-            {if:elseif segment_2=='step-two'}
+            {if:elseif segment_2=='to-do'}
             <li><h4>Actions</h4></li>
-            {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc'}
-            <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-            {/exp:channel:entries}
+            
+            {!-- USING SEGMENT 3 TO DETERMINE HOW MANY TO-DOS TO SHOW. MIGHT NEED AN AUTOMATED WAY TO DO THIS --}
+                {if segment_3=='2'}
+                {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc' dynamic="off"}
+                <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                {/exp:channel:entries}
+                
+                {if:elseif segment_3=='3'}
+                {exp:channel:entries channel='actions' category='1' offset='2' limit='1' orderby='date' sort='asc' dynamic="off"}
+                <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                {/exp:channel:entries}
+                
+                {if:elseif segment_3=='finish'}
+                {exp:channel:entries channel='actions' dynamic="off"}
+                <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                {/exp:channel:entries}
+                {/if}
+                
             {if:else}
             <li><h4>Actions</h4></li>
             {exp:channel:entries channel='actions' category='not 1'}
@@ -135,5 +149,7 @@
                     </ul>
                    <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                 </nav>
-                {/if}
                 <div id="main" class="main">
+                {if:else}
+                <div id="main" class="main setup">
+                {/if}

@@ -55,7 +55,7 @@ $dark-gray: #909090;
     text-align: center;
     
     @include background-image(linear-gradient(#fff #d0d0d0));
-    @include adjust-font-size-to(40px, 0.89);
+//    @include adjust-font-size-to(40px, 0.89);
 }
 
 @mixin small-black-square {
@@ -161,6 +161,64 @@ $dark-gray: #909090;
         @include background-image(linear-gradient(top right, darken($button-color-bottom, 20%), darken($button-color-top, 5%)));
         @include background-size( 20px 18px);
     }
+}
+
+// UTILITIES
+
+@mixin input-wrapper {
+
+    input[type="file"] {
+        bottom: 0;
+        cursor: inherit;
+        margin: 0;
+        opacity: 0;
+        padding: 0;
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+
+    }
+}
+
+@mixin disabled {
+    @include background-image(linear-gradient(#fff #d0d0d0));
+//    @include adjust-font-size-to(40px, 0.89);
+    color: #666;
+    cursor:not-allowed; 
+}
+
+// GLOBAL CLASSES
+.cancel {
+    color: $purple;
+    @include background-image(linear-gradient(#fff #cfcfcf));
+}
+
+input[type="submit"],
+.approve {
+    color: $white;
+    @include purple-gradient;
+}
+
+.cancel,
+.approve,
+input[type="submit"] {
+    font-weight: normal;
+    border: 1px solid $medium-gray;
+    padding: 13px 13px;
+//    @include adjust-font-size-to(14px, .5);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+input[disabled] {
+    @include black-sheen;
+    color: $dark-gray;
+    width: auto;
+    height: auto;
+    display: inline-block;
 }
 
 // MEDIA QUERIES

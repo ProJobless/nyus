@@ -187,8 +187,10 @@ function checkFileSize(file) {
     }
     
     if (file.size > fileLimit) {
-        $('#size').html('Too Big! Choose another file')
-        $('#submit-post').prop('disabled', true)
+        try {
+            $('#size').html('Too Big! Choose another file')
+            $('#submit-post').prop('disabled', true)
+        } catch(e) {}
         return
     }
     
@@ -207,7 +209,14 @@ function handleFiles(files, preview) {
     var input = checkFileSize(file)
     var size = updateSize(file)
     
+    
     if (input.className.match('photo')) {
+    
+        if ($preview.find('img').length === 1) { 
+            // CLEAR ANY IMAGES INSIDE PREVIEW
+            $preview.find('img').remove()
+        }
+        
         var img = document.createElement("img")
         img.classList.add("thumb")
         img.file = file
@@ -247,9 +256,11 @@ $(document).ready(function(){
 //    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
     
     // SHOW/HIDE EDIT PROFILE FORM
-    $('#edit-details').on('click', function(){
-        if ($('#intructions').length === 1 ) {
+    $('#edit-details').click(function(e){
+        e.preventDefault()
+        if ($('#instructions').length === 1 ) {
             $('#form, #instructions').toggleClass('visuallyhidden')
+            $('#next').prop('disabled', false)
         } else if ($('#info').length === 1) {
             $('#form, #info').toggleClass('visuallyhidden')
         }
@@ -260,8 +271,7 @@ $(document).ready(function(){
         if (document.URL.match(/setup/).length === 1) { $('#actions-icon').trigger('click') }
     } catch(e) {}
     
-    $('.posted-img').fancybox({
-        helpers : {
+    var commonHelpers = {
             title : {},
             closeClick: true,
             overlay : {
@@ -270,9 +280,10 @@ $(document).ready(function(){
                 }
             }
         }
-    })
     
-    var path;
+    $('.posted-img').fancybox({
+        helpers : commonHelpers
+    })
     
     // FANCYBOX FOR AUDIO AND VIDEO OBJECTS ON GREAT WALL
     $('.posted-audio, .posted-video').click(function(e){
@@ -286,14 +297,22 @@ $(document).ready(function(){
                 type : 'POST',
                 data : 'path=' + path + '&audio=' + audio + '&width=' + width
             },
-            helpers : {
-                closeClick: true,
-                overlay : {
-                    css : {
-                        'background' : 'black'
-                        }
-                }
-            }
+            helpers : commonHelpers
+        })
+    })
+
+    // FANCYBOX FOR AUDIO AND VIDEO OBJECTS ON GREAT WALL
+    $('#notifications a').click(function(e){
+        e.preventDefault()
+        memberId = $(this).attr('data-member')
+        statusToLoad = $(this).attr('data-related-status')
+        $.fancybox(this, {
+            type : 'ajax',
+            ajax : {
+                type : 'POST',
+                data : 'memberid=' + memberId + '&status=' + statusToLoad
+            },
+            helpers : commonHelpers
         })
     })
     

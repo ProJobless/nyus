@@ -1,6 +1,46 @@
 {embed='includes/header'}
-<div class="step-two">
-        <b><button class="cancel"  id="back" name="back" type="button">Back</button>
-        <button class="approve" id="next" name="next" type="submit">Next</button></b>
-</div>
+
+<section class="new-post">
+
+	{if last_segment!='flag'}
+	<form action="{path='setup/step-two'}/{logged_in_member_id}/flag" enctype="multipart/form-data" method="post" name="new-post">
+		<div class="preview" id="preview"><span class="size" id="size"></span></div>
+    	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
+
+            <div class="media">
+                <div class="post-button photo" data-icon="&#128247;">
+
+                        <span class="visuallyhidden">Upload an Image</span>
+                        <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this.files, $('#preview'))" name="media_images" type="file" value="image">
+
+                </div>
+                <div class="post-button video" data-icon="&#127916;">
+
+                        <span class="visuallyhidden">Upload a Video</span>
+                        <input accept="video/*" class="video-input" id="video-input" onchange="handleFiles(this.files, $('#preview'))" name="media_video" type="file" value="video">
+
+                </div>
+                <div class="post-button audio" data-icon="&#9835;">
+
+                        <span class="visuallyhidden">Upload an audio file</span>
+                        <input accept="audio/*" class="audio-input" id="audio-input" onchange="handleFiles(this.files, $('#preview'))" name="media_audio" type="file" value="audio">
+
+                </div>
+            </div>
+            <div class="question">
+                <input type="checkbox" name="question" value="1" id="question">
+            </div>	
+	
+    	<input type="submit" value="Post" id="submit-post" class="submit-post" >
+	</form>
+	{/if}
+	
+	{if last_segment=='flag'}
+	{exp:status_updates author_id='{segment_3}' date_of_entry='{current_time}'}
+	{redirect='setup/3'}
+	{/if}
+	
+</section> <!-- .new-post -->
+
+
 {embed='includes/footer'}

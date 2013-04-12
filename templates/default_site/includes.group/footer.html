@@ -17,6 +17,12 @@
             $(document).foundation();
         </script>
 
-        <script src="{site_url}js/main-ck.js"></script>
+        {if segment_2=='step-two' || segment_2=='step-three'}
+        <script>
+            $('#actions').hide()
+        </script>
+        {/if}
+        
+        <script src="{site_url}js/main.js"></script>
     </body>
 </html>

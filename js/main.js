@@ -189,12 +189,12 @@ function checkFileSize(file) {
     if (file.size > fileLimit) {
         try {
             $('#size').html('Too Big! Choose another file')
-            $('#submit-post').prop('disabled', true)
+            $('#submit').prop('disabled', true)
         } catch(e) {}
         return
     }
     
-    $('#submit-post').prop('disabled', false)
+    $('#submit').prop('disabled', false)
 
     return input    
 }
@@ -253,7 +253,7 @@ function fileClear(){
 $(document).ready(function(){
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
-//    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
+    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
     
     // SHOW/HIDE EDIT PROFILE FORM
     $('#edit-details').click(function(e){
@@ -262,7 +262,7 @@ $(document).ready(function(){
             $('#form, #instructions').toggleClass('visuallyhidden')
             $('#next').prop('disabled', false)
         } else if ($('#info').length === 1) {
-            $('#form, #info').toggleClass('visuallyhidden')
+            $('#form, #info, #photo-input').toggleClass('visuallyhidden')
         }
     })
     

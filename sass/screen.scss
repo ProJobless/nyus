@@ -655,7 +655,7 @@ body.profile {
             @include small-gray-square;
             @include adjust-font-size-to(35px, .9);
             position: absolute;
-            left: 107px;
+//            left: 107px;
             bottom: 0;
             padding: 0em 0em 0 0.1em;
             width: 31px;
@@ -665,8 +665,12 @@ body.profile {
         }
         
         .name {
-            position: absolute;
+            @include grid-column(8, $collapse: true);
+            height: 94px;
+            /*
+position: absolute;
             left: 110px;
+*/
             
             
             h4 {
@@ -871,28 +875,28 @@ body.profile {
 
 .step-one {
     position: relative;
-    top: 100px;
+    top: 125px;
 }
 
-.step-two {
+.to-do {
     position: relative;
-    top: 150px;
+    top: 130px;
 }
 
-.step-one > b {
-    @include grid-column(3, $push: 9);
+.to-do > b {
+    @include grid-column(6, $push: 6);
+    top: 50px;
+/*     margin-top: 1em; */
+    
+    //input { float: right; }
 }
 
-.step-two > b {
+.setup > b {
     @include grid-column(6, $push: 6);
     text-align: right;
-}
-
-.step-one > b,
-.step-two > b { // non-semantic column wrapper for step-one next button
-    margin-top: 1em;
-    
-    input { float: right; }
+    position: relative;
+    top: 140px;
+    margin-bottom: 1em;
 }
 
 b.disabled {
@@ -1037,7 +1041,7 @@ b.disabled {
             }
             
             .edit-photo {
-                position: static;
+                bottom: 30px;
                 margin-top: .25em;
             }
         }

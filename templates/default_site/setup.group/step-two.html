@@ -5,7 +5,7 @@
 	{if last_segment!='flag'}
 	<form action="{path='setup/step-two'}/{logged_in_member_id}/flag" enctype="multipart/form-data" method="post" name="new-post">
 		<div class="preview" id="preview"><span class="size" id="size"></span></div>
-    	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
+    	<textarea class="post-text" name="friends_status" placeholder="Post a picture of the view outside your window." rows="8"></textarea>
 
             <div class="media">
                 <div class="post-button photo" data-icon="&#128247;">
@@ -37,7 +37,7 @@
 	
 	{if last_segment=='flag'}
 	{exp:status_updates author_id='{segment_3}' date_of_entry='{current_time}'}
-	{redirect='setup/3'}
+	{redirect='setup/to-do/3'}
 	{/if}
 	
 </section> <!-- .new-post -->

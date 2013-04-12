@@ -15,14 +15,14 @@
         
         <script>
             $(document).foundation();
-        </script>
+        </script>        
+        <script src="{site_url}js/main.js"></script>
 
         {if segment_2=='step-two' || segment_2=='step-three'}
         <script>
-            $('#actions').hide()
+            $('#actions').detach()
         </script>
         {/if}
-        
-        <script src="{site_url}js/main.js"></script>
+
     </body>
 </html>

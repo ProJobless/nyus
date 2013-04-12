@@ -1,6 +1,6 @@
 {embed='includes/header'}
 
-{exp:user:edit dynamic='off' override_return='setup/to-do/2' return='setup/to-do/2'  password_required='n' form:class="step-one"}
+{exp:user:edit override_return='setup/to-do/2' password_required='n' form:class="step-one"}
         <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
 
         <section class="profile-setup">
@@ -10,12 +10,13 @@
                 <!-- takes up the left column on larger screens, stacks on smaller screens -->
                 <div class="user-img">
 	                <img src="{site_url}img/setup-flower.jpg">
+	                <span id="size"></span>
                 </div> <!-- .profile-photo -->
                 <div class="name">
                     <h4 data-icon="👤">{screen_name}</h4>
                 </div> <!-- .name -->
                 <div class="edit-photo" data-icon="📷"><span class="visuallyhidden">Upload a Profile Photo</span>
-                    <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this.files, $('.user-img'))" name="profile_image" type="file" value="image">
+                    <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this.files, $('.user-img'))" name="photo_filename" type="file" value="image">
                 </div>
             </div> <!-- .profile-header -->
    
@@ -47,18 +48,18 @@
                         <tbody>
                             <tr>
                                 <th scope="rowgroup"><label for="location">Hometown</label></th>
-                                <td class="data"><input id="location" name="location" placeholder="e.g. London, UK" type="text"></td>
+                                <td class="data"><input id="location" name="location" placeholder="e.g. London, UK" type="text" value="{location}"></td>
                             </tr>
                             
                             <tr>
                                 <th scope="rowgroup"><label for="occupation">Current City</label></th>
-                                <td class="data"><input id="occupation" name="occupation" placeholder="e.g. Shanghai, China" type="text"></td>
+                                <td class="data"><input id="occupation" name="occupation" placeholder="e.g. Shanghai, China" type="text" value="{occupation}"></td>
                             </tr>
                         </tbody>
                     </table>
                     <h4><label for="interests">Interests</label></h4>
                     <div class="interests">
-                        <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into...">{interests}</textarea>
+                        <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." value="{interests}"></textarea>
                     </div> <!-- .interests -->
                 </div> <!-- .form -->
             </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->

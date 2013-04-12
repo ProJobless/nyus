@@ -42,7 +42,8 @@
       });
 
       $('*, html, body').on('click.fndtn.dropdown', function (e) {
-        if (!$(e.target).data('dropdown')) {
+        // KEEP ACTIONS DROPDOWN OPEN DURING SETUP FLOW 
+        if (!$(e.target).data('dropdown') && $('.setup').length === 0) {
           $('[data-dropdown-content]')
             .css('left', '-99999px')
             .removeClass(self.settings.activeClass);

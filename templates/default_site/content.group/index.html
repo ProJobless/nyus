@@ -1,7 +1,9 @@
-{embed='includes/header'}
+{exp:user:stats}
+    {if photo_filename}
 
-<!-- End Header and Nav -->
+    {embed='includes/header'}
 
+<<<<<<< HEAD
     <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
     	
 	    {if segment_1}
@@ -23,3 +25,31 @@
     </div> <!-- #main -->
 
 {embed='includes/footer'}
+=======
+    <!-- End Header and Nav -->
+    
+        <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+    
+            <section class="great-wall">    
+    	        {if segment_1}
+    	        	{exp:status_filter current_date='{current_time}' status_owner='{segment_1}'}
+    	        {/if}
+    	        
+    	        <!--See all Status-->
+    	        {embed='includes/status-all'}
+            
+            </section> <!-- .great-wall -->
+            <!-- This is source ordered to be pulled to the left on larger screens -->
+            <div class="profile-container panel hide-for-small">
+    	        {embed='includes/sidebar-profile'}
+            </div>
+            
+        </div> <!-- #main -->
+    
+    {embed='includes/footer'}
+
+    {if:else}
+    {redirect='setup/step-one/{member_id}'}
+    {/if}
+{/exp:user:stats}
+>>>>>>> a86d79a95d456731e45f05030348e47811b66bd2

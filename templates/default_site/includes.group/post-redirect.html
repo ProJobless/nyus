@@ -1,0 +1,7 @@
+{if segment_2=='step-two'}
+    {redirect='setup/step-three'}
+{if:elseif segment_2=='step-three'}
+    {redirect=='setup/finish'}
+{if:else}
+    {redirect='/'}
+{/if}

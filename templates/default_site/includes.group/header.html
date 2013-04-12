@@ -42,26 +42,49 @@
 		        ORDER BY entry_date DESC limit 5
 		        "}
 		        		{exp:user:users member_id='{comment_owner}'}
-		            	<li><a href="#"><img src="images/member_photos/{photo_filename}" width="40"><p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a></li>
+		        		<li>
+		            	 <a href="{path='includes/view-status'}/{member_id}/{status_owner}" data-member="{member_id}" data-related-status="{status_owner}">
+		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
+		            	     <p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a>
+		            	</li>
 		            	{/exp:user:users}
 
 	            {/exp:query}
             {/exp:user:stats}
         </ul>
         <ul id="actions" class="actions drop" data-dropdown-content>
-            {if segment_1=='setup' && segment_2==''}
+            
+            {if segment_2=='step-one'}
             <li><h4>Welcome!</h4></li>
-            {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc'}
+            {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc' dynamic="off"}
             <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
             {/exp:channel:entries}
-            {if:elseif segment_2=='step-two'}
+            
+            {if:elseif segment_2=='to-do'}
             <li><h4>Actions</h4></li>
-            {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc'}
+            
+            {!-- USING SEGMENT 3 TO DETERMINE HOW MANY TO-DOS TO SHOW. MIGHT NEED AN AUTOMATED WAY TO DO THIS --}
+                {if segment_3=='2'}
+                {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc' dynamic="off"}
+                <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                {/exp:channel:entries}
+                
+                {if:elseif segment_3=='3'}
+                {exp:channel:entries channel='actions' category='1' offset='2' limit='1' orderby='date' sort='asc' dynamic="off"}
+                <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                {/exp:channel:entries}
+                
+                {/if}
+                
+            {if:elseif segment_2=='finish'}
+            <li><h4>All Set!</h4></li>
+            {exp:channel:entries channel='actions' category='1' offset='3' limit='1' orderby='date' sort='asc' dynamic="off"}
             <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
             {/exp:channel:entries}
+                
             {if:else}
             <li><h4>Actions</h4></li>
-            {exp:channel:entries channel='actions' category='not 1'}
+            {exp:channel:entries channel='actions' category='not 1' dynamic="off"}
             <li><a href="{link}" rel="ignore"><p>{title}<br><small>{entry_date format='%F %j, %Y'} <span>location?</span></small></p></a></li>
             {/exp:channel:entries}
             {/if}
@@ -85,7 +108,9 @@
                         <div class="first ribbon">
 	                    {exp:user:stats}  
 	                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
-	                            <div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
+                                {if count_comments!='0'}
+                                <div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
+                                {/if}
 	                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon"></a>
 	                        {/exp:query}
                         {/exp:user:stats}    
@@ -95,9 +120,7 @@
                         <div class="second ribbon">
                         {if segment_1=='setup'}
                         {exp:channel:entries channel='actions' category='1' dynamic='off'}
-                        	{if count!='0'} 
-                            <div class="actions-count" id="actions-count"><span>{count}</span></div>
-                            {/if}
+
                             <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
                         {/exp:channel:entries}    
                         {if:else}
@@ -130,5 +153,7 @@
                     </ul>
                    <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                 </nav>
-                {/if}
                 <div id="main" class="main">
+                {if:else}
+                <div id="main" class="main setup">
+                {/if}

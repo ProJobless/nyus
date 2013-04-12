@@ -168,21 +168,26 @@ body.profile {
     
     li { 
         @include dropdown-style; 
+        @include grid-row;
         border-bottom: 1px solid $light-gray;
+        max-height: 75px; // better to resize in CMS
+        
+        a { 
+            color: $dark-gray;
+            display: table-row;
+        }
         
         p {
             @include adjust-font-size-to(16px, .9);
+            @include grid-column(9, $collapse: true, $float: false);
+            padding-left: 0.5em;
+            display: table-cell;
         }
         
         &:not(:first-child) {
             padding: 0.5em 1em;
-            height: 51px;
         }
         
-        a { 
-            color: $dark-gray;
-            display: block; 
-        }
     }
     
     li:first-child {
@@ -202,10 +207,12 @@ body.profile {
     }
 }
 
+/* THE DROPDOWN THING IS WEIRD
 .drop.open ~ .outer-wrap .main {
     top: 200px;
     position: relative;
 }
+*/
 
 .actions {
     li:not(:first-child):before {
@@ -229,13 +236,13 @@ body.profile {
         padding: 0;
     }
     
-    img {
-        float: left;
-    }
-    
-    p {
-        margin-left: 44px;
-        padding: 0.3em 1em 0;
+    .user-img {
+        @include grid-column(3, $collapse: true);
+        float: none;
+        display: table-cell;
+        vertical-align: middle;
+        
+        img {display: block;}
     }
     
     span { color: $light-purple; }
@@ -648,16 +655,22 @@ body.profile {
             @include small-gray-square;
             @include adjust-font-size-to(35px, .9);
             position: absolute;
-            left: 107px;
+//            left: 107px;
             bottom: 0;
             padding: 0em 0em 0 0.1em;
             width: 31px;
             cursor: pointer;
+            
+            @include input-wrapper;
         }
         
         .name {
-            position: absolute;
+            @include grid-column(8, $collapse: true);
+            height: 94px;
+            /*
+position: absolute;
             left: 110px;
+*/
             
             
             h4 {
@@ -753,18 +766,7 @@ body.profile {
     .thumb { @include grid-column(4); }
     .size { @include grid-column(8); text-align: left; }
     button {display: block; margin-top: 1em; margin-bottom: 0;}
-    
-
-    
-    .submit-post[disabled] {
-        @include small-gray-square;
-        @include adjust-font-size-to(14px, .25);
-        padding: 1em;
-        width: auto;
-        height: auto;
-        display: inline-block;
-    }
-    
+        
     textarea {
         resize: none;
         height: inherit;
@@ -787,11 +789,10 @@ body.profile {
             color: white;
             height: 30px;
             
+            @include input-wrapper;
+            
             &.disabled { 
-                @include background-image(linear-gradient(#fff #d0d0d0));
-                @include adjust-font-size-to(40px, 0.89);
-                color: #666;
-                cursor:not-allowed; 
+                @include disabled;
             }
             
             &:before { font-weight: normal; }
@@ -799,30 +800,12 @@ body.profile {
             &:last-child {
                 border-right: none;
             }
-            
-  /*
-          &:before {
-                content: "";
-                display: block;
-            }
-*/
+
             
             a {
                 cursor: default;
 
             }
-        }
-        
-        input[type="file"] {
-            bottom: 0;
-            cursor: inherit;
-            margin: 0;
-            opacity: 0;
-            padding: 0;
-            position: absolute;
-            right: 0;
-            left: 0;
-            top: 0;
         }
     }
     
@@ -882,51 +865,42 @@ body.profile {
     }
 }
 
-.cancel {
-    color: $primary-color;
-    @include background-image(linear-gradient(#fff #cfcfcf));
-}
-
-input[type="submit"],
-.approve {
-    color: $white;
-    @include purple-gradient;
-}
-
-.cancel,
-.approve,
-input[type="submit"] {
-    font-weight: normal;
-    border: 1px solid $medium-gray;
-    padding: 13px 13px;
-    @include adjust-font-size-to(14px, .5);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
 .profile-setup {
     @extend .full-profile;
     
     .user-img {
-        background: url(../img/profile-setup.jpg) no-repeat;
+//        background: url(../img/profile-setup.jpg) no-repeat;
     }
 }
 
-.step-one > b {
-    @include grid-column(3, $push: 9);
+.step-one {
+    position: relative;
+    top: 125px;
 }
 
-.step-two > b {
+.to-do {
+    position: relative;
+    top: 130px;
+}
+
+.to-do > b {
+    @include grid-column(6, $push: 6);
+    top: 50px;
+/*     margin-top: 1em; */
+    
+    //input { float: right; }
+}
+
+.setup > b {
     @include grid-column(6, $push: 6);
     text-align: right;
+    position: relative;
+    top: 140px;
+    margin-bottom: 1em;
 }
 
-.step-one > b,
-.step-two > b { // non-semantic column wrapper for step-one next button
-    margin-top: 1em;
-    
-    input { float: right; }
+b.disabled {
+    @include disabled;
 }
 
 .student-list {
@@ -1067,7 +1041,7 @@ input[type="submit"] {
             }
             
             .edit-photo {
-                position: static;
+                bottom: 30px;
                 margin-top: .25em;
             }
         }

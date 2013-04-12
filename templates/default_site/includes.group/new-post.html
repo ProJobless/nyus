@@ -29,13 +29,13 @@
                 <input type="checkbox" name="question" value="1" id="question">
             </div>	
 	
-    	<input type="submit" value="Post" id="submit-post" class="submit-post" >
+    	<input type="submit" value="Post" id="submit" class="submit-post">
 	</form>
 	{/if}
 	
 	{if segment_3=='flag'}
 	{exp:status_updates author_id='{segment_2}' date_of_entry='{current_time}'}
-	{redirect='/'}
+	{redirect=''}
 	{/if}
 	
 </section> <!-- .new-post -->

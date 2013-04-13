@@ -4,7 +4,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script> window.jQuery || document.write('<script src="/introductions/js/jquery-ck.js" />')</script>
         <script src="{site_url}js/vendor/foundation/foundation.js"></script>
-        <script src="{site_url}js/vendor/foundation/foundation.topbar.js"></script>
+<!--         <script src="{site_url}js/vendor/foundation/foundation.topbar.js"></script> -->
         <script src="{site_url}js/vendor/foundation/foundation.forms.js"></script>
         <script src="{site_url}js/vendor/foundation/foundation.dropdown.js"></script>
         <script src="{site_url}js/vendor/foundation/foundation.section.js"></script>
@@ -14,7 +14,8 @@
         <script src="{site_url}js/vendor/fancybox/jquery.fancybox-buttons-ck.js"></script>
         
         <script>
-            $(document).foundation();
+            hit = function() { console.log('hit') }
+            $(document).foundation('forms section').foundation('dropdown', { opened : hit });
         </script>        
         <script src="{site_url}js/main.js"></script>
 

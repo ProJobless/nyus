@@ -268,7 +268,9 @@ $(document).ready(function(){
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
     try {
-        if (document.URL.match(/setup/).length === 1) { $('#actions-icon').trigger('click') }
+        if (!!document.URL.match(/setup/).length) { 
+            $('#actions-icon').trigger('click')
+        }
     } catch(e) {}
     
     var commonHelpers = {

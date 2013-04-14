@@ -4,6 +4,7 @@
 @include h5bp-helpers;
 @import "compass";
 
+// ***********************************************************************************************************************//
 // NON-FOUNDATION VARIABLES
 $experimental-support-for-svg: true;
 
@@ -15,6 +16,7 @@ $light-gray: #dedede;
 $medium-gray: #bcbcbc;
 $dark-gray: #909090;
 
+// ***********************************************************************************************************************//
 // MIXINS
 @mixin timestamp {
     @include adjust-font-size-to(12px, .6);
@@ -22,7 +24,15 @@ $dark-gray: #909090;
 }
 
 @mixin purple-gradient {
-    @include background-image(linear-gradient(#954bca #5c0f8c))
+    @include background-image(linear-gradient(#954bca #5c0f8c));
+    color: $white;
+    
+    &:active,
+    &:focus,
+    &.open {
+        @include background-image(linear-gradient(#5c0f9c, #954bca));
+        color: $black;
+    }
 }
 
 @mixin purple-notice-bubble {
@@ -53,9 +63,18 @@ $dark-gray: #909090;
     height: 30px;
     border: 1px solid $medium-gray;
     text-align: center;
-    
     @include background-image(linear-gradient(#fff #d0d0d0));
-//    @include adjust-font-size-to(40px, 0.89);
+    
+    &:active,
+    &.open {
+        color: $black;
+        @include background-image(linear-gradient(#d0d0d0, #fff));
+        border-color: $black;        
+    }
+}
+
+@mixin reverse-gray-square {
+
 }
 
 @mixin small-black-square {
@@ -163,32 +182,21 @@ $dark-gray: #909090;
     }
 }
 
+// ***********************************************************************************************************************//
 // UTILITIES
-
-@mixin input-wrapper {
-
-    input[type="file"] {
-        bottom: 0;
-        cursor: inherit;
-        margin: 0;
-        opacity: 0;
-        padding: 0;
-        position: absolute;
-        right: 0;
-        left: 0;
-        top: 0;
-
-    }
-}
 
 @mixin disabled {
     @include background-image(linear-gradient(#fff #d0d0d0));
-//    @include adjust-font-size-to(40px, 0.89);
     color: #666;
     cursor:not-allowed; 
 }
 
+// ***********************************************************************************************************************//
 // GLOBAL CLASSES
+input[type="file"] {
+    display: none;
+}
+
 .cancel {
     color: $purple;
     @include background-image(linear-gradient(#fff #cfcfcf));
@@ -196,8 +204,8 @@ $dark-gray: #909090;
 
 input[type="submit"],
 .approve {
-    color: $white;
     @include purple-gradient;
+    float: right;
 }
 
 .cancel,
@@ -206,7 +214,6 @@ input[type="submit"] {
     font-weight: normal;
     border: 1px solid $medium-gray;
     padding: 13px 13px;
-//    @include adjust-font-size-to(14px, .5);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -221,6 +228,25 @@ input[disabled] {
     display: inline-block;
 }
 
+// ***********************************************************************************************************************//
+// MODULES
+
+.edit-photo {
+    @include small-gray-square;
+    @include adjust-font-size-to(38px, .9);
+    position: absolute;
+    bottom: 0;
+    width: 31px;
+    cursor: pointer;
+}
+
+.edit-details {
+    @include small-gray-square;
+    @include adjust-font-size-to(40px, 1);
+    float: right;
+}
+
+// ***********************************************************************************************************************//
 // MEDIA QUERIES
 
 @mixin breakpoint($point) {

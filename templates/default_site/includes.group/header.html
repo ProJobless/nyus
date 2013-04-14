@@ -22,76 +22,76 @@
     {if:else}
     <body>
     {/if}
-        <ul id="notifications" class="notifications drop" data-dropdown-content>
-            <li><h4>Notifications</h4></li>
-            {exp:user:stats}  
-		        {exp:query sql="
-		        SELECT 
-		        exp_channel_data.field_id_1 as comment, 
-		        exp_channel_data.field_id_2 as status_owner, 
-		        exp_channel_data.field_id_13 as comment_owner,
-		        exp_channel_titles.entry_date 
-		        FROM 
-		        exp_channel_data, 
-		        exp_friends_status, 
-		        exp_channel_titles
-		        WHERE 
-		        exp_channel_data.field_id_2=exp_friends_status.status_id AND
-		        exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
-		        exp_friends_status.member_id='{member_id}'
-		        ORDER BY entry_date DESC limit 5
-		        "}
-		        		{exp:user:users member_id='{comment_owner}'}
-		        		<li>
-		            	 <a href="{path='includes/view-status'}/{member_id}/{status_owner}" data-member="{member_id}" data-related-status="{status_owner}">
-		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
-		            	     <p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a>
-		            	</li>
-		            	{/exp:user:users}
-
-	            {/exp:query}
-            {/exp:user:stats}
-        </ul>
-        <ul id="actions" class="actions drop" data-dropdown-content>
-            
-            {if segment_2=='step-one'}
-            <li><h4>Welcome!</h4></li>
-            {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc' dynamic="off"}
-            <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-            {/exp:channel:entries}
-            
-            {if:elseif segment_2=='to-do'}
-            <li><h4>Actions</h4></li>
-            
-            {!-- USING SEGMENT 3 TO DETERMINE HOW MANY TO-DOS TO SHOW. MIGHT NEED AN AUTOMATED WAY TO DO THIS --}
-                {if segment_3=='2'}
-                {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc' dynamic="off"}
-                <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-                {/exp:channel:entries}
-                
-                {if:elseif segment_3=='3'}
-                {exp:channel:entries channel='actions' category='1' offset='2' limit='1' orderby='date' sort='asc' dynamic="off"}
-                <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-                {/exp:channel:entries}
-                
-                {/if}
-                
-            {if:elseif segment_2=='finish'}
-            <li><h4>All Set!</h4></li>
-            {exp:channel:entries channel='actions' category='1' offset='3' limit='1' orderby='date' sort='asc' dynamic="off"}
-            <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-            {/exp:channel:entries}
-                
-            {if:else}
-            <li><h4>Actions</h4></li>
-            {exp:channel:entries channel='actions' category='not 1' dynamic="off"}
-            <li><a href="{link}" rel="ignore"><p>{title}<br><small>{entry_date format='%F %j, %Y'} <span>location?</span></small></p></a></li>
-            {/exp:channel:entries}
-            {/if}
-        </ul>
         <div class="outer-wrap" id="outer-wrap">
             
             <div class="page" id="page">
+                <ul id="notifications" class="notifications drop" data-dropdown-content>
+                    <li><h4>Notifications</h4></li>
+                    {exp:user:stats}  
+        		        {exp:query sql="
+        		        SELECT 
+        		        exp_channel_data.field_id_1 as comment, 
+        		        exp_channel_data.field_id_2 as status_owner, 
+        		        exp_channel_data.field_id_13 as comment_owner,
+        		        exp_channel_titles.entry_date 
+        		        FROM 
+        		        exp_channel_data, 
+        		        exp_friends_status, 
+        		        exp_channel_titles
+        		        WHERE 
+        		        exp_channel_data.field_id_2=exp_friends_status.status_id AND
+        		        exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
+        		        exp_friends_status.member_id='{member_id}'
+        		        ORDER BY entry_date DESC limit 5
+        		        "}
+        		        		{exp:user:users member_id='{comment_owner}'}
+        		        		<li>
+        		            	 <a href="{path='includes/view-status'}/{member_id}/{status_owner}" data-member="{member_id}" data-related-status="{status_owner}">
+        		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
+        		            	     <p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a>
+        		            	</li>
+        		            	{/exp:user:users}
+        
+        	            {/exp:query}
+                    {/exp:user:stats}
+                </ul>
+                <ul id="actions" class="actions drop" data-dropdown-content>
+            
+                    {if segment_2=='step-one'}
+                    <li><h4>Welcome!</h4></li>
+                    {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc' dynamic="off"}
+                    <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                    {/exp:channel:entries}
+                    
+                    {if:elseif segment_2=='to-do'}
+                    <li><h4>Actions</h4></li>
+                    
+                    {!-- USING SEGMENT 3 TO DETERMINE HOW MANY TO-DOS TO SHOW. MIGHT NEED AN AUTOMATED WAY TO DO THIS --}
+                        {if segment_3=='2'}
+                        {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc' dynamic="off"}
+                        <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                        {/exp:channel:entries}
+                        
+                        {if:elseif segment_3=='3'}
+                        {exp:channel:entries channel='actions' category='1' offset='2' limit='1' orderby='date' sort='asc' dynamic="off"}
+                        <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                        {/exp:channel:entries}
+                        
+                        {/if}
+                        
+                    {if:elseif segment_2=='finish'}
+                    <li><h4>All Set!</h4></li>
+                    {exp:channel:entries channel='actions' category='1' offset='3' limit='1' orderby='date' sort='asc' dynamic="off"}
+                    <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+                    {/exp:channel:entries}
+                        
+                    {if:else}
+                    <li><h4>Actions</h4></li>
+                    {exp:channel:entries channel='actions' category='not 1' dynamic="off"}
+                    <li><a href="{link}" rel="ignore"><p>{title}<br><small>{entry_date format='%F %j, %Y'} <span>location?</span></small></p></a></li>
+                    {/exp:channel:entries}
+                    {/if}
+                </ul>
             <!-- Header and Nav -->
                 <header class="global" id="top" role="banner">
 
@@ -106,6 +106,11 @@
                         </div>
                         
                         <div class="first ribbon">
+                        {if segment_1=='setup'}
+                            
+                            <a href="#" class="disabled notifications-icon" id="notifications-icon"></a>
+                            
+                        {if:else}
 	                    {exp:user:stats}  
 	                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
                                 {if count_comments!='0'}
@@ -114,6 +119,7 @@
 	                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon"></a>
 	                        {/exp:query}
                         {/exp:user:stats}    
+                        {/if}
                         </div>
                     </div>
                     <div class="header-right">

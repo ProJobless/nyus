@@ -15,8 +15,9 @@
                 <div class="name">
                     <h4 data-icon="👤">{screen_name}</h4>
                 </div> <!-- .name -->
-                <div class="edit-photo" data-icon="📷"><span class="visuallyhidden">Upload a Profile Photo</span>
-                    <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this.files, $('.user-img'))" name="photo_filename" type="file" value="image">
+                <div class="visuallyhidden" id="photo-input-wrap">
+                    <a href="#" class="edit-photo" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
+                    <input accept="image/*" id="photo-input" name="photo_filename" onchange="handleFiles(this.files, $('.user-img')[0])" type="file">
                 </div>
             </div> <!-- .profile-header -->
    
@@ -65,5 +66,4 @@
             </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
         {/exp:user:edit}  
         </section> <!-- .full-profile -->
-
 {embed='includes/footer'}

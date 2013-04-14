@@ -1,7 +1,7 @@
 <section class="new-post">
 
 	{if segment_3!='flag'}
-	<form action="{path='post'}/{logged_in_member_id}/flag" enctype="multipart/form-data" method="post" name="new-post">
+	<form action="{path='post'}/{logged_in_member_id}/flag" class="post-form" enctype="multipart/form-data" method="post" name="new-post">
 		<div class="preview" id="preview"><span class="size" id="size"></span></div>
     	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
 
@@ -22,7 +22,7 @@
 
             <div class="question-wrapper">
                 <label for="question" class="question">
-                    <input class="question-input" id="question-input" name="question" type="checkbox" value="1">
+                    <input class="question-input" id="question" name="question" type="checkbox" value="1">
                 </label>
             </div>	<!-- .question-wrapper -->
 	

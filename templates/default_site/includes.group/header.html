@@ -1,3 +1,5 @@
+{exp:cookie_plus:set name="counter_cookie" value="1" seconds="30"}
+
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
@@ -105,37 +107,51 @@
                         {/if}
                         </div>
                         
+                        
+                        
+                        
                         <div class="first ribbon">
                         {if segment_1=='setup'}
                             
                             <a href="#" class="disabled notifications-icon" id="notifications-icon"></a>
                             
                         {if:else}
-	                    {exp:user:stats}  
-	                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
-                                {if count_comments!='0'}
-                                <div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
-                                {/if}
-	                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon"></a>
-	                        {/exp:query}
-                        {/exp:user:stats}    
+                        	
+		                    {exp:user:stats}  
+		                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
+	                                {if count_comments!='0'}
+		                                {exp:cookie_plus:get name="counter_cookie"}
+											{if  cookie!="1"}
+												<div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
+											{/if}
+										{/exp:cookie_plus:get}
+	                                {/if}
+		                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon"></a>
+		                        {/exp:query}
+	                        {/exp:user:stats} 
+	                           
                         {/if}
                         </div>
                     </div>
                     <div class="header-right">
                         <div class="second ribbon">
                         {if segment_1=='setup'}
-                        {exp:channel:entries channel='actions' category='1' dynamic='off'}
-
-                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
-                        {/exp:channel:entries}    
+	                        {exp:channel:entries channel='actions' category='1' dynamic='off'}
+	                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
+	                        {/exp:channel:entries}    
                         {if:else}
-                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
-                            {if count!='0'}
-                            <div class="actions-count" id="actions-count"><span>{count}</span></div>
-                            {/if}
-                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
-                        {/exp:channel:entries}    
+                            
+	                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
+	                            {if count!='0'}
+		                            {exp:cookie_plus:get name="counter_cookie"}
+										{if  cookie!="1"}
+			                            	<div class="actions-count" id="actions-count"><span>{count}</span></div>
+			                            {/if}
+									{/exp:cookie_plus:get}
+	                            {/if}
+	                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
+	                        {/exp:channel:entries}   
+	                         
                         {/if}
                         </div>
                         <div class="post-icon">

@@ -69,8 +69,7 @@ input[type="submit"],
   background-image: -moz-linear-gradient(#954bca, #5c0f8c);
   background-image: -o-linear-gradient(#954bca, #5c0f8c);
   background-image: linear-gradient(#954bca, #5c0f8c);
-  color: whitesmoke;
-  float: right; }
+  color: whitesmoke; }
   input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"].open,
   .approve:active,
   .approve:focus,
@@ -168,6 +167,12 @@ input[disabled] {
     background-image: -o-linear-gradient(#d0d0d0, #ffffff);
     background-image: linear-gradient(#d0d0d0, #ffffff);
     border-color: #333333; }
+
+.question {
+  background: url(../img/question.png) no-repeat;
+  width: 27px;
+  height: 51px;
+  text-shadow: 0px 0px 1px #aaaaaa; }
 
 @font-face {
   font-family: "Entypo";
@@ -4660,26 +4665,9 @@ body.profile {
     .post .author:after {
       clear: both; }
     .post .author .question {
-      background: url(../img/question.png) no-repeat;
-      width: 27px;
-      height: 51px;
       position: absolute;
       right: 10px;
       top: -5px; }
-      .post .author .question:after {
-        content: "";
-        position: absolute;
-        right: -3px;
-        width: 0px;
-        height: 0px;
-        border-style: solid;
-        border-width: 4px 0 0 3px;
-        border-color: transparent transparent transparent #4a0f2f;
-        line-height: 0px;
-        _border-color: black black black #4a0f2f;
-        _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
-        -webkit-transform: rotate(360deg);
-        border-style: inset; }
   .post .photo, .post .comments .comment .photo {
     position: relative;
     padding-left: 0.9375em;
@@ -5103,66 +5091,53 @@ position: absolute;
         font-weight: normal; }
       .new-post .upload-buttons .post-button a {
         cursor: default; }
-  .new-post .question {
-    position: relative;
-    width: 25%;
-    padding-left: 0;
-    padding-right: 0;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 75%;
-    float: left;
-    text-align: right;
-    margin-top: .75em;
-    position: relative; }
-    .new-post .question:after {
-      content: "";
-      display: inline-block;
-      background: url(../img/question.png) no-repeat;
-      width: 27px;
-      height: 51px;
-      margin-left: .75em;
-      margin-bottom: .75em;
-      text-shadow: 0px 0px 1px #aaaaaa; }
-    .new-post .question input {
+  .new-post .question:after {
+    /*
+                content: "";
+                display: inline-block;
+                margin-left: .75em;
+                margin-bottom: .75em;
+    */ }
+  .new-post .question-wrapper {
+    float: right; }
+    .new-post .question-wrapper input {
       position: absolute;
       top: 50%;
-      margin-top: -14px;
-      margin-left: -14px; }
+      margin-top: -10px;
+      margin-left: -20px; }
   .new-post .post, .new-post .post .comments .comment, .post .comments .new-post .comment {
     padding-left: 1em;
     padding-right: 1em; }
+  .new-post .submit-post {
+    clear: both; }
 
-.edit.profile-details h4,
-.edit.profile-details label,
-.edit.profile-details input[type="text"],
-.new-post h4,
-.new-post label,
-.new-post input[type="text"],
-.comment-form h4,
-.comment-form label,
-.comment-form input[type="text"] {
-  position: relative;
-  padding-left: 0.9375em;
-  padding-right: 0.9375em;
-  width: 100%;
-  float: left; }
-.edit.profile-details form,
-.new-post form,
-.comment-form form {
+.comment-form {
   text-align: right; }
-.edit.profile-details label,
-.new-post label,
-.comment-form label {
-  margin: 0.5em 0 1em; }
-.edit.profile-details input[type="text"],
-.new-post input[type="text"],
-.comment-form input[type="text"] {
-  /*
-          padding-top: 1.5em;
-          padding-bottom: 1.5em;
-  */ }
 
+/*
+.edit.profile-details,
+.new-post,
+.comment-form {
+    h4,
+    label,
+    input[type="text"] {
+        @include grid-column(12);
+    }
+    
+    form {
+        text-align: right;
+    }
+    
+    label {
+        margin: .5em 0 1em;
+    }
+    
+    input[type="text"] {
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+    }
+}
+*/
 .step-one {
   position: relative;
   top: 125px; }

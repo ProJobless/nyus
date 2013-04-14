@@ -1,4 +1,3 @@
-
 {exp:query sql="
 SELECT exp_friends_status.status_id as status_id, 
 exp_friends_status.member_id as member_id, 
@@ -17,7 +16,7 @@ ORDER BY status_date DESC "}
 <article class="post section-container accordion" data-section="accordion">
     <div class="post-header author">
         <div class="user-img photo">
-            <a href="{path='profile'}/{member_id}}">
+            <a href="{path='profile'}/{member_id}">
                 {if photo_filename}
                 <img src="{photo_url}{photo_filename}">
                 {if:else}
@@ -27,7 +26,7 @@ ORDER BY status_date DESC "}
         </div> <!-- .photo -->
         <div class="details info">
             <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
-            <span>{status_date format='%F %j, %Y'}<br>from {occupation}</span>
+            <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
         </div> <!-- .info -->
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
         {if question}
@@ -39,36 +38,24 @@ ORDER BY status_date DESC "}
     <div class="status post-content">
         <p>{status}</p>
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
-	        {if media_images}
+             {if media_images}
 		        <div class="post-img">
-			    	<img src="{site_url}/images/media_images/{media_images}" />
+			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}"></a>
 		        </div> <!-- .post-img -->
 	        {/if}
 	        
-	        {if media_audio}  
-		        <div id="myAudio{status_id}">Loading the player...</div>
-	
-				<script type="text/javascript">
-				    jwplayer("myAudio{status_id}").setup({
-				        file: "{site_url}/images/media_audio/{media_audio}",
-				        image: "/uploads/myPoster.jpg",
-				        skin: '{site_url}/js/six.xml'
-				        
-				    });
-				</script> 	         
+	        {if media_audio}
+	           <div class="media-container">
+	               <a href="{path='includes/player'}" class="posted-audio" data-path="{media_audio}" data-audio="true">click here for audio</a>
+	           </div> <!-- .media-container -->
 			{/if}
 			
-	        {if media_video} 
-		        <div id="myVideos{status_id}">Loading the player...</div>
+	        {if media_video}
+	           <div class="media-container">
+	               <a href="{path='includes/player'}" class="posted-video" data-path="{media_video}">click here for video</a>
+	           </div> <!-- .media-container -->
+			{/if}				
 	
-				<script type="text/javascript">
-				    jwplayer("myVideos{status_id}").setup({
-				        file: "{site_url}/images/media_videos/{media_video}",
-				        image: "/uploads/myPoster.jpg",
-				        skin: '{site_url}/js/five.xml'
-				    });
-				</script>  
-			{/if}			
         {/exp:channel:entries}   
     </div> <!-- .post-content -->	
             

@@ -26,7 +26,7 @@ limit 1
         </div> <!-- .photo -->
         <div class="details info">
             <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
-            <span>{status_date format='%F %j, %Y'}<br>from {occupation}</span>
+            <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
         </div> <!-- .info -->
         {exp:channel:entries channel='media' search:status_owner_id='={segment_4}' orderby='date' sort='desc' dynamic='no' limit="1"}
         {if question}

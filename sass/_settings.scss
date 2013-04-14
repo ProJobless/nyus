@@ -18,6 +18,25 @@ $dark-gray: #909090;
 
 // ***********************************************************************************************************************//
 // MIXINS
+@mixin question-flag {
+    
+    &:after {
+        content: "";
+        position: absolute;
+        right: -3px;
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 4px 0 0 3px;
+        border-color: transparent transparent transparent #4a0f2f;
+        line-height: 0px;
+        _border-color: #000000 #000000 #000000 #4a0f2f;
+        _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+        -webkit-transform:rotate(360deg);
+        border-style:inset;
+    }
+}
+
 @mixin timestamp {
     @include adjust-font-size-to(12px, .6);
     color: $medium-gray;
@@ -71,10 +90,6 @@ $dark-gray: #909090;
         @include background-image(linear-gradient(#d0d0d0, #fff));
         border-color: $black;        
     }
-}
-
-@mixin reverse-gray-square {
-
 }
 
 @mixin small-black-square {
@@ -205,7 +220,6 @@ input[type="file"] {
 input[type="submit"],
 .approve {
     @include purple-gradient;
-    float: right;
 }
 
 .cancel,
@@ -245,6 +259,15 @@ input[disabled] {
     @include adjust-font-size-to(40px, 1);
     float: right;
 }
+
+.question {
+    background: url(../img/question.png) no-repeat;
+    width: 27px;
+    height: 51px;
+    @include single-text-shadow;
+}
+
+
 
 // ***********************************************************************************************************************//
 // MEDIA QUERIES

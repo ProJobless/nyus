@@ -467,29 +467,9 @@ body.profile {
         padding-bottom: 1em;
         
         .question {
-            background: url(../img/question.png) no-repeat;
-            width: 27px;
-            height: 51px;
             position: absolute;
             right: 10px;
-            top: -5px;
-            
-            &:after {
-                content: "";
-                position: absolute;
-                right: -3px;
-                width: 0px;
-                height: 0px;
-                border-style: solid;
-                border-width: 4px 0 0 3px;
-                border-color: transparent transparent transparent #4a0f2f;
-                line-height: 0px;
-                _border-color: #000000 #000000 #000000 #4a0f2f;
-                _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
-                -webkit-transform:rotate(360deg);
-                border-style:inset;
-            }
-            
+            top: -5px;    
         }
     }
     
@@ -790,27 +770,31 @@ position: absolute;
     }
     
     .question {
-        @include grid-column(3, $offset: 9, $collapse: true);
-        text-align: right;
-        margin-top: .75em;
-        position: relative;
+//        @include grid-column(3, $offset: 9, $collapse: true);
+//        float: right;
+//        text-align: right;
     
         &:after {
+/*
             content: "";
             display: inline-block;
-            background: url(../img/question.png) no-repeat;
-            width: 27px;
-            height: 51px;
             margin-left: .75em;
             margin-bottom: .75em;
-            @include single-text-shadow;
+*/
         }
+    }
+
+    .question-wrapper {
+    
+        float: right;
+        
+        .question {}
         
         input {
             position: absolute;
             top: 50%;
-            margin-top: -14px;
-            margin-left: -14px;
+            margin-top: -10px;
+            margin-left: -20px;
         }
     }
     
@@ -818,8 +802,17 @@ position: absolute;
         padding-left: 1em;
         padding-right: 1em;
     }
+    
+    .submit-post { 
+        clear: both;
+    }
 }
 
+.comment-form {
+    text-align: right;
+}
+
+/*
 .edit.profile-details,
 .new-post,
 .comment-form {
@@ -838,12 +831,11 @@ position: absolute;
     }
     
     input[type="text"] {
-/*
         padding-top: 1.5em;
         padding-bottom: 1.5em;
-*/
     }
 }
+*/
 
 .profile-setup {
     @extend .full-profile;

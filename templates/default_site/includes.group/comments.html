@@ -35,12 +35,12 @@
     <div class="post-content">
         <p>{thepost}</p>
     </div> <!-- .post-content -->	
-    {exp:user:stats}
+    {/exp:user:stats}
 </article>
 {/exp:channel:entries}
 
-{exp:safecracker channel="wall_posts" id="comments" class="comment-form" return="{site_url}{embed:id_status}" dynamic="on" safecracker_head="no" secure_action="no" secure_return="no"}
-
+{exp:safecracker channel="wall_posts" id="comments" class="comment-form" return="/{embed:id_status}" dynamic="on" safecracker_head="no" secure_action="no" secure_return="no"}
+{embed:id_status}
 <input type="hidden" name="title" id="title" value="a wall post" />
 <input type="hidden" name="entry_date" value="{entry_date}" />
 <input type="hidden" name="author_id" value="{logged_in_member_id}" />

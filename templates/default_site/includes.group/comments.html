@@ -5,7 +5,10 @@
 <article class="most-recent">
 {exp:user:stats member_id='{author_id}'}
     <h5>Most recent comment by <a href="{path='profile'}/{member_id}">{screen_name}</a></h5>
-    <p>{thepost}</p>
+    <p>
+        {exp:char_limit total="40" exact="yes"}
+        {thepost}
+        {/exp:char_limit}...</p>
     <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
 {/exp:user:stats}
 </article>
@@ -40,7 +43,6 @@
 {/exp:channel:entries}
 
 {exp:safecracker channel="wall_posts" id="comments" class="comment-form" return="/{embed:id_status}" dynamic="on" safecracker_head="no" secure_action="no" secure_return="no"}
-{embed:id_status}
 <input type="hidden" name="title" id="title" value="a wall post" />
 <input type="hidden" name="entry_date" value="{entry_date}" />
 <input type="hidden" name="author_id" value="{logged_in_member_id}" />

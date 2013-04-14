@@ -114,11 +114,20 @@ $dark-gray: #909090;
     padding-bottom: 1em;
     padding-top: 1em;
     border-style: solid;
-    border-width: 7px 0px;
-    -webkit-border-image: url(../img/teeth.png) 7 2 repeat;
-       -moz-border-image: url(../img/teeth.png) 7 2 repeat;
-         -o-border-image: url(../img/teeth.png) 7 2 repeat;
-            border-image: url(../img/teeth.png) 7 2 fill repeat;
+    border-width: 4px 0px 0px;
+       -moz-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+    -webkit-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+         -o-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+            border-image: url(../img/teeth.png) 4 1 0 round repeat;
+    
+    @media 
+    (-webkit-min-device-pixel-ratio: 2), 
+    (min-resolution: 192dpi) {
+            -moz-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+         -webkit-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+              -o-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+                 border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+     }
 }
 
 @mixin back-arrow {
@@ -208,6 +217,11 @@ $dark-gray: #909090;
 
 // ***********************************************************************************************************************//
 // GLOBAL CLASSES
+
+.post-form {
+    text-align: right;
+}
+
 input[type="file"] {
     display: none;
 }
@@ -267,8 +281,32 @@ input[disabled] {
     @include single-text-shadow;
 }
 
+.attach-media {
+    display: block;
+    color: $white;
+    text-align: center;
+    @include adjust-font-size-to(35px);
+    
+    &:active {
+        color: $black;
+    }
+}
 
-
+.comment-icon {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    border-right: 1px solid $light-gray;
+    
+    &:before {
+        content: '';
+        background: url(../img/comment-icon.png) no-repeat;
+        display: inline-block;
+        width: 17px;
+        height: 16px;
+    }
+}
 // ***********************************************************************************************************************//
 // MEDIA QUERIES
 

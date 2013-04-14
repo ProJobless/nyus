@@ -526,23 +526,12 @@ body.profile {
             @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
             @include grid-row;
             
+            // COMMENT-ICON IS DEFINED IN _SETTINGS, BUT GRIDS ARE DEFINED AFTER _SETTINGS IS LOADED
+            // SO WE'RE CALLING GRID COLUMNS HERE.
+            
             .comment-icon {
-                padding-top: .5em;
-                padding-bottom: .5em;
-                margin-top: .5em;
-                margin-bottom: .5em;
-                width: 80px;
-                border-right: 1px solid $light-gray;
                 @include grid-column(2.5);
-                
-                &:before {
-                    content: '';
-                    background: url(../img/comment-icon.png) no-repeat;
-                    display: inline-block;
-                    width: 17px;
-                    height: 16px;
-                }
-                        
+                  
                 span {
                     display: inline-block;
                     color: $primary-color;
@@ -768,27 +757,14 @@ position: absolute;
             }
         }
     }
-    
-    .question {
-//        @include grid-column(3, $offset: 9, $collapse: true);
-//        float: right;
-//        text-align: right;
-    
-        &:after {
-/*
-            content: "";
-            display: inline-block;
-            margin-left: .75em;
-            margin-bottom: .75em;
-*/
-        }
-    }
 
     .question-wrapper {
-    
-        float: right;
+        margin: 1em 0;
         
-        .question {}
+        .question {
+            display: inline-block;
+            position: relative;
+        }
         
         input {
             position: absolute;
@@ -803,9 +779,6 @@ position: absolute;
         padding-right: 1em;
     }
     
-    .submit-post { 
-        clear: both;
-    }
 }
 
 .comment-form {
@@ -1147,12 +1120,12 @@ b.disabled {
 (-webkit-min-device-pixel-ratio: 2), 
 (min-resolution: 192dpi) {
     
-    .page {
+    body {
         background: #2e2e2e url(../img/pinstripes-black@2x.png) repeat;
         background-size: 21px 26px;
     }
     
-    .profile.page {
+    body.profile {
         background: #ccc url(../img/pinstripes-white@2x.png) repeat;
         background-size: 21px 26px;
     }
@@ -1181,7 +1154,7 @@ b.disabled {
         background: url(../img/question@2x.png) no-repeat;
         background-size: 27px 51px;
     }	
-    .comment-icon {
+    .comment-icon:before {
         background: url(../img/comment-icon@2x.png) no-repeat;
         background-size: 17px 16px;
     }
@@ -1202,4 +1175,5 @@ b.disabled {
         background-image: url(../img/purple-flower@2x.png) no-repeat;
         background-size: 27px 27px;
     }
+
 }

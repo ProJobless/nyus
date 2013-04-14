@@ -47,6 +47,9 @@
 .clearfix {
   *zoom: 1; }
 
+.post-form {
+  text-align: right; }
+
 input[type="file"] {
   display: none; }
 
@@ -173,6 +176,28 @@ input[disabled] {
   width: 27px;
   height: 51px;
   text-shadow: 0px 0px 1px #aaaaaa; }
+
+.attach-media {
+  display: block;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 2.1875em;
+  line-height: 1.37143em; }
+  .attach-media:active {
+    color: #333333; }
+
+.comment-icon {
+  padding-top: .5em;
+  padding-bottom: .5em;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  border-right: 1px solid #dedede; }
+  .comment-icon:before {
+    content: '';
+    background: url(../img/comment-icon.png) no-repeat;
+    display: inline-block;
+    width: 17px;
+    height: 16px; }
 
 @font-face {
   font-family: "Entypo";
@@ -4618,12 +4643,18 @@ body.profile {
   padding-bottom: 1em;
   padding-top: 1em;
   border-style: solid;
-  border-width: 7px 0px;
-  -webkit-border-image: url(../img/teeth.png) 7 2 repeat;
-  -moz-border-image: url(../img/teeth.png) 7 2 repeat;
-  -o-border-image: url(../img/teeth.png) 7 2 repeat;
-  border-image: url(../img/teeth.png) 7 2 fill repeat;
+  border-width: 4px 0px 0px;
+  -moz-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -webkit-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -o-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  border-image: url(../img/teeth.png) 4 1 0 round repeat;
   margin-top: 1em; }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .great-wall {
+      -moz-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -webkit-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -o-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      border-image: url(../img/teeth@2x.png) 7 1 0 round repeat; } }
 
 .post, .post .comments .comment {
   /*     @include grid-row(nest); */
@@ -4762,23 +4793,11 @@ body.profile {
       .post .comments .controls:after {
         clear: both; }
       .post .comments .controls .comment-icon {
-        padding-top: .5em;
-        padding-bottom: .5em;
-        margin-top: .5em;
-        margin-bottom: .5em;
-        width: 80px;
-        border-right: 1px solid #dedede;
         position: relative;
         padding-left: 0.9375em;
         padding-right: 0.9375em;
         width: 20.83333%;
         float: left; }
-        .post .comments .controls .comment-icon:before {
-          content: '';
-          background: url(../img/comment-icon.png) no-repeat;
-          display: inline-block;
-          width: 17px;
-          height: 16px; }
         .post .comments .controls .comment-icon span {
           display: inline-block;
           color: #60128f;
@@ -4839,13 +4858,19 @@ body.profile {
   padding-bottom: 1em;
   padding-top: 1em;
   border-style: solid;
-  border-width: 7px 0px;
-  -webkit-border-image: url(../img/teeth.png) 7 2 repeat;
-  -moz-border-image: url(../img/teeth.png) 7 2 repeat;
-  -o-border-image: url(../img/teeth.png) 7 2 repeat;
-  border-image: url(../img/teeth.png) 7 2 fill repeat;
+  border-width: 4px 0px 0px;
+  -moz-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -webkit-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -o-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  border-image: url(../img/teeth.png) 4 1 0 round repeat;
   margin-top: 1em;
   margin-bottom: 1em; }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .full-profile, .profile-setup {
+      -moz-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -webkit-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -o-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      border-image: url(../img/teeth@2x.png) 7 1 0 round repeat; } }
   .full-profile .profile-header, .profile-setup .profile-header {
     width: 100%;
     margin: 0;
@@ -4980,11 +5005,17 @@ position: absolute;
   padding-bottom: 1em;
   padding-top: 1em;
   border-style: solid;
-  border-width: 7px 0px;
-  -webkit-border-image: url(../img/teeth.png) 7 2 repeat;
-  -moz-border-image: url(../img/teeth.png) 7 2 repeat;
-  -o-border-image: url(../img/teeth.png) 7 2 repeat;
-  border-image: url(../img/teeth.png) 7 2 fill repeat; }
+  border-width: 4px 0px 0px;
+  -moz-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -webkit-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -o-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  border-image: url(../img/teeth.png) 4 1 0 round repeat; }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .recent-activity {
+      -moz-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -webkit-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -o-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      border-image: url(../img/teeth@2x.png) 7 1 0 round repeat; } }
 
 .new-post {
   position: relative;
@@ -5091,15 +5122,11 @@ position: absolute;
         font-weight: normal; }
       .new-post .upload-buttons .post-button a {
         cursor: default; }
-  .new-post .question:after {
-    /*
-                content: "";
-                display: inline-block;
-                margin-left: .75em;
-                margin-bottom: .75em;
-    */ }
   .new-post .question-wrapper {
-    float: right; }
+    margin: 1em 0; }
+    .new-post .question-wrapper .question {
+      display: inline-block;
+      position: relative; }
     .new-post .question-wrapper input {
       position: absolute;
       top: 50%;
@@ -5108,8 +5135,6 @@ position: absolute;
   .new-post .post, .new-post .post .comments .comment, .post .comments .new-post .comment {
     padding-left: 1em;
     padding-right: 1em; }
-  .new-post .submit-post {
-    clear: both; }
 
 .comment-form {
   text-align: right; }
@@ -5192,11 +5217,17 @@ b.disabled {
   padding-bottom: 1em;
   padding-top: 1em;
   border-style: solid;
-  border-width: 7px 0px;
-  -webkit-border-image: url(../img/teeth.png) 7 2 repeat;
-  -moz-border-image: url(../img/teeth.png) 7 2 repeat;
-  -o-border-image: url(../img/teeth.png) 7 2 repeat;
-  border-image: url(../img/teeth.png) 7 2 fill repeat; }
+  border-width: 4px 0px 0px;
+  -moz-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -webkit-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  -o-border-image: url(../img/teeth.png) 4 1 0 round repeat;
+  border-image: url(../img/teeth.png) 4 1 0 round repeat; }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .student-list {
+      -moz-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -webkit-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      -o-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
+      border-image: url(../img/teeth@2x.png) 7 1 0 round repeat; } }
   .student-list .row {
     margin-bottom: 1em;
     border-style: solid;
@@ -5471,11 +5502,11 @@ b.disabled {
     -o-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0); } }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .page {
+  body {
     background: #2e2e2e url(../img/pinstripes-black@2x.png) repeat;
     background-size: 21px 26px; }
 
-  .profile.page {
+  body.profile {
     background: #cccccc url(../img/pinstripes-white@2x.png) repeat;
     background-size: 21px 26px; }
 
@@ -5499,7 +5530,7 @@ b.disabled {
     background: url(../img/question@2x.png) no-repeat;
     background-size: 27px 51px; }
 
-  .comment-icon {
+  .comment-icon:before {
     background: url(../img/comment-icon@2x.png) no-repeat;
     background-size: 17px 16px; }
 

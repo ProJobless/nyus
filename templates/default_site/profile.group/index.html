@@ -17,9 +17,11 @@
                 </div> <!-- .profile-photo -->
                 <div class="name">
                     <h4 data-icon="👤">{screen_name}</h4>
-                    <input accept="image/*" class="edit-photo visuallyhidden" data-icon="📷" id="photo-input" name="photo_filename" onchange="handleFiles(this.files, $('.user-img')[0])" type="file">
-
                 </div> <!-- .name -->
+                <div class="visuallyhidden" id="photo-input-wrap">
+                    <a href="#" class="edit-photo" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
+                    <input accept="image/*" id="photo-input" name="photo_filename" onchange="handleFiles(this.files, $('.user-img')[0])" type="file">
+                </div>
             </div> <!-- .profile-header -->
    
             
@@ -51,18 +53,18 @@
                         <tbody>
                             <tr>
                                 <th scope="rowgroup">Hometown</th>
-                                <td class="data"><input name="location" placeholder="e.g. London, UK" value="{location}"></td>
+                                <td class="data"><input name="location" placeholder="e.g. London, UK" value="{location}" type="text"></td>
                             </tr>
                             
                             <tr>
                                 <th scope="rowgroup">Current City</th>
-                                <td class="data"><input name="occupation" placeholder="e.g. Shanghai, China" value="{occupation}"></td>
+                                <td class="data"><input name="occupation" placeholder="e.g. Shanghai, China" value="{occupation}" type="text"></td>
                             </tr>
                         </tbody>
                     </table>
                     <h4>Interests</h4>
                     <div class="interests">
-                        <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." value="{interests}"></textarea>
+                        <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." value="{interests}">{interests}</textarea>
                     </div> <!-- .interests -->
                     <b><input class="approve" name="next" id="submit" type="submit" value="Submit"></b>
                 </div> <!-- .form -->

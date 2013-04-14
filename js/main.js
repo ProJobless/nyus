@@ -253,18 +253,38 @@ function fileClear(){
 $(document).ready(function(){
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
-    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
     
-    // SHOW/HIDE EDIT PROFILE FORM
+    // ***********************************************************************************************************************//
+    // PROFILE SETUP PROCESS
+    
+    if ($('#actions').hasClass('open')) {
+        $('#actions').css('left', 'auto')
+    }
+
+    // ***********************************************************************************************************************//
+    // EDIT PROFILE FORM
+
     $('#edit-details').click(function(e){
         e.preventDefault()
+        
         if ($('#instructions').length === 1 ) {
-            $('#form, #instructions').toggleClass('visuallyhidden')
+            $('#form, #instructions, #photo-input-wrap').toggleClass('visuallyhidden')
             $('#next').prop('disabled', false)
+        
         } else if ($('#info').length === 1) {
-            $('#form, #info, #photo-input').toggleClass('visuallyhidden')
+            $('#form, #info, #photo-input-wrap').toggleClass('visuallyhidden')
         }
+        
+        $(this).toggleClass('open')
     })
+    
+    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
+
+
+    //**********************************************************************************************************************//    
+    // FILE INPUTS
+    
+    $('.attach-media, #profile-select').click(function(){ $(this).siblings('input').click() })
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
     try {
@@ -272,6 +292,9 @@ $(document).ready(function(){
             $('#actions-icon').trigger('click')
         }
     } catch(e) {}
+    
+    //**********************************************************************************************************************//
+    // FANCYBOX
     
     var commonHelpers = {
             title : {},
@@ -317,6 +340,8 @@ $(document).ready(function(){
             helpers : commonHelpers
         })
     })
+
+    // ***********************************************************************************************************************//
     
     $('#notifications-icon').click(function(){
         $('.notifications-count').addClass('viewed')
@@ -325,4 +350,10 @@ $(document).ready(function(){
     $('#actions-icon').click(function(){
         $('.actions-count').addClass('viewed')
     })
+    
+    // GENERAL PURPOSE STOP PROPAGATION
+    $('#notifications-icon, #actions-icon').click(function(e){
+        e.preventDefault()
+    })
+    
 })

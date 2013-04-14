@@ -11,11 +11,7 @@ ORDER BY status_date DESC
 "}
 
 {exp:user:stats member_id='{member_id}'}
-
-
 <article class="post section-container accordion" data-section="accordion">
-
-
     <div class="post-header author">
         <div class="user-img photo">
             <a href="{path='profile'}/{member_id}">
@@ -28,7 +24,7 @@ ORDER BY status_date DESC
         </div> <!-- .photo -->
         <div class="details info">
             <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
-            <span>{status_date format='%F %j, %Y'}<br>from {occupation}</span>
+            <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
         </div> <!-- .info -->
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
         {if question}

@@ -1,5 +1,11 @@
+{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-question" process_indicator="process_indicator" parse="inward"}
 
-{exp:query sql="
+
+	{infinite_scroll_container_top}
+	<section class="great-wall" id="ajax_container">
+	{/infinite_scroll_container_top}
+
+{exp:query limit="10" sql="
 SELECT exp_friends_status.status_id as status_id, 
 exp_friends_status.member_id as member_id, 
 exp_friends_status.status as status, 
@@ -73,4 +79,21 @@ ORDER BY status_date DESC "}
     </section> <!-- .comments -->    
 </article>
 {/exp:user:stats}
+
+		{paginate}
+			{exp:infinite_scroll:next_chunk_link}
+				{if next_page}
+					<p><a href="{auto_path}" class="next_chunk_link">More Entries</a></p>
+				{/if}
+			{/exp:infinite_scroll:next_chunk_link}
+		{/paginate}
+
+
 {/exp:query}
+
+	{infinite_scroll_container_bottom}
+	</section>
+	{/infinite_scroll_container_bottom}
+
+
+{/exp:infinite_scroll:wrapper}

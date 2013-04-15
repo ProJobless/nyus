@@ -74,7 +74,6 @@ body.profile {
 
 .page,
 .nav {
-//    background: #2e2e2e url(../img/pinstripes-black.png) repeat;
     max-width: 62.5em;
     margin: 0 auto;
 }
@@ -160,8 +159,10 @@ body.profile {
     background: url(../img/action.png) no-repeat;
 }
 
-.drop { // dropdowns. revealed when .activity is clicked
-    @include dropdown-container ($content: list, $triangle: false);
+.drop,
+.steps { // dropdowns. revealed when .activity is clicked
+    @include dropdown-container($content: list, $triangle: false);
+    padding: 0;
     border-width: 2px;
     
     li { 
@@ -172,14 +173,13 @@ body.profile {
         
         a { 
             color: $dark-gray;
-            display: table-row;
+            display: block;
         }
         
         p {
             @include adjust-font-size-to(16px, .9);
-            @include grid-column(9, $collapse: true, $float: false);
+            @include grid-column(9, $collapse: true);
             padding-left: 0.5em;
-            display: table-cell;
         }
         
         &:not(:first-child) {
@@ -203,6 +203,14 @@ body.profile {
             // consider using text-gradient: http://stackoverflow.com/questions/3802218/how-do-i-combined-css-text-shadow-and-background-image-webkit-gradient
         }
     }
+}
+
+
+// STATIC BOX FOR SETUP FLOW
+.steps {
+    position: static;
+    max-width: 800px;
+    margin: 1em auto;
 }
 
 /* THE DROPDOWN THING IS WEIRD
@@ -236,9 +244,7 @@ body.profile {
     
     .user-img {
         @include grid-column(3, $collapse: true);
-        float: none;
-        display: table-cell;
-        vertical-align: middle;
+        overflow: hidden;
         
         img {display: block;}
     }
@@ -710,6 +716,7 @@ position: absolute;
     @include grid-column(12);
     background: rgba(255,255,255,0.8);
     padding-top: 1em;
+    text-align: right;
     
     .preview { @include grid-row(nest); margin-bottom: 1em; }
     .thumb { @include grid-column(4); }
@@ -730,13 +737,21 @@ position: absolute;
         > div { 
             @include grid-column(4, $collapse: true); 
             border-right: 1px solid $black;
+            cursor: pointer;
             
             &:last-child {
                 border-right: none;
             }
+            
+            &.disabled {
+                @include disabled;
+                
+                a:hover { color: $white;; }
+            }
         }
         
         .post-button {
+/*
             cursor: pointer;
             position: relative;
             display: block;
@@ -755,6 +770,7 @@ position: absolute;
                 cursor: default;
 
             }
+*/
         }
     }
 
@@ -818,38 +834,20 @@ position: absolute;
     }
 }
 
-.step-one {
-    position: relative;
-    top: 125px;
-}
+.step-one > b { float: right; }
 
-.to-do {
-    position: relative;
-    top: 130px;
-}
-
-.to-do > b {
-    @include grid-column(6, $push: 6);
-    top: 50px;
-/*     margin-top: 1em; */
-    
-    //input { float: right; }
-}
+.to-do { text-align: center; }
 
 .setup > b {
     @include grid-column(6, $push: 6);
     text-align: right;
     position: relative;
-    top: 140px;
+    top: 40px;
     margin-bottom: 1em;
 }
 
 b.disabled {
     @include disabled;
-}
-
-.notifications-icon.disabled {
-    cursor: not-allowed;
 }
 
 .student-list {
@@ -939,7 +937,7 @@ b.disabled {
     }
     
     .drop {
-        max-width: 62.5em;
+        max-width: 500px;
     }
     
     .profile-container { // contains the profile on the great wall
@@ -1003,6 +1001,10 @@ b.disabled {
     .student-list .row {
         .columns { margin-top: 0; }
         .name { border-bottom: none; padding-bottom: 0; }
+    }
+    
+    .question-input {
+        left: 0;
     }
 
        

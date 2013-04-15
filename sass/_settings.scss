@@ -45,13 +45,6 @@ $dark-gray: #909090;
 @mixin purple-gradient {
     @include background-image(linear-gradient(#954bca #5c0f8c));
     color: $white;
-    
-    &:active,
-    &:focus,
-    &.open {
-        @include background-image(linear-gradient(#5c0f9c, #954bca));
-        color: $black;
-    }
 }
 
 @mixin purple-notice-bubble {
@@ -215,6 +208,10 @@ $dark-gray: #909090;
     cursor:not-allowed; 
 }
 
+.disabled {
+    cursor: not-allowed;
+}
+
 // ***********************************************************************************************************************//
 // GLOBAL CLASSES
 
@@ -229,11 +226,35 @@ input[type="file"] {
 .cancel {
     color: $purple;
     @include background-image(linear-gradient(#fff #cfcfcf));
+    @include single-transition(box-shadow, 100ms);
+    
+    &:hover {
+        color: $dark-gray;
+        @include single-box-shadow(rgba(100,100,100,1), 0, 0, 20px, 0);
+    }
+    
+    &:active,
+    &:focus {
+        @include background-image(linear-gradient(#954bca, #5c0f9c));
+        color: $black;
+    }
 }
 
 input[type="submit"],
 .approve {
     @include purple-gradient;
+    @include single-transition(box-shadow, 100ms);
+
+        &:hover {
+            color: $light-gray;
+            @include single-box-shadow(rgba(100,100,100,1), 0, 0, 20px, 0);
+        }
+
+        &:active,
+        &:focus {
+            @include background-image(linear-gradient(#5c0f9c, #954bca));
+            color: $black;
+        }
 }
 
 .cancel,
@@ -248,7 +269,7 @@ input[type="submit"] {
 }
 
 
-input[disabled] {
+input:not([type='file'])[disabled] {
     @include black-sheen;
     color: $dark-gray;
     width: auto;
@@ -286,8 +307,16 @@ input[disabled] {
     color: $white;
     text-align: center;
     @include adjust-font-size-to(35px);
+    @include single-transition($property:color, $duration:250ms);
     
-    &:active {
+    &:hover {
+        color: $medium-gray;
+    }
+    
+    &:active,
+    &:focus,
+    &.open {
+        @include background-image(linear-gradient(#5c0f9c, #954bca));
         color: $black;
     }
 }

@@ -69,7 +69,7 @@
     close: function (dropdown) {
       var self = this;
       dropdown.each(function () {
-        if ($(this).hasClass(self.settings.activeClass) && !$('.setup').length) {
+        if ($(this).hasClass(self.settings.activeClass)) {
           $(this)
             .css(Foundation.rtl ? 'right':'left', '-99999px')
             .removeClass(self.settings.activeClass);

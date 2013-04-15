@@ -1,0 +1,42 @@
+<ul class="steps">
+    {if segment_2=='step-one'}
+    <li><h4>Welcome!</h4></li>
+    {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc' dynamic="off"}
+    <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+    {/exp:channel:entries}
+    
+    {if:elseif segment_2=='step-two'}
+    {exp:channel:entries channel='actions' category='1' offset='1' limit='1' orderby='date' sort='asc' dynamic="off"}
+    <li><h4>{title}</h4></li>
+    <li><p>{description}</p></li>
+    {/exp:channel:entries}
+
+    {if:elseif segment_2=='step-three'}
+    {exp:channel:entries channel='actions' category='1' offset='2' limit='1' orderby='date' sort='asc' dynamic="off"}
+    <li><h4>{title}</h4></li>
+    <li><p>{description}</p></li>
+    {/exp:channel:entries}
+        
+    {if:elseif segment_2=='to-do'}
+    <li><h4>Actions</h4></li>
+
+        {!-- USING SEGMENT 3 TO DETERMINE HOW MANY TO-DOS TO SHOW. MIGHT NEED AN AUTOMATED WAY TO DO THIS --}
+        {if segment_3=='2'}
+        {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc' dynamic="off"}
+        <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+        {/exp:channel:entries}
+
+        {if:elseif segment_3=='3'}
+        {exp:channel:entries channel='actions' category='1' offset='2' limit='1' orderby='date' sort='asc' dynamic="off"}
+        <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+        {/exp:channel:entries}
+
+        {/if}
+
+    {if:elseif segment_2=='finish'}
+    <li><h4>All Set!</h4></li>
+    {exp:channel:entries channel='actions' category='1' offset='3' limit='1' orderby='date' sort='asc' dynamic="off"}
+    <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
+    {/exp:channel:entries}
+    {/if}
+</ul> <!-- steps -->

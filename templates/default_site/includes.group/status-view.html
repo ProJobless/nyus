@@ -1,18 +1,7 @@
-{exp:query sql="
-SELECT
-status_id, 
-member_id, 
-status, 
-status_date
-FROM 
-exp_friends_status
-WHERE
-status_id='{segment_4}'
-ORDER BY status_date DESC 
-limit 1
-"}
+<script type="text/javascript">
 
-{exp:user:stats member_id='{segment_3}'}
+</script>
+{exp:user:stats member_id='{member_id}'}
 <article class="post section-container accordion" data-section="accordion">
     <div class="post-header author">
         <div class="user-img photo">
@@ -26,9 +15,9 @@ limit 1
         </div> <!-- .photo -->
         <div class="details info">
             <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
-            <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
+            <span>{status_date format='%F %j, %Y'}<br>from {occupation}</span>
         </div> <!-- .info -->
-        {exp:channel:entries channel='media' search:status_owner_id='={segment_4}' orderby='date' sort='desc' dynamic='no' limit="1"}
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
         {if question}
         <div class="question"></div>
         {/if}
@@ -39,7 +28,7 @@ limit 1
     
         <p>{status}</p>
         
-        {exp:channel:entries channel='media' search:status_owner_id='={segment_4}' orderby='date' sort='desc' dynamic='no' limit="1"}
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
 	        {if media_images}
 		        <div class="post-img">
 			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}"></a>
@@ -63,12 +52,12 @@ limit 1
     <section class="comments section">
         <div class="controls title">
             <a href="#" class="comment-icon" rel="ignore">
-                {embed='includes/comment-counter' id_status='{segment_4}'} <!-- Counter of Comments -->
+                {embed='includes/comment-counter' id_status='{status_id}'} <!-- Counter of Comments -->
             </a>
-            {embed='includes/comments' id_member='{segment_3}' id_status='{segment_4}' summary='yes'}
+            {embed='includes/comments' id_member='{member_id}' id_status='{status_id}' summary='yes'}
         </div> <!-- .comment-count -->
         <div class="comment-feed content">
-            {embed='includes/comments' id_member='{segment_3}' id_status='{segment_4}'}
+            {embed='includes/comments' id_member='{member_id}' id_status='{status_id}'}
         </div>
     </section> <!-- .comments -->    
 </article>

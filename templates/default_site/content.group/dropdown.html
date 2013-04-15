@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>testing dropdown callbaks</title>
+
+<script src="/introductions/js/vendor/custom.modernizr.js"></script>
+<link rel="stylesheet" href="/introductions/css/test.css">
+</head>
+<body>
+
+<a href="#" class="button" data-dropdown="tinyDrop">Link Dropdown »</a>
+
+<ul id="tinyDrop" class="f-dropdown" data-dropdown-content>
+  <li><a href="#">This is a link</a></li>
+  <li><a href="#">This is another</a></li>
+  <li><a href="#">Yet another</a></li>
+</ul>
+
+
+<a href="#" class="button" data-dropdown="tinyDrop2">Link Dropdown »</a>
+
+<ul id="tinyDrop2" class="f-dropdown" data-dropdown-content>
+  <li><a href="#">This is a link</a></li>
+  <li><a href="#">This is another</a></li>
+  <li><a href="#">Yet another</a></li>
+</ul>
+
+<a href="#" data-dropdown="notifications" id="notifications-icon">Notiications</a>
+
+<div class="f-dropdown" id="notifications" data-dropdown-content>           <ul>
+                    <li><h4>Notifications</h4></li>
+                      
+        		        
+        		        		
+        		        		<li>
+        		            	 <a href="http://localhost/introductions/includes/view-status/7/288" data-member="7" data-related-status="288" rel="ignore">
+        		            	     <div class="user-img"><img src="http://localhost/introductions/images/member_photos/photo_7.jpeg"></div>
+        		            	     <p><span>bwhitton</span> commenting on a photo as brian_1<br><small>April 14, 2013 <span></span></small></p></a>
+        		            	</li>
+        		            	
+        
+        	            
+        		        		
+        		        		<li>
+        		            	 <a href="http://localhost/introductions/includes/view-status/7/235" data-member="7" data-related-status="235" rel="ignore">
+        		            	     <div class="user-img"><img src="http://localhost/introductions/images/member_photos/photo_7.jpeg"></div>
+        		            	     <p><span>bwhitton</span> commenting from my own profile view<br><small>April 14, 2013 <span></span></small></p></a>
+        		            	</li>
+        		            	
+        
+        	            
+        		        		
+        		        		<li>
+        		            	 <a href="http://localhost/introductions/includes/view-status/7/237" data-member="7" data-related-status="237" rel="ignore">
+        		            	     <div class="user-img"><img src="http://localhost/introductions/images/member_photos/photo_7.jpeg"></div>
+        		            	     <p><span>bwhitton</span> commenting from a lightbox<br><small>April 14, 2013 <span></span></small></p></a>
+        		            	</li>
+        		            	
+        
+        	            
+        		        		
+        		        		<li>
+        		            	 <a href="http://localhost/introductions/includes/view-status/7/236" data-member="7" data-related-status="236" rel="ignore">
+        		            	     <div class="user-img"><img src="http://localhost/introductions/images/member_photos/photo_7.jpeg"></div>
+        		            	     <p><span>bwhitton</span> hey I have those<br><small>April 11, 2013 <span></span></small></p></a>
+        		            	</li>
+        		            	
+        
+        	            
+        		        		
+        		        		<li>
+        		            	 <a href="http://localhost/introductions/includes/view-status/7/221" data-member="7" data-related-status="221" rel="ignore">
+        		            	     <div class="user-img"><img src="http://localhost/introductions/images/member_photos/photo_7.jpeg"></div>
+        		            	     <p><span>bwhitton</span> sweeeet<br><small>April 11, 2013 <span></span></small></p></a>
+        		            	</li>
+        		            	
+        
+        	            
+                    
+                </ul></div>
+
+
+<script>
+  document.write('<script src=/introductions/js/vendor/'
+    + ('__proto__' in {} ? 'zepto' : 'jquery')
+    + '.js><\/script>');
+</script>
+<script src="/introductions/js/vendor/foundation/foundation.js"></script>
+<script src="/introductions/js/vendor/foundation/foundation.dropdown.js"></script>
+<script src="/introductions/js/vendor/foundation/foundation.joyride.js"></script>
+<script>
+  $(document).foundation('dropdown', {opened: function(){console.log('hit')} });
+</script>
+
+</body>
+</html>

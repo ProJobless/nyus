@@ -258,7 +258,7 @@ $(document).ready(function(){
     // PROFILE SETUP PROCESS
     
     if ($('#actions').hasClass('open')) {
-        $('#actions').css('left', 'auto')
+
     }
 
     // ***********************************************************************************************************************//
@@ -289,7 +289,7 @@ $(document).ready(function(){
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
     try {
         if (!!document.URL.match(/setup/).length) { 
-            $('#actions-icon').trigger('click')
+//            $('#actions-icon').trigger('click')
         }
     } catch(e) {}
     

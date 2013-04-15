@@ -1,5 +1,4 @@
 {exp:cookie_plus:set name="counter_cookie" value="1" seconds="30"}
-
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
@@ -27,73 +26,7 @@
         <div class="outer-wrap" id="outer-wrap">
             
             <div class="page" id="page">
-                <ul id="notifications" class="notifications drop" data-dropdown-content>
-                    <li><h4>Notifications</h4></li>
-                    {exp:user:stats}  
-        		        {exp:query sql="
-        		        SELECT 
-        		        exp_channel_data.field_id_1 as comment, 
-        		        exp_channel_data.field_id_2 as status_owner, 
-        		        exp_channel_data.field_id_13 as comment_owner,
-        		        exp_channel_titles.entry_date 
-        		        FROM 
-        		        exp_channel_data, 
-        		        exp_friends_status, 
-        		        exp_channel_titles
-        		        WHERE 
-        		        exp_channel_data.field_id_2=exp_friends_status.status_id AND
-        		        exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
-        		        exp_friends_status.member_id='{member_id}'
-        		        ORDER BY entry_date DESC limit 5
-        		        "}
-        		        		{exp:user:users member_id='{comment_owner}'}
-        		        		<li>
-        		            	 <a href="{path='includes/view-status'}/{member_id}/{status_owner}" data-member="{member_id}" data-related-status="{status_owner}" rel="ignore">
-        		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
-        		            	     <p><span>{screen_name}</span> {comment}<br><small>{entry_date format='%F %j, %Y'} <span></span></small></p></a>
-        		            	</li>
-        		            	{/exp:user:users}
-        
-        	            {/exp:query}
-                    {/exp:user:stats}
-                </ul>
-                <ul id="actions" class="actions drop" data-dropdown-content>
-            
-                    {if segment_2=='step-one'}
-                    <li><h4>Welcome!</h4></li>
-                    {exp:channel:entries channel='actions' category='1' limit='1' orderby='date' sort='asc' dynamic="off"}
-                    <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-                    {/exp:channel:entries}
-                    
-                    {if:elseif segment_2=='to-do'}
-                    <li><h4>Actions</h4></li>
-                    
-                    {!-- USING SEGMENT 3 TO DETERMINE HOW MANY TO-DOS TO SHOW. MIGHT NEED AN AUTOMATED WAY TO DO THIS --}
-                        {if segment_3=='2'}
-                        {exp:channel:entries channel='actions' category='1' offset='1' limit='2' orderby='date' sort='asc' dynamic="off"}
-                        <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-                        {/exp:channel:entries}
-                        
-                        {if:elseif segment_3=='3'}
-                        {exp:channel:entries channel='actions' category='1' offset='2' limit='1' orderby='date' sort='asc' dynamic="off"}
-                        <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-                        {/exp:channel:entries}
-                        
-                        {/if}
-                        
-                    {if:elseif segment_2=='finish'}
-                    <li><h4>All Set!</h4></li>
-                    {exp:channel:entries channel='actions' category='1' offset='3' limit='1' orderby='date' sort='asc' dynamic="off"}
-                    <li><a href="{link}" rel="ignore"><p>{title}</p></a></li>
-                    {/exp:channel:entries}
-                        
-                    {if:else}
-                    <li><h4>Actions</h4></li>
-                    {exp:channel:entries channel='actions' category='not 1' dynamic="off"}
-                    <li><a href="{link}" rel="ignore"><p>{title}<br><small>{entry_date format='%F %j, %Y'} <span>location?</span></small></p></a></li>
-                    {/exp:channel:entries}
-                    {/if}
-                </ul>
+
             <!-- Header and Nav -->
                 <header class="global" id="top" role="banner">
 
@@ -106,10 +39,7 @@
                             <a href="#nav" class="menu-btn" data-icon="☰" id="menu-btn" rel="ignore"><span class="visuallyhidden">Navigate</span></a>           
                         {/if}
                         </div>
-                        
-                        
-                        
-                        
+
                         <div class="first ribbon">
                         {if segment_1=='setup'}
                             
@@ -126,7 +56,7 @@
 											{/if}
 										{/exp:cookie_plus:get}
 	                                {/if}
-		                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon"></a>
+		                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
 		                        {/exp:query}
 	                        {/exp:user:stats} 
 	                           
@@ -136,9 +66,13 @@
                     <div class="header-right">
                         <div class="second ribbon">
                         {if segment_1=='setup'}
-	                        {exp:channel:entries channel='actions' category='1' dynamic='off'}
-	                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
-	                        {/exp:channel:entries}    
+
+                            <a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
+                            
+                        </div>
+                        <div class="post-icon">
+                            <a href="" class="post-btn disabled" data-icon="✎" id="" title=""><span class="visuallyhidden">New Post</span></a>
+                        </div>
                         {if:else}
                             
 	                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
@@ -149,21 +83,20 @@
 			                            {/if}
 									{/exp:cookie_plus:get}
 	                            {/if}
-	                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore"></a>
+	                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
 	                        {/exp:channel:entries}   
-	                         
-                        {/if}
                         </div>
                         <div class="post-icon">
-                            <a href="{path='post'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn"><span class="visuallyhidden">New Post</span></a>
+                            <a href="{path='post'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn" title="New Post"><span class="visuallyhidden">New Post</span></a>
                         </div>
+                        {/if}
                     </div>
                 </header>
                 {if segment_1!='setup'}
                 <nav id="nav" class="nav" role="navigation">
                     {exp:user:stats}
                     <h3 class="name show-for-small" data-icon="👤">
-                    <a href="{path='profile'}">{screen_name}</a>
+                        <a href="{path='profile'}">{screen_name}</a>
                     </h3>
                     {/exp:user:stats}
                     <ul>

@@ -1,8 +1,10 @@
 <section class="new-post">
-
+    
 	{if segment_3!='flag'}
 	<form action="{path='post'}/{logged_in_member_id}/flag" class="post-form" enctype="multipart/form-data" method="post" name="new-post">
+	
 		<div class="preview" id="preview"><span class="size" id="size"></span></div>
+    	
     	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
 
             <div class="upload-buttons">
@@ -34,5 +36,5 @@
 	{exp:status_updates author_id='{segment_2}' date_of_entry='{current_time}'}
 	{redirect=''}
 	{/if}
-	
+
 </section> <!-- .new-post -->

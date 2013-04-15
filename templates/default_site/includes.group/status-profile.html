@@ -8,7 +8,9 @@ member_id='{segment_2}'
 ORDER BY status_date DESC limit 10
 "}
 {exp:user:stats member_id='{segment_3}'}
+
 <article class="post section-container accordion" data-section="accordion">
+
     <div class="post-header author">
         <div class="user-img photo">
             <a href="{path='profile'}/{member_id}">
@@ -18,7 +20,7 @@ ORDER BY status_date DESC limit 10
                 <img src="http://placehold.it/90x90&text=NO IMAGE">
                 {/if}
             </a>
-        </div> <!-- .photo -->
+        </div> <!-- .user-img -->
         <div class="details info">
             <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
             <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
@@ -59,7 +61,7 @@ ORDER BY status_date DESC limit 10
                 {embed='includes/comment-counter' id_status='{status_id}'} <!-- Counter of Comments -->
             </a>
             {embed='includes/comments' id_member='{member_id}' id_status='{status_id}' summary='yes'}
-        </div> <!-- .comment-count -->
+        </div> <!-- .controls -->
         <div class="comment-feed content">
             {embed='includes/comments' id_member='{member_id}' id_status='{status_id}'}
         </div>

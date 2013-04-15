@@ -1,6 +1,8 @@
 {embed='includes/header'}
 
-{exp:user:edit override_return='setup/to-do/2' password_required='n' form:class="step-one"}
+{embed='includes/setup-directions'}
+
+        {exp:user:edit override_return='setup/to-do/2' password_required='n' form:class="step-one"}
         <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
 
         <section class="profile-setup">
@@ -8,7 +10,7 @@
 
             <div class="profile-header clearfix">
                 <!-- takes up the left column on larger screens, stacks on smaller screens -->
-                <div class="user-img">
+                <div class="user-img" id="preview">
 	                <img src="{site_url}img/setup-flower.jpg">
 	                <span id="size"></span>
                 </div> <!-- .profile-photo -->
@@ -17,7 +19,7 @@
                 </div> <!-- .name -->
                 <div class="visuallyhidden" id="photo-input-wrap">
                     <a href="#" class="edit-photo" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
-                    <input accept="image/*" id="photo-input" name="photo_filename" onchange="handleFiles(this.files, $('.user-img')[0])" type="file">
+                    <input accept="image/*" class="photo-input" id="photo-input" name="photo_filename" onchange="handleFiles(this.files, $('.user-img')[0])" type="file">
                 </div>
             </div> <!-- .profile-header -->
    
@@ -64,6 +66,6 @@
                     </div> <!-- .interests -->
                 </div> <!-- .form -->
             </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
+        </section> <!-- .profile-setup -->
         {/exp:user:edit}  
-        </section> <!-- .full-profile -->
 {embed='includes/footer'}

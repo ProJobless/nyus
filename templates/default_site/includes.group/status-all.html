@@ -1,8 +1,5 @@
-{if segment_1}
-	{exp:status_filter current_date='{current_time}' status_owner='{segment_1}'}
-{/if}
     	        
-{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/content/infinite" process_indicator="process_indicator" parse="inward"}
+{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-all" process_indicator="process_indicator" parse="inward"}
 
 
 	{infinite_scroll_container_top}

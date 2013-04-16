@@ -16,24 +16,19 @@
 
 	        {if logged_out}
 				<?php
-				// process SSO
 				// $_POST['eppn'] = '';
-				// user passed NYU authentication
+
+				// uncomment to enable if POST				
 				if (isset($_SERVER['eppn']) && !empty($_SERVER['eppn']) ) {
 					// ) {
-/*
-echo "<pre>";
-print_r($_SERVER);
-echo "</pre>";
-*/
 				?>
 {exp:ajax_form class="Member" method="member_login"}
 <div style="display:hidden">
 <form id="loginForm" method='post' action='{post_url}'>
 <input type='hidden' name='XID' value='{xid}' />
 <input type='hidden' name='ACT' value='{action_id}' />
-<input type='text' id='username' name='username' value="<?php echo $_SERVER['eppn']; ?>" />
-<input type='submit' value='Login' id='btnLogin' />
+<input type='hidden' id='username' name='username' value="<?php echo $_SERVER['eppn']; ?>" />
+<input type='submit' value='Login' id='btnLogin' style="display:none;" />
 </form>
 </div>
 
@@ -49,20 +44,21 @@ $(document).ready(function() {
 		  url: "{post_url}",
 		  data: $("#loginForm").serializeArray()
 		}).done(function( msg ) {
-			// take action based on response
-			console.log(msg);
+			// console.log(msg);
 			 var v = msg.charAt(0);
-			if (v == 0){
-				// go to ERROR page - user not in approved list
-				// window.location();
-			} else if (v == 1){
-				// normal login
-				// window.location({path="content"});
-				
-			} else if (v == 2){
-				// new user created
-				// window.location({path="setup"});
-			} 
+			if (msg.match(/You are now logged in/g)) {
+				if (v == 1){
+					window.location='{site_url}'; // normal login
+				} else if (v == 2) {
+					window.location='{path="setup/step-one"}'; // new user created or photo not present : {member_id}
+				} 
+			} else {
+				if (v == 0){
+					window.location='https://shanghai.nyu.edu/introductions_error/?error_value=200'; // ERROR - user not in approved list
+				} else {
+					window.location='https://shanghai.nyu.edu/introductions_error/?error_value=100'; // general error
+				}
+			}
 		});		
 
 	}); // end click
@@ -75,7 +71,10 @@ if ($('#username').val() != '') {
 </script>
 {/exp:ajax_form}
 <?php
+		} else {
+			die('No SSO token!');
 		}
+// uncomment to enable if POST
 ?>
 
 		{/if}        

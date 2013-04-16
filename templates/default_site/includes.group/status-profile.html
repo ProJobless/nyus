@@ -1,3 +1,9 @@
+{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-profile" process_indicator="process_indicator" parse="outward" }
+
+	{infinite_scroll_container_top}
+	<div id="ajax_container">
+	{/infinite_scroll_container_top}
+
 {exp:query limit="10" sql="
 SELECT 
 status_id, member_id, status, status_date 
@@ -5,10 +11,9 @@ FROM exp_friends_status
 WHERE 
 site_id ='1' AND 
 member_id='{segment_2}' 
-ORDER BY status_date DESC
-"}
+ORDER BY status_date DESC"}
 
-{exp:user:stats member_id='{segment_3}'}
+{exp:user:stats member_id='{segment_2}'}
 
 <article class="post section-container accordion" data-section="accordion">
 
@@ -71,7 +76,24 @@ ORDER BY status_date DESC
 
 {/exp:user:stats}
 
+		{paginate}
+			{exp:infinite_scroll:next_chunk_link}
+				{if next_page}
+					<p><a href="{auto_path}" class="next_chunk_link">More Entries</a></p>
+				{/if}
+			{/exp:infinite_scroll:next_chunk_link}
+		{/paginate}
+
 
 {/exp:query}
+
+	{infinite_scroll_container_bottom}
+	</div>
+	{/infinite_scroll_container_bottom}
+
+
+
+
+{/exp:infinite_scroll:wrapper}
 
 	

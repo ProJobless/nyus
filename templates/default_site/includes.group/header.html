@@ -51,7 +51,7 @@
 		                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
 	                                {if count_comments!='0'}
 		                                {exp:cookie_plus:get name="counter_cookie"}
-											{if  cookie!="1"}
+											{if cookie!="1"}
 												<div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
 											{/if}
 										{/exp:cookie_plus:get}

@@ -19,7 +19,7 @@
 				// $_POST['eppn'] = '';
 
 				// uncomment to enable if POST				
-				// if (isset($_SERVER['eppn']) && !empty($_SERVER['eppn']) ) {
+				if (isset($_SERVER['eppn']) && !empty($_SERVER['eppn']) ) {
 					// ) {
 				?>
 {exp:ajax_form class="Member" method="member_login"}
@@ -27,8 +27,8 @@
 <form id="loginForm" method='post' action='{post_url}'>
 <input type='hidden' name='XID' value='{xid}' />
 <input type='hidden' name='ACT' value='{action_id}' />
-<input type='text' id='username' name='username' value="<?php echo $_SERVER['eppn']; ?>" />
-<input type='submit' value='Login' id='btnLogin' />
+<input type='hidden' id='username' name='username' value="<?php echo $_SERVER['eppn']; ?>" />
+<input type='submit' value='Login' id='btnLogin' style="display:none;" />
 </form>
 </div>
 
@@ -71,7 +71,9 @@ if ($('#username').val() != '') {
 </script>
 {/exp:ajax_form}
 <?php
-//		}
+		} else {
+			die('No SSO token!');
+		}
 // uncomment to enable if POST
 ?>
 

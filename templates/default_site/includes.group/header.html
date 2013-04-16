@@ -61,41 +61,43 @@
 	                        {/exp:user:stats} 
 	                           
                         {/if}
-                        </div>
-                    </div>
+                        </div> <!-- .first.ribbon -->
+                    </div> <!-- .header-left -->
                     <div class="header-right">
-                        <div class="second ribbon">
-                        {if segment_1=='setup'}
+                       
+                        	{if segment_1=='setup'}
+				 <div class="second ribbon">
+                            		<a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
+                            
+                        	</div> <!-- .second.ribbon -->
+	                        <div class="post-icon">
+	        	                <a href="" class="post-btn disabled" data-icon="✎" id="" title=""><span class="visuallyhidden">New Post</span></a>
+                	        </div>
 
-                            <a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
-                            
-                        </div>
-                        <div class="post-icon">
-                            <a href="" class="post-btn disabled" data-icon="✎" id="" title=""><span class="visuallyhidden">New Post</span></a>
-                        </div>
-                        {if:else}
-                            
-	                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
-	                            {if count!='0'}
+                        	{if:else}
+                            	 <div class="second ribbon">
+					<a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
+	                        	 {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
+	                            	{if count!='0'}
 		                            {exp:cookie_plus:get name="counter_cookie"}
 										{if  cookie!="1"}
 			                            	<div class="actions-count" id="actions-count"><span>{count}</span></div>
 			                            {/if}
 									{/exp:cookie_plus:get}
 	                            {/if}
-	                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
-	                        {/exp:channel:entries}   
-                        </div>
-                        <div class="post-icon">
-                            <a href="{path='post'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn" title="New Post"><span class="visuallyhidden">New Post</span></a>
-                        </div>
-                        {/if}
-                    </div>
+	                        {/exp:channel:entries}  
+                        	</div> <!-- .second.ribbon -->
+                        	<div class="post-icon">
+                          	  <a href="{path='post'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn" title="New Post"><span class="visuallyhidden">New Post</span></a>
+                        	</div> <!-- .post-icon -->
+                      		{/if}
+                    </div> <!-- .header-right -->
                 </header>
+
                 {if segment_1!='setup'}
                 <nav id="nav" class="nav" role="navigation">
                     {exp:user:stats}
-                    <h3 class="name show-for-small" data-icon="👤">
+                    <h3 class="name show-for-small" data-icon="&#128100;">
                         <a href="{path='profile'}">{screen_name}</a>
                     </h3>
                     {/exp:user:stats}

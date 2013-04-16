@@ -10,12 +10,12 @@
         
         <link rel="icon" type="image/ico" href="{site_url}favicon.ico">
         
-        <link rel="stylesheet" href="{site_url}css/normalize.css">
-        <link rel="stylesheet" href="{site_url}css/screen.css">
-        <link rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox.css">
-        <link rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox-buttons.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/screen.css">
+        <link rel="stylesheet" href="css/fancybox/jquery.fancybox.css">
+        <link rel="stylesheet" href="css/fancybox/jquery.fancybox-buttons.css">
 
-        <script src="{site_url}js/vendor/custom.modernizr.js"></script>
+        <script src="js/vendor/custom.modernizr.js"></script>
         
     </head>
 	{if segment_1=='profile' || segment_1=='setup'} 
@@ -76,7 +76,7 @@
 
                         	{if:else}
                             	 <div class="second ribbon">
-					<a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
+                                	 <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
 	                        	 {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
 	                            	{if count!='0'}
 		                            {exp:cookie_plus:get name="counter_cookie"}

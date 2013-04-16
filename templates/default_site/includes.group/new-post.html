@@ -5,6 +5,11 @@
         <input type="hidden" name="next-step" value="{embed:next-step}">
         {/if}
         
+        {if embed:action_id}
+        <input type="hidden" name="action_id" value="{embed:action_id}">
+        <input type="hidden" name="id_member" value="{logged_in_member_id}">
+        {/if}
+        
 		<div class="preview" id="preview"><span class="size" id="size"></span></div>
     	
     	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." required rows="8"></textarea>

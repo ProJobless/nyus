@@ -48,17 +48,21 @@
                             
                         {if:else}
                         	
-		                    {exp:user:stats}  
+		                    {exp:user:stats} 
+		               
+		                     
 		                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
 	                                {if count_comments!='0'}
-		                                {exp:cookie_plus:get name="counter_cookie"}
-											{if cookie!="1"}
+		                                {!--exp:cookie_plus:get name="counter_cookie"--}
+											{!--if cookie!="1"--}
 												<div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
-											{/if}
-										{/exp:cookie_plus:get}
+											{!--/if--}
+										{!--/exp:cookie_plus:get--}
 	                                {/if}
 		                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
 		                        {/exp:query}
+	                        
+	                        
 	                        {/exp:user:stats} 
 	                           
                         {/if}
@@ -75,17 +79,30 @@
                             <a href="" class="post-btn disabled" data-icon="✎" id="" rel="ignore" title=""><span class="visuallyhidden">New Post</span></a>
                         </div>
                         {if:else}
+                        
+                        	<?php $counter_verify=0; ?>
+                        	<?php $counter_actions_verify=0; ?>
+                        	
+                        	{exp:channel:entries channel='action_participation' search:body="{logged_in_member_id}" dynamic='off'}
+                        		<?php $counter_verify++; ?>
+                        	{/exp:channel:entries}
+           
                             
 	                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
-	                            {if count!='0'}
-		                            {exp:cookie_plus:get name="counter_cookie"}
-										{if  cookie!="1"}
-			                            	<div class="actions-count" id="actions-count"><span>{count}</span></div>
-			                            {/if}
-									{/exp:cookie_plus:get}
-	                            {/if}
-	                            <a href="#" class="actions-icon" data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
-	                        {/exp:channel:entries}   
+	                        
+	                        	<?php $counter_actions_verify++; ?>
+	                        
+	                        {/exp:channel:entries} 
+	                        
+	                        <?php $counter_verify = $counter_actions_verify - $counter_verify; ?>
+	                        
+	                        	<?php if ($counter_verify > 0) { ?>
+			                    <div class="actions-count" id="actions-count"><span><?php echo $counter_verify; ?></span></div>
+	                            <?php } ?>
+	                            
+	                            <a href="#" class="actions-icon" <?php if ($counter_verify > 0) { ?> data-dropdown="actions" <?php } ?> id="actions-icon" rel="ignore" title="Actions"></a>	
+	                            
+	                          
                         </div>
                         <div class="post-icon">
                             <a href="{path='post'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn" title="New Post"><span class="visuallyhidden">New Post</span></a>

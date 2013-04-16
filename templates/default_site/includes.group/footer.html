@@ -5,7 +5,7 @@
             <ul id="actions" class="actions drop f-dropdown" data-dropdown-content>
                     <li><h4>Actions</h4></li>
                     {exp:channel:entries channel='actions' category='not 1' dynamic="off"}
-                    <li><a href="{link}" rel="ignore"><p>{title}<br><small>{entry_date format='%F %j, %Y'} <span>location?</span></small></p></a></li>
+                    	{embed="includes/actions_pendent" entry_id="{entry_id}" title="{title}" entry_date="{entry_date format='%F %j, %Y'}"}
                     {/exp:channel:entries}
                 </ul>
             <ul id="notifications" class="notifications drop f-dropdown" data-dropdown-content>

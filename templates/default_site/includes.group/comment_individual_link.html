@@ -1,0 +1,63 @@
+
+                    	{exp:query sql="
+        		        		 SELECT 
+								 field_id_2 as status_owner_comment,
+								 field_id_1 as comment
+								 FROM 
+								 exp_channel_data
+								 WHERE
+								 channel_id='1' AND
+								 field_id_2='{embed:owner_status}'
+								 order by entry_id DESC
+								 limit 1
+        		        "}
+        		        
+        		        {embed:audio}
+        		        
+        		        		{exp:user:users member_id='{embed:id_member}'}
+        		        		<li>
+	        		        		
+        		            	 <a href="{path='includes/view-status'}/{member_id}/{status_owner_comment}" data-member="{member_id}" data-related-status="{status_owner}" rel="ignore">
+        		            	     <div class="user-img"><img src="{photo_url}{photo_filename}" width="40"></div>
+        		            	     <p>
+        		            	     <span>{screen_name}</span>
+        		            	     {if embed:image=='' AND embed:audio=='' AND embed:video=='' AND embed:question==''}
+        		            	     commented on one of your statuses
+        		            	     {/if}
+        		            	     
+        		            	     {if embed:image!=''}
+	        		            	     commented on one of your photos
+	        		            	     {if embed:question!=''}
+	        		            	     	and replied to one of your questions
+	        		            	     {/if}
+        		            	     {/if}
+        		            	     
+        		            	     {if embed:audio!=''}
+        		            	     	commented on one of your audio clips
+        		            	     	{if embed:question!=''}
+	        		            	     	and replied to one of your questions
+	        		            	    {/if}
+        		            	     {/if}
+        		            	     
+        		            	     {if embed:video!=''}
+        		            	     	commented on one of your videos
+        		            	     	{if embed:question!=''}
+	        		            	     	and replied to one of your questions
+	        		            	    {/if}
+        		            	     {/if}
+        		            	     
+        		            	     {if embed:question!='' AND embed:image=='' AND embed:audio=='' AND embed:video==''}
+        		            	     replied to one of your questions
+        		            	     {/if}
+        		            	     
+        		            	     <br>
+        		            	     <!--<small>{!--entry_date format='%F %j, %Y'--} 
+        		            	     <span></span>
+        		            	     </small>-->
+        		            	     </p>
+        		            	</a>
+        		            	
+        		            	</li>
+        		            	{/exp:user:users} 
+        		        
+        		        {/exp:query}

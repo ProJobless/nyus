@@ -1,27 +1,11 @@
-<!DOCTYPE html>
-<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+{if logged_out}
+	<?php
+	// $_POST['eppn'] = '';
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <title>NYU Shanghai-net</title>
-        
-        <!-- link rel="stylesheet" href="/2017introductions/css/normalize.css" / -->
-        <!-- link rel="stylesheet" href="/2017introductions/css/screen.css" / -->
-        <!-- script src="/2017introductions/js/vendor/custom.modernizr.js"></script -->
-	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>        
-    </head>
-    <body>
-
-	        {if logged_out}
-				<?php
-				// $_POST['eppn'] = '';
-
-				// uncomment to enable if POST				
-				if (isset($_SERVER['eppn']) && !empty($_SERVER['eppn']) ) {
-					// ) {
-				?>
+	// uncomment to enable if POST				
+	if (isset($_SERVER['eppn']) && !empty($_SERVER['eppn']) ) {
+		// ) {
+	?>
 {exp:ajax_form class="Member" method="member_login"}
 <div style="display:hidden">
 <form id="loginForm" method='post' action='{post_url}'>
@@ -76,8 +60,3 @@ if ($('#username').val() != '') {
 		}
 // uncomment to enable if POST
 ?>
-
-		{/if}        
-	        
-</body>
-</html>

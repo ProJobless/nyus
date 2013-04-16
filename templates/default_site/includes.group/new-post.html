@@ -1,23 +1,25 @@
 <section class="new-post">
-    
-	{if segment_3!='flag'}
-	<form action="{path='post'}/{logged_in_member_id}/flag" class="post-form" enctype="multipart/form-data" method="post" name="new-post">
-	
+
+	<form action="{path='post/post'}/{logged_in_member_id}" class="post-form" enctype="multipart/form-data" method="post" name="new-post">
+    	{if embed:next-step}
+        <input type="hidden" name="next-step" value="{embed:next-step}">
+        {/if}
+        
 		<div class="preview" id="preview"><span class="size" id="size"></span></div>
     	
-    	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
+    	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." required rows="8"></textarea>
 
             <div class="upload-buttons">
                 <div>
-                    <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this.files, $('#preview'))" name="media_images" type="file" value="image">
+                    <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this, $('#preview'))" name="media_images" type="file" value="image">
                     <a class="attach-media photo" data-icon="&#128247;"><span class="visuallyhidden">Upload an Image</span></a>
                 </div>
                 <div>
-                    <input accept="video/*" class="video-input" id="video-input" onchange="handleFiles(this.files, $('#preview'))" name="media_video" type="file" value="video">
+                    <input accept="video/*" class="video-input" id="video-input" onchange="handleFiles(this, $('#preview'))" name="media_video" type="file" value="video">
                     <a class="attach-media video" data-icon="&#127916;"><span class="visuallyhidden">Upload a Video</span></a>
                 </div>
                 <div>
-                    <input accept="audio/*" class="audio-input" id="audio-input" onchange="handleFiles(this.files, $('#preview'))" name="media_audio" type="file" value="audio">
+                    <input accept="audio/*" class="audio-input" id="audio-input" onchange="handleFiles(this, $('#preview'))" name="media_audio" type="file" value="audio">
                     <a class="attach-media audio" data-icon="&#9835;"><span class="visuallyhidden">Upload an audio file</span></a>
                 </div>
             </div> <!-- .upload-buttons -->
@@ -30,11 +32,5 @@
 	
     	<input type="submit" value="Post" id="submit" class="submit-post">
 	</form>
-	{/if}
-	
-	{if segment_3=='flag'}
-	{exp:status_updates author_id='{segment_2}' date_of_entry='{current_time}'}
-	{redirect=''}
-	{/if}
 
 </section> <!-- .new-post -->

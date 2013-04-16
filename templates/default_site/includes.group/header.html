@@ -32,6 +32,7 @@
 
                     <h1 class="visuallyhidden">NYU Shanghai-Net</h1>
                     <div class="header-left">
+                    {if segment_1!='setup'}
                         <div class="menu">
                         {if segment_2=='profile'}  
                             <a href="{site_url}" class="back" data-title="BACK" id="back" rel="ignore"><span class="visuallyhidden">Back</span></a>
@@ -39,7 +40,7 @@
                             <a href="#nav" class="menu-btn" data-icon="☰" id="menu-btn" rel="ignore"><span class="visuallyhidden">Navigate</span></a>           
                         {/if}
                         </div>
-
+                    {/if}
                         <div class="first ribbon">
                         {if segment_1=='setup'}
                             
@@ -68,7 +69,6 @@
                         	{if segment_1=='setup'}
 				 <div class="second ribbon">
                             		<a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
-                            
                         	</div> <!-- .second.ribbon -->
 	                        <div class="post-icon">
 	        	                <a href="" class="post-btn disabled" data-icon="✎" id="" title=""><span class="visuallyhidden">New Post</span></a>
@@ -110,6 +110,7 @@
                     </ul>
                    <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                 </nav>
+
                 <div id="main" class="main">
                 {if:else}
                 <div id="main" class="main setup">

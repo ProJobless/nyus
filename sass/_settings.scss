@@ -210,17 +210,29 @@ $dark-gray: #909090;
 
 .disabled {
     cursor: not-allowed;
+    color: $dark-gray !important;
+    
+    &:hover { color: $dark-gray !important; }
 }
 
 // ***********************************************************************************************************************//
 // GLOBAL CLASSES
+
+*:focus {outline: none; }
 
 .post-form {
     text-align: right;
 }
 
 input[type="file"] {
-    display: none;
+    float: left;
+    clip: rect(0 0 0 0);
+    border: 0;
+    outline: none;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    width: 1px;
 }
 
 .cancel {
@@ -276,6 +288,12 @@ input:not([type='file'])[disabled] {
     height: auto;
     display: inline-block;
 }
+
+.clear { 
+    display: block; 
+    margin-bottom: 2em;
+}
+
 
 // ***********************************************************************************************************************//
 // MODULES

@@ -8,25 +8,24 @@
             {exp:user:edit dynamic='off' override_return='profile/index' return='profile/index'  password_required='n' }
             <div class="profile-header clearfix">
                 <!-- takes up the left column on larger screens, stacks on smaller screens -->
-                <div class="user-img">
+                <div class="user-img" id="preview">
                     {if photo_filename}
 	                <img src="{photo_url}{photo_filename}" />
 	                {if:else}
 	                <img src="http://placehold.it/94x94&text=NO PHOTO">
 	                {/if}
+	                <span id="size" class="size"></span>
+                    <a href="#" class="edit-photo visuallyhidden" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
+                    <input accept="image/*" class="photo-input" id="photo-input" name="photo_filename" onchange="handleFiles(this, $('.user-img')[0])" required type="file">
                 </div> <!-- .user-img -->
                 <div class="name">
                     <h4 data-icon="👤">{screen_name}</h4>
                 </div> <!-- .name -->
-                <div class="visuallyhidden" id="photo-input-wrap">
-                    <a href="#" class="edit-photo" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
-                    <input accept="image/*" id="photo-input" name="photo_filename" onchange="handleFiles(this.files, $('.user-img')[0])" type="file">
-                </div> <!-- #photo-input-wrap -->
             </div> <!-- .profile-header -->
    
             <section class="profile-details">
                 <h4>Living</h4>
-                <a href="#" class="edit-details" data-icon="✎" id="edit-details"><span class="visuallyhidden">Edit Interests</span></a>
+                <a href="#" class="edit-details" data-icon="✎" id="edit-details"><span class="visuallyhidden">Edit Profile</span></a>
                 <div class="info" id="info">
                     <table class="profile-info">
                         <tbody>

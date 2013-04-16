@@ -141,6 +141,33 @@ function findIgnores(){
     
 }
 
+// ***********************************************************************************************************************//
+// CROSS-BROWSER DETECTION FOR INFINITE SCROLL PLUGIN
+// SHOULD ONLY FIRE WHEN WITHIN 100 PIXELS OF BOTTOM OF PAGE
+// THIS SO POST IS HELPFUL: http://stackoverflow.com/questions/3898130/how-to-check-if-a-user-has-scrolled-to-the-bottom
+
+function getDocHeight() {
+    var D = document;
+    return Math.max(
+        Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
+        Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
+        Math.max(D.body.clientHeight, D.documentElement.clientHeight)
+    );
+}
+
+function infiniteScroll() {
+    var $w = $(window)
+    var check = function() {
+        if ($w.scrollTop() + $w.height() > getDocHeight() - 100) {
+            
+        }
+        setTimeout(check, 500)
+    }
+    
+    setTimeout(check, 500)
+}
+
+// ***********************************************************************************************************************//
 // FILE HANDLER FOR UPLOADED IMAGE PREVIEWS
 // SHOWS FILE NAME, SIZE AND IMAGE, JUST FILE NAME AND SIZE FOR VIDEO AND AUDIO
 // MORE INFO HERE: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
@@ -156,14 +183,16 @@ var nBytes = 0,
 */
     var nBytes = file.size
     var output = nBytes + ' bytes'
-    for (var multiples = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
-        output = approx.toFixed(3) + ' ' + multiples[n] + ' (' + nBytes + ' bytes)'
+    for (var multiples = ['KB', 'MB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
+        output = approx.toFixed(2) + ' ' + multiples[n]
     }
     
     return output
     
 }
 
+
+// Let's make sure we're not uploading huge things
 function checkFileSize(file) {
     var input;
     var fileLimit;
@@ -199,12 +228,14 @@ function checkFileSize(file) {
     return input    
 }
 
-function handleFiles(files, preview) {  
-    var file = files[0]
+
+// TAKE THE FILES, TURN THEM INTO DATA URIS AND SHOW THEM TO THE USER
+function handleFiles(input, preview) {  
+    var file = input.files[0]
     var name = file.name
     var $preview = $(preview)
     var reader = new FileReader()
-    var clearButton = $('<button/>').attr({'id':'clear','type':'button'}).html('Clear File')
+    var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Revert')
 
     var input = checkFileSize(file)
     var size = updateSize(file)
@@ -212,9 +243,9 @@ function handleFiles(files, preview) {
     
     if (input.className.match('photo')) {
     
-        if ($preview.find('img').length === 1) { 
+        if (!!$preview.find('img').length) { 
             // CLEAR ANY IMAGES INSIDE PREVIEW
-            $preview.find('img').remove()
+            var oldPhoto = $preview.find('img').detach()
         }
         
         var img = document.createElement("img")
@@ -230,30 +261,42 @@ function handleFiles(files, preview) {
         reader.readAsDataURL(file)
     }
     
-    if ($('#size').length > 0) { 
-        $preview.children('#size').html(name + ' , ' + size)
+    if (!!$('#size').length) { 
+        $preview.children('#size').html('<strong>Filename:</strong> ' + name + '<br> <strong>Filesize:</strong> ' + size)
             .append(clearButton)
-            .on('click', '#clear', function(){ fileClear() } )
+            .on('click', '#clear', function(){ fileClear(oldPhoto) } )
         
     }
     
-    $notSelected = $('input[type=file]').not(input)
-    $notSelected.parent().addClass('disabled')
-    $notSelected.prop('disabled', true)
+    if (!!$('.upload-buttons').length) {
+        $notSelected = $('input[type=file]').not(input)
+        $notSelected.parent().addClass('disabled')
+        $notSelected.prop('disabled', true)
+    }
+    
+    if ($(input).hasClass('photo-input')) {
+        $(input).siblings('#profile-select').toggleClass('visuallyhidden')
+    }
 }
 
-function fileClear(){
+
+// DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
+function fileClear(oldPhoto){
+    $('#profile-select').toggleClass('visuallyhidden')
     $inputs = $('input[type=file]')
     $inputs.val('').prop('disabled', false)
     $inputs.parent().removeClass('disabled')
     var size = $('<span/>').addClass('size').attr('id','size')
-    $('#preview').html(size)
+    $('#preview').find('img, #size').remove()
+    $('#preview').prepend(oldPhoto, size)
 }
 
 $(document).ready(function(){
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
     
+    infiniteScroll()
+        
     // ***********************************************************************************************************************//
     // PROFILE SETUP PROCESS
     
@@ -267,18 +310,24 @@ $(document).ready(function(){
     $('#edit-details').click(function(e){
         e.preventDefault()
         
-        if ($('#instructions').length === 1 ) {
-            $('#form, #instructions, #photo-input-wrap').toggleClass('visuallyhidden')
+        if (!!$('#instructions').length) {
+            $('#form, #instructions').toggleClass('visuallyhidden')
+            if (!$('#clear').length){
+                $('#profile-select').toggleClass('visuallyhidden')
+            }
             $('#next').prop('disabled', false)
         
-        } else if ($('#info').length === 1) {
-            $('#form, #info, #photo-input-wrap').toggleClass('visuallyhidden')
+        } else if (!!$('#info').length) {
+            $('#form, #info').toggleClass('visuallyhidden')
+            if (!$('#clear').length){
+                $('#profile-select').toggleClass('visuallyhidden')
+            }
         }
         
         $(this).toggleClass('open')
     })
     
-    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
+//    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
 
 
     //**********************************************************************************************************************//    
@@ -352,7 +401,7 @@ $(document).ready(function(){
     })
     
     // GENERAL PURPOSE STOP PROPAGATION
-    $('#notifications-icon, #actions-icon').click(function(e){
+    $('#notifications-icon, #actions-icon, .attach-media, #profile-select').click(function(e){
         e.preventDefault()
     })
     

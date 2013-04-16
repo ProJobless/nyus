@@ -177,22 +177,24 @@ body.profile {
         @include grid-row(nest-collapse);
         border-bottom: 1px solid $light-gray;
         max-height: 75px; // better to resize in CMS
-        
-        a { 
-            color: $dark-gray;
-            display: block;
-        }
-        
-        p {
-            @include adjust-font-size-to(16px, .9);
-            @include grid-column(9, $collapse: true);
-            padding-left: 0.5em;
-        }
+        overflow: hidden;
         
         &:not(:first-child) {
             padding: 0.5em 1em;
         }
+    }
         
+    a { 
+        color: $dark-gray;
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+        
+    p {
+        @include adjust-font-size-to(16px, .9);
+        @include grid-column(9, $collapse: true);
+        padding-left: 0.5em;
     }
     
     li:first-child {
@@ -218,6 +220,8 @@ body.profile {
     position: static;
     max-width: 800px;
     margin: 1em auto;
+    
+    p { width: 100%;}
 }
 
 /* THE DROPDOWN THING IS WEIRD
@@ -251,7 +255,6 @@ body.profile {
     
     .user-img {
         @include grid-column(3, $collapse: true);
-        overflow: hidden;
         
         img {display: block;}
     }
@@ -629,6 +632,10 @@ body.profile {
                 @include shadow;
                 width: 94px; // USE CHANNEL IMAGES TO RESIZE IMAGES AND DELETE THIS STYLE
             }
+            
+            .size {
+                @include adjust-leading-to(1.5);
+            }
         }
         
         .name {
@@ -792,8 +799,8 @@ position: absolute;
         input {
             position: absolute;
             top: 50%;
+            left: -75%;
             margin-top: -10px;
-            margin-left: -20px;
         }
     }
     
@@ -836,8 +843,20 @@ position: absolute;
 .profile-setup {
     @extend .full-profile;
     
-    .user-img {
-//        background: url(../img/profile-setup.jpg) no-repeat;
+    .profile-header {
+        .user-img {
+            width: auto;
+            height: auto;
+            img { width: auto;}
+        }
+        .name {
+            height: auto;
+            margin-top: 1em;
+        }
+    }
+    
+    .edit-photo {
+        float: left;
     }
 }
 
@@ -995,8 +1014,6 @@ b.disabled {
             }
             
             .edit-photo {
-                bottom: 30px;
-                margin-top: .25em;
             }
         }
         

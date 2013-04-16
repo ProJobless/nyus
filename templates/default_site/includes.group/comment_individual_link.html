@@ -1,52 +1,53 @@
 
                     	{exp:query sql="
-        		        		 SELECT 
-								 field_id_2 as status_owner_comment,
-								 field_id_1 as comment
-								 FROM 
-								 exp_channel_data
-								 WHERE
-								 channel_id='1' AND
-								 field_id_2='{embed:owner_status}'
-								 order by entry_id DESC
-								 limit 1
+							SELECT 
+							field_id_4 as status_owner,
+							field_id_5 as question,
+							field_id_8 as image,
+							field_id_9 as audio,
+							field_id_10 as video
+							FROM 
+							exp_channel_data
+							WHERE
+							channel_id='2' AND
+							field_id_4='{embed:owner_status}'
+							Limit 1
         		        "}
         		        
-        		        {embed:audio}
         		        
         		        		{exp:user:users member_id='{embed:id_member}'}
         		        		<li>
 	        		        		
-        		            	 <a href="{path='includes/view-status'}/{member_id}/{status_owner_comment}" data-member="{member_id}" data-related-status="{status_owner}" rel="ignore">
+        		            	 <a href="{path='includes/view-status'}/{member_id}/{embed:owner_status}" data-member="{member_id}" data-related-status="{status_owner}" rel="ignore">
         		            	     <div class="user-img"><img src="{photo_url}{photo_filename}" width="40"></div>
         		            	     <p>
         		            	     <span>{screen_name}</span>
-        		            	     {if embed:image=='' AND embed:audio=='' AND embed:video=='' AND embed:question==''}
+        		            	     {if image=='' AND audio=='' AND video=='' AND question==''}
         		            	     commented on one of your statuses
         		            	     {/if}
         		            	     
-        		            	     {if embed:image!=''}
+        		            	     {if image!=''}
 	        		            	     commented on one of your photos
-	        		            	     {if embed:question!=''}
-	        		            	     	and replied to one of your questions
+	        		            	     {if question!='0'}
+	        		            	     	and replied to your questions
 	        		            	     {/if}
         		            	     {/if}
         		            	     
-        		            	     {if embed:audio!=''}
+        		            	     {if audio!=''}
         		            	     	commented on one of your audio clips
-        		            	     	{if embed:question!=''}
-	        		            	     	and replied to one of your questions
+        		            	     	{if question!='0'}
+	        		            	     	and replied to your questions
 	        		            	    {/if}
         		            	     {/if}
         		            	     
-        		            	     {if embed:video!=''}
+        		            	     {if video!=''}
         		            	     	commented on one of your videos
-        		            	     	{if embed:question!=''}
-	        		            	     	and replied to one of your questions
+        		            	     	{if question!='0'}
+	        		            	     	and replied to your questions
 	        		            	    {/if}
         		            	     {/if}
         		            	     
-        		            	     {if embed:question!='' AND embed:image=='' AND embed:audio=='' AND embed:video==''}
+        		            	     {if question!='0' AND image=='' AND audio=='' AND video==''}
         		            	     replied to one of your questions
         		            	     {/if}
         		            	     

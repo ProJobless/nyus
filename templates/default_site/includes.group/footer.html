@@ -12,25 +12,21 @@
                     <li><h4>Notifications</h4></li>
                     {exp:user:stats}  
         		        {exp:query sql="
-        		        SELECT 
-						exp_channel_data.entry_id as entry_id,
-						exp_friends_status.member_id as member_id,
-						exp_channel_data.field_id_4 as status_owner,
-						exp_channel_data.field_id_5 as question,
-						exp_channel_data.field_id_8 as images_uploaded,
-						exp_channel_data.field_id_9 as audio_uploaded,
-						exp_channel_data.field_id_10 as video_uploaded
+						SELECT 
+						exp_channel_data.field_id_2 as status_owner,
+						exp_channel_data.field_id_1 as comment
 						FROM 
 						exp_channel_data
 						LEFT JOIN exp_friends_status 
-						ON exp_channel_data.field_id_4=exp_friends_status.status_id
+						ON exp_channel_data.field_id_2=exp_friends_status.status_id
 						WHERE
-						exp_channel_data.channel_id='2' AND
-						exp_friends_status.member_id='{member_id}'
-						ORDER BY exp_channel_data.entry_id DESC limit 5
+						exp_channel_data.channel_id='1' AND
+						exp_friends_status.member_id='1'
+						order by exp_friends_status.status_date DESC
+						Limit 5
         		        "}
         		        
-        		        {embed="includes/comment_individual_link" id_member='{member_id}' owner_status='{status_owner}' image='{images_uploaded}' audio='{audio_uploaded}' video='{video_uploaded}' question='{question}'}
+        		        {embed="includes/comment_individual_link" id_member='{member_id}' owner_status='{status_owner}'}
         
         	            {/exp:query}
                     {/exp:user:stats}

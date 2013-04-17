@@ -1,3 +1,7 @@
+# Main Site File
+# Commented out SSO redirect for local machines
+templates/default_site/content.group/index.html
+
 # System Files
 .DS_Store
 .htaccess

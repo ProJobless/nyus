@@ -1,3 +1,7 @@
+{if logged_out}
+    {embed='content/sso'}
+{/if}
+
 {exp:user:stats}
     {if photo_filename}
 
@@ -18,7 +22,7 @@
             </div>
     
     {embed='includes/footer'}
-
+    
     {if:else}
     {redirect='setup/step-one/{member_id}'}
     {/if}

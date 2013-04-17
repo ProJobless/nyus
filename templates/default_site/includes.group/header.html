@@ -10,10 +10,10 @@
         
         <link rel="icon" type="image/ico" href="{site_url}favicon.ico">
         
-        <link rel="stylesheet" href="{site_url}css/normalize.css">
-        <link rel="stylesheet" href="{site_url}css/screen.css">
-        <link rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox.css">
-        <link rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox-buttons.css">
+        <link type="text/css" rel="stylesheet" href="{site_url}css/normalize.css">
+        <link type="text/css" rel="stylesheet" href="{site_url}css/screen.css">
+        <link type="text/css" rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox.css">
+        <link type="text/css" rel="stylesheet" href="{site_url}css/fancybox/jquery.fancybox-buttons.css">
 
         <script src="{site_url}js/vendor/custom.modernizr.js"></script>
         
@@ -66,11 +66,17 @@
 	                        {/exp:user:stats} 
 	                           
                         {/if}
-                        </div>
-                    </div>
+                        </div> <!-- .first.ribbon -->
+                    </div> <!-- .header-left -->
                     <div class="header-right">
+                       
+                        	{if segment_1=='setup'}
                         <div class="second ribbon">
-                        {if segment_1=='setup'}
+                            		<a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
+                        	</div> <!-- .second.ribbon -->
+	                        <div class="post-icon">
+	        	                <a href="" class="post-btn disabled" data-icon="✎" id="" title=""><span class="visuallyhidden">New Post</span></a>
+                	        </div>
 
                             <a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
                             
@@ -79,7 +85,7 @@
                             <a href="" class="post-btn disabled" data-icon="✎" id="" rel="ignore" title=""><span class="visuallyhidden">New Post</span></a>
                         </div>
                         {if:else}
-                        
+                       <div class="second ribbon">     
                         	<?php $counter_verify=0; ?>
                         	<?php $counter_actions_verify=0; ?>
                         	
@@ -109,12 +115,13 @@
                         </div>
                         {/if}
                     </div>
+
                 </header>
 
                 {if segment_1!='setup'}
                 <nav id="nav" class="nav" role="navigation">
                     {exp:user:stats}
-                    <h3 class="name show-for-small" data-icon="👤">
+                    <h3 class="name show-for-small" data-icon="&#128100;">
                         <a href="{path='profile'}">{screen_name}</a>
                     </h3>
                     {/exp:user:stats}

@@ -1,0 +1,6 @@
+<ul class="steps">
+    {exp:channel:entries channel='actions' entry_id='{last_segment}' limit='1' dynamic='no' disable="categories|member_data|pagination"}
+    <li><h4>{title}</h4></li>
+    <li><p>{description}</p></li>
+    {/exp:channel:entries}
+</ul> <!-- steps -->

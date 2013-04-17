@@ -32,25 +32,27 @@
 
                     <h1 class="visuallyhidden">NYU Shanghai-Net</h1>
                     <div class="header-left">
+                    
                     {if segment_1!='setup'}
+                        
                         <div class="menu">
                         {if segment_2=='profile'}  
                             <a href="{site_url}" class="back" data-title="BACK" id="back" rel="ignore"><span class="visuallyhidden">Back</span></a>
                         {if:else}
                             <a href="#nav" class="menu-btn" data-icon="☰" id="menu-btn" rel="ignore"><span class="visuallyhidden">Navigate</span></a>           
                         {/if}
-                        </div>
+                        </div> <!-- .menu -->
                     {/if}
-                        <div class="first ribbon">
+
                         {if segment_1=='setup'}
-                            
+                        
+                         <div class="first ribbon">   
                             <a href="#" class="disabled notifications-icon" id="notifications-icon"></a>
-                            
-                        {if:else}
-                        	
-		                    {exp:user:stats} 
-		               
-		                     
+                        </div> <!-- .first .ribbon -->
+                        
+                        {if:else}	
+                         <div class="first ribbon">                           
+		                    {exp:user:stats}      
 		                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
 	                                {if count_comments!='0'}
 		                                {!--exp:cookie_plus:get name="counter_cookie"--}
@@ -60,32 +62,26 @@
 										{!--/exp:cookie_plus:get--}
 	                                {/if}
 		                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
-		                        {/exp:query}
-	                        
-	                        
+		                        {/exp:query}   
 	                        {/exp:user:stats} 
-	                           
+                         </div> <!-- .first.ribbon -->   
                         {/if}
-                        </div> <!-- .first.ribbon -->
+                        
                     </div> <!-- .header-left -->
                     <div class="header-right">
                        
-                        	{if segment_1=='setup'}
+                    	{if segment_1=='setup'}
                         <div class="second ribbon">
-                            		<a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
-                        	</div> <!-- .second.ribbon -->
-	                        <div class="post-icon">
-	        	                <a href="" class="post-btn disabled" data-icon="✎" id="" title=""><span class="visuallyhidden">New Post</span></a>
-                	        </div>
-
-                            <a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
+                    		<a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
+                    	</div> <!-- .second.ribbon -->
                             
-                        </div>
                         <div class="post-icon">
                             <a href="" class="post-btn disabled" data-icon="✎" id="" rel="ignore" title=""><span class="visuallyhidden">New Post</span></a>
                         </div>
+                        
                         {if:else}
-                       <div class="second ribbon">     
+                        
+                        <div class="second ribbon">     
                         	<?php $counter_verify=0; ?>
                         	<?php $counter_actions_verify=0; ?>
                         	
@@ -109,12 +105,12 @@
 	                            <a href="#" class="actions-icon" <?php if ($counter_verify > 0) { ?> data-dropdown="actions" <?php } ?> id="actions-icon" rel="ignore" title="Actions"></a>	
 	                            
 	                          
-                        </div>
+                        </div> <!-- .second.ribbon -->
                         <div class="post-icon">
                             <a href="{path='post'}/{logged_in_member_id}" class="post-btn"  data-icon="✎" id="post-btn" title="New Post"><span class="visuallyhidden">New Post</span></a>
-                        </div>
+                        </div> <!-- .post-icon -->
                         {/if}
-                    </div>
+                    </div> <!-- .header-right -->
 
                 </header>
 

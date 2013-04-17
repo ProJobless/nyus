@@ -12,6 +12,9 @@ images/smileys/
 images/member_photos/
 images/signature_attachments/
 images/pm_attachments/
+images/media_images/
+images/media_audio/
+images/media_videos/
 
 # Caches
 sized/

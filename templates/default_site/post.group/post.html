@@ -1,5 +1,3 @@
-{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'}
-
 <?php
     if (isset($_POST['next-step'])) {
         echo "{redirect='setup/" . $_POST["next-step"] . "'}";
@@ -7,3 +5,5 @@
         echo "{redirect=''}";
     }
 ?>
+
+{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'}

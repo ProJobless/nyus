@@ -318,6 +318,7 @@ input:not([type='file'])[disabled] {
     width: 27px;
     height: 51px;
     @include single-text-shadow;
+    @include question-flag;
 }
 
 .attach-media {

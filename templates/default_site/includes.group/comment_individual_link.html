@@ -1,19 +1,24 @@
 
+
+
                     	{exp:query sql="
 							SELECT 
-							field_id_4 as status_owner,
-							field_id_5 as question,
-							field_id_8 as image,
-							field_id_9 as audio,
-							field_id_10 as video
+							exp_channel_data.field_id_4 as status_owner,
+							exp_channel_data.field_id_5 as question,
+							exp_channel_data.field_id_8 as image,
+							exp_channel_data.field_id_9 as audio,
+							exp_channel_data.field_id_10 as video,
+							exp_channel_titles.author_id as author
 							FROM 
 							exp_channel_data
+							LEFT JOIN exp_channel_titles
+							ON exp_channel_data.entry_id=exp_channel_titles.entry_id
 							WHERE
-							channel_id='2' AND
-							field_id_4='{embed:owner_status}'
+							exp_channel_titles.channel_id='2' AND
+							exp_channel_data.field_id_4='{embed:owner_status}'
 							Limit 1
         		        "}
-        		        		{exp:user:users member_id='{embed:id_member}'}
+        		        		{exp:user:users member_id='{author}'}
         		        		<li>
 	        		        		
         		            	 <a href="{path='includes/view-status'}/{member_id}/{embed:owner_status}" data-member="{member_id}" data-related-status="{status_owner}" rel="ignore">

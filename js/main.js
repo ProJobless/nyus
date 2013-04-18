@@ -171,7 +171,7 @@ function infiniteScroll() {
 // IMAGE RESIZING IN BROWSER USING HTML5 CANVAS
 // SEE MORE HERE: http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas
 
-
+try {
 var fileinput = document.getElementById('photo-input');
 
 var max_width = fileinput.getAttribute('data-maxwidth');
@@ -181,6 +181,7 @@ var preview = document.getElementById('preview');
 
 var canvas = document.getElementById('canvas');
 var form = document.getElementById('form');
+} catch(e) { console.log('not on the post')}
 
 function processfile(file) {
   
@@ -189,31 +190,50 @@ function processfile(file) {
             alert( "File "+ file.name +" is not an image." );
             return false;
         }
-    // read the files
+    
+    var type = file.type
+    var imgProps = {
+        name : file.name,
+        size : file.size,
+        image : ''
+    }      
+
+    // read in the files
     var reader = new FileReader();
     reader.readAsArrayBuffer(file);
     
     reader.onload = function (event) {
-      // blob stuff
-      var blob = new Blob([event.target.result], {type : file.type}); // create blob...
-      window.URL = window.URL || window.webkitURL;
-      var blobURL = window.URL.createObjectURL(blob); // and get it's URL
-      
-      // helper Image object
-      var image = new Image();
-      image.src = blobURL;
-      //preview.appendChild(image); // preview commented out, I am using the canvas instead
-      image.onload = function() {
-        // have to wait till it's loaded
-        resized = resizeMe(image); // send it to canvas
-        var newinput = document.createElement("input");
-        newinput.type = 'hidden'
-        newinput.name = file.name
-        newinput.value = resized; // put result from canvas into new hidden input
-        form.appendChild(newinput);
+
+        // set up the blob
+        var blob = new Blob([event.target.result], {type: type})
+        window.URL = window.URL || window.webkitURL
+        var blobURL = window.URL.createObjectURL(blob)
+        
+        // Preview Image to be inserted into canvas
+        var image = new Image()
+        image.src = blobURL
+        window.URL.revokeObjectURL(blobURL)
+        
+        image.onload = function() {
+            window.URL.revokeObjectURL(this.src)
+
+            resized = resizeMe(image, type) // sending to canvas
+            imgProps['image'] = resized // setting up for PHP
+
+            for (prop in imgProps) {
+                var toPHP = document.createElement('input')
+                if (imgProps.hasOwnProperty(prop)) {
+                    toPHP.type = 'hidden'
+                    toPHP.name = 'images['+prop+']'
+                    toPHP.value = imgProps[prop]
+                    form.appendChild(toPHP)
+                }
+            }
+
       }
     };
 }
+
 
 function readfiles(files) {
   
@@ -233,8 +253,10 @@ function readfiles(files) {
     // TODO remove the previous hidden inputs if user selects other files
 }
 
+
 // this is where it starts. event triggered when user selects files
-/*
+
+try {
 fileinput.onchange = function(){
   if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {
     alert('The File APIs are not fully supported in this browser.');
@@ -242,14 +264,14 @@ fileinput.onchange = function(){
     }
   readfiles(fileinput.files);
 }
-*/
+} catch(e) {}
 
 // === RESIZE ====
 
-function resizeMe(img) {
+function resizeMe(img,type) {
   
   var canvas = document.createElement('canvas');
-
+  
   var width = img.width;
   var height = img.height;
 
@@ -276,7 +298,7 @@ function resizeMe(img) {
   
   preview.appendChild(canvas); // do the actual resized preview
   
-  return canvas.toDataURL("image/jpeg",0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+  return canvas.toDataURL(type,0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
 
 }
 
@@ -304,6 +326,76 @@ function sendFile(file) {
 // SHOWS FILE NAME, SIZE AND IMAGE, JUST FILE NAME AND SIZE FOR VIDEO AND AUDIO
 // MORE INFO HERE: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
 
+/*
+window.URL = window.URL || window.webkitURL
+var fileSelect = document.getElementById('photo-select'),
+    fileElem = document.getElementById('photo-input'),
+    fileList = document.getElementById('preview')
+
+fileSelect.addEventListener('click', function(e) {
+    if (fileElem) {
+        fileElem.click()
+    }
+    e.preventDefault()
+}, false)
+
+function handleFiles(files) {
+    if (!files.length) {
+        fileList.innerHTML = '<p>No Files Selected. Don\'t forget about #size!</p>'
+    } else {
+        var reader = new FileReader()
+        var file = files[0]
+        var img = document.createElement('img')
+        var blob = window.URL.createObjectURL(file)
+        img.src = window.URL.createObjectURL(file)
+        img.file = file
+        img.height = 60
+        img.onload = function(e) {
+            window.URL.revokeObjectURL(this.src)
+        }
+        fileList.appendChild(img)
+        fileElem.value = ''
+    }
+}
+
+function sendFiles() {
+    var img = document.querySelectorAll('.blob')
+    new FileUpload(img, img.file)
+}
+
+function FileUpload(img, file) {
+    var reader = new FileReader()
+    //this.ctrl = createThrobber(img)
+    var xhr = new XMLHttpRequest()
+    this.xhr = xhr
+    
+    var self = this
+/*
+    this.xhr.upload.addEventListener('progress', function(e) {
+        if (e.lengthComputable) {
+            var percentage = Math.round((e.loaded * 100) / e.total)
+            self.ctrl.update(percentage)
+        }
+    }, false)
+*/
+    
+/*
+    xhr.upload.addEventListener('load', function(e) {
+        self.ctrl.update(100)
+        var canvas = self.ctrl.xhr.canvas
+        canvas.parentNode.removeChild(canvas)
+    }, false)
+*/
+/*
+    xhr.open("POST", "http://localhost/introductions/post/post", true)
+    reader.onload = function(evt) {
+        xhr.send(evt.target.result)
+    }
+    reader.readAsBinaryString(file)
+}
+*/
+
+
 function updateSize(file) {
     /*
 var nBytes = 0,
@@ -328,22 +420,22 @@ var nBytes = 0,
 function checkFileSize(file) {
     var input;
     var fileLimit;
-    var limitAbb;
+    var limit;
     var imageType = /image.*/
     var videoType = /video.*/
     var audioType = /audio.*/
     
     if (file.type.match(imageType)) {
         fileLimit = 2500000
-        limitAbb = '2.5 MB'
+        limit = '2.5 MB'
         input = document.getElementById('photo-input')
     } else if (file.type.match(audioType)) {
         fileLimit = 10000000
-        limitAbb = '10 MB'
+        limit = '10 MB'
         input = document.getElementById('audio-input')
     } else {
         fileLimit = 15000000
-        limitAbb = '15 MB'
+        limit = '15 MB'
         input = document.getElementById('video-input')
     }
     
@@ -362,6 +454,7 @@ function checkFileSize(file) {
 
 
 // TAKE THE FILES, TURN THEM INTO DATA URIS AND SHOW THEM TO THE USER
+/*
 function handleFiles(input, preview) {  
     var file = input.files[0]
     var name = file.name
@@ -410,6 +503,7 @@ function handleFiles(input, preview) {
         $(input).siblings('#profile-select').toggleClass('visuallyhidden')
     }
 }
+*/
 
 
 // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT

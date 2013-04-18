@@ -13,17 +13,15 @@
 							field_id_4='{embed:owner_status}'
 							Limit 1
         		        "}
-        		        
-        		        
         		        		{exp:user:users member_id='{embed:id_member}'}
         		        		<li>
 	        		        		
         		            	 <a href="{path='includes/view-status'}/{member_id}/{embed:owner_status}" data-member="{member_id}" data-related-status="{status_owner}" rel="ignore">
-        		            	     <div class="user-img"><img src="{photo_url}{photo_filename}" width="40"></div>
+        		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
         		            	     <p>
         		            	     <span>{screen_name}</span>
         		            	     {if image=='' AND audio=='' AND video=='' AND question==''}
-        		            	     commented on one of your statuses
+        		            	     commented on one of your posts
         		            	     {/if}
         		            	     
         		            	     {if image!=''}
@@ -52,7 +50,7 @@
         		            	     {/if}
         		            	     
         		            	     <br>
-        		            	     <!--<small>{!--entry_date format='%F %j, %Y'--} 
+        		            	     <!--<small> {!-- entry_date format='%F %j, %Y' --}
         		            	     <span></span>
         		            	     </small>-->
         		            	     </p>

@@ -1,0 +1,29 @@
+{!--if logged_out--}
+    {!--embed='content/sso'--}
+{!--/if--}
+
+{exp:user:stats}
+    {if photo_filename}
+
+    {embed='includes/header'}
+    <!-- End Header and Nav -->
+   
+      
+    	        {if segment_1}
+    	        	{exp:status_filter current_date='{current_time}' status_owner='{segment_1}'}
+    	        {/if}
+    	        
+    	        <!--See all Status-->
+    	        {embed='includes/status-all'}
+            
+            <!-- This is source ordered to be pulled to the left on larger screens -->
+            <div class="profile-container panel hide-for-small">
+    	        {embed='includes/sidebar-profile'}
+            </div>
+    
+    {embed='includes/footer'}
+    
+    {if:else}
+    {redirect='setup/step-one/{member_id}'}
+    {/if}
+{/exp:user:stats}

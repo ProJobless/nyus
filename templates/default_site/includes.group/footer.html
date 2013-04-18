@@ -12,16 +12,15 @@
                     <li><h4>Notifications</h4></li>
                     {exp:user:stats}  
         		        {exp:query sql="
-						SELECT 
-						exp_channel_data.field_id_2 as status_owner,
-						exp_channel_data.field_id_1 as comment
+						SELECT DISTINCT
+						exp_channel_data.field_id_2 as status_owner
 						FROM 
 						exp_channel_data
 						LEFT JOIN exp_friends_status 
 						ON exp_channel_data.field_id_2=exp_friends_status.status_id
 						WHERE
 						exp_channel_data.channel_id='1' AND
-						exp_friends_status.member_id='1'
+						exp_friends_status.member_id='{member_id}'
 						order by exp_friends_status.status_date DESC
 						Limit 5
         		        "}

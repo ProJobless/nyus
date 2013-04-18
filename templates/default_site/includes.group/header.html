@@ -1,4 +1,4 @@
-{exp:cookie_plus:set name="counter_cookie" value="1" seconds="30"}
+{exp:cookie_plus:set name="current_time_log_in" value="{current_time}" seconds="30"}
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
@@ -23,6 +23,8 @@
     {if:else}
     <body>
     {/if}
+    
+
         <div class="outer-wrap" id="outer-wrap">
             
             <div class="page" id="page">
@@ -51,18 +53,37 @@
                         </div> <!-- .first .ribbon -->
                         
                         {if:else}	
-                         <div class="first ribbon">                           
-		                    {exp:user:stats}      
-		                        {exp:query sql="SELECT count(*) as count_comments FROM exp_channel_data, exp_friends_status WHERE exp_channel_data.field_id_2=exp_friends_status.status_id AND exp_friends_status.member_id='{member_id}' "}
-	                                {if count_comments!='0'}
-		                                {!--exp:cookie_plus:get name="counter_cookie"--}
-											{!--if cookie!="1"--}
-												<div class="notifications-count" id="notifications-count"><span>{count_comments}</span></div>
-											{!--/if--}
-										{!--/exp:cookie_plus:get--}
-	                                {/if}
+                         <div class="first ribbon">  
+                         
+                         	<?php $counter_verify_comments=0; ?>
+
+                         		                         
+		                    {exp:user:stats} 
+		                           
+		                        
+		                        {exp:query sql="
+		                        SELECT DISTINCT 
+		                        exp_friends_status.status_date as status_date
+		                        FROM 
+		                        exp_channel_data, exp_friends_status 
+		                        WHERE 
+		                        exp_channel_data.field_id_2=exp_friends_status.status_id AND 
+		                        exp_friends_status.member_id='{member_id}' AND
+		                        exp_friends_status.status_date > '{last_visit}'
+		                        "}
+
+		                        <?php $counter_verify_comments++; ?>
+
+	                            {/exp:query}  
+	                            
+
+	                                
+	                                <?php if ($counter_verify_comments > 0) { ?>
+									<div class="notifications-count" id="notifications-count"><span><?php echo $counter_verify_comments; ?></span></div>	
+	                                <?php } ?>
 		                            <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
-		                        {/exp:query}   
+		                         
+		                        
 	                        {/exp:user:stats} 
                          </div> <!-- .first.ribbon -->   
                         {/if}

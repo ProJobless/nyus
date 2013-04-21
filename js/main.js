@@ -171,254 +171,264 @@ function infiniteScroll() {
 // IMAGE RESIZING IN BROWSER USING HTML5 CANVAS
 // SEE MORE HERE: http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas
 
-try {
-var fileinput = document.getElementById('photo-input');
-
-var max_width = fileinput.getAttribute('data-maxwidth');
-var max_height = fileinput.getAttribute('data-maxheight');
-
-var preview = document.getElementById('preview');
-
-var canvas = document.getElementById('canvas');
-var form = document.getElementById('form');
-} catch(e) { console.log('not on the post')}
-
-function processfile(file) {
-  
-    if( !( /image/i ).test( file.type ) )
-        {
-            alert( "File "+ file.name +" is not an image." );
-            return false;
-        }
-    
-    var type = file.type
-    var imgProps = {
-        name : file.name,
-        size : file.size,
-        image : ''
-    }      
-
-    // read in the files
-    var reader = new FileReader();
-    reader.readAsArrayBuffer(file);
-    
-    reader.onload = function (event) {
-
-        // set up the blob
-        var blob = new Blob([event.target.result], {type: type})
-        window.URL = window.URL || window.webkitURL
-        var blobURL = window.URL.createObjectURL(blob)
-        
-        // Preview Image to be inserted into canvas
-        var image = new Image()
-        image.src = blobURL
-        window.URL.revokeObjectURL(blobURL)
-        
-        image.onload = function() {
-            window.URL.revokeObjectURL(this.src)
-
-            resized = resizeMe(image, type) // sending to canvas
-            imgProps['image'] = resized // setting up for PHP
-
-            for (prop in imgProps) {
-                var toPHP = document.createElement('input')
-                if (imgProps.hasOwnProperty(prop)) {
-                    toPHP.type = 'hidden'
-                    toPHP.name = 'images['+prop+']'
-                    toPHP.value = imgProps[prop]
-                    form.appendChild(toPHP)
-                }
-            }
-
-      }
-    };
-}
-
-
-function readfiles(files) {
-  
-    // remove the existing canvases and hidden inputs if user re-selects new pics
-    var existinginputs = document.getElementsByName('images[]');
-    var existingcanvases = document.getElementsByTagName('canvas');
-    while (existinginputs.length > 0) { // it's a live list so removing the first element each time
-      // DOMNode.prototype.remove = function() {this.parentNode.removeChild(this);}
-      form.removeChild(existinginputs[0]);
-      preview.removeChild(existingcanvases[0]);
-    } 
-  
-    for (var i = 0; i < files.length; i++) {
-      processfile(files[i]); // process each file at once
-    }
-    fileinput.value = ""; //remove the original files from fileinput
-    // TODO remove the previous hidden inputs if user selects other files
-}
-
-
 // this is where it starts. event triggered when user selects files
 
-try {
-fileinput.onchange = function(){
-  if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {
-    alert('The File APIs are not fully supported in this browser.');
-    return false;
-    }
-  readfiles(fileinput.files);
-}
-} catch(e) {}
-
-// === RESIZE ====
-
-function resizeMe(img,type) {
-  
-  var canvas = document.createElement('canvas');
-  
-  var width = img.width;
-  var height = img.height;
-
-  // calculate the width and height, constraining the proportions
-  if (width > height) {
-    if (width > max_width) {
-      //height *= max_width / width;
-      height = Math.round(height *= max_width / width);
-      width = max_width;
-    }
-  } else {
-    if (height > max_height) {
-      //width *= max_height / height;
-      width = Math.round(width *= max_height / height);
-      height = max_height;
-    }
-  }
-  
-  // resize the canvas and draw the image data into it
-  canvas.width = width;
-  canvas.height = height;
-  var ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, width, height);
-  
-  preview.appendChild(canvas); // do the actual resized preview
-  
-  return canvas.toDataURL(type,0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
-
-}
-
-/*
-function sendFile(file) {
-    var uri = "post/post";
-    var xhr = new XMLHttpRequest();
-    var fd = new FormData();
-     
-    xhr.open("POST", uri, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Handle response.
-            alert(xhr.responseText); // handle response.
-        }
-    };
-    fd.append("myFile", file);
-    // Initiate a multipart/form-data upload
-    xhr.send(fd);
-}
-*/
-
-// ***********************************************************************************************************************//
-// FILE HANDLER FOR UPLOADED IMAGE PREVIEWS
-// SHOWS FILE NAME, SIZE AND IMAGE, JUST FILE NAME AND SIZE FOR VIDEO AND AUDIO
-// MORE INFO HERE: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
-
-/*
-window.URL = window.URL || window.webkitURL
-var fileSelect = document.getElementById('photo-select'),
-    fileElem = document.getElementById('photo-input'),
-    fileList = document.getElementById('preview')
-
-fileSelect.addEventListener('click', function(e) {
-    if (fileElem) {
-        fileElem.click()
-    }
-    e.preventDefault()
-}, false)
-
-function handleFiles(files) {
-    if (!files.length) {
-        fileList.innerHTML = '<p>No Files Selected. Don\'t forget about #size!</p>'
-    } else {
-        var reader = new FileReader()
-        var file = files[0]
-        var img = document.createElement('img')
-        var blob = window.URL.createObjectURL(file)
-        img.src = window.URL.createObjectURL(file)
-        img.file = file
-        img.height = 60
-        img.onload = function(e) {
-            window.URL.revokeObjectURL(this.src)
-        }
-        fileList.appendChild(img)
-        fileElem.value = ''
-    }
-}
-
-function sendFiles() {
-    var img = document.querySelectorAll('.blob')
-    new FileUpload(img, img.file)
-}
-
-function FileUpload(img, file) {
-    var reader = new FileReader()
-    //this.ctrl = createThrobber(img)
-    var xhr = new XMLHttpRequest()
-    this.xhr = xhr
     
-    var self = this
-/*
-    this.xhr.upload.addEventListener('progress', function(e) {
-        if (e.lengthComputable) {
-            var percentage = Math.round((e.loaded * 100) / e.total)
-            self.ctrl.update(percentage)
-        }
-    }, false)
-*/
     
-/*
-    xhr.upload.addEventListener('load', function(e) {
-        self.ctrl.update(100)
-        var canvas = self.ctrl.xhr.canvas
-        canvas.parentNode.removeChild(canvas)
-    }, false)
-*/
-/*
-    xhr.open("POST", "http://localhost/introductions/post/post", true)
-    reader.onload = function(evt) {
-        xhr.send(evt.target.result)
-    }
-    reader.readAsBinaryString(file)
-}
-*/
+    
+    
+    
+    
+    
+    
+    
 
 
-function updateSize(file) {
-    /*
-var nBytes = 0,
-        nFiles = files.length
+(function(){
+    var canvas = document.createElement('canvas')
+    var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Revert') // user-intent to clear current inputs
+    var photoBag = $('input[type=hidden], canvas') // used in readfiles
+    var $preview = $('#preview') // container for thumbnail and controls
+    var image = new Image()
+    var TO_RADIANS = Math.PI/180
+    var currentAngle = 0
+    var imgProps = {}
+    
+    
+    try {
+        var fileinput = document.getElementById('photo-input');
         
-    for (var nFileId = 0; nFileId < nFiles; nFileId++) {
-        nBytes += files[nFileId].size
+        fileinput.onchange = function(){
+            if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {
+                alert('The File APIs are not fully supported in this browser.');
+                return false;
+            }
+            readfiles(fileinput, this);
+            $('.photo-control').removeClass('visuallyhidden')
+        }
+    } catch(e) {}
+    
+    function readfiles(fileinput, self) {
+        var files = fileinput.files
+    
+        // remove the existing canvases and hidden inputs if user re-selects new pics
+        if (!!photoBag.length) {
+            $(photoBag).remove()
+        }
+        
+        for (var i = 0; i < files.length; i++) {
+          processfile(files[i], self); // process each file at once
+        }
+        
+        fileinput.value = ""; //remove the original files from fileinput
+        
+        if (!!$('.upload-buttons').length) {
+            $notSelected = $('input[type=file]').not(self)
+            $notSelected.parent().addClass('disabled')
+            $notSelected.prop('disabled', true)
+        }
+        
+        if ($(self).hasClass('photo-input')) {
+            $(self).siblings('#profile-select').toggleClass('visuallyhidden')
+        }
     }
-*/
+    
+    function processfile(file, self) {
+
+        imgProps['name'] = file.name
+        imgProps['type'] = file.type        
+        
+        if (self.className.match('photo')) {
+        
+            if (!!$preview.find('img').length) { 
+                // CLEAR ANY IMAGES INSIDE PREVIEW
+                var oldPhoto = $preview.find('img').detach()
+            }
+        }   
+    
+        // read in the files
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        
+        reader.onload = function (event) {
+            
+            var form = document.getElementById('form')
+            
+            // set up the blob
+            var blob = new Blob([event.target.result], {type: imgProps.type})
+            window.URL = window.URL || window.webkitURL
+            var blobURL = window.URL.createObjectURL(blob)
+            
+            // Preview Image to be inserted into canvas
+            image.src = blobURL
+            
+            // REVOKE OBJECT URL ASAP TO SAVE MEMORY
+            // https://developer.mozilla.org/pt-BR/docs/DOM/window.URL.revokeObjectURL
+            //window.URL.revokeObjectURL(blobURL)
+            
+            image.onload = function() {
+                if (!!$('input[type=hidden]').length) {
+                    $('input[type=hidden]').remove()
+                }
+                imgProps['image'] = compress(this, imgProps.type) // sending to canvas
+    //            this.classList.add('thumb')
+                $('#thumb').prepend(this)
+                prepInputs()
+            }
+        };
+    }
+    
+    function prepInputs() {    
+        for (prop in imgProps) {
+            var toPHP = document.createElement('input')
+            if (imgProps.hasOwnProperty(prop)) {
+                toPHP.type = 'hidden'
+                toPHP.name = 'images['+prop+']'
+                toPHP.value = imgProps[prop]
+                form.appendChild(toPHP)
+            }
+        }
+    
+    }
+    
+    // === RESIZE ====
+    
+    function compress(img, fileType) {
+        var max_width = fileinput.getAttribute('data-maxwidth');
+        var max_height = fileinput.getAttribute('data-maxheight');
+        
+        var width = img.width;
+        var height = img.height;
+        
+        // calculate the width and height, constraining the proportions
+        if (width > height) {
+            if (width > max_width) {
+                //height *= max_width / width;
+                height = Math.round(height *= max_width / width);
+                width = max_width;
+            }
+        } else {
+            if (height > max_height) {
+                //width *= max_height / height;
+                width = Math.round(width *= max_height / height);
+                height = max_height;
+            }
+        }
+        
+        // resize the canvas and draw the image data into it
+        canvas.width = width;
+        canvas.height = height;
+        ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        //$('#preview').append(canvas); // do the actual resized preview
+        
+        return canvas.toDataURL(fileType,0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+        
+    }
+
+
+    window.rotate = function(direction) {
+        //var context = canvas.getContext('2d')
+        console.log(currentAngle)
+        if (direction === 'left') {
+            if (currentAngle === 0) {
+                currentAngle = 360
+            }
+            currentAngle -= 90
+        } else if (direction === 'right') {
+            if (currentAngle === 360) {
+                currentAngle = 0
+            }
+            currentAngle += 90
+        }
+        
+        var cw = canvas.width, 
+            ch = canvas.height, 
+            cx = 0, 
+            cy = 0
+        
+        switch(currentAngle){
+            case 0: 
+                cw = canvas.width
+                ch = canvas.height
+                iw = canvas.width
+                ih = canvas.height
+                break
+            case 90:
+                cw = canvas.height
+                ch = canvas.width
+                cy = canvas.height * (-1)
+                iw = ch
+                ih = cw
+                break
+            case 180:
+                cx = canvas.width * (-1)
+                cy = canvas.height * (-1)
+                break
+            case 270:
+                cw = canvas.height
+                ch = canvas.width
+                cx = canvas.height * (-1)
+                break
+        }
+        
+        //ctx = canvas.getContext('2d')
+        //ctx.clearRect(0, 0, cw, ch);
+
+        ctx.clearRect(0,0,canvas.width, canvas.height)        
+        canvas.width = cw
+        canvas.height = ch
+
+
+
+
+        ctx.rotate(currentAngle * TO_RADIANS)
+        ctx.drawImage(image, cx, cy, iw, ih);
+
+        
+        $('#thumb img').attr('class', 'rotate'+currentAngle)
+        
+        if (!!$('input[type=hidden]').length) {
+            $('input[type=hidden]').remove()
+        }
+        imgProps['image'] = canvas.toDataURL(imgProps.type, 1)
+        prepInputs()
+    }
+    
+    //return rotate
+
+}())
+
+// DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
+function fileClear(oldPhoto){
+    var photoBag = $('input[type=hidden], canvas')
+    if (!!photoBag.length) {
+        $(photoBag).remove()
+    }
+    
+    $('#profile-select').toggleClass('visuallyhidden')
+    var $inputs = $('input[type=file]')
+    $inputs.val('').prop('disabled', false)
+    $inputs.parent().removeClass('disabled')
+    var size = $('<span/>').addClass('size').attr('id','size')
+    $('#preview').find('img, #size').remove()
+    $('#preview').prepend(oldPhoto, size)
+}
+
+function getSize(file) {
     var nBytes = file.size
     var output = nBytes + ' bytes'
     for (var multiples = ['KB', 'MB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
         output = approx.toFixed(2) + ' ' + multiples[n]
     }
-    
-    return output
-    
+    return size  
 }
 
 
 // Let's make sure we're not uploading huge things
 function checkFileSize(file) {
-    var input;
+    var output;
     var fileLimit;
     var limit;
     var imageType = /image.*/
@@ -449,18 +459,14 @@ function checkFileSize(file) {
     
     $('#submit').prop('disabled', false)
 
-    return input    
+    return output    
 }
 
 
 // TAKE THE FILES, TURN THEM INTO DATA URIS AND SHOW THEM TO THE USER
 /*
 function handleFiles(input, preview) {  
-    var file = input.files[0]
-    var name = file.name
-    var $preview = $(preview)
-    var reader = new FileReader()
-    var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Revert')
+    
 
     var input = checkFileSize(file)
     var size = updateSize(file)
@@ -505,17 +511,6 @@ function handleFiles(input, preview) {
 }
 */
 
-
-// DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
-function fileClear(oldPhoto){
-    $('#profile-select').toggleClass('visuallyhidden')
-    $inputs = $('input[type=file]')
-    $inputs.val('').prop('disabled', false)
-    $inputs.parent().removeClass('disabled')
-    var size = $('<span/>').addClass('size').attr('id','size')
-    $('#preview').find('img, #size').remove()
-    $('#preview').prepend(oldPhoto, size)
-}
 
 $(document).ready(function(){
     findIgnores()

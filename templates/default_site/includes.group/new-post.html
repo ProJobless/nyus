@@ -22,27 +22,29 @@
     	
     	<textarea class="post-text" name="friends_status" placeholder="Show, tell, or ask." rows="8"></textarea>
 
-            <div class="upload-buttons">
-                <div>
-                    <!-- <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this, $('#preview'))" name="media_images" type="file" value="image"> -->
-                    <input accept="image/*" class="photo-input" data-maxheight="1000" data-maxwidth="1000" id="photo-input" name="media_images" type="file" value="image">
-                    <a class="attach-media photo" data-icon="&#128247;" id="photo-select"><span class="visuallyhidden">Upload an Image</span></a>
-                </div>
-                <div>
-                    <input accept="video/*" class="video-input" id="video-input" onchange="handleFiles(this, $('#preview'))" name="media_video" type="file" value="video">
-                    <a class="attach-media video" data-icon="&#127916;"><span class="visuallyhidden">Upload a Video</span></a>
-                </div>
-                <div>
-                    <input accept="audio/*" class="audio-input" id="audio-input" onchange="handleFiles(this, $('#preview'))" name="media_audio" type="file" value="audio">
-                    <a class="attach-media audio" data-icon="&#9835;"><span class="visuallyhidden">Upload an audio file</span></a>
-                </div>
-            </div> <!-- .upload-buttons -->
-
-            <div class="question-wrapper">
-                <label for="question" class="question">
-                    <input class="question-input" id="question" name="question" type="checkbox" value="1">
-                </label>
-            </div>	<!-- .question-wrapper -->
+            <div class="post-inputs">
+                <div class="upload-buttons">
+                    <div>
+                        <!-- <input accept="image/*" class="photo-input" id="photo-input" onchange="handleFiles(this, $('#preview'))" name="media_images" type="file" value="image"> -->
+                        <input accept="image/*" class="photo-input" data-maxheight="1000" data-maxwidth="1000" id="photo-input" name="media_images" type="file" value="image">
+                        <a class="attach-media photo" data-icon="&#128247;" id="photo-select"><span class="visuallyhidden">Upload an Image</span></a>
+                    </div>
+                    <div>
+                        <input accept="video/*" class="video-input" id="video-input" onchange="handleFiles(this, $('#preview'))" name="media_video" type="file" value="video">
+                        <a class="attach-media video" data-icon="&#127916;"><span class="visuallyhidden">Upload a Video</span></a>
+                    </div>
+                    <div>
+                        <input accept="audio/*" class="audio-input" id="audio-input" onchange="handleFiles(this, $('#preview'))" name="media_audio" type="file" value="audio">
+                        <a class="attach-media audio" data-icon="&#9835;"><span class="visuallyhidden">Upload an audio file</span></a>
+                    </div>
+                </div> <!-- .upload-buttons -->
+    
+                <div class="question-wrapper">
+                    <label for="question" class="question">
+                        <input class="question-input" id="question" name="question" type="checkbox" value="1">
+                    </label>
+                </div>	<!-- .question-wrapper -->
+            </div> <!-- .post-inputs -->
 	
     	<input type="submit" value="Post" id="submit" class="submit-post">
 	</form>

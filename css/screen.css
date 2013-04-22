@@ -134,7 +134,7 @@ input[type="submit"],
 input[type="submit"] {
   font-weight: normal;
   border: 1px solid #bcbcbc;
-  padding: 13px 13px;
+  padding: 10px 13px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none; }
@@ -1279,7 +1279,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 0; }
 
 h1 {
-  font-size: 2.125em; }
+  font-size: 0.75em; }
 
 h2 {
   font-size: 1.6875em; }
@@ -1423,7 +1423,7 @@ blockquote p {
     line-height: 1.4; }
 
   h1 {
-    font-size: 2.75em; }
+    font-size: 1.375em; }
 
   h2 {
     font-size: 2.3125em; }
@@ -4140,8 +4140,7 @@ body.profile {
   speak: none;
   /* Not to be trusted, but hey. */ }
 
-.page,
-.nav {
+.page {
   max-width: 62.5em;
   margin: 0 auto; }
 
@@ -4171,6 +4170,10 @@ body.profile {
     display: table; }
   .global:after {
     clear: both; }
+
+.logo {
+  color: whitesmoke;
+  font-weight: normal; }
 
 #ajax_container {
   display: block;
@@ -4617,11 +4620,6 @@ body.profile {
   background: rgba(155, 155, 155, 0.5);
   position: absolute;
   top: 0; }
-  .nav > li {
-    width: 100%;
-    padding: 0 10px 10px; }
-    .nav > li:nth-of-type(1n+1) {
-      clear: both; }
   .nav a, .nav li {
     color: #dedede; }
   .nav .name {
@@ -4643,12 +4641,15 @@ body.profile {
     border-top: 1px #dedede solid;
     border-bottom: 1px #333333 solid;
     text-shadow: 0 -1px 0 #333333; }
-  .nav li:first-child {
-    font-size: 0.875em;
-    line-height: 1.71429em;
-    padding: 0.25em 1em;
+  .nav li:first-child,
+  .nav li:nth-child(7),
+  .nav li:nth-child(8) {
+    font-size: 0.75em;
+    line-height: 2em;
     text-transform: uppercase;
     background: rgba(20, 20, 20, 0.5); }
+  .nav li:first-child {
+    padding: 0.25em 1em; }
   .nav a {
     padding: 0.25em 1em; }
 
@@ -4762,7 +4763,8 @@ body.profile {
   -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
   margin: 0 auto 1em;
-  position: relative; }
+  position: relative;
+  clear: both; }
   .post h1, .post .comments .comment h1, .post h2, .post .comments .comment h2, .post h3, .post .comments .comment h3, .post h4, .post .comments .comment h4, .post h5, .post .comments .comment h5, .post h6, .post .comments .comment h6, .post p, .post .comments .comment p {
     color: #333333; }
   .post > :first-child, .post .comments .comment > :first-child {
@@ -5378,7 +5380,8 @@ b.disabled {
   .page {
     position: static; }
 
-  .global .menu-btn {
+  .global .menu-btn,
+  .global .post-btn {
     border: 0;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -5388,9 +5391,26 @@ b.disabled {
     position: absolute;
     width: 1px; }
 
+  .global {
+    position: fixed; }
+
   .nav {
     position: relative;
-    padding-top: 0; }
+    width: 33.33333%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+    position: fixed;
+    background: none;
+    margin-top: 4em;
+    font-size: 1.125em;
+    line-height: 1.33333em;
+    /*
+            position: relative;
+            padding-top: 0;
+    */ }
 
     /*
 #nav .close-btn {
@@ -5405,43 +5425,117 @@ b.disabled {
     }
 */
   .nav ul {
-    text-align: center;
-    white-space: nowrap; }
-    .nav ul > li {
-      width: 20%;
-      padding: 0 10px 10px; }
-      .nav ul > li:nth-of-type(5n+1) {
-        clear: both; }
+    list-style: none;
+    /*
+            text-align: center;
+            white-space: nowrap;
+            @include block-grid(5, $base-style: false);
+    */ }
 
-  .nav li {
-    display: inline-block;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: none; }
-
-  .nav li:last-child {
-    border: none; }
-
-  .drop {
-    max-width: 500px; }
-
-  .profile-container {
-    position: relative;
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-    width: 22.91667%;
-    right: 75%;
-    left: auto;
-    float: left;
-    margin-top: 1em; }
-
+  /*
+      .profile-container { // contains the profile on the great wall
+          @include grid-column(2.75, $pull: 9);
+          margin-top: 1em;
+      }
+  */
   .great-wall {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
-    width: 75%;
-    left: 25%;
+    width: 66.66667%;
+    left: 33.33333%;
     right: auto;
-    float: left; }
+    float: left;
+    margin-top: 4em; }
+    .great-wall .new-post {
+      border-style: solid;
+      border-width: 1px;
+      border-color: #d9d9d9;
+      margin-bottom: 1.25em;
+      padding: 1.25em;
+      background: #f2f2f2;
+      width: 100%;
+      margin: 0;
+      max-width: 62.5em;
+      *zoom: 1;
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSgyNTUsIDI1NSwgMjU1LCAwKSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2RlZGVkZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+      background-size: 100%;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #dedede));
+      background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #dedede);
+      background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #dedede);
+      background-image: -o-linear-gradient(rgba(255, 255, 255, 0), #dedede);
+      background-image: linear-gradient(rgba(255, 255, 255, 0), #dedede);
+      padding: 0;
+      margin-bottom: 1em; }
+      .great-wall .new-post h1, .great-wall .new-post h2, .great-wall .new-post h3, .great-wall .new-post h4, .great-wall .new-post h5, .great-wall .new-post h6, .great-wall .new-post p {
+        color: #333333; }
+      .great-wall .new-post > :first-child {
+        margin-top: 0; }
+      .great-wall .new-post > :last-child {
+        margin-bottom: 0; }
+      .great-wall .new-post h1, .great-wall .new-post h2, .great-wall .new-post h3, .great-wall .new-post h4, .great-wall .new-post h5, .great-wall .new-post h6 {
+        line-height: 1;
+        margin-bottom: 0.625em; }
+        .great-wall .new-post h1.subheader, .great-wall .new-post h2.subheader, .great-wall .new-post h3.subheader, .great-wall .new-post h4.subheader, .great-wall .new-post h5.subheader, .great-wall .new-post h6.subheader {
+          line-height: 1.4; }
+      .great-wall .new-post:before, .great-wall .new-post:after {
+        content: " ";
+        display: table; }
+      .great-wall .new-post:after {
+        clear: both; }
+      .great-wall .new-post .post-form {
+        position: relative;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        float: left; }
+        .great-wall .new-post .post-form .preview {
+          display: none; }
+        .great-wall .new-post .post-form textarea {
+          font-size: 1.125em;
+          line-height: 1.33333em;
+          height: 55px;
+          background: none;
+          border: none;
+          padding: 1em 1.5em 0;
+          border-bottom: 1px solid #bcbcbc; }
+        .great-wall .new-post .post-form .post-inputs {
+          border: none; }
+        .great-wall .new-post .post-form .upload-buttons {
+          position: relative;
+          padding-left: 0.9375em;
+          padding-right: 0.9375em;
+          width: 41.66667%;
+          float: left;
+          background: none;
+          border: none; }
+          .great-wall .new-post .post-form .upload-buttons > div {
+            border: none; }
+        .great-wall .new-post .post-form .attach-media {
+          border-right: 1px solid #dedede;
+          color: #60128f;
+          text-align: left;
+          font-size: 3.4375em;
+          line-height: 0.65455em; }
+          .great-wall .new-post .post-form .attach-media:last-child {
+            border: none; }
+        .great-wall .new-post .post-form .question-wrapper {
+          position: relative;
+          padding-left: 0.9375em;
+          padding-right: 0.9375em;
+          width: 8.33333%;
+          float: left;
+          margin: 0;
+          text-align: left; }
+          .great-wall .new-post .post-form .question-wrapper .question:after {
+            display: none; }
+          .great-wall .new-post .post-form .question-wrapper input {
+            display: none; }
+        .great-wall .new-post .post-form .submit-post {
+          margin: .5em;
+          padding: 8px 20px; }
 
   .post .user-img, .post .comments .comment .user-img {
     position: relative;
@@ -5513,6 +5607,16 @@ b.disabled {
   .question-input {
     left: 0; } }
 @media screen and (max-width: 48em) {
+  .global h1 {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; }
+
   .nav:not(:target) {
     z-index: 1;
     height: 0; }
@@ -5609,7 +5713,17 @@ b.disabled {
     -moz-transform: translate3d(0, 0, 0);
     -ms-transform: translate3d(0, 0, 0);
     -o-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0); } }
+    transform: translate3d(0, 0, 0); }
+
+  .great-wall .new-post {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; } }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   body {
     background: #2e2e2e url(../img/pinstripes-black@2x.png) repeat;

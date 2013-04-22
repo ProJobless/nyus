@@ -274,7 +274,7 @@ input[type="submit"],
 input[type="submit"] {
     font-weight: normal;
     border: 1px solid $medium-gray;
-    padding: 13px 13px;
+    padding: 10px 13px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -479,7 +479,7 @@ $header-font-color: $primary-color;
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-// $h1-font-size: emCalc(44px);
+ $h1-font-size: emCalc(22px);
 // $h2-font-size: emCalc(37px);
 // $h3-font-size: emCalc(27px);
 // $h4-font-size: emCalc(23px);

@@ -173,17 +173,6 @@ function infiniteScroll() {
 
 // this is where it starts. event triggered when user selects files
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
 (function(){
     var canvas = document.createElement('canvas')
     var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Revert') // user-intent to clear current inputs
@@ -461,55 +450,6 @@ function checkFileSize(file) {
 
     return output    
 }
-
-
-// TAKE THE FILES, TURN THEM INTO DATA URIS AND SHOW THEM TO THE USER
-/*
-function handleFiles(input, preview) {  
-    
-
-    var input = checkFileSize(file)
-    var size = updateSize(file)
-    
-    
-    if (input.className.match('photo')) {
-    
-        if (!!$preview.find('img').length) { 
-            // CLEAR ANY IMAGES INSIDE PREVIEW
-            var oldPhoto = $preview.find('img').detach()
-        }
-        
-        var img = document.createElement("img")
-        img.classList.add("thumb")
-        img.file = file
-        $preview.prepend(img)
-
-        reader.onload = (function(aImg) { 
-            return function(e) { 
-                aImg.src = e.target.result
-            };
-        })(img)
-        reader.readAsDataURL(file)
-    }
-    
-    if (!!$('#size').length) { 
-        $preview.children('#size').html('<strong>Filename:</strong> ' + name + '<br> <strong>Filesize:</strong> ' + size)
-            .append(clearButton)
-            .on('click', '#clear', function(){ fileClear(oldPhoto) } )
-        
-    }
-    
-    if (!!$('.upload-buttons').length) {
-        $notSelected = $('input[type=file]').not(input)
-        $notSelected.parent().addClass('disabled')
-        $notSelected.prop('disabled', true)
-    }
-    
-    if ($(input).hasClass('photo-input')) {
-        $(input).siblings('#profile-select').toggleClass('visuallyhidden')
-    }
-}
-*/
 
 
 $(document).ready(function(){

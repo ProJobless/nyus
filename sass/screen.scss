@@ -72,8 +72,7 @@ body.profile {
   speak: none; /* Not to be trusted, but hey. */
 }
 
-.page,
-.nav {
+.page {
     max-width: 62.5em;
     margin: 0 auto;
 }
@@ -96,6 +95,8 @@ body.profile {
     background: $primary-color url(../img/header-pattern.png) repeat -2px -3px;
     padding: 0.25em 0.75em 0.2em;
 }
+
+.logo { color: $white; font-weight: normal;}
 
 #ajax_container {
 	display:block; 
@@ -343,14 +344,10 @@ body.profile {
 }
 */
 .nav {
-//    @include grid-row;
-    @include block-grid(1, $base-style: false);
-//    z-index: 200;
     overflow: hidden;
     background: rgba(155, 155, 155, 0.5);
     position: absolute;
     top: 0;
-//    padding-top: 5.25em;
     
     a, li {
         color: $light-gray;
@@ -380,11 +377,16 @@ body.profile {
         text-shadow: 0 -1px 0 #333;
     }
     
-    li:first-child {
-        @include adjust-font-size-to(14px);
-        padding: .25em 1em;
+    li:first-child,
+    li:nth-child(7),
+    li:nth-child(8) {
+        @include adjust-font-size-to(12px);
         text-transform: uppercase;
         background: rgba(20,20,20,0.5);
+    }
+    
+    li:first-child {
+        padding: .25em 1em;
     }
     
     a {
@@ -478,6 +480,7 @@ body.profile {
 //    @extend .section-container;
     margin: 0 auto 1em;
     position: relative;
+    clear: both;
     
     .author {
         @include grid-row;
@@ -939,7 +942,8 @@ b.disabled {
         position: static;
     }
     
-    .global .menu-btn {
+    .global .menu-btn,
+    .global .post-btn {
         border: 0;
         clip: rect(0 0 0 0);
         height: 1px;
@@ -950,9 +954,19 @@ b.disabled {
         width: 1px;
     }
     
+    .global { position: fixed;}
+    
     .nav {
+        @include grid-column(4, $collapse: true);
+        position: fixed;
+        background: none;
+        margin-top: 4em;
+        @include adjust-font-size-to(18px);
+        
+/*
         position: relative;
         padding-top: 0;
+*/
     }
     
     /*
@@ -969,31 +983,95 @@ b.disabled {
 */
     
     .nav ul {
+        list-style: none;
+/*
         text-align: center;
         white-space: nowrap;
         @include block-grid(5, $base-style: false);
+*/
     }
     .nav li {
-        display: inline-block;
+//        display: inline-block;
 //        padding: 0.42857em 0.85714em;
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
-        border-top: none;
+//        border-right: 1px solid rgba(255, 255, 255, 0.1);
+//        border-top: none;
     }
     .nav li:last-child {
-        border: none;
+//        border: none;
     }
     
     .drop {
-        max-width: 500px;
+//        max-width: 500px;
     }
     
+/*
     .profile-container { // contains the profile on the great wall
         @include grid-column(2.75, $pull: 9);
         margin-top: 1em;
     }
+*/
     
     .great-wall {
-        @include grid-column(9, $push: 3);
+        @include grid-column(8, $push: 4);
+        margin-top: 4em;
+        
+        .new-post {
+            @include panel;
+            @include grid-row(collapse);
+            @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
+            padding: 0; 
+            margin-bottom: 1em;
+            
+            .post-form {
+                @include grid-column(12, $collapse: true);
+                
+                .preview { display: none; }
+                
+                textarea {
+                    @include adjust-font-size-to(18px);
+                    height: 55px;
+                    background: none;
+                    border: none;
+                    padding: 1em 1.5em 0;
+                    border-bottom: 1px solid $medium-gray;
+                }
+                
+                .post-inputs {
+                   border: none;
+                }
+                
+                .upload-buttons { 
+                    @include grid-column(5); 
+                    background: none;
+                    border: none; 
+                    
+                    > div {border: none;}
+                }
+                
+                .attach-media { 
+                    border-right: 1px solid $light-gray;
+                    color: $purple; 
+                    text-align: left;
+                    @include adjust-font-size-to(55px, 1.5);
+                    
+                    &:last-child { border: none; }
+                }
+                
+                .question-wrapper { 
+                    @include grid-column(1); 
+                    margin: 0; 
+                    text-align: left;
+                    
+                    .question:after { display: none; }
+                    input { display: none; }    
+                }
+                
+                .submit-post { 
+                    margin: .5em;
+                    padding: 8px 20px;    
+                }
+            }
+        }
     }
 
     .post {
@@ -1056,6 +1134,17 @@ b.disabled {
 }
 
 @media screen and (max-width: 48em) {
+
+    .global h1 { 
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
     .nav:not(:target) {
         z-index: 1;
         height: 0;
@@ -1160,6 +1249,17 @@ b.disabled {
         -ms-transform: translate3d(0, 0, 0);
         -o-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
+    }
+    
+    .great-wall .new-post {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
     }
 }
 

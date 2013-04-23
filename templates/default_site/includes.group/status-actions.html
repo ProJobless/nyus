@@ -1,0 +1,63 @@
+    	        
+{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-aactions" process_indicator="process_indicator" parse="inward"}
+
+
+	{infinite_scroll_container_top}
+	<section class="great-wall" id="ajax_container">
+	{/infinite_scroll_container_top}
+	
+	   {embed="includes/new-post"}
+	   
+		{exp:query limit="10" sql="
+		SELECT 
+		exp_channel_titles.title as title,
+		exp_channel_titles.entry_date as entry_date, 
+		exp_channel_data.field_id_11 as description, 
+		exp_channel_data.entry_id as entry_id
+		FROM 
+		exp_channel_titles,
+		exp_channel_data 
+		WHERE 
+		exp_channel_titles.entry_id=exp_channel_data.entry_id AND 
+		exp_channel_data.channel_id='3'
+		"}
+		
+			
+					<article class="post section-container accordion" data-section="accordion">
+					<div class="details info">
+						<h4><a href="{path='action'}/{member_id}/{embed:entry_id}" >{title}</a></h4>
+					</div>
+				    <div class="status post-content">
+							<p>	
+								{description}<br>
+								<small>{entry_date format="%F %j, %Y at %h:%i %a"}</small>
+							</p>
+				    </div> <!-- .post-content -->	
+				    <section class="comments section">
+				        <div class="controls title">
+				            <a href="#" class="comment-icon" rel="ignore">
+					           {embed="includes/action-counter" action_id="{entry_id}"}
+				            </a>
+				        </div> <!-- .comment-count -->				    
+				    </section> <!-- .comments -->   
+				    </article>
+				    
+		
+		{paginate}
+			{exp:infinite_scroll:next_chunk_link}
+				{if next_page}
+					<a href="{auto_path}" class="next_chunk_link">More Entries</a>
+				{/if}
+			{/exp:infinite_scroll:next_chunk_link}
+		{/paginate}
+		
+		{/exp:query}
+	
+	{infinite_scroll_container_bottom}
+	</section>
+	{/infinite_scroll_container_bottom}
+
+
+{/exp:infinite_scroll:wrapper}
+
+

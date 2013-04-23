@@ -1,0 +1,11 @@
+{exp:query limit="10" sql="
+		SELECT 
+		count(*) as counter
+		FROM 
+		exp_channel_data 
+		WHERE 
+		exp_channel_data.channel_id='4' AND
+		exp_channel_data.field_id_15='{embed:action_id}'
+"}
+{counter} participat{if counter>1}s{/if}
+{/exp:query}

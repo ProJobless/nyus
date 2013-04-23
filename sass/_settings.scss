@@ -209,10 +209,11 @@ $dark-gray: #909090;
 }
 
 .disabled {
-    cursor: not-allowed;
+    cursor: not-allowed !important;
     color: $dark-gray !important;
     
-    &:hover { color: $dark-gray !important; }
+    &:hover,
+    a:hover { color: $dark-gray !important; }
 }
 
 // ***********************************************************************************************************************//
@@ -293,7 +294,24 @@ input:not([type='file'])[disabled] {
 
 .clear { 
     display: block; 
-    margin-bottom: 2em;
+    margin: 1em auto;
+}
+
+.new-post,
+.step-one,
+.step-two {
+    .disabled {
+        @include disabled;        
+        a:hover { color: $white;; }
+    }    
+}
+
+    
+.setup .disable {
+    cursor: not-allowed;
+    color: $dark-gray;
+    
+    &:hover { background: none; color: $dark-gray; }
 }
 
 
@@ -304,7 +322,8 @@ input:not([type='file'])[disabled] {
     @include small-gray-square;
     @include adjust-font-size-to(38px, .9);
     position: absolute;
-    bottom: 0;
+    top: 64px;
+    left: 104px;
     width: 31px;
     cursor: pointer;
 }
@@ -657,7 +676,7 @@ $header-font-color: $primary-color;
 // $button-radius: $global-radius;
 
 // We use this to set default opacity for disabled buttons.
-// $button-disabled-opacity: 0.6;
+$button-disabled-opacity: 1;
 
 //
 // Dropdown Button Variables

@@ -175,6 +175,7 @@ function infiniteScroll() {
 
 (function(){
     var canvas = document.createElement('canvas')
+    var form = document.getElementById('form')
     var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Clear') // user-intent to clear current inputs
     var photoBag = $('input[type=hidden], canvas') // used in readfiles
     var $preview = $('#preview') // container for thumbnail and controls
@@ -191,8 +192,34 @@ function infiniteScroll() {
             if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {
                 alert('The File APIs are not fully supported in this browser.');
                 return false;
-            }
-            readfiles(fileinput, this);
+            } else if (this.name === 'photo_filename') {
+                if (!!$preview.find('img').length) { 
+                    // CLEAR ANY IMAGES INSIDE PREVIEW
+                    var oldPhoto = $preview.find('img').detach()
+                }
+                var reader = new FileReader();
+                reader.readAsArrayBuffer(this.files[0]);
+                
+                reader.onload = function (event) {
+                    
+                    // set up the blob
+                    var blob = new Blob([event.target.result], {type: imgProps.type})
+                    window.URL = window.URL || window.webkitURL
+                    var blobURL = window.URL.createObjectURL(blob)
+                    
+                    // Preview Image to be inserted into canvas
+                    image.src = blobURL
+                    
+                    // REVOKE OBJECT URL ASAP TO SAVE MEMORY
+                    // https://developer.mozilla.org/pt-BR/docs/DOM/window.URL.revokeObjectURL
+                    window.URL.revokeObjectURL(blobURL)
+                    
+                    image.onload = function() {
+                        $preview.prepend(this).append(clearButton)
+                    }
+                }
+                $(this).siblings('#profile-select').toggleClass('visuallyhidden')
+            } else { readfiles(fileinput, this); }
             $('.photo-control').removeClass('visuallyhidden')
         }
     } catch(e) {}
@@ -201,15 +228,20 @@ function infiniteScroll() {
         var files = fileinput.files
     
         // remove the existing canvases and hidden inputs if user re-selects new pics
-        if (!!photoBag.length) {
-            $(photoBag).remove()
-        }
-        
+        if (!!$('canvas').length){$('canvas').remove()}
+                
         for (var i = 0; i < files.length; i++) {
-          processfile(files[i], self); // process each file at once
+          oldPhoto = processfile(files[i], self); // process each file at once
         }
-        
-        fileinput.value = ""; //remove the original files from fileinput
+
+        if (self.name != 'photo_filename') {
+
+            // TEMPORARY WORKAROUND
+            // USER EDIT FORM NEEDS WORK OR AN EXTENSION TO BE COMPATIBLE WITH DATA URI PHOTOS
+            // CAN CURRENTLY ONLY ACCEPT NEW USER PHOTOS VIA FILE INPUT VALUE
+            
+            fileinput.value = "";
+        }
         
         if (!!$('.upload-buttons').length) {
             $notSelected = $('input[type=file]').not(self)
@@ -220,6 +252,8 @@ function infiniteScroll() {
         if ($(self).hasClass('photo-input')) {
             $(self).siblings('#profile-select').toggleClass('visuallyhidden')
         }
+        
+        return oldPhoto
     }
     
     function processfile(file, self) {
@@ -241,8 +275,6 @@ function infiniteScroll() {
         
         reader.onload = function (event) {
             
-            var form = document.getElementById('form')
-            
             // set up the blob
             var blob = new Blob([event.target.result], {type: imgProps.type})
             window.URL = window.URL || window.webkitURL
@@ -253,22 +285,32 @@ function infiniteScroll() {
             
             // REVOKE OBJECT URL ASAP TO SAVE MEMORY
             // https://developer.mozilla.org/pt-BR/docs/DOM/window.URL.revokeObjectURL
-            //window.URL.revokeObjectURL(blobURL)
+            window.URL.revokeObjectURL(blobURL)
             
             image.onload = function() {
-                if (!!$('input[type=hidden]').length) {
-                    $('input[type=hidden]').remove()
-                }
+//                if (!!$('input[type=hidden]').length) {
+//                    $('input[type=hidden]').remove()
+//                }
                 imgProps['image'] = compress(this, imgProps.type) // sending to canvas
     //            this.classList.add('thumb')
-                $('#thumb').prepend(this)
-                $('#preview').append(clearButton)
-                prepInputs()
+                $preview.prepend(this).append(clearButton)
+                
+                if (self.name != 'photo_filename') {
+                    try {
+                        window.oldInputs = prepInputs(oldInputs)
+                    } catch(e) { window.oldInputs = prepInputs() }
+                }
             }
         };
+        
+        return oldPhoto
     }
     
-    function prepInputs() {    
+    function prepInputs(oldInputs) {    
+        if (oldInputs) {
+            $(oldInputs).remove()
+        }
+        var oldInputs = []
         for (prop in imgProps) {
             var toPHP = document.createElement('input')
             if (imgProps.hasOwnProperty(prop)) {
@@ -276,8 +318,10 @@ function infiniteScroll() {
                 toPHP.name = 'images['+prop+']'
                 toPHP.value = imgProps[prop]
                 form.appendChild(toPHP)
+                oldInputs.push(toPHP)
             }
         }
+        return oldInputs
     
     }
     
@@ -379,11 +423,13 @@ function infiniteScroll() {
         
         $('#thumb img').attr('class', 'rotate'+currentAngle)
         
-        if (!!$('input[type=hidden]').length) {
-            $('input[type=hidden]').remove()
+        if (oldInputs) {
+            $(oldInputs).remove()
         }
         imgProps['image'] = canvas.toDataURL(imgProps.type, 1)
-        prepInputs()
+        try {
+            window.oldInputs = prepInputs(oldInputs)
+        } catch(e) { window.oldInputs = prepInputs() }
     }
     
     //return rotate
@@ -392,9 +438,11 @@ function infiniteScroll() {
 
 // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
 function fileClear(oldPhoto){
-    var photoBag = $('input[type=hidden], canvas')
-    if (!!photoBag.length) {
-        $(photoBag).remove()
+    if (oldInputs) {
+        $(oldInputs).remove()
+    }
+    if (!!$('canvas').length){
+        $('canvas').remove()
     }
     
     $('#profile-select').toggleClass('visuallyhidden')
@@ -465,7 +513,19 @@ $(document).ready(function(){
     if ($('#actions').hasClass('open')) {
 
     }
-
+    if (!!$('.setup').length) {
+        var selector = ''
+        var a = ['all', 'questions', 'actions', 'yours', 'students', 'profile']
+        for (var i = 0; i<a.length;i++){
+            if (i === a.length-1) {
+                selector += '#nav-' + a[i]
+            } else { 
+                selector += '#nav-' + a[i] + ', '
+            }
+        }
+        $disable = $('.setup').find($(selector))
+        $disable.addClass('disable')
+    }
     // ***********************************************************************************************************************//
     // EDIT PROFILE FORM
 
@@ -473,7 +533,7 @@ $(document).ready(function(){
         e.preventDefault()
         
         if (!!$('#instructions').length) {
-            $('#form, #instructions').toggleClass('visuallyhidden')
+            $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('#profile-select').toggleClass('visuallyhidden')
             }
@@ -489,7 +549,7 @@ $(document).ready(function(){
         $(this).toggleClass('open')
     })
     
-    $('#preview').on('click', '#clear', function(e){ fileClear(); $(this).detach() })   
+    $('#preview').on('click', '#clear', function(e){ fileClear(oldPhoto); $(this).detach() })   
 
 
     //**********************************************************************************************************************//    

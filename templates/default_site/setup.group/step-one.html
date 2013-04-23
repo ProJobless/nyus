@@ -1,69 +1,67 @@
 {embed='includes/header'}
+    <section class="profile-setup">
+    {embed='includes/setup-directions'}
+        {exp:user:edit override_return='setup/to-do/2' return="setup/to-do/2" password_required='n' form:class="step-one clearfix" form:id="form"}
+        <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
+        <div class="profile-header clearfix">
+            <!-- takes up the left column on larger screens, stacks on smaller screens -->
+            <div class="user-img" id="preview">
+                <img src="{site_url}img/setup-flower.jpg">
+                <span id="size" class="size"></span>
+                <a href="#" class="edit-photo visuallyhidden" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
+                <input accept="image/*" class="photo-input" data-maxwidth="1000" data-maxheight="1000" id="photo-input" name="photo_filename" required type="file">
+            </div> <!-- .profile-photo -->
+            <div class="name">
+                <h4 data-icon="👤">{screen_name}</h4>
+            </div> <!-- .name -->
+        </div> <!-- .profile-header -->
 
-{embed='includes/setup-directions'}
+        <section class="profile-details">
+            <h4>Living</h4>
+            <a href="#" class="edit-details" data-icon="✎" id="edit-details"><span class="visuallyhidden">Edit Interests</span></a>
+            <div class="instructions" id="instructions">
+                <table class="profile-info">
+                    <tbody>
+                        <tr>
+                            <th scope="rowgroup">Hometown</th>
+                            <td class="data">Where are you from?</td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="rowgroup">Current City</th>
+                            <td class="data">Where do you live?</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Interests</h4>
+                <div class="interests">
+                    <p>Tell your classmates a little more about yourself...</p>
+                </div> <!-- .interests -->
+            </div> <!-- .instructions -->
+            
+            <div class="form visuallyhidden" id="fields">
+                <table class="profile-info">
+                    <tbody>
+                        <tr>
+                            <th scope="rowgroup"><label for="location">Hometown</label></th>
+                            <td class="data"><input id="location" name="location" placeholder="e.g. London, UK" required type="text" value="{location}"></td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="rowgroup"><label for="occupation">Current City</label></th>
+                            <td class="data"><input id="occupation" name="occupation" placeholder="e.g. Shanghai, China" required type="text" value="{occupation}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4><label for="interests">Interests</label></h4>
+                <div class="interests">
+                    <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." required value="{interests}">{interests}</textarea>
+                </div> <!-- .interests -->
+            </div> <!-- .form -->
+        </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
 
-        <section class="profile-setup">
-            {exp:user:edit override_return='setup/to-do/2' password_required='n' form:class="step-one"}
-            <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
-            <div class="profile-header clearfix">
-                <!-- takes up the left column on larger screens, stacks on smaller screens -->
-                <div class="user-img" id="preview">
-	                <img src="{site_url}img/setup-flower.jpg">
-	                <span id="size" class="size"></span>
-                    <a href="#" class="edit-photo visuallyhidden" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
-                    <input accept="image/*" class="photo-input" id="photo-input" name="photo_filename" onchange="handleFiles(this, $('.user-img')[0])" required type="file">
-                </div> <!-- .profile-photo -->
-                <div class="name">
-                    <h4 data-icon="👤">{screen_name}</h4>
-                </div> <!-- .name -->
-            </div> <!-- .profile-header -->
-   
-            <section class="profile-details">
-                <h4>Living</h4>
-                <a href="#" class="edit-details" data-icon="✎" id="edit-details"><span class="visuallyhidden">Edit Interests</span></a>
-                <div class="instructions" id="instructions">
-                    <table class="profile-info">
-                        <tbody>
-                            <tr>
-                                <th scope="rowgroup">Hometown</th>
-                                <td class="data">Where are you from?</td>
-                            </tr>
-                            
-                            <tr>
-                                <th scope="rowgroup">Current City</th>
-                                <td class="data">Where do you live?</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h4>Interests</h4>
-                    <div class="interests">
-                        <p>Tell your classmates a little more about yourself...</p>
-                    </div> <!-- .interests -->
-                </div> <!-- .instructions -->
-                
-                <div class="form visuallyhidden" id="form">
-                    <table class="profile-info">
-                        <tbody>
-                            <tr>
-                                <th scope="rowgroup"><label for="location">Hometown</label></th>
-                                <td class="data"><input id="location" name="location" placeholder="e.g. London, UK" required type="text" value="{location}"></td>
-                            </tr>
-                            
-                            <tr>
-                                <th scope="rowgroup"><label for="occupation">Current City</label></th>
-                                <td class="data"><input id="occupation" name="occupation" placeholder="e.g. Shanghai, China" required type="text" value="{occupation}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h4><label for="interests">Interests</label></h4>
-                    <div class="interests">
-                        <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." required value="{interests}">{interests}</textarea>
-                    </div> <!-- .interests -->
-                </div> <!-- .form -->
-            </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
-
-        {/exp:user:edit}
-        </section> <!-- .profile-setup -->        
+    {/exp:user:edit}
+    </section> <!-- .profile-setup -->        
         <!-- At the bottom of your page but inside of the body tag -->
         <!--
 <ol class="joyride-list" data-joyride>

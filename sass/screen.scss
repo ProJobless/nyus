@@ -63,7 +63,7 @@ body {
 }
 
 body.profile {
-    background: #ccc url(../img/pinstripes-white.png) repeat;
+//    background: #ccc url(../img/pinstripes-white.png) repeat;
 }
 
 [data-icon]:before {
@@ -221,7 +221,7 @@ body.profile {
 .steps {
     position: static;
     max-width: 800px;
-    margin: 1em auto;
+//    margin: 1em auto;
     
     p { width: 100%;}
 }
@@ -340,7 +340,7 @@ body.profile {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1;
 }
-#nav:target .close-btn {
+.nav:target .close-btn {
     display: block;
 }
 */
@@ -394,24 +394,24 @@ body.profile {
     a {
         padding: .25em 1em;
     }
-    
+
     ul {
 //        @include block-grid(1, $base-style: false);
     }
 }
 
 
-#nav ul {
+.nav ul {
       /*
 *zoom: 1;
       display: block;
 */
 }
 
-#nav li {
+.nav li {
 /*     display: block; */
 }
-#nav li a {
+.nav li a {
     display: block;
 /*
     color: #ccc;
@@ -422,24 +422,24 @@ body.profile {
 */
 
 }
-#nav li a:focus, #nav li a:hover {
+.nav li a:focus, .nav li a:hover {
     color: #fff;
     background: rgba(255, 255, 255, 0.1);
 }
-#nav li.is-active a {
+.nav li.is-active a {
 /*     color: #fff; */
 }
 
-#nav li {
+.nav li {
 /*
     position: relative;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 */
 }
-#nav li:last-child {
+.nav li:last-child {
 /*     border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
 }
-#nav li.is-active:after { // TRIANGLES
+.nav li.is-active:after { // TRIANGLES
     z-index: 50;
     display: block;
     content: "";
@@ -457,7 +457,7 @@ body.profile {
     left: 0;
 }
 
-.js-nav #page {
+.js-nav .page {
     left: 70%;
 }
 
@@ -674,17 +674,18 @@ body.profile {
 
 .full-profile
 /* .edit-profile */ { // nested within .page on your-profile.php
-    @include grid-column(8, $push: 4);
+    @include grid-column(12);
     @include teeth;
     margin-top: 1em;
     margin-bottom: 1em;
     
     .profile-header {
-        @include grid-row(collapse);
+//        @include grid-row(collapse);
         position: relative;
         
         .user-img {
-            @include grid-column(4, $collapse: true);
+            position: relative;
+//            @include grid-column(4, $collapse: true);
             height: 94px;
 //            background: url(../img/juan-marin_profile_94px.jpg) no-repeat;
             
@@ -699,7 +700,7 @@ body.profile {
         }
         
         .name {
-            @include grid-column(8, $collapse: true);
+            @include grid-column(8);
             height: 94px;
             /*
 position: absolute;
@@ -747,7 +748,7 @@ position: absolute;
         @include grid-column(12);
     }
     
-    b { @include grid-column(12, $collapse: true); margin-top: 1em;}
+    b { @include grid-column(12, $collapse: true); text-align: right; margin-bottom: .5em;}
     
     .button-wrapper {
         margin-bottom: 0.25em;
@@ -792,7 +793,7 @@ position: absolute;
     padding-top: 1em;
     text-align: right;
     
-    .preview { @include grid-row(nest); margin-bottom: 1em; }
+    .preview { @include grid-row(nest-collapse); margin-bottom: 1em; }
     .thumb { @include grid-column(4); }
     .size { @include grid-column(8); text-align: left; }
     button {display: block; margin-top: 1em; margin-bottom: 0;}
@@ -918,14 +919,25 @@ position: absolute;
     
     .profile-header {
         .user-img {
-            width: auto;
+//            width: auto;
             height: auto;
             img { width: auto;}
         }
         .name {
             height: auto;
-            margin-top: 1em;
+//            margin-top: 1em;
         }
+    }
+    
+    .photo-input {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;   
     }
     
     .edit-photo {
@@ -933,9 +945,25 @@ position: absolute;
     }
 }
 
-.step-one > b { float: right; }
+.step-one,
+.step-two,
+.step-three {
+    @include box-shadow(-1em -0.7em 1em -0.4em rgba(0,0,0,.25));
+}
 
-.to-do { text-align: center; }
+.step-one {
+    @include grid-row(nest-collapse); 
+    padding: 1em;
+    background: $white; 
+}
+
+.step-one > b { text-align: right; }
+
+.to-do { 
+    @include grid-column(8, $push: 4);
+    margin-top: 4em;
+    text-align: center; 
+    }
 
 .setup > b {
     @include grid-column(6, $push: 6);
@@ -947,6 +975,15 @@ position: absolute;
 
 b.disabled {
     @include disabled;
+}
+
+
+.step-two,
+.step-three {
+    text-align: center;
+    margin: 1em;
+    
+    .new-post { @include teeth; }
 }
 
 .student-list {
@@ -1020,7 +1057,7 @@ b.disabled {
     }
     
     /*
-#nav .close-btn {
+.nav .close-btn {
         border: 0;
         clip: rect(0 0 0 0);
         height: 1px;
@@ -1157,24 +1194,27 @@ b.disabled {
     }
     
     .full-profile {
+        @include grid-column(8, $push: 4);
+        
         .profile-header {
             @include grid-column(4);
             
-            .user-img,
+//            .user-img,
             .name {
-                @include grid-row(nest-collapse);
+//                @include grid-row(nest);
             }
             
             .user-img {
-                float: none;
-                height: auto;
+//                img { display: block; }
+//                float: none;
+//                height: auto;
                 
-                img { width: auto; } // USE CHANNEL IMAGES TO RESIZE IMAGES AND DELETE THIS STYLE
+//                img { width: auto; } // USE CHANNEL IMAGES TO RESIZE IMAGES AND DELETE THIS STYLE
             }
             
             .name {
+                @include grid-column(12, $collapse: true);
                 position: static;
-                margin-top: 1em;
                 @include adjust-font-size-to(20px, 1);
             }
             
@@ -1183,7 +1223,7 @@ b.disabled {
         }
         
         .profile-details{
-            @include grid-column(8);
+            @include grid-column(8, $collapse: true);
         } 
     }
     
@@ -1195,7 +1235,17 @@ b.disabled {
     .question-input {
         left: 0;
     }
-
+    
+    .profile-setup {
+        margin-top: 4em;
+    }
+    
+    .step-two,
+    .step-three {
+        margin: 0;
+        @include grid-column(8, $push: 4, $collapse: true);
+        margin-top: 4em;
+    }
        
 }
 
@@ -1225,7 +1275,7 @@ b.disabled {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
         opacity: 0.7;
     }
-    .js-ready .nav .close-btn:focus, .js-ready #nav .close-btn:hover {
+    .js-ready .nav .close-btn:focus, .js-ready .nav .close-btn:hover {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
         opacity: 1;
     }
@@ -1245,7 +1295,7 @@ b.disabled {
         transform: translate3d(0, 0, 0);    
     }
     
-    .csstransforms3d.csstransitions.js-ready #nav {
+    .csstransforms3d.csstransitions.js-ready .nav {
         left: 0;
         -webkit-transform: translate3d(-100%, 0, 0);
         -moz-transform: translate3d(-100%, 0, 0);
@@ -1284,7 +1334,7 @@ b.disabled {
         transform: translate3d(70%, 0, 0) scale3d(1, 1, 1);
     }
     
-    .csstransforms3d.csstransitions.js-ready #nav .block {
+    .csstransforms3d.csstransitions.js-ready .nav .block {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
         opacity: 0.7;
         -webkit-transition: opacity 300ms 100ms, -webkit-transform 500ms ease;
@@ -1304,7 +1354,7 @@ b.disabled {
         transform-origin: 50% 0%;
     }
     
-    .csstransforms3d.csstransitions.js-nav #nav .block {
+    .csstransforms3d.csstransitions.js-nav .nav .block {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
         opacity: 1;
         -webkit-transform: translate3d(0, 0, 0);
@@ -1324,11 +1374,16 @@ b.disabled {
         position: absolute;
         width: 1px;
     }
-    
-    .new-post .disabled {
-    
-        @include disabled;        
-        a:hover { color: $white;; }
+        
+    .profile-header {
+        @include grid-row(collapse);
+        
+        .user-img {
+            @include grid-column(4, $collapse: true);
+        }
+        .name {
+//            @include grid-column(8);
+        }
     }
 }
 

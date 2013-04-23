@@ -1,0 +1,26 @@
+{exp:user:users orderby="screen_name" sort="asc" paginate="bottom" orderby="screen_name" sort="asc"}
+	            
+{exp:user:stats}
+
+            <div class="student">
+                <div class="user-img">
+                    <a href="{path='profile'}/{member_id}">
+                    {if photo_filename}
+                    	<img src="{photo_url}{photo_filename}">
+                    {if:else}
+                    	<img src="http://placehold.it/400x400&text=NO IMAGE">
+                    {/if}
+                    </a>
+                </div> <!-- .user-img -->
+                <div class="name">
+                    <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
+                </div>
+            </div> <!-- .student -->
+            
+{/exp:user:stats}
+    
+	{if user_no_results}
+	<p>Sorry, no results were found.</p>
+	{/if}
+	            
+{/exp:user:users}

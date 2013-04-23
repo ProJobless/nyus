@@ -956,7 +956,7 @@ position: absolute;
     background: $white; 
 }
 
-.step-one > b { text-align: right; }
+.step-one > b { text-align: right; z-index: 100;}
 
 .to-do { 
     @include grid-column(8, $push: 4);

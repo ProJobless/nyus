@@ -550,7 +550,15 @@ $(document).ready(function(){
         $(this).toggleClass('open')
     })
     
-    $('#preview').on('click', '#clear', function(e){ fileClear(oldPhoto); $(this).detach() })   
+    
+    $('#preview').on('click', '#clear', function(e){ 
+        try {
+            fileClear(oldPhoto); 
+        } catch(e) {
+            fileClear()
+        }
+        $(this).detach() })       
+        
 
 
     //**********************************************************************************************************************//    

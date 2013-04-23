@@ -5438,7 +5438,8 @@ position: absolute;
     clear: both; }
 
 .step-one > b {
-  text-align: right; }
+  text-align: right;
+  z-index: 100; }
 
 .to-do {
   position: relative;

@@ -1,43 +1,32 @@
-{embed='includes/header'}
-
-<!-- End Header and Nav -->
-
-    <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+{embed='includes/header' loc="students"}
 
         <section class="student-list">
-            <!-- <div class="panel"> -->
-                <div class="row">
-                <?php $count = 0; ?>
-                {exp:user:users orderby="screen_name" sort="asc" paginate="bottom" orderby="screen_name" sort="asc"}
-                    {exp:user:stats}
-                    <div class="large-3 columns">
-                        <a href="{path='profile'}/{member_id}">
-                        {if photo_filename}
-                        	<img src="{photo_url}{photo_filename}">
-                        {if:else}
-                        	<img src="http://placehold.it/400x400&text=NO IMAGE">
-                        {/if}
-                        </a>
-                        <a href="{path='profile'}/{member_id}" class="name">{screen_name}</a>
-                    </div>
-                    {/exp:user:stats}
-                <?php 
-                    $count++; 
-                    if ($count%4 == 0) {
-                        echo '</div><div class="row">';
-                    }
-                ?>
-            
-                    {if user_no_results}
-                    <p>Sorry, no results were found.</p>
+    	   {embed="includes/new-post"}
+    	   
+            {exp:user:users orderby="screen_name" sort="asc" paginate="bottom" orderby="screen_name" sort="asc"}
+            {exp:user:stats}
+            <div class="student">
+                <div class="user-img">
+                    <a href="{path='profile'}/{member_id}">
+                    {if photo_filename}
+                    	<img src="{photo_url}{photo_filename}">
+                    {if:else}
+                    	<img src="http://placehold.it/400x400&text=NO IMAGE">
                     {/if}
-                {/exp:user:users}
-                <?php 
-                    if ($count%4 != 0) {
-                        echo '</div>';
-                    }
-                ?>
-            <!-- </div>  --><!-- .panel -->
+                    </a>
+                </div> <!-- .user-img -->
+                <div class="name">
+                    <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
+                </div>
+            </div> <!-- .student -->
+            {/exp:user:stats}
+    
+            {if user_no_results}
+            <p>Sorry, no results were found.</p>
+            {/if}
+            
+            {/exp:user:users}
+            
         </section>
     </div> <!-- #main --> 
 {embed='includes/footer'}

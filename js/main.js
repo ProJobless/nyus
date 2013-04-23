@@ -107,11 +107,11 @@
             };
             
             try {
-            // open nav with main "nav" button
-            document.getElementById('menu-btn').addEventListener('click', app.toggleNav, false);
-            // close nav with main "close" button
-            //document.getElementById('nav-close-btn').addEventListener('click', app.toggleNav, false);
-            } catch(e) { console.log(e) }
+                // open nav with main "nav" button
+                document.getElementById('menu-btn').addEventListener('click', app.toggleNav, false);
+                // close nav with main "close" button
+                //document.getElementById('nav-close-btn').addEventListener('click', app.toggleNav, false);
+            } catch(e) { }
             // close nav by touching the partial off-screen content
             document.addEventListener('click', function(e)
             {
@@ -190,7 +190,8 @@ function infiniteScroll() {
         
         fileinput.onchange = function(){
             if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {
-                alert('The File APIs are not fully supported in this browser.');
+//                alert('The File APIs are not fully supported in this browser.');
+                
                 return false;
             } else if (this.name === 'photo_filename') {
                 if (!!$preview.find('img').length) { 
@@ -364,7 +365,7 @@ function infiniteScroll() {
 
     window.rotate = function(direction) {
         //var context = canvas.getContext('2d')
-        console.log(currentAngle)
+//        console.log(currentAngle)
         if (direction === 'left') {
             if (currentAngle === 0) {
                 currentAngle = 360
@@ -549,7 +550,15 @@ $(document).ready(function(){
         $(this).toggleClass('open')
     })
     
-    $('#preview').on('click', '#clear', function(e){ fileClear(oldPhoto); $(this).detach() })   
+    
+    $('#preview').on('click', '#clear', function(e){ 
+        try {
+            fileClear(oldPhoto); 
+        } catch(e) {
+            fileClear()
+        }
+        $(this).detach() })       
+        
 
 
     //**********************************************************************************************************************//    

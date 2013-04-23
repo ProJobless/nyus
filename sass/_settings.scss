@@ -219,6 +219,10 @@ $dark-gray: #909090;
 // ***********************************************************************************************************************//
 // GLOBAL CLASSES
 
+.white-stripes { background: url(../img/pinstripes-white.png); float: left; }
+
+.current { color: lighten($purple, 25%) !important; }
+
 *:focus {outline: none; }
 
 .post-form {

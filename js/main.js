@@ -111,7 +111,7 @@
             document.getElementById('menu-btn').addEventListener('click', app.toggleNav, false);
             // close nav with main "close" button
             //document.getElementById('nav-close-btn').addEventListener('click', app.toggleNav, false);
-            } catch(e) { console.log(e) }
+            } catch(e) { }
             // close nav by touching the partial off-screen content
             document.addEventListener('click', function(e)
             {
@@ -364,7 +364,7 @@ function infiniteScroll() {
 
     window.rotate = function(direction) {
         //var context = canvas.getContext('2d')
-        console.log(currentAngle)
+//        console.log(currentAngle)
         if (direction === 'left') {
             if (currentAngle === 0) {
                 currentAngle = 360

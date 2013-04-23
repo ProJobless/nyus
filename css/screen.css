@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /******
  ***
- *** NYU SHANGHI-NET
+ *** NYU SHANGHAI-NET
  ***
  ******/
 .ir {
@@ -53,6 +53,13 @@
   .disabled:hover,
   .disabled a:hover {
     color: #909090 !important; }
+
+.white-stripes {
+  background: url(../img/pinstripes-white.png);
+  float: left; }
+
+.current {
+  color: #a63ae6 !important; }
 
 *:focus {
   outline: none; }
@@ -4674,8 +4681,8 @@ body {
     border-bottom: 1px #333333 solid;
     text-shadow: 0 -1px 0 #333333; }
   .nav li:first-child,
-  .nav li:nth-child(7),
-  .nav li:nth-child(8) {
+  .nav li:last-child,
+  .nav li:nth-last-child(2) {
     font-size: 0.75em;
     line-height: 2em;
     text-transform: uppercase;
@@ -4966,14 +4973,14 @@ body {
           color: #bcbcbc;
           font-size: 1.125em;
           line-height: 0.66667em; }
-      .post .comments .controls .comment, .post .comments .controls .new-comment {
+      .post .comments .controls .comment, .post .comments .controls .new-comment, .post .comments .controls .student-list .student, .student-list .post .comments .controls .student {
         margin-bottom: 0; }
     .post .comments .comment-feed {
       background: none; }
-      .post .comments .comment-feed .comment:first-child, .post .comments .comment-feed .new-comment:first-child {
+      .post .comments .comment-feed .comment:first-child, .post .comments .comment-feed .new-comment:first-child, .post .comments .comment-feed .student-list .student:first-child, .student-list .post .comments .comment-feed .student:first-child {
         padding-top: .25em; }
 
-.comment, .new-comment {
+.comment, .new-comment, .student-list .student {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -4984,19 +4991,19 @@ body {
   background: #dedede;
   padding: 0.25em 0.1em;
   margin-bottom: .25em; }
-  .comment:before, .new-comment:before, .comment:after, .new-comment:after {
+  .comment:before, .new-comment:before, .student-list .student:before, .comment:after, .new-comment:after, .student-list .student:after {
     content: " ";
     display: table; }
-  .comment:after, .new-comment:after {
+  .comment:after, .new-comment:after, .student-list .student:after {
     clear: both; }
-  .comment .user-img, .new-comment .user-img {
+  .comment .user-img, .new-comment .user-img, .student-list .student .user-img {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
     width: 16.66667%;
     float: left;
     padding: 0 0.25em; }
-  .comment .comment-text, .new-comment .comment-text {
+  .comment .comment-text, .new-comment .comment-text, .student-list .student .comment-text, .comment .student-list .student .name, .student-list .student .comment .name, .new-comment .student-list .student .name, .student-list .student .new-comment .name, .student-list .student .name {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
@@ -5005,24 +5012,24 @@ body {
     padding: 0 0.1em;
     font-size: 0.75em;
     line-height: 1em; }
-    .comment .comment-text h4, .new-comment .comment-text h4 {
+    .comment .comment-text h4, .new-comment .comment-text h4, .student-list .student .comment-text h4, .comment .student-list .student .name h4, .student-list .student .comment .name h4, .new-comment .student-list .student .name h4, .student-list .student .new-comment .name h4, .student-list .student .name h4 {
       float: left;
       margin: 0; }
-      .comment .comment-text h4 a, .new-comment .comment-text h4 a {
+      .comment .comment-text h4 a, .new-comment .comment-text h4 a, .student-list .student .comment-text h4 a, .comment .student-list .student .name h4 a, .student-list .student .comment .name h4 a, .new-comment .student-list .student .name h4 a, .student-list .student .new-comment .name h4 a, .student-list .student .name h4 a {
         vertical-align: text-top; }
-    .comment .comment-text p, .new-comment .comment-text p {
+    .comment .comment-text p, .new-comment .comment-text p, .student-list .student .comment-text p, .comment .student-list .student .name p, .student-list .student .comment .name p, .new-comment .student-list .student .name p, .student-list .student .new-comment .name p, .student-list .student .name p {
       line-height: 1.35em;
       margin-bottom: 0; }
-    .comment .comment-text span, .new-comment .comment-text span {
+    .comment .comment-text span, .new-comment .comment-text span, .student-list .student .comment-text span, .comment .student-list .student .name span, .student-list .student .comment .name span, .new-comment .student-list .student .name span, .student-list .student .new-comment .name span, .student-list .student .name span {
       font-size: 0.75em;
       line-height: 1.2em;
       color: #bcbcbc; }
-  .comment a, .new-comment a {
+  .comment a, .new-comment a, .student-list .student a {
     display: inline;
     padding: 0;
     color: #60128f; }
 
-.new-comment .comment-text {
+.new-comment .comment-text, .new-comment .student-list .student .name, .student-list .student .new-comment .name {
   position: relative;
   width: 66.66667%;
   padding-left: 0;
@@ -5030,7 +5037,7 @@ body {
   padding-left: 0;
   padding-right: 0;
   float: left; }
-  .new-comment .comment-text input {
+  .new-comment .comment-text input, .new-comment .student-list .student .name input, .student-list .student .new-comment .name input {
     font-size: 0.875em;
     line-height: 1.02857em; }
 .new-comment .submit-comment {
@@ -5090,9 +5097,25 @@ body {
       -o-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
       border-image: url(../img/teeth@2x.png) 7 1 0 round repeat; } }
   .full-profile .profile-header, .profile-setup .profile-header {
+    width: auto;
+    margin: 0;
+    max-width: none;
+    *zoom: 1;
     position: relative; }
+    .full-profile .profile-header:before, .profile-setup .profile-header:before, .full-profile .profile-header:after, .profile-setup .profile-header:after {
+      content: " ";
+      display: table; }
+    .full-profile .profile-header:after, .profile-setup .profile-header:after {
+      clear: both; }
     .full-profile .profile-header .user-img, .profile-setup .profile-header .user-img {
       position: relative;
+      position: relative;
+      width: 33.33333%;
+      padding-left: 0;
+      padding-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+      float: left;
       height: 94px; }
       .full-profile .profile-header .user-img img, .profile-setup .profile-header .user-img img {
         -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
@@ -5103,9 +5126,11 @@ body {
         line-height: 2.25em; }
     .full-profile .profile-header .name, .profile-setup .profile-header .name {
       position: relative;
-      padding-left: 0.9375em;
-      padding-right: 0.9375em;
       width: 66.66667%;
+      padding-left: 0;
+      padding-right: 0;
+      padding-left: 0;
+      padding-right: 0;
       float: left;
       height: 94px;
             /*
@@ -5123,10 +5148,7 @@ position: absolute;
         line-height: 0em; }
   .full-profile .profile-details, .profile-setup .profile-details {
     width: auto;
-    margin-left: -0.9375em;
-    margin-right: -0.9375em;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
     max-width: none;
     *zoom: 1;
     position: relative;
@@ -5142,26 +5164,31 @@ position: absolute;
       clear: both; }
     .full-profile .profile-details h4, .profile-setup .profile-details h4 {
       position: relative;
-      padding-left: 0.9375em;
-      padding-right: 0.9375em;
       width: 50%;
+      padding-left: 0;
+      padding-right: 0;
+      padding-left: 0;
+      padding-right: 0;
       float: left;
       font-size: 0.875em;
       line-height: 1.11429em;
       margin: 0.5em 0; }
     .full-profile .profile-details .interests, .profile-setup .profile-details .interests {
+      position: relative;
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+      float: left;
       background: white;
       padding-top: 1em;
       margin-top: 0.5em;
       -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
       -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
       box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2); }
-  .full-profile .interests, .profile-setup .interests {
-    position: relative;
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-    width: 100%;
-    float: left; }
+      .full-profile .profile-details .interests p, .profile-setup .profile-details .interests p {
+        padding-left: 1em; }
   .full-profile b, .profile-setup b {
     position: relative;
     width: 100%;
@@ -5177,9 +5204,11 @@ position: absolute;
 
 .profile-info {
   position: relative;
-  padding-left: 0.9375em;
-  padding-right: 0.9375em;
   width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
   float: left;
   -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
@@ -5489,42 +5518,36 @@ b.disabled {
       -webkit-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
       -o-border-image: url(../img/teeth@2x.png) 7 1 0 round repeat;
       border-image: url(../img/teeth@2x.png) 7 1 0 round repeat; } }
-  .student-list .row {
-    margin-bottom: 1em;
+  .student-list .student {
     border-style: solid;
     border-width: 1px;
     border-color: #d9d9d9;
     margin-bottom: 1.25em;
-    padding: 1em 0;
+    padding: 0.5em;
     background: #f2f2f2;
     -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2); }
-    .student-list .row h1, .student-list .row h2, .student-list .row h3, .student-list .row h4, .student-list .row h5, .student-list .row h6, .student-list .row p {
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: .5em;
+    clear: both; }
+    .student-list .student h1, .student-list .student h2, .student-list .student h3, .student-list .student h4, .student-list .student h5, .student-list .student h6, .student-list .student p {
       color: #333333; }
-    .student-list .row > :first-child {
+    .student-list .student > :first-child {
       margin-top: 0; }
-    .student-list .row > :last-child {
+    .student-list .student > :last-child {
       margin-bottom: 0; }
-    .student-list .row h1, .student-list .row h2, .student-list .row h3, .student-list .row h4, .student-list .row h5, .student-list .row h6 {
+    .student-list .student h1, .student-list .student h2, .student-list .student h3, .student-list .student h4, .student-list .student h5, .student-list .student h6 {
       line-height: 1;
       margin-bottom: 0.625em; }
-      .student-list .row h1.subheader, .student-list .row h2.subheader, .student-list .row h3.subheader, .student-list .row h4.subheader, .student-list .row h5.subheader, .student-list .row h6.subheader {
+      .student-list .student h1.subheader, .student-list .student h2.subheader, .student-list .student h3.subheader, .student-list .student h4.subheader, .student-list .student h5.subheader, .student-list .student h6.subheader {
         line-height: 1.4; }
-    .student-list .row:last-child {
-      margin-bottom: 0; }
-    .student-list .row .name {
-      border-bottom: 1px #bcbcbc solid;
-      display: block;
-      margin-top: .75em;
-      padding-bottom: 1em; }
-    .student-list .row .columns {
-      margin-top: 1em; }
-      .student-list .row .columns:first-child {
-        margin-top: 0; }
-      .student-list .row .columns:last-child .name {
-        border-bottom: none;
-        padding-bottom: 0; }
+    .student-list .student img {
+      -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2); }
+    .student-list .student .name {
+      font-size: 1em;
+      line-height: 1.5em; }
 
 @media only screen and (min-width: 48em) {
   .page {
@@ -5589,7 +5612,8 @@ b.disabled {
           margin-top: 1em;
       }
   */
-  .great-wall {
+  .great-wall,
+  .student-list {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
@@ -5598,7 +5622,8 @@ b.disabled {
     right: auto;
     float: left;
     margin-top: 4em; }
-    .great-wall .new-post {
+    .great-wall .new-post,
+    .student-list .new-post {
       border-style: solid;
       border-width: 1px;
       border-color: #d9d9d9;
@@ -5618,25 +5643,51 @@ b.disabled {
       background-image: linear-gradient(rgba(255, 255, 255, 0), #dedede);
       padding: 0;
       margin-bottom: 1em; }
-      .great-wall .new-post h1, .great-wall .new-post h2, .great-wall .new-post h3, .great-wall .new-post h4, .great-wall .new-post h5, .great-wall .new-post h6, .great-wall .new-post p {
+      .great-wall .new-post h1, .great-wall .new-post h2, .great-wall .new-post h3, .great-wall .new-post h4, .great-wall .new-post h5, .great-wall .new-post h6, .great-wall .new-post p,
+      .student-list .new-post h1,
+      .student-list .new-post h2,
+      .student-list .new-post h3,
+      .student-list .new-post h4,
+      .student-list .new-post h5,
+      .student-list .new-post h6,
+      .student-list .new-post p {
         color: #333333; }
-      .great-wall .new-post > :first-child {
+      .great-wall .new-post > :first-child,
+      .student-list .new-post > :first-child {
         margin-top: 0; }
-      .great-wall .new-post > :last-child {
+      .great-wall .new-post > :last-child,
+      .student-list .new-post > :last-child {
         margin-bottom: 0; }
-      .great-wall .new-post h1, .great-wall .new-post h2, .great-wall .new-post h3, .great-wall .new-post h4, .great-wall .new-post h5, .great-wall .new-post h6 {
+      .great-wall .new-post h1, .great-wall .new-post h2, .great-wall .new-post h3, .great-wall .new-post h4, .great-wall .new-post h5, .great-wall .new-post h6,
+      .student-list .new-post h1,
+      .student-list .new-post h2,
+      .student-list .new-post h3,
+      .student-list .new-post h4,
+      .student-list .new-post h5,
+      .student-list .new-post h6 {
         line-height: 1;
         margin-bottom: 0.625em; }
-        .great-wall .new-post h1.subheader, .great-wall .new-post h2.subheader, .great-wall .new-post h3.subheader, .great-wall .new-post h4.subheader, .great-wall .new-post h5.subheader, .great-wall .new-post h6.subheader {
+        .great-wall .new-post h1.subheader, .great-wall .new-post h2.subheader, .great-wall .new-post h3.subheader, .great-wall .new-post h4.subheader, .great-wall .new-post h5.subheader, .great-wall .new-post h6.subheader,
+        .student-list .new-post h1.subheader,
+        .student-list .new-post h2.subheader,
+        .student-list .new-post h3.subheader,
+        .student-list .new-post h4.subheader,
+        .student-list .new-post h5.subheader,
+        .student-list .new-post h6.subheader {
           line-height: 1.4; }
-      .great-wall .new-post:before, .great-wall .new-post:after {
+      .great-wall .new-post:before, .great-wall .new-post:after,
+      .student-list .new-post:before,
+      .student-list .new-post:after {
         content: " ";
         display: table; }
-      .great-wall .new-post:after {
+      .great-wall .new-post:after,
+      .student-list .new-post:after {
         clear: both; }
-      .great-wall .new-post .preview {
+      .great-wall .new-post .preview,
+      .student-list .new-post .preview {
         margin-bottom: 0; }
-      .great-wall .new-post .post-form {
+      .great-wall .new-post .post-form,
+      .student-list .new-post .post-form {
         position: relative;
         width: 100%;
         padding-left: 0;
@@ -5644,7 +5695,8 @@ b.disabled {
         padding-left: 0;
         padding-right: 0;
         float: left; }
-        .great-wall .new-post .post-form .post-text {
+        .great-wall .new-post .post-form .post-text,
+        .student-list .new-post .post-form .post-text {
           font-size: 1.125em;
           line-height: 1.33333em;
           margin-bottom: 0;
@@ -5653,9 +5705,11 @@ b.disabled {
           border: none;
           padding: 0 1em;
           border-bottom: 1px solid #dedede; }
-        .great-wall .new-post .post-form .post-inputs {
+        .great-wall .new-post .post-form .post-inputs,
+        .student-list .new-post .post-form .post-inputs {
           border: none; }
-        .great-wall .new-post .post-form .upload-buttons {
+        .great-wall .new-post .post-form .upload-buttons,
+        .student-list .new-post .post-form .upload-buttons {
           position: relative;
           width: 33.33333%;
           padding-left: 0;
@@ -5665,7 +5719,8 @@ b.disabled {
           float: left;
           background: none;
           border: none; }
-          .great-wall .new-post .post-form .upload-buttons > div {
+          .great-wall .new-post .post-form .upload-buttons > div,
+          .student-list .new-post .post-form .upload-buttons > div {
             position: relative;
             width: 33.33333%;
             padding-left: 0;
@@ -5674,20 +5729,25 @@ b.disabled {
             padding-right: 0;
             float: left;
             border: none; }
-            .great-wall .new-post .post-form .upload-buttons > div.disabled {
+            .great-wall .new-post .post-form .upload-buttons > div.disabled,
+            .student-list .new-post .post-form .upload-buttons > div.disabled {
               cursor: not-allowed; }
-              .great-wall .new-post .post-form .upload-buttons > div.disabled .attach-media {
+              .great-wall .new-post .post-form .upload-buttons > div.disabled .attach-media,
+              .student-list .new-post .post-form .upload-buttons > div.disabled .attach-media {
                 color: #bcbcbc; }
-        .great-wall .new-post .post-form .attach-media {
+        .great-wall .new-post .post-form .attach-media,
+        .student-list .new-post .post-form .attach-media {
           border-right: 1px solid #dedede;
           color: #60128f;
           font-size: 3.4375em;
           line-height: 0.56727em;
           padding-top: .1em;
           padding-bottom: .2em; }
-          .great-wall .new-post .post-form .attach-media:active {
+          .great-wall .new-post .post-form .attach-media:active,
+          .student-list .new-post .post-form .attach-media:active {
             color: #dedede; }
-        .great-wall .new-post .post-form .question-wrapper {
+        .great-wall .new-post .post-form .question-wrapper,
+        .student-list .new-post .post-form .question-wrapper {
           position: relative;
           padding-left: 0.9375em;
           padding-right: 0.9375em;
@@ -5695,11 +5755,14 @@ b.disabled {
           float: left;
           margin: 0;
           text-align: left; }
-          .great-wall .new-post .post-form .question-wrapper .question:after {
+          .great-wall .new-post .post-form .question-wrapper .question:after,
+          .student-list .new-post .post-form .question-wrapper .question:after {
             display: none; }
-          .great-wall .new-post .post-form .question-wrapper input {
+          .great-wall .new-post .post-form .question-wrapper input,
+          .student-list .new-post .post-form .question-wrapper input {
             display: none; }
-        .great-wall .new-post .post-form .submit-post {
+        .great-wall .new-post .post-form .submit-post,
+        .student-list .new-post .post-form .submit-post {
           margin: .5em;
           padding: 8px 20px; }
 
@@ -5723,7 +5786,7 @@ b.disabled {
     width: 87.5%;
     float: left; }
 
-  .full-profile, .profile-setup {
+  .white-stripes, .full-profile, .profile-setup, .recent-activity {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
@@ -5731,37 +5794,18 @@ b.disabled {
     left: 33.33333%;
     right: auto;
     float: left; }
-    .full-profile .profile-header, .profile-setup .profile-header {
-      position: relative;
-      padding-left: 0.9375em;
-      padding-right: 0.9375em;
-      width: 33.33333%;
-      float: left; }
-      .full-profile .profile-header .name, .profile-setup .profile-header .name {
-        position: relative;
-        width: 100%;
-        padding-left: 0;
-        padding-right: 0;
-        padding-left: 0;
-        padding-right: 0;
-        float: left;
-        position: static;
-        font-size: 1.25em;
-        line-height: 1.2em; }
-    .full-profile .profile-details, .profile-setup .profile-details {
-      position: relative;
-      width: 66.66667%;
-      padding-left: 0;
-      padding-right: 0;
-      padding-left: 0;
-      padding-right: 0;
-      float: left; }
 
-  .student-list .row .columns {
-    margin-top: 0; }
-  .student-list .row .name {
-    border-bottom: none;
-    padding-bottom: 0; }
+  .white-stripes .full-profile, .white-stripes .profile-setup,
+  .white-stripes .recent-activity {
+    position: relative;
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+    width: 100%;
+    left: 0%;
+    right: auto;
+    float: left; }
+  .white-stripes .full-profile, .white-stripes .profile-setup {
+    margin-top: 4em; }
 
   .question-input {
     left: 0; }

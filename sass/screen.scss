@@ -1,6 +1,6 @@
 /******
  ***
- *** NYU SHANGHI-NET
+ *** NYU SHANGHAI-NET
  ***
  ******/
 
@@ -380,8 +380,8 @@ body.profile {
     }
     
     li:first-child,
-    li:nth-child(7),
-    li:nth-child(8) {
+    li:last-child,
+    li:nth-last-child(2) {
         @include adjust-font-size-to(12px);
         text-transform: uppercase;
         background: rgba(20,20,20,0.5);
@@ -680,12 +680,12 @@ body.profile {
     margin-bottom: 1em;
     
     .profile-header {
-//        @include grid-row(collapse);
+        @include grid-row(nest-collapse);
         position: relative;
         
         .user-img {
             position: relative;
-//            @include grid-column(4, $collapse: true);
+            @include grid-column(4, $collapse: true);
             height: 94px;
 //            background: url(../img/juan-marin_profile_94px.jpg) no-repeat;
             
@@ -700,7 +700,7 @@ body.profile {
         }
         
         .name {
-            @include grid-column(8);
+            @include grid-column(8, $collapse: true);
             height: 94px;
             /*
 position: absolute;
@@ -722,7 +722,7 @@ position: absolute;
     }
 
     .profile-details { // all profile components
-        @include grid-row(nest);
+        @include grid-row(nest-collapse);
         position: relative;
         padding-top: .25em;
         margin-top: 0.5em;
@@ -731,21 +731,20 @@ position: absolute;
         border-top: 1px solid $light-gray;
         
         h4 {
-            @include grid-column(6);
+            @include grid-column(6, $collapse: true);
             @include adjust-font-size-to(14px, .65);
             margin: 0.5em 0;
         }   
         
         .interests {
+            @include grid-column(12, $collapse: true);
             background: white;
             padding-top: 1em;
             margin-top: 0.5em;
             @include shadow;
+            
+            p { padding-left: 1em;}
         }
-    }
-    
-    .interests {
-        @include grid-column(12);
     }
     
     b { @include grid-column(12, $collapse: true); text-align: right; margin-bottom: .5em;}
@@ -756,7 +755,7 @@ position: absolute;
 } 
 
 .profile-info {
-    @include grid-column(12);
+    @include grid-column(12, $collapse: true);
     @include shadow;
     margin: 0.5em 0;
     
@@ -991,34 +990,25 @@ b.disabled {
     padding: 1em;
     @include teeth;
     
-    .row {
-        margin-bottom: 1em;
-        @include panel($padding:1em 0);
+    .student {
+        @extend .comment;
+//        margin-bottom: 1em;
+        @include panel($padding:.5em);
         @include shadow;
+        margin-bottom: .5em;
+        clear: both;
         
-        &:last-child {
-            margin-bottom: 0;
-        }
+        img { @include shadow; }
         
         .name {
-            border-bottom: 1px $medium-gray solid;
-            display: block;
-            margin-top: .75em;
-            padding-bottom: 1em;
+            @extend .comment-text;
+            @include adjust-font-size-to(16px, 1);
+//            border-bottom: 1px $medium-gray solid;
+//            display: block;
+//            margin-top: .75em;
+//            padding-bottom: 1em;
         }
         
-        .columns {
-            
-            margin-top: 1em;
-            
-            &:first-child {
-                margin-top: 0;
-            }
-            
-            &:last-child {
-                .name { border-bottom: none; padding-bottom: 0; }
-            }
-        }
     }
 }
 
@@ -1098,7 +1088,8 @@ b.disabled {
     }
 */
     
-    .great-wall {
+    .great-wall,
+    .student-list {
         @include grid-column(8, $push: 4);
         margin-top: 4em;
         
@@ -1193,11 +1184,20 @@ b.disabled {
         }            
     }
     
-    .full-profile {
-        @include grid-column(8, $push: 4);
+    .white-stripes, .full-profile, .recent-activity { @include grid-column(8, $push:4); }
+    
+    .white-stripes {
+    
+        .full-profile,
+        .recent-activity {
+            @include grid-column(12, $push: 0);
+        }
+        
+        .full-profile { margin-top: 4em;}
+    }
         
         .profile-header {
-            @include grid-column(4);
+//            @include grid-column(4);
             
 //            .user-img,
             .name {
@@ -1213,9 +1213,9 @@ b.disabled {
             }
             
             .name {
-                @include grid-column(12, $collapse: true);
-                position: static;
-                @include adjust-font-size-to(20px, 1);
+//                @include grid-column(12, $collapse: true);
+//                position: static;
+//                @include adjust-font-size-to(20px, 1);
             }
             
             .edit-photo {
@@ -1223,15 +1223,15 @@ b.disabled {
         }
         
         .profile-details{
-            @include grid-column(8, $collapse: true);
+//            @include grid-column(8, $collapse: true);
         } 
-    }
     
-    .student-list .row {
-        .columns { margin-top: 0; }
-        .name { border-bottom: none; padding-bottom: 0; }
-    }
     
+    .student-list {
+//        margin: 0;
+//        margin-top: 4em;
+//        @include grid-column(8, $push: 4);
+    }    
     .question-input {
         left: 0;
     }

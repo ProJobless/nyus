@@ -107,10 +107,10 @@
             };
             
             try {
-            // open nav with main "nav" button
-            document.getElementById('menu-btn').addEventListener('click', app.toggleNav, false);
-            // close nav with main "close" button
-            //document.getElementById('nav-close-btn').addEventListener('click', app.toggleNav, false);
+                // open nav with main "nav" button
+                document.getElementById('menu-btn').addEventListener('click', app.toggleNav, false);
+                // close nav with main "close" button
+                //document.getElementById('nav-close-btn').addEventListener('click', app.toggleNav, false);
             } catch(e) { }
             // close nav by touching the partial off-screen content
             document.addEventListener('click', function(e)
@@ -190,7 +190,8 @@ function infiniteScroll() {
         
         fileinput.onchange = function(){
             if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {
-                alert('The File APIs are not fully supported in this browser.');
+//                alert('The File APIs are not fully supported in this browser.');
+                
                 return false;
             } else if (this.name === 'photo_filename') {
                 if (!!$preview.find('img').length) { 

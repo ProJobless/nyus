@@ -49,6 +49,13 @@
   .disabled a:hover {
     color: #909090 !important; }
 
+.white-stripes {
+  background: url(../img/pinstripes-white.png);
+  float: left; }
+
+.current {
+  color: #a63ae6 !important; }
+
 *:focus {
   outline: none; }
 

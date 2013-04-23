@@ -94,6 +94,7 @@ body.profile {
     z-index: 100;
     background: $primary-color url(../img/header-pattern.png) repeat -2px -3px;
     padding: 0.25em 0.75em 0.2em;
+    @include box-shadow(0em 0.7em 1em 0em rgba(0, 0, 0, 0.25));
 }
 
 .logo { color: $white; font-weight: normal;}
@@ -354,7 +355,7 @@ body.profile {
     }
     
     .name {
-//        @include grid-column(12);
+        max-width: 333px; // upper boundary for desktop view
         font-weight: normal;
         color: $light-gray;
         margin: 0;
@@ -367,6 +368,7 @@ body.profile {
     }
     
     ul {
+        max-width: 333px; // upper boundary for desktop view
         *zoom: 1;
         border-bottom: 1px #dedede solid;
     }
@@ -470,6 +472,7 @@ body.profile {
 .great-wall {
     @include grid-column(12);
     @include teeth;
+    @include box-shadow(-1em -0.7em 1em -0.4em rgba(0,0,0,.25));
     margin-top: 1em;
 }
 
@@ -545,18 +548,18 @@ body.profile {
         
         .controls {
             @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
-            @include grid-row;
+            @include grid-row(collapse);
             
             // COMMENT-ICON IS DEFINED IN _SETTINGS, BUT GRIDS ARE DEFINED AFTER _SETTINGS IS LOADED
             // SO WE'RE CALLING GRID COLUMNS HERE.
             
             .comment-icon {
-                @include grid-column(2.5);
+                @include grid-column(2.5, $push: 9.5);
                   
                 span {
                     display: inline-block;
                     color: $primary-color;
-                    @include adjust-font-size-to(14px, .4);
+                    @include adjust-font-size-to(14px, 1);
                     font-weight: bold;
                     vertical-align: middle;
                     height: 16px;
@@ -566,16 +569,18 @@ body.profile {
             }
             
             .most-recent {
-                @include grid-column(9.5);
-                @include adjust-font-size-to(8px, .5);
-                padding-top: 1em;
-                padding-bottom: 1em;
+                @include grid-column(9.5, $pull: 2.5);
+                @include adjust-font-size-to(12px, .5);
+                padding-top: .5em;
+                padding-bottom: .5em;
+                
+                * {display: inline;}
                 
                 a { display: inline; padding: 0; color: $purple; }
                 a:hover { text-decoration: underline; }
                 
                 p {
-                    @include adjust-font-size-to(22px, .1);
+//                    @include adjust-font-size-to(22px, .1);
                     margin: .75em 0;
                     
                 }
@@ -595,27 +600,77 @@ body.profile {
 //            @extend .content;
             background: none;
             
-            .comment:first-child {
-                padding-top: 1em;
+            .comment:first-child { //override foundation defaults
+                padding-top: .25em;
             }
-        }
-        
-        .comment {
-            @extend .post;
-            
-            a {
-                display: inline;
-                padding: 0;
-                color: $purple;
-            }
-        }
-        
-        input[type="submit"] {
-            margin-top: 1em;
         }
     }
 }
 
+.comment {
+    @include grid-row;
+    background: $light-gray;
+    padding: .25em .1em;
+    margin-bottom: .25em;
+    
+    .user-img { 
+        @include grid-column(2);
+        padding: 0 .25em;
+    }
+    .comment-text { 
+        @include grid-column(10);
+        padding: 0 .1em;
+        @include adjust-font-size-to(12px, .5);
+        
+        h4 { 
+            float: left; 
+            margin: 0;
+            
+            a { vertical-align: text-top;}
+        }
+        
+        p {
+            @include adjust-leading-to(.9);
+            margin-bottom: 0;
+        }
+        span { @include timestamp; }
+    }
+    a {
+        display: inline;
+        padding: 0;
+        color: $purple;
+    }
+}
+
+.new-comment {
+    @extend .comment;
+    
+    //.user-img { @include grid-column(1.5); }
+    .comment-text { 
+        @include grid-column(8, $collapse: true); 
+        input { @include adjust-font-size-to(14px, .6); }
+    }
+    .submit-comment { 
+        @include grid-column(2);
+        padding: 0 .1em;
+        text-align: right;
+        
+        input {
+            @include adjust-font-size-to(12px, .6);
+            padding: .5em 1em;
+            margin: 0;
+            color: $purple;
+            @include background-image(linear-gradient(#fff #d0d0d0));
+    
+            &:active,
+            &.open {
+                color: $black;
+                @include background-image(linear-gradient(#d0d0d0, #fff));
+                border-color: $black;        
+            }
+        }    
+    }
+}
 
 .full-profile
 /* .edit-profile */ { // nested within .page on your-profile.php
@@ -760,12 +815,6 @@ position: absolute;
             
             &:last-child {
                 border-right: none;
-            }
-            
-            &.disabled {
-                @include disabled;
-                
-                a:hover { color: $white;; }
             }
         }
         
@@ -958,6 +1007,7 @@ b.disabled {
     
     .nav {
         @include grid-column(4, $collapse: true);
+        float: left;
         position: fixed;
         background: none;
         margin-top: 4em;
@@ -1022,18 +1072,18 @@ b.disabled {
             padding: 0; 
             margin-bottom: 1em;
             
+            .preview { margin-bottom: 0; }
             .post-form {
                 @include grid-column(12, $collapse: true);
                 
-                .preview { display: none; }
-                
-                textarea {
+                .post-text {
                     @include adjust-font-size-to(18px);
-                    height: 55px;
+                    margin-bottom: 0;
+                    height: 4em;
                     background: none;
                     border: none;
-                    padding: 1em 1.5em 0;
-                    border-bottom: 1px solid $medium-gray;
+                    padding: 0 1em;
+                    border-bottom: 1px solid $light-gray;
                 }
                 
                 .post-inputs {
@@ -1041,20 +1091,36 @@ b.disabled {
                 }
                 
                 .upload-buttons { 
-                    @include grid-column(5); 
+                    @include grid-column(4, $collapse: true); 
+//                    margin-top: 5px;
                     background: none;
                     border: none; 
                     
-                    > div {border: none;}
+                    > div {
+                        @include grid-column(4, $collapse: true);
+                        border: none;
+                        
+                        &.disabled {
+                            cursor: not-allowed;
+                            
+                            .attach-media {
+                                color: $medium-gray;
+                            }
+                            
+                        }
+                    }
                 }
                 
                 .attach-media { 
                     border-right: 1px solid $light-gray;
                     color: $purple; 
-                    text-align: left;
-                    @include adjust-font-size-to(55px, 1.5);
+                   // text-align: left;
+                    @include adjust-font-size-to(55px, 1.3);
+                    padding-top: .1em;
+                    padding-bottom: .2em;
                     
-                    &:last-child { border: none; }
+                    &:active { color: $light-gray; }
+                    //&:last-child { border: none; }
                 }
                 
                 .question-wrapper { 
@@ -1149,6 +1215,11 @@ b.disabled {
         z-index: 1;
         height: 0;
     }
+    .js-ready .nav {
+        height: 100%;
+        width: 70%;
+        @include box-shadow(inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25));
+    }
     .js-ready .nav .close-btn {
         display: block;
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
@@ -1157,14 +1228,6 @@ b.disabled {
     .js-ready .nav .close-btn:focus, .js-ready #nav .close-btn:hover {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
         opacity: 1;
-    }
-    .js-ready .nav {
-        height: 100%;
-        width: 70%;
-//        background: #333333;
-        -webkit-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
-        -moz-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
-        box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
     }
     .js-ready .nav .block {
         background: transparent;
@@ -1260,6 +1323,12 @@ b.disabled {
         padding: 0;
         position: absolute;
         width: 1px;
+    }
+    
+    .new-post .disabled {
+    
+        @include disabled;        
+        a:hover { color: $white;; }
     }
 }
 

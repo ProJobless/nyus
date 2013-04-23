@@ -224,6 +224,7 @@ $dark-gray: #909090;
     text-align: right;
 }
 
+/*
 input[type="file"] {
     float: left;
     clip: rect(0 0 0 0);
@@ -234,6 +235,7 @@ input[type="file"] {
     padding: 0;
     width: 1px;
 }
+*/
 
 .cancel {
     color: $purple;
@@ -259,7 +261,7 @@ input[type="submit"],
 
         &:hover {
             color: $light-gray;
-            @include single-box-shadow(rgba(100,100,100,1), 0, 0, 20px, 0);
+            @include single-box-shadow(rgba(100,100,100,1), 0, 0, 10px, -2px);
         }
 
         &:active,
@@ -341,18 +343,22 @@ input:not([type='file'])[disabled] {
 }
 
 .comment-icon {
-    padding-top: .5em;
-    padding-bottom: .5em;
+    text-align: right;
+/*
     margin-top: .5em;
     margin-bottom: .5em;
-    border-right: 1px solid $light-gray;
+*/
+//    border-left: 1px solid $light-gray;
+    height: 31px;
     
-    &:before {
+    span:before {
         content: '';
         background: url(../img/comment-icon.png) no-repeat;
         display: inline-block;
         width: 17px;
         height: 16px;
+        vertical-align: text-top;
+        margin-right: .5em;
     }
 }
 // ***********************************************************************************************************************//
@@ -1177,7 +1183,7 @@ $panel-font-color: $body-font-color;
 //
 
 // We use these to set padding and hover factor
-// $section-padding: emCalc(15px);
+$section-padding: emCalc(5px);
 // $section-function-factor: 10%;
 
 // These style the titles

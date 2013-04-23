@@ -1,17 +1,22 @@
 {if embed:summary=='yes'}
 
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='1' dynamic='no'}
+{if no_results}
+    <article class="most-recent">        
+    <p>Be the first to leave a comment</p>
+    </article>
+{/if}
 
 <article class="most-recent">
 {exp:user:stats member_id='{author_id}'}
-    <h5>Most recent comment by <a href="{path='profile'}/{member_id}">{screen_name}</a></h5>
+    <h5><a href="{path='profile'}/{member_id}">{screen_name}</a></h5>
     <p>
-        {exp:char_limit total="40" exact="yes"}
+        {exp:char_limit total="47" exact="yes"}
         {thepost}
         {/exp:char_limit}...</p>
-    <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
+<!--     <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span> -->
 {/exp:user:stats}
-</article>
+</article> <!-- .most-recent -->
 {/exp:channel:entries}
 
 {if:else}
@@ -19,8 +24,7 @@
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='no'}
 <article class="comment">
     {exp:user:stats member_id='{author_id}'}
-    <div class="author">
-        <div class="photo">
+        <div class="user-img">
             <a href="{path='profile'}/{member_id}">
                 {if photo_filename}
     	    	<img src="{photo_url}">
@@ -28,16 +32,12 @@
                 <img src="http://placehold.it/40x40&text=NO IMAGE">
                 {/if}
             </a>
-        </div> <!-- .photo -->
-        <div class="info">
-            <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
-            <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span>
-        </div> <!-- .info -->	    
-    </div><!-- .author -->
-            
-    <div class="post-content">
-        <p>{thepost}</p>
-    </div> <!-- .post-content -->	
+        </div> <!-- .user-img -->
+        <div class="comment-text">
+            <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
+            <p>{thepost}</p>
+            <span>{entry_date format="%F %j at %h:%i %a"}</span>
+        </div> <!-- .post-content -->	
     {/exp:user:stats}
 </article>
 {/exp:channel:entries}
@@ -50,9 +50,23 @@
 <input type="hidden" name="status_owner" value="{embed:id_status}" /> 
 <input type="hidden" name="comment_author" value="{logged_in_member_id}" />
 
-<input type="text" name="thepost" placeholder="Write something...">
-<input type="submit" name="submit" value="Submit">
-
+<div class="new-comment">
+    <div class="user-img">
+    {exp:user:stats}
+        {if photo_filename}
+    	<img src="{photo_url}/{photo_filename}">
+	    {if:else}
+        <img src="http://placehold.it/40x40&text=NO IMAGE">
+        {/if}
+    {/exp:user:stats}
+    </div> <!-- .user-img -->
+    <div class="comment-text">    
+        <input name="thepost" placeholder="Write something..." type="text">
+    </div> <!-- .comment-text -->
+    <div class="submit-comment">
+        <input name="submit" type="submit" value="Post">
+    </div> <!-- .submit-comment -->
+</div>
 {/exp:safecracker}
 
 {/if}

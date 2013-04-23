@@ -2,52 +2,24 @@
                 </div> <!-- #main -->
             </div> <!-- #page -->
 
-            <ul id="actions" class="actions drop f-dropdown" data-dropdown-content>
-                    <li><h4>Actions</h4></li>
-                    {exp:channel:entries channel='actions' category='not 1' dynamic="off"}
-                    	{embed="includes/actions_pendent" entry_id="{entry_id}" title="{title}" entry_date="{entry_date format='%F %j, %Y'}"}
-                    {/exp:channel:entries}
-                </ul>
-            <ul id="notifications" class="notifications drop f-dropdown" data-dropdown-content>
-                    <li><h4>Notifications</h4></li>
-                    {exp:user:stats}  
-        		        {exp:query sql="
-						SELECT DISTINCT
-						exp_channel_data.field_id_2 as status_owner
-						FROM 
-						exp_channel_data
-						LEFT JOIN exp_friends_status 
-						ON exp_channel_data.field_id_2=exp_friends_status.status_id
-						WHERE
-						exp_channel_data.channel_id='1' AND
-						exp_friends_status.member_id='{member_id}'
-						order by exp_friends_status.status_date DESC
-						Limit 5
-        		        "}
-        		        
-        		        {embed="includes/comment_individual_link" id_member='{member_id}' owner_status='{status_owner}'}
+                    </div> <!-- #outer-wrap -->
         
-        	            {/exp:query}
-                    {/exp:user:stats}
-                </ul>
-        </div> <!-- #outer-wrap -->
-        
-        <script type="text/javascript" src="{site_url}js/jquery.js?t=041813"></script>
-        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.js?t=041813"></script>
+        <script type="text/javascript" src="{site_url}js/jquery.js?t=042213"></script>
+        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.js?t=042213"></script>
 
-        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.forms.js?t=041813"></script>
-        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.dropdown.js?t=041813"></script>
-        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.section.js?t=041813"></script>        
-        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.joyride.js?t=041813"></script>
+        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.forms.js?t=042213"></script>
+        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.dropdown.js?t=042213"></script>
+        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.section.js?t=042213"></script>        
+        <script type="text/javascript" src="{site_url}js/vendor/foundation/foundation.joyride.js?t=042213"></script>
                 
-        <script type="text/javascript" src="{site_url}js/vendor/jwplayer/jwplayer.js?t=041813"></script>
-        <script type="text/javascript" src="{site_url}js/vendor/fancybox/jquery.fancybox.min.js?t=041813"></script>
-        <script type="text/javascript" src="{site_url}js/vendor/fancybox/jquery.fancybox-buttons-ck.js?t=041813"></script>
+        <script type="text/javascript" src="{site_url}js/vendor/jwplayer/jwplayer.js?t=042213"></script>
+        <script type="text/javascript" src="{site_url}js/vendor/fancybox/jquery.fancybox.min.js?t=042213"></script>
+        <script type="text/javascript" src="{site_url}js/vendor/fancybox/jquery.fancybox-buttons-ck.js?t=042213"></script>
         
         <script>
             $(document).foundation()
         </script>        
-        <script type="text/javascript" src="{site_url}js/main.js?t=041813"></script>
+        <script type="text/javascript" src="{site_url}js/main.js?t=042213"></script>
 
         {if segment_2=='step-two' || segment_2=='step-three'}
         <script>

@@ -175,7 +175,7 @@ function infiniteScroll() {
 
 (function(){
     var canvas = document.createElement('canvas')
-    var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Revert') // user-intent to clear current inputs
+    var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Clear') // user-intent to clear current inputs
     var photoBag = $('input[type=hidden], canvas') // used in readfiles
     var $preview = $('#preview') // container for thumbnail and controls
     var image = new Image()
@@ -262,6 +262,7 @@ function infiniteScroll() {
                 imgProps['image'] = compress(this, imgProps.type) // sending to canvas
     //            this.classList.add('thumb')
                 $('#thumb').prepend(this)
+                $('#preview').append(clearButton)
                 prepInputs()
             }
         };
@@ -488,7 +489,7 @@ $(document).ready(function(){
         $(this).toggleClass('open')
     })
     
-//    $('#clear').on('click', function(e){ e.preventDefault(); fileClear() })   
+    $('#preview').on('click', '#clear', function(e){ fileClear(); $(this).detach() })   
 
 
     //**********************************************************************************************************************//    

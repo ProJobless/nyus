@@ -2,12 +2,9 @@
 
 {embed='includes/setup-directions'}
 
-        {exp:user:edit override_return='setup/to-do/2' password_required='n' form:class="step-one"}
-        <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
-
         <section class="profile-setup">
-        <!-- all profiles are contained in .full-profile -->
-
+            {exp:user:edit override_return='setup/to-do/2' password_required='n' form:class="step-one"}
+            <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
             <div class="profile-header clearfix">
                 <!-- takes up the left column on larger screens, stacks on smaller screens -->
                 <div class="user-img" id="preview">
@@ -64,9 +61,9 @@
                     </div> <!-- .interests -->
                 </div> <!-- .form -->
             </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->
-        </section> <!-- .profile-setup -->
+
         {/exp:user:edit}
-        
+        </section> <!-- .profile-setup -->        
         <!-- At the bottom of your page but inside of the body tag -->
         <!--
 <ol class="joyride-list" data-joyride>

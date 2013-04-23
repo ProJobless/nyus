@@ -5047,7 +5047,9 @@ body.profile {
   position: relative;
   padding-left: 0.9375em;
   padding-right: 0.9375em;
-  width: 100%;
+  width: 66.66667%;
+  left: 33.33333%;
+  right: auto;
   float: left;
   background: rgba(255, 255, 255, 0.8);
   background-clip: padding-box;

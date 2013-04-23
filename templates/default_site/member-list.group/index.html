@@ -1,31 +1,29 @@
 {embed='includes/header' loc="students"}
 
         <section class="student-list">
-    	   {embed="includes/new-post"}
+        	
+        	{if segment_2}
+	            {exp:channel:entries channel="actions" limit="1" entry_id='{segment_2}'}
+				 <div class="student">
+	                <div class="name">
+	                    <h3>{title}</h3>
+	                    <p>{description}</p>
+	                </div>
+	             </div> <!-- .student -->    
+			    {/exp:channel:entries}
+			{/if}
+			
+    	    {embed="includes/new-post"}
     	   
-            {exp:user:users orderby="screen_name" sort="asc" paginate="bottom" orderby="screen_name" sort="asc"}
-            {exp:user:stats}
-            <div class="student">
-                <div class="user-img">
-                    <a href="{path='profile'}/{member_id}">
-                    {if photo_filename}
-                    	<img src="{photo_url}{photo_filename}">
-                    {if:else}
-                    	<img src="http://placehold.it/400x400&text=NO IMAGE">
-                    {/if}
-                    </a>
-                </div> <!-- .user-img -->
-                <div class="name">
-                    <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
-                </div>
-            </div> <!-- .student -->
-            {/exp:user:stats}
-    
-            {if user_no_results}
-            <p>Sorry, no results were found.</p>
-            {/if}
+    	   	{if segment_2}
+				
+    	   		{embed="includes/member-list-action"}
+				
+    	    {if:else}
+    	   
+				{embed="includes/member-list"}
             
-            {/exp:user:users}
+            {/if}
             
         </section>
     </div> <!-- #main --> 

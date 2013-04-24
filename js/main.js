@@ -533,7 +533,7 @@ $(document).ready(function(){
     $('#edit-details').click(function(e){
         e.preventDefault()
         
-        if (!!$('#instructions').length) {
+        if (!!$('#instructions').length) { // WE'RE ON FIRST-TIME PROFILE SETUP
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('#profile-select').toggleClass('visuallyhidden')
@@ -564,7 +564,10 @@ $(document).ready(function(){
     //**********************************************************************************************************************//    
     // FILE INPUTS
     
-    $('.attach-media, #profile-select').click(function(){ $(this).siblings('input').click() })
+    $('.attach-media').click(function(){ $(this).siblings('input').click() })
+    $('#profile-select').click(function(){
+        $('#photo-input').click()
+    })
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
     try {

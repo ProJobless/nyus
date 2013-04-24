@@ -577,15 +577,15 @@ $(document).ready(function(){
         
         $(this).toggleClass('open')
     })
-    
-    Modernizr.load({
-        test : Modernizr.filereader,
-        nope : ['/vendor/jquery-ui/jquery-ui-position.js', '/vendor/filereader/jquery.FileReader.min.js', '/vendor/swfobject/swfobject.js' ],
-        complete : function() {
-            c('completed modernizr testing')
-            if (!Modernizr.filereader) {
-                c('filereader api is not supported. loading filereader polyfill')
-                try {
+    if (!!$('#profile-input, #photo-input').length) {
+        Modernizr.load({
+            test : Modernizr.filereader,
+            nope : ['/vendor/jquery-ui/jquery-ui-position.js', '/vendor/filereader/jquery.FileReader.min.js', '/vendor/swfobject/swfobject.js' ],
+            complete : function() {
+                c('completed modernizr testing')
+                if (!Modernizr.filereader) {
+                    c('filereader api is not supported. loading filereader polyfill')
+                    
                     $('#profile-input, #photo-input').fileReader({
                         id : 'fileReaderSWF',
                         filereader : 'vendor/filereader/filereader.swf',
@@ -593,15 +593,15 @@ $(document).ready(function(){
                         debugMode : false,
                         callback : function(){ c('filereader polyfill loaded')}
                     })
-                } catch(e){}
-                
-                $('#profile-input').on('change', function(evt) {
-                    c('change event triggered on #profile-input')
-                    read(evt.target.files)
-                })
-            } else { c('filereader api supported')}
-        }
-    })
+    
+                    $('#profile-input').on('change', function(evt) {
+                        c('change event triggered on #profile-input')
+                        read(evt.target.files)
+                    })
+                } else { c('filereader api supported')}
+            }
+        })
+    }
     
     $('#preview').on('click', '#clear', function(e){ 
         try {

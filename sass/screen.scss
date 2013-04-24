@@ -928,8 +928,10 @@ position: absolute;
         }
     }
     
-    .photo-input {
-        border: 0;
+    .gt-ie9 & .photo-input {
+       /*  @extend .visuallyhidden; */
+        /*
+border: 0;
         clip: rect(0 0 0 0);
         height: 1px;
         margin: -1px;
@@ -937,6 +939,16 @@ position: absolute;
         padding: 0;
         position: absolute;
         width: 1px;   
+*/
+    }
+    
+    .ie9 & .photo-input,
+    .lt-ie9 & .photo-input {
+/*
+        width: auto;
+        height: auto;
+        position: relative;
+*/
     }
     
     .edit-photo {

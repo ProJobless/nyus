@@ -140,7 +140,7 @@
                     </ul>
                     <ul id="notifications" class="notifications drop f-dropdown" data-dropdown-content>
                         <li><h4>Notifications</h4></li>
-                        {exp:user:stats}  
+                        {exp:user:stats dynamic="off"}  
             		        {exp:query sql="
     						SELECT DISTINCT
     						exp_channel_data.field_id_2 as status_owner

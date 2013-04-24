@@ -537,7 +537,7 @@ $(document).ready(function(){
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('.gt-ie9 #profile-select').toggleClass('visuallyhidden')
-                $('.lt-ie9 #profile-input').toggleClass('visuallyhidden')
+                $('.lt-ie9 #profile-input, .ie9 #profile-input').toggleClass('visuallyhidden')
             }
             $('#next').prop('disabled', false)
         

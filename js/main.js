@@ -577,7 +577,7 @@ $(document).ready(function(){
         
         $(this).toggleClass('open')
     })
-    if (!!$('#profile-input, #photo-input').length) {
+//    if (!!$('#profile-input, #photo-input').length) {
         Modernizr.load({
             test : Modernizr.filereader,
             nope : ['/vendor/jquery-ui/jquery-ui-position.js', '/vendor/filereader/jquery.FileReader.min.js', '/vendor/swfobject/swfobject.js' ],
@@ -585,23 +585,24 @@ $(document).ready(function(){
                 c('completed modernizr testing')
                 if (!Modernizr.filereader) {
                     c('filereader api is not supported. loading filereader polyfill')
-                    
-                    $('#profile-input, #photo-input').fileReader({
-                        id : 'fileReaderSWF',
-                        filereader : 'vendor/filereader/filereader.swf',
-                        expressInstall : 'vendor/swfobject/expressInstall.swf',
-                        debugMode : false,
-                        callback : function(){ c('filereader polyfill loaded')}
-                    })
-    
-                    $('#profile-input').on('change', function(evt) {
-                        c('change event triggered on #profile-input')
-                        read(evt.target.files)
-                    })
+                    try {
+                        $('#profile-input, #photo-input').fileReader({
+                            id : 'fileReaderSWF',
+                            filereader : 'vendor/filereader/filereader.swf',
+                            expressInstall : 'vendor/swfobject/expressInstall.swf',
+                            debugMode : false,
+                            callback : function(){ c('filereader polyfill loaded')}
+                        })
+        
+                        $('#profile-input').on('change', function(evt) {
+                            c('change event triggered on #profile-input')
+                            read(evt.target.files)
+                        })
+                    } catch(e) { c('caught an error loading filereader polyfill: ' + e.message ) }
                 } else { c('filereader api supported')}
             }
         })
-    }
+//    }
     
     $('#preview').on('click', '#clear', function(e){ 
         try {

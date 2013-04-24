@@ -206,7 +206,7 @@ function c(a) { console.log(a) }
         }
     } catch(e){}
 
-    function read(files){
+    read = function(files){
         c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
         var file = files[0]
         var reader = new FileReader()
@@ -219,7 +219,7 @@ function c(a) { console.log(a) }
         reader.readAsDataURL(file)
     }
     
-    function updatePreview(){
+    updatePreview = function(){
         c('anonymous image loaded. updating preview container')
         var img = this
         $preview.prepend(img).append(clearButton)

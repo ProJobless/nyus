@@ -580,7 +580,7 @@ $(document).ready(function(){
     
     Modernizr.load({
         test : Modernizr.filereader,
-        nope : ['vendor/jquery-ui/jquery-ui-position.js', 'vendor/filereader/jquery.FileReader.min.js', 'vendor/swfobject/swfobject.js' ],
+        nope : ['/vendor/jquery-ui/jquery-ui-position.js', '/vendor/filereader/jquery.FileReader.min.js', '/vendor/swfobject/swfobject.js' ],
         complete : function() {
             c('completed modernizr testing')
             if (!Modernizr.filereader) {

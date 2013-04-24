@@ -186,7 +186,7 @@ function infiniteScroll() {
     
     
     try {
-        var fileinput = document.getElementById('photo-input');
+        var fileinput = $('.filereader photo-input');
         
         fileinput.onchange = function(){
             if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {

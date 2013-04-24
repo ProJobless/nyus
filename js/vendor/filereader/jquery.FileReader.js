@@ -1,12 +1,12 @@
-(function( $ ){
+;(function( $ ){
 	var readyCallbacks = $.Callbacks('once unique memory'),
 	inputsCount = 0,
 	currentTarget = null;
 
 	// if native FileReader support, then dont add the polyfill and make the plugin do nothing
 	if (window.FileReader) {
-//		$.fn.fileReader = function () { return this; }
-//		return ;
+		$.fn.fileReader = function () { return this; }
+		return ;
 	}
 	
 	/**

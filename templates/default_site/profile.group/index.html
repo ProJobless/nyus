@@ -114,9 +114,11 @@
                 <!-- Recent activity. Identical structure to the Great Wall. A .post container contains 1 .post-header div and 1 .content div. 0 or more .comment divs may be nested within .content -->
                 <h3>Recent Activity</h3>
                 <!--See profile Status-->
-                
+                {if segment_3==''}
     	        {embed='includes/status-profile'}
-    
+    	        {if:else}
+    	        {embed='includes/status-profile' member_id='{segment_3}'}
+    	        {/if}
             </section> <!-- .recent-activity -->
         </div> <!-- .white-stripes -->
 

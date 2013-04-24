@@ -5405,15 +5405,24 @@ position: absolute;
     width: auto; }
 .profile-setup .profile-header .name {
   height: auto; }
-.profile-setup .photo-input {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px; }
+.gt-ie9 .profile-setup .photo-input {
+  /*  @extend .visuallyhidden; */
+        /*
+border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;   
+*/ }
+.ie9 .profile-setup .photo-input, .lt-ie9 .profile-setup .photo-input {
+  /*
+          width: auto;
+          height: auto;
+          position: relative;
+  */ }
 .profile-setup .edit-photo {
   float: left; }
 

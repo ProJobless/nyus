@@ -536,7 +536,8 @@ $(document).ready(function(){
         if (!!$('#instructions').length) { // WE'RE ON FIRST-TIME PROFILE SETUP
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('#profile-select').toggleClass('visuallyhidden')
+                $('.gt-ie9 #profile-select').toggleClass('visuallyhidden')
+                $('.lt-ie9 #profile-input').toggleClass('visuallyhidden')
             }
             $('#next').prop('disabled', false)
         
@@ -568,6 +569,7 @@ $(document).ready(function(){
     $('#profile-select').click(function(){
         $('#profile-input').click()
     })
+
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
     try {

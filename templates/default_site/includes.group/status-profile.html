@@ -4,17 +4,20 @@
 	<div id="ajax_container">
 	{/infinite_scroll_container_top}
 
+{if embed:member_id}
+
 {exp:query limit="10" sql="
 SELECT 
 status_id, member_id, status, status_date 
 FROM exp_friends_status 
 WHERE 
 site_id ='1' AND 
-member_id='{segment_2}' 
+member_id='{embed:member_id}' 
 ORDER BY status_date DESC"}
 
-{if embed:member_id}
-{!-- looking at someone else's profile --}
+<!-- looking at someone else's profile -->
+<!-- Their ID: {embed:member_id} -->
+
 {exp:user:stats member_id="embed:member_id"}
 <article class="post section-container accordion" data-section="accordion">
 
@@ -76,6 +79,19 @@ ORDER BY status_date DESC"}
 </article>
 {/exp:user:stats}
 {if:else}
+
+{exp:query limit="10" sql="
+SELECT 
+status_id, member_id, status, status_date 
+FROM exp_friends_status 
+WHERE 
+site_id ='1' AND 
+member_id='{member_id}' 
+ORDER BY status_date DESC"}
+
+<!-- looking at my profile -->
+<!-- My ID: {member_id} -->
+
 
 {exp:user:stats}
 <article class="post section-container accordion" data-section="accordion">

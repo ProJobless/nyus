@@ -585,13 +585,15 @@ $(document).ready(function(){
             c('completed modernizr testing')
             if (!Modernizr.filereader) {
                 c('filereader api is not supported. loading filereader polyfill')
-                $('#profile-input, #photo-input').fileReader({
-                    id : 'fileReaderSWF',
-                    filereader : 'vendor/filereader/filereader.swf',
-                    expressInstall : 'vendor/swfobject/expressInstall.swf',
-                    debugMode : false,
-                    callback : function(){ c('filereader polyfill loaded')}
-                })
+                try {
+                    $('#profile-input, #photo-input').fileReader({
+                        id : 'fileReaderSWF',
+                        filereader : 'vendor/filereader/filereader.swf',
+                        expressInstall : 'vendor/swfobject/expressInstall.swf',
+                        debugMode : false,
+                        callback : function(){ c('filereader polyfill loaded')}
+                    })
+                } catch(e){}
                 
                 $('#profile-input').on('change', function(evt) {
                     c('change event triggered on #profile-input')

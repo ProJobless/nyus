@@ -566,7 +566,7 @@ $(document).ready(function(){
     
     $('.attach-media').click(function(){ $(this).siblings('input').click() })
     $('#profile-select').click(function(){
-        $('#photo-input').click()
+        $('#profile-input').click()
     })
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS

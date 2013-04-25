@@ -23,7 +23,7 @@
 
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off'}
 <article class="comment">
-    {exp:user:stats member_id='{author_id}'}
+    {exp:user:stats member_id='{member_id}'}
         <div class="user-img">
             <a href="{path='profile'}/{member_id}">
                 {if photo_filename}

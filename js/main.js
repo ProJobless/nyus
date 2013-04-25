@@ -189,8 +189,8 @@ function c(a) { console.log(a) }
     
     
     try {
-        fileinput = $('.filereader .photo-input')[0]
-        fileinput.onchange = function(e){
+        $fileinput = $('.filereader .photo-input')
+        $fileinput.change(function(e){
             //c('file api supported, calling change event on .filereader #photo-input')
             imgProps['type'] = this.files[0].type
                     
@@ -203,7 +203,7 @@ function c(a) { console.log(a) }
                 
             read(this.files)
             }
-        }
+        })
     } catch(e){}
 
     read = function(files){
@@ -525,9 +525,6 @@ function checkFileSize(file) {
 
 
 $(document).ready(function(){
-    findIgnores()
-    $ignoreMe.on('click', function(e){ e.preventDefault() })
-    
     infiniteScroll()
         
     // ***********************************************************************************************************************//
@@ -547,7 +544,15 @@ $(document).ready(function(){
             }
         }
         $disable = $('.setup').find($(selector))
-        $disable.addClass('disable')
+        $disable.addClass('disable').attr('rel', 'ignore')
+    }
+    
+    if (!!$('.step-one').length){
+        menu = document.getElementById('menu-btn')
+        navReveal = function(){
+            menu.click()
+        }
+        window.setTimeout(navReveal, 500)
     }
     
     
@@ -568,43 +573,48 @@ $(document).ready(function(){
             }
             $('#next').prop('disabled', false)
         
-        } else if (!!$('#info').length) {
+        } else if (!!$('#info').length) { // WE'RE ON THE USER'S PROFILE PAGE, WHICH THEY CAN EDIT
             $('#form, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('#profile-select').toggleClass('visuallyhidden')
+                $('.gt-ie9 #profile-select').toggleClass('visuallyhidden')
+                $('.lt-ie9 #profile-input, .ie9 #profile-input').toggleClass('visuallyhidden')
             }
         }
         
         $(this).toggleClass('open')
     })
+    
+    $('.no-filereader #profile-input').change(function(){
+        $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
+    })
 //    if (!!$('#profile-input, #photo-input').length) {
-        Modernizr.load({
-            test : Modernizr.filereader,
-            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
-            complete : function() {
-                //c('completed modernizr testing')
-                
-                if (!Modernizr.filereader) {
-                    //c('filereader api is not supported. loading filereader polyfill')
-                    
-                    try {
-                        //c($('#profile-input'))
-                        $('#profile-input').fileReader({
-                            id : 'fileReaderSWF',
-                            filereader : '/introductions/js/vendor/filereader/filereader.swf',
-                            expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                            debugMode : false,
-                            callback : function(){ /* c('filereader polyfill loaded') */ }
-                        })
-        
-                        $('#profile-input').on('change', function(evt) {
-                            //c('change event triggered on #profile-input')
-                            read(evt.target.files)
-                        })
-                    } catch(e) { /* c('caught an error loading filereader polyfill: ' + e.message ) */ }
-                } else { /* c('filereader api supported') */}
-            }
-        })
+//        Modernizr.load({
+//            test : Modernizr.filereader,
+//            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
+//            complete : function() {
+//                //c('completed modernizr testing')
+//                
+//                if (!Modernizr.filereader) {
+//                    //c('filereader api is not supported. loading filereader polyfill')
+//                    
+//                    try {
+//                        //c($('#profile-input'))
+//                        $('#profile-input').fileReader({
+//                            id : 'fileReaderSWF',
+//                            filereader : '/introductions/js/vendor/filereader/filereader.swf',
+//                            expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+//                            debugMode : false,
+//                            callback : function(){ /* c('filereader polyfill loaded') */ }
+//                        })
+//        
+//                        $('#profile-input').change(function(evt) {
+//                            //c('change event triggered on #profile-input')
+//                            read(evt.target.files)
+//                        })
+//                    } catch(e) { /* c('caught an error loading filereader polyfill: ' + e.message ) */ }
+//                } else { /* c('filereader api supported') */}
+//            }
+//        })
 //    }
     
     $('#preview').on('click', '#clear', function(e){ 
@@ -696,5 +706,8 @@ $(document).ready(function(){
     $('#notifications-icon, #actions-icon, .attach-media, #profile-select').click(function(e){
         e.preventDefault()
     })
+    
+    findIgnores()
+    $ignoreMe.on('click', function(e){ e.preventDefault() })
     
 })

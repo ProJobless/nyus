@@ -326,8 +326,11 @@ input:not([type='file'])[disabled] {
     @include small-gray-square;
     @include adjust-font-size-to(38px, .9);
     position: absolute;
+    bottom: 0;
+/*
     top: 64px;
     left: 104px;
+*/
     width: 31px;
     cursor: pointer;
 }

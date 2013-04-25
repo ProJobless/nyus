@@ -684,7 +684,7 @@ body.profile {
         position: relative;
         
         .user-img {
-            position: relative;
+//            position: relative;
             @include grid-column(4, $collapse: true);
             height: 94px;
 //            background: url(../img/juan-marin_profile_94px.jpg) no-repeat;
@@ -699,9 +699,12 @@ body.profile {
             }
         }
         
+        .profile-right { @include grid-column(8, $collapse: true);}
+        
         .name {
-            @include grid-column(8, $collapse: true);
-            height: 94px;
+//            @include grid-column(8, $collapse: true);
+            @include grid-row(nest-collapse);
+//            height: 94px;
             /*
 position: absolute;
             left: 110px;
@@ -718,6 +721,10 @@ position: absolute;
                 margin-right: .25em;
                 @include adjust-font-size-to(26px, 0);
             }
+        }
+        
+        .profile-select-wrapper {
+            @include grid-row(nest-collapse);
         }
     }
 
@@ -747,7 +754,7 @@ position: absolute;
         }
     }
     
-    b { @include grid-column(12, $collapse: true); text-align: right; margin-bottom: .5em;}
+    b { display: block; text-align: right; margin-bottom: .5em;}
     
     .button-wrapper {
         margin-bottom: 0.25em;
@@ -917,13 +924,14 @@ position: absolute;
     @extend .full-profile;
     
     .profile-header {
+        display: table;
         .user-img {
 //            width: auto;
             height: auto;
             img { width: auto;}
         }
         .name {
-            height: auto;
+//            height: auto;
 //            margin-top: 1em;
         }
     }
@@ -931,7 +939,7 @@ position: absolute;
     .photo-input { max-width: 250px; }
         
     .edit-photo {
-        float: left;
+//        float: left;
     }
 }
 
@@ -947,13 +955,13 @@ position: absolute;
     background: $white; 
 }
 
-.step-one > b { text-align: right; z-index: 100;}
+//.step-one > b { text-align: right; z-index: 100;}
 
 .to-do { 
-    @include grid-column(8, $push: 4);
-    margin-top: 4em;
+    @include grid-column(12);
+    margin-top: 2em;
     text-align: center; 
-    }
+}
 
 .setup > b {
     @include grid-column(6, $push: 6);
@@ -1231,6 +1239,11 @@ b.disabled {
         margin-top: 4em;
     }
     
+    .to-do { 
+        @include grid-column(8, $push: 4);
+        margin-top: 4em;
+    }
+    
     .step-two,
     .step-three {
         margin: 0;
@@ -1371,16 +1384,16 @@ b.disabled {
         width: 1px;
     }
         
-    .profile-header {
-        @include grid-row(collapse);
-        
-        .user-img {
-            @include grid-column(4, $collapse: true);
-        }
-        .name {
+//    .profile-header {
+//        @include grid-row(collapse);
+//        
+//        .user-img {
+//            @include grid-column(4, $collapse: true);
+//        }
+//        .name {
 //            @include grid-column(8);
-        }
-    }
+//        }
+//    }
 }
 
 @media 

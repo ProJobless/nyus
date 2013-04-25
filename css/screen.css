@@ -210,8 +210,11 @@ input:not([type='file'])[disabled] {
   font-size: 2.375em;
   line-height: 0.56842em;
   position: absolute;
-  top: 64px;
-  left: 104px;
+  bottom: 0;
+  /*
+      top: 64px;
+      left: 104px;
+  */
   width: 31px;
   cursor: pointer; }
   .edit-photo:active, .edit-photo.open {
@@ -5113,7 +5116,6 @@ body {
       clear: both; }
     .full-profile .profile-header .user-img, .profile-setup .profile-header .user-img {
       position: relative;
-      position: relative;
       width: 33.33333%;
       padding-left: 0;
       padding-right: 0;
@@ -5128,19 +5130,28 @@ body {
         width: 94px; }
       .full-profile .profile-header .user-img .size, .profile-setup .profile-header .user-img .size {
         line-height: 2.25em; }
-    .full-profile .profile-header .name, .profile-setup .profile-header .name {
+    .full-profile .profile-header .profile-right, .profile-setup .profile-header .profile-right {
       position: relative;
       width: 66.66667%;
       padding-left: 0;
       padding-right: 0;
       padding-left: 0;
       padding-right: 0;
-      float: left;
-      height: 94px;
+      float: left; }
+    .full-profile .profile-header .name, .profile-setup .profile-header .name {
+      width: auto;
+      margin: 0;
+      max-width: none;
+      *zoom: 1;
             /*
 position: absolute;
             left: 110px;
 */ }
+      .full-profile .profile-header .name:before, .profile-setup .profile-header .name:before, .full-profile .profile-header .name:after, .profile-setup .profile-header .name:after {
+        content: " ";
+        display: table; }
+      .full-profile .profile-header .name:after, .profile-setup .profile-header .name:after {
+        clear: both; }
       .full-profile .profile-header .name h4, .profile-setup .profile-header .name h4 {
         margin: 0;
         font-size: 1em;
@@ -5150,6 +5161,16 @@ position: absolute;
         margin-right: .25em;
         font-size: 1.625em;
         line-height: 0em; }
+    .full-profile .profile-header .profile-select-wrapper, .profile-setup .profile-header .profile-select-wrapper {
+      width: auto;
+      margin: 0;
+      max-width: none;
+      *zoom: 1; }
+      .full-profile .profile-header .profile-select-wrapper:before, .profile-setup .profile-header .profile-select-wrapper:before, .full-profile .profile-header .profile-select-wrapper:after, .profile-setup .profile-header .profile-select-wrapper:after {
+        content: " ";
+        display: table; }
+      .full-profile .profile-header .profile-select-wrapper:after, .profile-setup .profile-header .profile-select-wrapper:after {
+        clear: both; }
   .full-profile .profile-details, .profile-setup .profile-details {
     width: auto;
     margin: 0;
@@ -5194,13 +5215,7 @@ position: absolute;
       .full-profile .profile-details .interests p, .profile-setup .profile-details .interests p {
         padding-left: 1em; }
   .full-profile b, .profile-setup b {
-    position: relative;
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    padding-left: 0;
-    padding-right: 0;
-    float: left;
+    display: block;
     text-align: right;
     margin-bottom: .5em; }
   .full-profile .button-wrapper, .profile-setup .button-wrapper {
@@ -5403,16 +5418,14 @@ position: absolute;
     }
 }
 */
-.profile-setup .profile-header .user-img {
-  height: auto; }
-  .profile-setup .profile-header .user-img img {
-    width: auto; }
-.profile-setup .profile-header .name {
-  height: auto; }
+.profile-setup .profile-header {
+  display: table; }
+  .profile-setup .profile-header .user-img {
+    height: auto; }
+    .profile-setup .profile-header .user-img img {
+      width: auto; }
 .profile-setup .photo-input {
   max-width: 250px; }
-.profile-setup .edit-photo {
-  float: left; }
 
 .step-one,
 .step-two,
@@ -5434,19 +5447,13 @@ position: absolute;
   .step-one:after {
     clear: both; }
 
-.step-one > b {
-  text-align: right;
-  z-index: 100; }
-
 .to-do {
   position: relative;
   padding-left: 0.9375em;
   padding-right: 0.9375em;
-  width: 66.66667%;
-  left: 33.33333%;
-  right: auto;
+  width: 100%;
   float: left;
-  margin-top: 4em;
+  margin-top: 2em;
   text-align: center; }
 
 .setup > b {
@@ -5811,6 +5818,16 @@ b.disabled {
   .profile-setup {
     margin-top: 4em; }
 
+  .to-do {
+    position: relative;
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+    width: 66.66667%;
+    left: 33.33333%;
+    right: auto;
+    float: left;
+    margin-top: 4em; }
+
   .step-two,
   .step-three {
     margin: 0;
@@ -5949,26 +5966,7 @@ b.disabled {
     overflow: hidden;
     padding: 0;
     position: absolute;
-    width: 1px; }
-
-  .profile-header {
-    width: 100%;
-    margin: 0;
-    max-width: 62.5em;
-    *zoom: 1; }
-    .profile-header:before, .profile-header:after {
-      content: " ";
-      display: table; }
-    .profile-header:after {
-      clear: both; }
-    .profile-header .user-img {
-      position: relative;
-      width: 33.33333%;
-      padding-left: 0;
-      padding-right: 0;
-      padding-left: 0;
-      padding-right: 0;
-      float: left; } }
+    width: 1px; } }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   body {
     background: #2e2e2e url(../img/pinstripes-black@2x.png) repeat;

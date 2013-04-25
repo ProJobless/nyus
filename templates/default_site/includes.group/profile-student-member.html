@@ -4,13 +4,13 @@ status_id, member_id, status, status_date
 FROM exp_friends_status 
 WHERE 
 site_id ='1' AND 
-member_id='{last_segment}' 
+member_id='{segment_2}' 
 ORDER BY status_date DESC"}
 
 <!-- looking at someone else's profile -->
 <!-- Their ID: {embed:member_id} -->
 
-{exp:user:stats member_id="{last_segment}" dynamic='off'}
+{exp:user:stats member_id="{segment_2}" dynamic='off'}
 <article class="post section-container accordion" data-section="accordion">
 
     <div class="post-header author">

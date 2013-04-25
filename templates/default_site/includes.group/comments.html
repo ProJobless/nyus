@@ -37,7 +37,7 @@
             <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
             <p>{thepost}</p>
             <span>{entry_date format="%F %j at %h:%i %a"}</span>
-        </div> <!-- .post-content -->	
+        </div> <!-- .comment-text -->	
     {/exp:user:stats}
 </article>
 {/exp:channel:entries}
@@ -60,9 +60,9 @@
         {/if}
     {/exp:user:stats}
     </div> <!-- .user-img -->
-    <div class="comment-text">    
+    <div class="comment-field">    
         <input name="thepost" placeholder="Write something..." type="text">
-    </div> <!-- .comment-text -->
+    </div> <!-- .comment-field -->
     <div class="submit-comment">
         <input name="submit" type="submit" value="Post">
     </div> <!-- .submit-comment -->

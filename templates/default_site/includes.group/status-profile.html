@@ -4,19 +4,16 @@
 	<div id="ajax_container">
 	{/infinite_scroll_container_top}
 
-
-	{if last_segment==logged_in_member_id}
-		{embed='includes/profile-login-member'}
+	{if embed:member_id==logged_in_member_id}
+		{embed='includes/profile-login-member' member_id='{logged_in_member_id}'}
 	{if:else}
-		{embed='includes/profile-student-member'}
+		{embed='includes/profile-student-member' member_id='{segment_2}'}
 	{/if}
+
 
 	{infinite_scroll_container_bottom}
 	</div>
 	{/infinite_scroll_container_bottom}
-
-
-
 
 {/exp:infinite_scroll:wrapper}
 

@@ -4,13 +4,13 @@ status_id, member_id, status, status_date
 FROM exp_friends_status 
 WHERE 
 site_id ='1' AND 
-member_id='{last_segment}' 
+member_id='{embed:member_id}' 
 ORDER BY status_date DESC"}
 
 <!-- looking at my profile -->
 <!-- My ID: {member_id} -->
 
-{exp:user:stats}
+{exp:user:stats dynamic='off'}
 <article class="post section-container accordion" data-section="accordion">
 
     <div class="post-header author">
@@ -36,7 +36,7 @@ ORDER BY status_date DESC"}
             
     <div class="status post-content">
         <p>{status}</p>
-        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1"}
              {if media_images}
 		        <div class="post-img">
 			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}"></a>

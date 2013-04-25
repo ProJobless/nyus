@@ -415,7 +415,7 @@ input:not([type='file'])[disabled] {
 //$base-line-height: 24px;
 
 // Required global settings and mixins for Foundation
-@import "foundation/foundation-global";
+@import "foundation/variables";
 
 // Settings file to override Foundation variables
 

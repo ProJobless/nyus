@@ -205,8 +205,11 @@ input:not([type='file'])[disabled] {
   font-size: 2.375em;
   line-height: 0.56842em;
   position: absolute;
-  top: 64px;
-  left: 104px;
+  bottom: 0;
+  /*
+      top: 64px;
+      left: 104px;
+  */
   width: 31px;
   cursor: pointer; }
   .edit-photo:active, .edit-photo.open {

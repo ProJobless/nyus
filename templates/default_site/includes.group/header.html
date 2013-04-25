@@ -4,7 +4,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if IE 9]>         <html class="no-js ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js gt-ie9"> <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>        
@@ -36,18 +36,15 @@
                 <header class="global" id="top" role="banner">
 
                     <div class="header-left">
-                    
-                    {if segment_1!='setup'}                        
                         <div class="menu">
                         {if segment_2=='profile'}  
                             <a href="{site_url}" class="back" data-title="BACK" id="back" rel="ignore"><span class="visuallyhidden">Back</span></a>
                         {if:else}
                             <a href="#nav" class="menu-btn" data-icon="☰" id="menu-btn" rel="ignore"><span class="visuallyhidden">Navigate</span></a>           
                         {/if}
-                            <h1 class="logo">NYU Shanghai-Net</h1>
+                            <h1 class="logo">Introductions</h1>
                         </div> <!-- .menu -->
-                    {/if}
-
+                                                
                         {if segment_1=='setup'}
                         
                          <div class="first ribbon">   
@@ -184,6 +181,5 @@
                                {if logged_in}<li><a href="https://shanghai.nyu.edu/Shibboleth.sso/Logout?return=https://login.nyu.edu/sso/UI/Logout" id="nav-logout">Log Out</a></li>{/if}
                             </ul>
                         </div> <!-- .nav-wrapper -->
-                       <!--  <a id="nav-close-btn" class="close-btn" href="#top">Return to Content</a> -->
                     </nav>
 

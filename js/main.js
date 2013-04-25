@@ -172,6 +172,7 @@ function infiniteScroll() {
 // SEE MORE HERE: http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas
 
 // this is where it starts. event triggered when user selects files
+function c(a) { console.log(a) }
 
 (function(){
     var canvas = document.createElement('canvas')
@@ -183,29 +184,60 @@ function infiniteScroll() {
     var TO_RADIANS = Math.PI/180
     var currentAngle = 0
     var imgProps = {}
+    var oldInputs, oldPhoto
+    window.URL = window.URL || window.webkitURL
     
     
     try {
-        var fileinput = $('.filereader photo-input');
-        
-        fileinput.onchange = function(){
-            if ( !( window.File && window.FileReader && window.FileList && window.Blob ) ) {
-//                alert('The File APIs are not fully supported in this browser.');
-                
-                return false;
-            } else if (this.name === 'photo_filename') {
+        $fileinput = $('.filereader .photo-input')
+        $fileinput.change(function(e){
+            c('file api supported, calling change event on .filereader #photo-input')
+
+            imgProps['type'] = this.files[0].type
+                    
+             if (this.name === 'photo_filename') {
                 if (!!$preview.find('img').length) { 
                     // CLEAR ANY IMAGES INSIDE PREVIEW
-                    var oldPhoto = $preview.find('img').detach()
+                    oldPhoto = $preview.find('img').detach()
+                    c('detaching placeholder image')
                 }
-                var reader = new FileReader();
-                reader.readAsArrayBuffer(this.files[0]);
+            }
+            if (!!$('.upload-buttons').length) {
+                $notSelected = $('input[type=file]').not(this)
+                $notSelected.parent().addClass('disabled')
+                $notSelected.prop('disabled', true)
+            }
+            
+            read(this.files)
+        })
+    } catch(e){}
+
+    read = function(files){
+        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+        var file = files[0]
+        var reader = new FileReader()
+        reader.onload = function(event) {
+            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
+            image.onload = updatePreview
+            image.src = event.target.result
+        }
+        c('loading filereader with file object')
+        reader.readAsDataURL(file)
+    }
+    
+    updatePreview = function(){
+        c('anonymous image loaded. updating preview container')
+        var img = this
+        $preview.prepend(img).append(clearButton)
+        $('#profile-select').toggleClass('visuallyhidden')
+    }
                 
+               /*
+ reader.readAsArrayBuffer(this.files[0]);
                 reader.onload = function (event) {
-                    
+                    c(event)
                     // set up the blob
                     var blob = new Blob([event.target.result], {type: imgProps.type})
-                    window.URL = window.URL || window.webkitURL
                     var blobURL = window.URL.createObjectURL(blob)
                     
                     // Preview Image to be inserted into canvas
@@ -215,15 +247,11 @@ function infiniteScroll() {
                     // https://developer.mozilla.org/pt-BR/docs/DOM/window.URL.revokeObjectURL
                     window.URL.revokeObjectURL(blobURL)
                     
-                    image.onload = function() {
-                        $preview.prepend(this).append(clearButton)
-                    }
                 }
-                $(this).siblings('#profile-select').toggleClass('visuallyhidden')
+                
             } else { readfiles(fileinput, this); }
-            $('.photo-control').removeClass('visuallyhidden')
-        }
-    } catch(e) {}
+*/
+//            $('.photo-control').removeClass('visuallyhidden')
     
     function readfiles(fileinput, self) {
         var files = fileinput.files
@@ -251,7 +279,7 @@ function infiniteScroll() {
         }
         
         if ($(self).hasClass('photo-input')) {
-            $(self).siblings('#profile-select').toggleClass('visuallyhidden')
+            $('#profile-select').toggleClass('visuallyhidden')
         }
         
         return oldPhoto
@@ -434,11 +462,9 @@ function infiniteScroll() {
     }
     
     //return rotate
-
-}())
-
-// DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
-function fileClear(oldPhoto){
+    
+    // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
+    fileClear = function(){
     if (oldInputs) {
         $(oldInputs).remove()
     }
@@ -454,6 +480,8 @@ function fileClear(oldPhoto){
     $('#preview').find('img, #size').remove()
     $('#preview').prepend(oldPhoto, size)
 }
+
+}())
 
 function getSize(file) {
     var nBytes = file.size
@@ -503,9 +531,6 @@ function checkFileSize(file) {
 
 
 $(document).ready(function(){
-    findIgnores()
-    $ignoreMe.on('click', function(e){ e.preventDefault() })
-    
     infiniteScroll()
         
     // ***********************************************************************************************************************//
@@ -525,8 +550,21 @@ $(document).ready(function(){
             }
         }
         $disable = $('.setup').find($(selector))
-        $disable.addClass('disable')
+        $disable.addClass('disable').attr('rel', 'ignore')
     }
+    
+    if (!!$('.step-one').length){
+        menu = document.getElementById('menu-btn')
+        navReveal = function(){
+            menu.click()
+        }
+        window.setTimeout(navReveal, 500)
+    }
+    
+    
+    
+    
+    
     // ***********************************************************************************************************************//
     // EDIT PROFILE FORM
 
@@ -536,23 +574,58 @@ $(document).ready(function(){
         if (!!$('#instructions').length) { // WE'RE ON FIRST-TIME PROFILE SETUP
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('#profile-select').toggleClass('visuallyhidden')
+                $('.filereader #profile-select').toggleClass('visuallyhidden')
+                $('.no-filereader #profile-input, .no-filereader #profile-input').toggleClass('visuallyhidden')
             }
             $('#next').prop('disabled', false)
         
-        } else if (!!$('#info').length) {
+        } else if (!!$('#info').length) { // WE'RE ON THE USER'S PROFILE PAGE, WHICH THEY CAN EDIT
             $('#form, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('#profile-select').toggleClass('visuallyhidden')
+                $('.filereader #profile-select').toggleClass('visuallyhidden')
+                $('.no-filereader #profile-input, .no-filereader #profile-input').toggleClass('visuallyhidden')
             }
         }
         
         $(this).toggleClass('open')
     })
     
+    $('.no-filereader #profile-input').change(function(){
+        $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
+    })
+//    if (!!$('#profile-input, #photo-input').length) {
+//        Modernizr.load({
+//            test : Modernizr.filereader,
+//            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
+//            complete : function() {
+//                //c('completed modernizr testing')
+//                
+//                if (!Modernizr.filereader) {
+//                    //c('filereader api is not supported. loading filereader polyfill')
+//                    
+//                    try {
+//                        //c($('#profile-input'))
+//                        $('#profile-input').fileReader({
+//                            id : 'fileReaderSWF',
+//                            filereader : '/introductions/js/vendor/filereader/filereader.swf',
+//                            expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+//                            debugMode : false,
+//                            callback : function(){ /* c('filereader polyfill loaded') */ }
+//                        })
+//        
+//                        $('#profile-input').change(function(evt) {
+//                            //c('change event triggered on #profile-input')
+//                            read(evt.target.files)
+//                        })
+//                    } catch(e) { /* c('caught an error loading filereader polyfill: ' + e.message ) */ }
+//                } else { /* c('filereader api supported') */}
+//            }
+//        })
+//    }
     
     $('#preview').on('click', '#clear', function(e){ 
         try {
+            c('click event triggered on #clear. calling fileClear()')
             fileClear(oldPhoto); 
         } catch(e) {
             fileClear()
@@ -565,9 +638,10 @@ $(document).ready(function(){
     // FILE INPUTS
     
     $('.attach-media').click(function(){ $(this).siblings('input').click() })
-    $('#profile-select').click(function(){
+    $('.gt-ie9 #profile-select').click(function(){
         $('#profile-input').click()
     })
+
     
     // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
     try {
@@ -638,5 +712,8 @@ $(document).ready(function(){
     $('#notifications-icon, #actions-icon, .attach-media, #profile-select').click(function(e){
         e.preventDefault()
     })
+    
+    findIgnores()
+    $ignoreMe.on('click', function(e){ e.preventDefault() })
     
 })

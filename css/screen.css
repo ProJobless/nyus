@@ -4356,6 +4356,7 @@ body {
   position: relative;
   z-index: 100;
   background: #60128f url(../img/header-pattern.png) repeat -2px -3px;
+  padding: 0.25em 0.75em 0.2em;
   -webkit-box-shadow: 0em 0.7em 1em 0em rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0em 0.7em 1em 0em rgba(0, 0, 0, 0.25);
   box-shadow: 0em 0.7em 1em 0em rgba(0, 0, 0, 0.25); }

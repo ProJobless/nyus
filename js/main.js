@@ -568,16 +568,16 @@ $(document).ready(function(){
         if (!!$('#instructions').length) { // WE'RE ON FIRST-TIME PROFILE SETUP
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('.gt-ie9 #profile-select').toggleClass('visuallyhidden')
-                $('.lt-ie9 #profile-input, .ie9 #profile-input').toggleClass('visuallyhidden')
+                $('.filereader #profile-select').toggleClass('visuallyhidden')
+                $('.no-filereader #profile-input, .no-filereader #profile-input').toggleClass('visuallyhidden')
             }
             $('#next').prop('disabled', false)
         
         } else if (!!$('#info').length) { // WE'RE ON THE USER'S PROFILE PAGE, WHICH THEY CAN EDIT
             $('#form, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('.gt-ie9 #profile-select').toggleClass('visuallyhidden')
-                $('.lt-ie9 #profile-input, .ie9 #profile-input').toggleClass('visuallyhidden')
+                $('.filereader #profile-select').toggleClass('visuallyhidden')
+                $('.no-filereader #profile-input, .no-filereader #profile-input').toggleClass('visuallyhidden')
             }
         }
         

@@ -111,9 +111,7 @@
            
                             
 	                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
-	                        
-	                        	<?php $counter_actions_verify++; ?>
-	                        
+	                	        <?php $counter_actions_verify++; ?>
 	                        {/exp:channel:entries} 
 	                        
 	                        <?php $counter_verify = $counter_actions_verify - $counter_verify; ?>
@@ -139,7 +137,7 @@
                     </ul>
                     <ul id="notifications" class="notifications drop f-dropdown" data-dropdown-content>
                         <li><h4>Notifications</h4></li>
-                        {exp:user:stats}  
+                        {exp:user:stats dynamic="off"}  
             		        {exp:query sql="
     						SELECT DISTINCT
     						exp_channel_data.field_id_2 as status_owner
@@ -167,12 +165,11 @@
                 <div id="main" class="main setup">
                 {/if}
                     <nav id="nav" class="nav" role="navigation">
+                    
                         <div class="nav-wrapper">
-                            {exp:user:stats}
-                            <h3 class="name" data-icon="&#128100;">
-                                <a href="{path='profile'}">{screen_name}</a>
-                            </h3>
-                            {/exp:user:stats}
+                        
+                        	{embed='includes/profile-name' current_member_id='{logged_in_member_id}'}
+                        
                             <ul>
                                 <li>Filter By</li>
                                     <li><a href="{path='content/index'}" {if embed:loc =="great_wall"}class="current"{/if} id="nav-all">All</a></li>

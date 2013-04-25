@@ -4,12 +4,7 @@
 	<div id="ajax_container">
 	{/infinite_scroll_container_top}
 
-	{if embed:member_id==logged_in_member_id}
-		{embed='includes/profile-login-member' member_id='{logged_in_member_id}'}
-	{if:else}
-		{embed='includes/profile-student-member' member_id='{segment_2}'}
-	{/if}
-
+	{embed='includes/profile-student-member' member_id='{segment_2}'}
 
 	{infinite_scroll_container_bottom}
 	</div>

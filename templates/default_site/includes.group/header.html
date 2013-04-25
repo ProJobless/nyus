@@ -177,7 +177,7 @@
                                 <li><a href="{path='content/actions'}" {if embed:loc =="actions"}class="current"{/if} id="nav-actions">Actions</a></li>
 <!--                                 <li><a href="{path='member-list/index'}" {if embed:loc ==""}class="current"{/if} id="nav-yours">Your Posts</a></li> -->
                                 <li><a href="{path='member-list/index'}" {if embed:loc =="students"}class="current"{/if} id="nav-students">Student List</a></li>
-                                <li><a href="{path='profile'}" {if embed:loc =="profile"}class="current"{/if} id="nav-profile">Your Profile</a></li>
+                                <li><a href="{path='profile'}/{logged_in_member_id}" {if embed:loc =="profile"}class="current"{/if} id="nav-profile">Your Profile</a></li>
                                {if logged_in}<li><a href="https://shanghai.nyu.edu/Shibboleth.sso/Logout?return=https://login.nyu.edu/sso/UI/Logout" id="nav-logout">Log Out</a></li>{/if}
                             </ul>
                         </div> <!-- .nav-wrapper -->

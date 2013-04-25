@@ -4166,6 +4166,7 @@ html {
   line-height: 1.5em; }
 
 body {
+  width: 100%;
   background: #2e2e2e url(../img/pinstripes-black.png) repeat; }
 
 [data-icon]:before {
@@ -4175,18 +4176,15 @@ body {
   speak: none;
   /* Not to be trusted, but hey. */ }
 
-.page {
-  max-width: 62.5em;
-  margin: 0 auto; }
-
 .outer-wrap {
   position: relative;
-  /*     overflow: hidden; */
   width: 100%; }
 
 .page {
   position: relative;
-  padding-bottom: 1em; }
+  padding-bottom: 1em;
+  max-width: 62.5em;
+  margin: 0 auto; }
 
 .global {
   width: 100%;
@@ -4618,6 +4616,20 @@ body {
 .post-icon {
   float: right; }
 
+.main {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 62.5em;
+  *zoom: 1; }
+  .main:before, .main:after {
+    content: " ";
+    display: table; }
+  .main:after {
+    clear: both; }
+
 /*
 .nav .close-btn {
     position: absolute;
@@ -4745,19 +4757,12 @@ body {
 .js-nav .page {
   left: 70%; }
 
-.main {
+.white-stripes {
+  position: relative;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  max-width: 62.5em;
-  *zoom: 1; }
-  .main:before, .main:after {
-    content: " ";
-    display: table; }
-  .main:after {
-    clear: both; }
+  float: left; }
 
 .profile-container {
   position: relative;
@@ -4997,12 +5002,7 @@ body {
   .comment:after, .new-comment:after, .student-list .student:after {
     clear: both; }
   .comment .user-img, .new-comment .user-img, .student-list .student .user-img {
-    position: relative;
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-    width: 16.66667%;
-    float: left;
-    padding: 0 0.25em; }
+    display: none; }
   .comment .comment-text, .new-comment .comment-text, .student-list .student .comment-text, .comment .student-list .student .name, .student-list .student .comment .name, .new-comment .student-list .student .name, .student-list .student .new-comment .name, .student-list .student .name {
     position: relative;
     padding-left: 0.9375em;
@@ -5029,48 +5029,52 @@ body {
     padding: 0;
     color: #60128f; }
 
-.new-comment .comment-text, .new-comment .student-list .student .name, .student-list .student .new-comment .name {
-  position: relative;
-  width: 66.66667%;
-  padding-left: 0;
-  padding-right: 0;
-  padding-left: 0;
-  padding-right: 0;
-  float: left; }
-  .new-comment .comment-text input, .new-comment .student-list .student .name input, .student-list .student .new-comment .name input {
-    font-size: 0.875em;
-    line-height: 1.02857em; }
-.new-comment .submit-comment {
-  position: relative;
-  padding-left: 0.9375em;
-  padding-right: 0.9375em;
-  width: 16.66667%;
-  float: left;
-  padding: 0 0.1em;
-  text-align: right; }
-  .new-comment .submit-comment input {
-    font-size: 0.75em;
-    line-height: 1.2em;
-    padding: 0.5em 1em;
-    margin: 0;
-    color: #60128f;
-    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2QwZDBkMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
-    background-size: 100%;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d0d0d0));
-    background-image: -webkit-linear-gradient(#ffffff, #d0d0d0);
-    background-image: -moz-linear-gradient(#ffffff, #d0d0d0);
-    background-image: -o-linear-gradient(#ffffff, #d0d0d0);
-    background-image: linear-gradient(#ffffff, #d0d0d0); }
-    .new-comment .submit-comment input:active, .new-comment .submit-comment input.open {
-      color: #333333;
-      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2QwZDBkMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+.new-comment {
+  padding: 0.5em; }
+  .new-comment .comment-text, .new-comment .student-list .student .name, .student-list .student .new-comment .name {
+    position: relative;
+    width: 75%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    float: left; }
+    .new-comment .comment-text input, .new-comment .student-list .student .name input, .student-list .student .new-comment .name input {
+      font-size: 0.875em;
+      line-height: 1.71429em;
+      margin: 0; }
+  .new-comment .submit-comment {
+    position: relative;
+    width: 25%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+    text-align: right; }
+    .new-comment .submit-comment input {
+      font-size: 0.75em;
+      line-height: 1.2em;
+      padding: 0.35em 1em;
+      margin: 0;
+      color: #60128f;
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2QwZDBkMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
       background-size: 100%;
-      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d0d0d0), color-stop(100%, #ffffff));
-      background-image: -webkit-linear-gradient(#d0d0d0, #ffffff);
-      background-image: -moz-linear-gradient(#d0d0d0, #ffffff);
-      background-image: -o-linear-gradient(#d0d0d0, #ffffff);
-      background-image: linear-gradient(#d0d0d0, #ffffff);
-      border-color: #333333; }
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d0d0d0));
+      background-image: -webkit-linear-gradient(#ffffff, #d0d0d0);
+      background-image: -moz-linear-gradient(#ffffff, #d0d0d0);
+      background-image: -o-linear-gradient(#ffffff, #d0d0d0);
+      background-image: linear-gradient(#ffffff, #d0d0d0); }
+      .new-comment .submit-comment input:active, .new-comment .submit-comment input.open {
+        color: #333333;
+        background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2QwZDBkMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+        background-size: 100%;
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d0d0d0), color-stop(100%, #ffffff));
+        background-image: -webkit-linear-gradient(#d0d0d0, #ffffff);
+        background-image: -moz-linear-gradient(#d0d0d0, #ffffff);
+        background-image: -o-linear-gradient(#d0d0d0, #ffffff);
+        background-image: linear-gradient(#d0d0d0, #ffffff);
+        border-color: #333333; }
 
 .full-profile, .profile-setup {
   position: relative;
@@ -5405,24 +5409,8 @@ position: absolute;
     width: auto; }
 .profile-setup .profile-header .name {
   height: auto; }
-.gt-ie9 .profile-setup .photo-input {
-  /*  @extend .visuallyhidden; */
-        /*
-border: 0;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;   
-*/ }
-.ie9 .profile-setup .photo-input, .lt-ie9 .profile-setup .photo-input {
-  /*
-          width: auto;
-          height: auto;
-          position: relative;
-  */ }
+.profile-setup .photo-input {
+  max-width: 250px; }
 .profile-setup .edit-photo {
   float: left; }
 
@@ -5835,7 +5823,15 @@ b.disabled {
     left: 33.33333%;
     right: auto;
     float: left;
-    margin-top: 4em; } }
+    margin-top: 4em; }
+
+  .comment .user-img, .new-comment .user-img, .student-list .student .user-img {
+    position: relative;
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+    width: 16.66667%;
+    float: left;
+    padding: 0 0.25em; } }
 @media screen and (max-width: 48em) {
   .global h1 {
     border: 0;
@@ -5976,10 +5972,6 @@ b.disabled {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   body {
     background: #2e2e2e url(../img/pinstripes-black@2x.png) repeat;
-    background-size: 21px 26px; }
-
-  body.profile {
-    background: #cccccc url(../img/pinstripes-white@2x.png) repeat;
     background-size: 21px 26px; }
 
   .global {

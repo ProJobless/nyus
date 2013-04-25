@@ -815,10 +815,15 @@ position: absolute;
     padding-top: 1em;
     text-align: right;
     
-    .preview { @include grid-row(nest-collapse); max-width: 450px; }
-    .thumb { @include grid-column(4); }
-    .size { @include grid-column(8); text-align: left; }
+    .preview { @include grid-row(nest); padding: 0.75em; }
+    .thumb { // Child of .preview, sibling to .details
+        @include grid-column(8, $collapse: true); }
+    .details { //parent of .size and .clear
+        @include grid-column(4, $collapse: true);
+    }
+    .size { @include adjust-font-size-to(14px); color: $black; text-align: center; }
     button {display: block; margin-top: 1em; margin-bottom: 0;}
+    .clear {float: right; padding: 0.7em 1em;}
         
     textarea {
         resize: none;
@@ -1117,7 +1122,14 @@ b.disabled {
             padding: 0; 
             margin-bottom: 1em;
             
-            .preview { margin-bottom: 0; }
+            .preview { @include grid-row(nest-collapse); padding: 0 1em; }
+            .thumb { // Child of .preview, sibling to .details
+                @include grid-column(8, $collapse: true); 
+                img {padding: 1em 0; }
+            }
+            .details { //parent of .size and .clear
+                @include grid-column(4, $collapse: true);
+            }
             .post-form {
                 @include grid-column(12, $collapse: true);
                 

@@ -5468,10 +5468,13 @@ position: absolute;
   text-align: right; }
   .new-post .preview {
     width: auto;
-    margin: 0;
+    margin-left: -0.9375em;
+    margin-right: -0.9375em;
+    margin-top: 0;
+    margin-bottom: 0;
     max-width: none;
     *zoom: 1;
-    max-width: 450px; }
+    padding: 0.75em; }
     .new-post .preview:before, .new-post .preview:after {
       content: " ";
       display: table; }
@@ -5479,21 +5482,28 @@ position: absolute;
       clear: both; }
   .new-post .thumb {
     position: relative;
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
+    padding-left: 0;
+    padding-right: 0;
+    width: 66.66667%;
+    float: left; }
+  .new-post .details {
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
     width: 33.33333%;
     float: left; }
   .new-post .size {
-    position: relative;
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-    width: 66.66667%;
-    float: left;
-    text-align: left; }
+    font-size: 0.875em;
+    line-height: 1.71429em;
+    color: #333333;
+    text-align: center; }
   .new-post button {
     display: block;
     margin-top: 1em;
     margin-bottom: 0; }
+  .new-post .clear {
+    float: right;
+    padding: 0.7em 1em; }
   .new-post textarea {
     resize: none;
     height: inherit;
@@ -5877,7 +5887,36 @@ b.disabled {
         clear: both; }
       .great-wall .new-post .preview,
       .student-list .new-post .preview {
-        margin-bottom: 0; }
+        width: auto;
+        margin: 0;
+        max-width: none;
+        *zoom: 1;
+        padding: 0 1em; }
+        .great-wall .new-post .preview:before, .great-wall .new-post .preview:after,
+        .student-list .new-post .preview:before,
+        .student-list .new-post .preview:after {
+          content: " ";
+          display: table; }
+        .great-wall .new-post .preview:after,
+        .student-list .new-post .preview:after {
+          clear: both; }
+      .great-wall .new-post .thumb,
+      .student-list .new-post .thumb {
+        position: relative;
+        padding-left: 0;
+        padding-right: 0;
+        width: 66.66667%;
+        float: left; }
+        .great-wall .new-post .thumb img,
+        .student-list .new-post .thumb img {
+          padding: 1em 0; }
+      .great-wall .new-post .details,
+      .student-list .new-post .details {
+        position: relative;
+        padding-left: 0;
+        padding-right: 0;
+        width: 33.33333%;
+        float: left; }
       .great-wall .new-post .post-form,
       .student-list .new-post .post-form {
         position: relative;

@@ -191,36 +191,42 @@ function c(a) { console.log(a) }
     try {
         $fileinput = $('.filereader .photo-input')
         $fileinput.change(function(e){
-            //c('file api supported, calling change event on .filereader #photo-input')
+            c('file api supported, calling change event on .filereader #photo-input')
+
             imgProps['type'] = this.files[0].type
                     
              if (this.name === 'photo_filename') {
                 if (!!$preview.find('img').length) { 
                     // CLEAR ANY IMAGES INSIDE PREVIEW
                     oldPhoto = $preview.find('img').detach()
-                    //c('detaching placeholder image')
+                    c('detaching placeholder image')
                 }
-                
-            read(this.files)
             }
+            if (!!$('.upload-buttons').length) {
+                $notSelected = $('input[type=file]').not(this)
+                $notSelected.parent().addClass('disabled')
+                $notSelected.prop('disabled', true)
+            }
+            
+            read(this.files)
         })
     } catch(e){}
 
     read = function(files){
-        //c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
         var file = files[0]
         var reader = new FileReader()
         reader.onload = function(event) {
-            //c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
+            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
             image.onload = updatePreview
             image.src = event.target.result
         }
-        //c('loading filereader with file object')
+        c('loading filereader with file object')
         reader.readAsDataURL(file)
     }
     
     updatePreview = function(){
-        //c('anonymous image loaded. updating preview container')
+        c('anonymous image loaded. updating preview container')
         var img = this
         $preview.prepend(img).append(clearButton)
         $('#profile-select').toggleClass('visuallyhidden')
@@ -619,7 +625,7 @@ $(document).ready(function(){
     
     $('#preview').on('click', '#clear', function(e){ 
         try {
-            //c('click event triggered on #clear. calling fileClear()')
+            c('click event triggered on #clear. calling fileClear()')
             fileClear(oldPhoto); 
         } catch(e) {
             fileClear()

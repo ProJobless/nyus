@@ -403,6 +403,14 @@ body.profile {
     }
 }
 
+.no-csstransforms3d .nav {
+    display: none;
+}
+
+.no-csstransforms3d .nav.open {
+    display: block;
+}
+
 
 .nav ul {
       /*

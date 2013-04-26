@@ -4893,6 +4893,12 @@ body {
   .nav a {
     padding: 0.25em 1em; }
 
+.no-csstransforms3d .nav {
+  display: none; }
+
+.no-csstransforms3d .nav.open {
+  display: block; }
+
 .nav ul {
       /*
 *zoom: 1;

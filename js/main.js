@@ -566,9 +566,6 @@ $(document).ready(function(){
     }
     
     
-    
-    
-    
     // ***********************************************************************************************************************//
     // EDIT PROFILE FORM
 
@@ -717,7 +714,12 @@ $(document).ready(function(){
         e.preventDefault()
     })
     
+    // ***********************************************************************************************************************//
+    // GLOBAL EVENT HANDLERS
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
+    $('.no-csstransforms3d .nav').click(function(){
+        console.dir(this)
+    })
     
 })

@@ -5,7 +5,7 @@
             <!-- all profiles are contained in .full-profile -->
             
                 {if segment_2=='' || segment_2==logged_in_member_id}
-                {exp:user:edit dynamic='off' override_return='profile/{logged_in_member_id}' return='profile/{logged_in_member_id}'  password_required='n' }
+                {exp:user:edit dynamic='off' override_return='profile' return='profile'  password_required='n' }
                 <div class="profile-header clearfix">
                     <!-- takes up the left column on larger screens, stacks on smaller screens -->
                     <div class="user-img" id="preview">

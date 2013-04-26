@@ -21,12 +21,11 @@
 
 {if:else}
 
-<!--full set of comments-->
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off'}
 <article class="comment">
-    {exp:user:stats dynamic="off"}
+	{exp:user:stats}
         <div class="user-img">
-            <a href="{path='profile'}/{member_id}">
+            <a href="{path='profile'}/{logged_in_member_id}">
                 {if photo_filename}
     	    	<img src="{photo_url}">
         	    {if:else}
@@ -53,13 +52,7 @@
 
 <div class="new-comment">
     <div class="user-img">
-    {exp:user:stats}
-        {if photo_filename}
-    	<img src="{photo_url}/{photo_filename}">
-	    {if:else}
-        <img src="http://placehold.it/40x40&text=NO IMAGE">
-        {/if}
-    {/exp:user:stats}
+	    {embed='includes/comments-photo-login-user' id_loggedin_member='{logged_in_member_id}'}
     </div> <!-- .user-img -->
     <div class="comment-field">    
         <input name="thepost" placeholder="Write something..." type="text">

@@ -21,10 +21,10 @@
 
 {if:else}
 
+<!--full set of comments-->
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off'}
 <article class="comment">
-
-    {exp:user:stats member_id='{logged_in_member_id}' dynamic="off"}
+    {exp:user:stats dynamic="off"}
         <div class="user-img">
             <a href="{path='profile'}/{member_id}">
                 {if photo_filename}

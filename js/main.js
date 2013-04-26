@@ -202,11 +202,6 @@ function c(a) { console.log(a) }
                     c('detaching placeholder image')
                 }
             }
-            if (!!$('.upload-buttons').length) {
-                $notSelected = $('input[type=file]').not(this)
-                $notSelected.parent().addClass('disabled')
-                $notSelected.prop('disabled', true)
-            }
             
             read(this.files)
         })
@@ -576,7 +571,6 @@ $(document).ready(function(){
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('.filereader #profile-select').toggleClass('visuallyhidden')
-                $('.no-filereader #profile-input, .no-filereader #profile-input').toggleClass('visuallyhidden')
             }
             $('#next').prop('disabled', false)
         
@@ -584,16 +578,17 @@ $(document).ready(function(){
             $('#form, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('.filereader #profile-select').toggleClass('visuallyhidden')
-                $('.no-filereader #profile-input, .no-filereader #profile-input').toggleClass('visuallyhidden')
             }
         }
         
         $(this).toggleClass('open')
     })
     
+/*
     $('.no-filereader #profile-input').change(function(){
         $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
     })
+*/
 //    if (!!$('#profile-input, #photo-input').length) {
 //        Modernizr.load({
 //            test : Modernizr.filereader,
@@ -638,9 +633,19 @@ $(document).ready(function(){
     //**********************************************************************************************************************//    
     // FILE INPUTS
     
-    $('.attach-media').click(function(){ $(this).siblings('input').click() })
+    $('.filereader .attach-media').click(function(){ $(this).siblings('input').click() })
     $('.gt-ie9 #profile-select').click(function(){
         $('#profile-input').click()
+    })
+    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
+    
+    $('input[type=file]').change(function(){
+    
+        if (!!$('.upload-buttons').length) {
+            $notSelected = $('input[type=file]').not(this)
+            $notSelected.parent().addClass('disabled')
+            $notSelected.prop('disabled', true)
+        }
     })
 
     
@@ -718,8 +723,12 @@ $(document).ready(function(){
     // GLOBAL EVENT HANDLERS
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
-    $('.no-csstransforms3d .nav').click(function(){
-        console.dir(this)
+    $('.no-csstransforms3d #menu-btn').click(function(e){
+        e.preventDefault()
+        $('#nav').toggleClass('open')
     })
+    if (!Modernizr.mq()){ 
+        $('.post-icon').addClass('visuallyhidden') 
+    }
     
 })

@@ -727,7 +727,7 @@ $(document).ready(function(){
         e.preventDefault()
         $('#nav').toggleClass('open')
     })
-    if (!Modernizr.mq()){ 
+    if (!Modernizr.mq('all')){ 
         $('.post-icon').addClass('visuallyhidden') 
     }
     

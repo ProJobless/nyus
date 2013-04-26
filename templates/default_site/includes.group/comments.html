@@ -1,6 +1,6 @@
 {if embed:summary=='yes'}
 
-{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='1' dynamic='no'}
+{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='1' dynamic='off'}
 {if no_results}
     <article class="most-recent">        
     <p>Be the first to leave a comment</p>
@@ -24,7 +24,7 @@
 {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off'}
 <article class="comment">
 
-    {exp:user:stats member_id='{member_id}' dynamic="off"}
+    {exp:user:stats member_id='{logged_in_member_id}' dynamic="off"}
         <div class="user-img">
             <a href="{path='profile'}/{member_id}">
                 {if photo_filename}

@@ -298,13 +298,6 @@ input:not([type='file'])[disabled] {
     background-image: -o-linear-gradient(#5c0f9c, #954bca);
     background-image: linear-gradient(#5c0f9c, #954bca);
     color: #333333; }
-  .no-filereader .attach-media input {
-    position: absolute;
-    margin: 0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0; }
 
 .comment-icon {
   text-align: right;

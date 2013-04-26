@@ -379,7 +379,7 @@ input:not([type='file'])[disabled] {
     }
     
     .no-filereader & input {
-        @include file-blanket;
+        //@include file-blanket;
     }
 }
 

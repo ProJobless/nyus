@@ -218,6 +218,15 @@ $dark-gray: #909090;
     a:hover { color: $dark-gray !important; }
 }
 
+@mixin file-blanket { // FILE TYPES COVER THEIR PRETTY LINK SIBLINGS ON OLDER BROWSER THAT DON'T SUPPORT FILE API
+    position: absolute;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 // ***********************************************************************************************************************//
 // GLOBAL CLASSES
 
@@ -367,6 +376,10 @@ input:not([type='file'])[disabled] {
     &.open {
         @include background-image(linear-gradient(#5c0f9c, #954bca));
         color: $black;
+    }
+    
+    .no-filereader & {
+        @include file-blanket;
     }
 }
 

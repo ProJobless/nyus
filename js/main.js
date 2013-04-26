@@ -184,7 +184,7 @@ function c(a) { console.log(a) }
     var TO_RADIANS = Math.PI/180
     var currentAngle = 0
     var imgProps = {}
-    var oldInputs, oldPhoto
+    var oldInputs, oldPhoto, size
     window.URL = window.URL || window.webkitURL
     
     
@@ -216,20 +216,33 @@ function c(a) { console.log(a) }
         c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
         var file = files[0]
         var reader = new FileReader()
+        
         reader.onload = function(event) {
             c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
             image.onload = updatePreview
             image.src = event.target.result
+            size = getSize(file)
         }
         c('loading filereader with file object')
         reader.readAsDataURL(file)
     }
     
-    updatePreview = function(){
+    updatePreview = function(event){
         c('anonymous image loaded. updating preview container')
         var img = this
-        $preview.prepend(img).append(clearButton)
+        $preview.find('.thumb').prepend(img)
+        $preview.find('.details').append(clearButton)
+        $preview.find('.size').append(size)
         $('#profile-select').toggleClass('visuallyhidden')
+    }
+    
+    getSize = function(file) {
+        var nBytes = file.size
+        var output = nBytes + ' bytes'
+        for (var multiples = ['KB', 'MB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
+            output = approx.toFixed(2) + ' ' + multiples[n]
+        }
+        return output  
     }
                 
                /*
@@ -482,15 +495,6 @@ function c(a) { console.log(a) }
 }
 
 }())
-
-function getSize(file) {
-    var nBytes = file.size
-    var output = nBytes + ' bytes'
-    for (var multiples = ['KB', 'MB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
-        output = approx.toFixed(2) + ' ' + multiples[n]
-    }
-    return size  
-}
 
 
 // Let's make sure we're not uploading huge things

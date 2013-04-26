@@ -4897,7 +4897,11 @@ body {
   left: -9999px; }
 
 .no-csstransforms3d .nav.open {
-  left: 0px; }
+  left: 0px;
+  top: 70px;
+  z-index: 1; }
+  .no-csstransforms3d .nav.open .nav-wrapper {
+    background: #222; }
 
 .nav ul {
       /*

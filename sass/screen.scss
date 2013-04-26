@@ -409,6 +409,12 @@ body.profile {
 
 .no-csstransforms3d .nav.open {
     left: 0px;
+    top: 70px;
+    z-index: 1;
+    
+    .nav-wrapper {
+        background: #222;
+    }
 }
 
 

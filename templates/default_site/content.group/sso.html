@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if IE 9]>         <html class="no-js ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <title>NYU Shanghai SSO Redirect</title>
 <script src="https://shanghai.nyu.edu/introductions/js/jquery.js"></script>
-<script src="https://shanghai.nyu.edu/introductions/js/vendor/custom.modernizr.js"></script>
 </head>
 <body>
 	<?php
@@ -25,7 +20,7 @@
 <input type='hidden' name='XID' value='{xid}' />
 <input type='hidden' name='ACT' value='{action_id}' />
 <input type='hidden' id='username' name='username' value="<?php echo $_SERVER['eppn']; ?>" />
-<input type='submit' value='Login' id='btnLogin' style="display:none;" />
+<input type='submit' value='Login' id='btnLogin' style="display:none;" /><!--  -->
 </form>
 </div>
 
@@ -41,7 +36,10 @@ $(document).ready(function() {
 		  url: "{post_url}",
 		  data: $("#loginForm").serializeArray()
 		}).done(function( msg ) {
-			// console.log(msg);
+			 /*if (typeof console !== "undefined" && typeof console.log !== "undefined") {
+					console.log(msg);
+				}
+			*/	
 			 var v = msg.charAt(0);
 			if (msg.match(/You are now logged in/g)) {
 				if (v == 1){

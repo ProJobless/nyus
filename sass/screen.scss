@@ -122,6 +122,8 @@ body.profile {
     color: #999;
 }
 
+
+
 .back {
     @include back-arrow;
     top: 6px;
@@ -825,6 +827,7 @@ position: absolute;
 
 .new-post {
     @include grid-column(12);
+    background: #f2f2f2;
     background: rgba(255,255,255,0.8);
     padding-top: 1em;
     text-align: right;

@@ -43,11 +43,13 @@ $dark-gray: #909090;
 }
 
 @mixin purple-gradient {
+    background: #954bca;
     @include background-image(linear-gradient(#954bca #5c0f8c));
     color: $white;
 }
 
 @mixin purple-notice-bubble {
+    background: #954bca;
     min-width: 25px;
     min-height: 25px;
     border-radius: 50%;

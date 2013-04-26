@@ -404,11 +404,11 @@ body.profile {
 }
 
 .no-csstransforms3d .nav {
-    display: none;
+    left: -9999px;
 }
 
 .no-csstransforms3d .nav.open {
-    display: block;
+    left: 0px;
 }
 
 

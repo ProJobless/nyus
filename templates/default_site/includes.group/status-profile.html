@@ -78,6 +78,10 @@
 {/exp:user:stats}
 
 
+		{if count == total_results}
+		<div class="process_indicator">Loading...</div>
+		{/if}
+
 		{paginate}
 			{exp:infinite_scroll:next_chunk_link}
 				{if next_page}
@@ -162,6 +166,10 @@
 </article>
 {/exp:user:stats}
 
+
+		{if count == total_results}
+		<div class="process_indicator">Loading...</div>
+		{/if}
 
 		{paginate}
 			{exp:infinite_scroll:next_chunk_link}

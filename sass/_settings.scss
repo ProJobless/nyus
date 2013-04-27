@@ -61,7 +61,7 @@ $sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
     @include background-image(linear-gradient(#9147c6, #601390));
     border: 2px solid white;
     position: absolute;
-    top: 15px;
+    top: 50%;
     z-index: 1;
     text-align: center;
 }
@@ -422,7 +422,7 @@ input:not([type='file'])[disabled] {
 
 .comment-icon {
     text-align: right;
-    height: 31px;
+//    height: 31px;
     
     span:before {
         content: '';

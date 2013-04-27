@@ -690,7 +690,7 @@ $(document).ready(function(){
         })
     })
 
-    // FANCYBOX FOR AUDIO AND VIDEO OBJECTS ON GREAT WALL
+    // FANCYBOX FOR NOTIFICATIONS
     $('#notifications a').click(function(e){
         e.preventDefault()
         memberId = $(this).attr('data-member')

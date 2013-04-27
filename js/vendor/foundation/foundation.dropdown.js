@@ -1,12 +1,12 @@
 /*jslint unparam: true, browser: true, indent: 2 */
-// ADDED && !$('.setup').length TO LINE 72 TO KEEP IT OPEN DURING SETUP
+
 ;(function ($, window, document, undefined) {
   'use strict';
 
   Foundation.libs.dropdown = {
     name : 'dropdown',
 
-    version : '4.1.0',
+    version : '4.1.3',
 
     settings : {
       activeClass: 'open',
@@ -42,8 +42,8 @@
             e.preventDefault();
             self.toggle($(this));
         })
-        .on('opened.fndtn.dropdown', '.f-dropdown', this.settings.opened)
-        .on('closed.fndtn.dropdown', '.f-dropdown', this.settings.closed);
+        .on('opened.fndtn.dropdown', '[data-dropdown-content]', this.settings.opened)
+        .on('closed.fndtn.dropdown', '[data-dropdown-content]', this.settings.closed);
 
       $('body').on('click.fndtn.dropdown', function (e) {
         var parent = $(e.target).closest('[data-dropdown-content]');
@@ -85,7 +85,7 @@
         dropdown.trigger('opened');
     },
 
-    toggle : function (target, resize) {
+    toggle : function (target) {
       var dropdown = $('#' + target.data('dropdown'));
 
       this.close.call(this, $('[data-dropdown-content]').not(dropdown));
@@ -107,9 +107,14 @@
     },
 
     css : function (dropdown, target) {
-      var position = target.position();
-      position.top += target.offsetParent().offset().top;
-      position.left += target.offsetParent().offset().left;
+      // temporary workaround until 4.2
+      if (/body/i.test(dropdown.offsetParent()[0].nodeName)) {
+        var position = target.offset();
+        position.top -= dropdown.offsetParent().offset().top;
+        position.left -= dropdown.offsetParent().offset().left;
+      } else {
+        var position = target.position();
+      }
 
       if (this.small()) {
         dropdown.css({

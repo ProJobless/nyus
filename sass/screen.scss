@@ -76,6 +76,7 @@ body.profile {
 .outer-wrap {
     position: relative;
     width: 100%;
+    z-index: 0;
 }
 
 .page {
@@ -153,6 +154,7 @@ body.profile {
     @include retina-sprite(header-ribbon);
     top: -0.4em;
     position: relative;
+    text-align: center;
 }
 
 .first.ribbon {
@@ -167,27 +169,32 @@ body.profile {
 
 .notifications-icon,
 .actions-icon {
-    display: block;
-    width: 17px;
-    height: 100%;
-    position: absolute;
-    top: 12px;
-    left: 5px;
-    @include box-shadow(0 1px 2px o rgba(0,0,0,0.5));
+    position: relative;
+    top: 11px;
+    height: 40px;
+    display: inline-block;
+        
+    &:before {
+        display: block;
+        content: '';
+    }
 }
 
 .notifications-icon {
-    @include retina-sprite(Notifications_Active_Phone);
+    &:before {
+        @include retina-sprite(Notifications_Active_Phone);
+    }
     
-    &.disabled {
+    &.disabled:before {
         @include retina-sprite(Notifications_Inactive_Phone);
     }
 }
 
-.actions-icon {
-    @include retina-sprite(Actions_Active_Phone);
-    
-    &.disabled {
+.actions-icon { 
+    &:before {
+        @include retina-sprite(Actions_Active_Phone);        
+    }
+    &.disabled:before {
         @include retina-sprite(Actions_Inactive_Phone);
     }
 }
@@ -212,7 +219,6 @@ body.profile {
 
         a { 
             color: $dark-gray;
-            display: block;
             padding: 0;
         }
     }
@@ -224,7 +230,6 @@ body.profile {
     li:first-child {
         @include purple-gradient;
         text-align: center;
-        border-bottom: none;
         
         h4 {
             padding: .25em 0;
@@ -273,13 +278,18 @@ body.profile {
 
     li:not(:first-child) {
         padding: 0;
+        display: table;
     }
+    
+    li a { display: table-cell; }
     
     .user-img {
         @include grid-column(3, $collapse: true);
         
         img {display: block;}
     }
+    
+    p { @include grid-column(9); }
     
     span { color: $light-purple; }
 
@@ -531,12 +541,12 @@ body.profile {
         @include grid-row;
         border-bottom: 1px solid $light-gray;
         padding-bottom: 1em;
+    }
         
-        .question {
-            position: absolute;
-            right: 10px;
-            top: -5px;    
-        }
+    .question {
+        position: absolute;
+        right: 1em;
+        top: -7px;    
     }
     
     .photo {
@@ -558,7 +568,10 @@ body.profile {
             margin-bottom: 1em;
         }
     }
-
+    
+    .comments .controls {
+        .comment-icon { @include grid-column(2.5, $push: 9.5); } // overriding foundation dropdown styles
+    }
     
     .post-content {
         @include grid-row;
@@ -583,72 +596,64 @@ body.profile {
             }
         }
     }
-    
-    .comments {
+}
+
+.comments {
 //        @extend .section;
-        border-top: 1px solid $light-gray;
+    border-top: 1px solid $light-gray;
+    
+    .controls {
+        @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
+        @include grid-row(collapse);
         
-        .controls {
-            @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
-            @include grid-row(collapse);
-            
-            // COMMENT-ICON IS DEFINED IN _SETTINGS, BUT GRIDS ARE DEFINED AFTER _SETTINGS IS LOADED
-            // SO WE'RE CALLING GRID COLUMNS HERE.
-            
-            .comment-icon {
-                @include grid-column(2.5, $push: 9.5);
-                  
-                span {
-                    display: inline-block;
-                    color: $primary-color;
-                    @include adjust-font-size-to(14px, 1);
-                    font-weight: bold;
-                    vertical-align: middle;
-                    height: 16px;
-                    position: relative;
-                    left: 5px;
-                }
+        // COMMENT-ICON IS DEFINED IN _SETTINGS, BUT GRIDS ARE DEFINED AFTER _SETTINGS IS LOADED
+        // SO WE'RE CALLING GRID COLUMNS HERE.
+        
+        .comment-icon {
+//            @include grid-column(2.5, $push: 9.5);
+              
+            span {
+                display: inline-block;
+                color: $primary-color;
+                @include adjust-font-size-to(14px, 1);
+                font-weight: bold;
+                position: relative;
+                left: 5px;
             }
-            
-            .most-recent {
-                @include grid-column(9.5, $pull: 2.5);
-                @include adjust-font-size-to(12px, .5);
-                padding-top: .5em;
-                padding-bottom: .5em;
-                
-                * {display: inline;}
-                
-                a { display: inline; padding: 0; color: $purple; }
-                a:hover { text-decoration: underline; }
-                
-                p {
-//                    @include adjust-font-size-to(22px, .1);
-                    margin: .75em 0;
-                    
-                }
-                
-                span { 
-                    @include timestamp;
-                    @include adjust-font-size-to(18px, .5);
-                }
-            }
-            
-            .comment {
-                margin-bottom: 0;
-            }               
         }
         
-        .comment-feed {
-//            @extend .content;
-            background: none;
+        .most-recent {
+            @include grid-column(9.5, $pull: 2.5);
+            @include adjust-font-size-to(12px, .5);
+            padding-top: .5em;
+            padding-bottom: .5em;
             
-            .comment:first-child { //override foundation defaults
-                padding-top: .25em;
+            * {display: inline;}
+            
+            a { display: inline; padding: 0; color: $purple; }
+            a:hover { text-decoration: underline; }
+            
+            p {
+                @include adjust-font-size-to(14px);
+                margin: .75em 0;
+                
+            }
+            
+            span { 
+                @include timestamp;
+                @include adjust-font-size-to(18px, .5);
             }
         }
     }
     
-    
+    .comment-feed {
+//            @extend .content;
+        background: none;
+        
+        .comment:first-child { //override foundation defaults
+            padding-top: .25em;
+        }
+    }
 }
 
 .comment {
@@ -680,6 +685,7 @@ body.profile {
         }
         span { @include timestamp; }
     }
+    
     a {
         display: inline;
         padding: 0;
@@ -700,6 +706,7 @@ body.profile {
         @include adjust-font-size-to(12px, .5);
         input { @include adjust-font-size-to(14px, 1); margin: 0; }
     }
+    
     .submit-comment { 
         @include grid-column(3, $collapse: true);
 //        padding: 0 .1em;
@@ -1065,12 +1072,28 @@ b.disabled {
     
     .drop { max-width: 400px;}
     
+    .notifications-icon,
+    .actions-icon {
+        top: 15px;
+        height: 45px;
+    }
+    
+    .notifications-count,
+    .actions-count {
+        width: 2em;
+        height: 2em;
+        
+        span {
+            @include adjust-font-size-to(16px, 1.1);
+        }
+    }
+    
     .nav {
         @include grid-column(4, $collapse: true);
         float: left;
         position: fixed;
         background: none;
-        margin-top: 4em;
+        margin-top: 6em;
         @include adjust-font-size-to(18px);
         
 /*
@@ -1124,7 +1147,7 @@ b.disabled {
     .great-wall,
     .student-list {
         @include grid-column(8, $push: 4);
-        margin-top: 4em;
+        margin-top: 6em;
         
         .new-post {
             @include panel;
@@ -1208,6 +1231,48 @@ b.disabled {
         }
     }
     
+    .post .question {
+        top: -10px;
+    }
+    
+    .comments .controls {
+        padding: 0.5em 0;
+        .comment-icon span {
+            @include adjust-font-size-to(20px, 1.4);
+            vertical-align: bottom;
+        }
+        .most-recent {
+            @include adjust-font-size-to(16px);
+        }
+    }
+
+    .comment {
+        .comment-text {@include grid-column(9, $collapse: true); padding-left:18px;}
+        .user-img { @include grid-column(1.5, $collapse: true); }
+    }
+    
+    .new-comment {
+        .user-img { // bringing it back from display none
+            @include grid-column(1.5, $collapse: true);
+            display: block;
+//            padding: 0 .25em;
+        }
+        
+        .comment-field { 
+            @include grid-column(9); 
+            @include adjust-font-size-to(16px, .5);
+        }
+        
+        .submit-comment {
+            @include grid-column(1.5, $collapse: true);
+            text-align: left;
+            
+            input { @include adjust-font-size-to(14px, 0.8); }
+        }
+
+    }
+
+    
     .white-stripes, .full-profile, .recent-activity { @include grid-column(8, $push:4); }
     
     .white-stripes {
@@ -1217,7 +1282,7 @@ b.disabled {
             @include grid-column(12, $push: 0);
         }
         
-        .full-profile { margin-top: 4em;}
+        .full-profile { margin-top: 6em;}
     }
         
     .profile-header {
@@ -1289,33 +1354,7 @@ b.disabled {
             @include grid-column(1.5);
         }          
     }
-    
-    .comment {
-        .comment-text {@include grid-column(9, $collapse: true); padding-left:18px;}
-        .user-img { @include grid-column(1.5, $collapse: true); }
-    }
-    
-    .new-comment {
-        .user-img { // bringing it back from display none
-            @include grid-column(1.5, $collapse: true);
-            display: block;
-//            padding: 0 .25em;
-        }
-        
-        .comment-field { 
-            @include grid-column(9); 
-            @include adjust-font-size-to(16px, .5);
-        }
-        
-        .submit-comment {
-            @include grid-column(1.5, $collapse: true);
-            text-align: left;
-            
-            input { @include adjust-font-size-to(14px, 0.8); }
-        }
-
-    }
-     
+         
 // ***********************************************************************************************************************//
 // DESKTOP SPRITES
 
@@ -1330,16 +1369,18 @@ b.disabled {
         @include retina-sprite(NewAction_Large_Desktop);
     }
     .actions-icon {
-        @include retina-sprite(Actions_Active_Desktop);
-        
-        &.disabled {
+        &:before{
+            @include retina-sprite(Actions_Active_Desktop);
+        }
+        &.disabled:before {
             @include retina-sprite(Actions_Inactive_Desktop);
         }
     }
-    .notifications-icon {
-        @include retina-sprite(Notifications_Active_Desktop);
-        
-        &.disabled {
+    .notifications-icon{
+        &:before {
+            @include retina-sprite(Notifications_Active_Desktop);
+        }
+        &.disabled:before {
             @include retina-sprite(Notifications_Inactive_Desktop);
         }
     }
@@ -1365,6 +1406,7 @@ b.disabled {
             @include retina-sprite(Person_Desktop);
         }
     }
+    .ribbon { @include retina-sprite(NavBarRibbon_Desktop);}
 }
 
 @media screen and (max-width: 48em) {

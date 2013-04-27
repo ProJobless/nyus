@@ -4,27 +4,30 @@ status_id, member_id, status, status_date
 FROM exp_friends_status 
 WHERE 
 site_id ='1' AND 
-member_id='{segment_2}' 
+member_id='{last_segment}' 
 ORDER BY status_date DESC"}
 
-{exp:user:stats member_id="{segment_2}" dynamic='off'}
+<!-- looking at my profile -->
+<!-- My ID: {member_id} -->
+
+{exp:user:stats}
 <article class="post section-container accordion" data-section="accordion">
 
     <div class="post-header author">
         <div class="user-img photo">
-            <a href="{path='profile'}/{embed:member_id}">
+            <a href="{path='profile'}/{member_id}">
                 {if photo_filename}
-                <img src="{photo_url}{photo_filename}?<?php echo time(); ?>">
+                <img src="{photo_url}{photo_filename}">
                 {if:else}
                 <img src="http://placehold.it/90x90&text=NO IMAGE">
                 {/if}
             </a>
         </div> <!-- .user-img -->
         <div class="details info">
-            <h4><a href="{path='profile'}/{embed:member_id}">{screen_name}</a></h4>
+            <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
             <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
         </div> <!-- .info -->
-        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1"}
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
             {if question}
             <div class="question"></div>
             {/if}
@@ -33,7 +36,7 @@ ORDER BY status_date DESC"}
             
     <div class="status post-content">
         <p>{status}</p>
-        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1"}
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
              {if media_images}
 		        <div class="post-img">
 			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}"></a>
@@ -59,10 +62,10 @@ ORDER BY status_date DESC"}
             <a href="#" class="comment-icon" rel="ignore">
                 {embed='includes/comment-counter' id_status='{status_id}'} <!-- Counter of Comments -->
             </a>
-            {embed='includes/comments' id_member='{segment_2}' id_status='{status_id}' summary='yes'}
+            {embed='includes/comments' id_member='{member_id}' id_status='{status_id}' summary='yes'}
         </div> <!-- .controls -->
         <div class="comment-feed content">
-            {embed='includes/comments' id_member='{segment_2}' id_status='{status_id}'}
+            {embed='includes/comments' id_member='{member_id}' id_status='{status_id}'}
         </div>
     </section> <!-- .comments -->    
 </article>

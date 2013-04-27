@@ -10,7 +10,7 @@
                     <!-- takes up the left column on larger screens, stacks on smaller screens -->
                     <div class="user-img" id="preview">
                         {if photo_filename}
-    	                <img src="{photo_url}{photo_filename}" />
+    	                <img src="{photo_url}{photo_filename}?<?php echo time(); ?>" />
     	                {if:else}
     	                <img src="http://placehold.it/94x94&text=NO PHOTO">
     	                {/if}

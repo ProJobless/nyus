@@ -750,24 +750,18 @@ body.profile {
         .profile-right { @include grid-column(8, $collapse: true);}
         
         .name {
-//            @include grid-column(8, $collapse: true);
             @include grid-row(nest-collapse);
-//            height: 94px;
-            /*
-position: absolute;
-            left: 110px;
-*/
             
+            &:before {
+                @include retina-sprite(Person_Phone);
+                display: inline-block;
+                content: '';
+            }
             
             h4 {
                 margin: 0;
+                display: inline-block;
                 @include adjust-font-size-to(16px, .65);
-            }
-            
-            h4:before {
-                color: #999;
-                margin-right: .25em;
-                @include adjust-font-size-to(26px, 0);
             }
         }
         
@@ -957,15 +951,20 @@ position: absolute;
     @extend .full-profile;
     
     .profile-header {
-        display: table;
+        @include grid-row(nest-collapse);
+        
+        .profile-right { @include grid-column(8, $collapse: false); height: 94px; }
+        
         .user-img {
-            @include retina-sprite(setup-flower);
+            &:before {
+                @include retina-sprite(setup-flower);
+                display: block;
+                content: '';
+            }
             img { width: auto;}
             &.loaded {background-image: none;}
         }
         .name {
-//            height: auto;
-//            margin-top: 1em;
         }
     }
     
@@ -1357,10 +1356,15 @@ b.disabled {
     }
     
     .edit-photo:before {
-        @include retina-sprite(EditPhoto_Phone);
+        @include retina-sprite(EditPhoto_Desktop);
         display: inline-block;
         content: '';
     }      
+    .name {
+        &:before {
+            @include retina-sprite(Person_Desktop);
+        }
+    }
 }
 
 @media screen and (max-width: 48em) {

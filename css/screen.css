@@ -5563,25 +5563,33 @@ body {
       width: auto;
       margin: 0;
       max-width: none;
-      *zoom: 1;
-            /*
-position: absolute;
-            left: 110px;
-*/ }
+      *zoom: 1; }
       .full-profile .profile-header .name:before, .profile-setup .profile-header .name:before, .full-profile .profile-header .name:after, .profile-setup .profile-header .name:after {
         content: " ";
         display: table; }
       .full-profile .profile-header .name:after, .profile-setup .profile-header .name:after {
         clear: both; }
+      .full-profile .profile-header .name:before, .profile-setup .profile-header .name:before {
+        height: 20px;
+        width: 16px;
+        background-image: url('/introductions/img/icons-s30a83a7e3a.png');
+        background-position: 0 -1043px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        content: ''; }
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 1.5) {
+          .full-profile .profile-header .name:before, .profile-setup .profile-header .name:before {
+            background-image: url('/introductions/img/icons2x-s2d80a85604.png');
+            background-position: 0 -846px;
+            -webkit-background-size: 94px auto;
+            -moz-background-size: 94px auto;
+            -o-background-size: 94px auto;
+            background-size: 94px auto; } }
       .full-profile .profile-header .name h4, .profile-setup .profile-header .name h4 {
         margin: 0;
+        display: inline-block;
         font-size: 1em;
         line-height: 0.975em; }
-      .full-profile .profile-header .name h4:before, .profile-setup .profile-header .name h4:before {
-        color: #999;
-        margin-right: .25em;
-        font-size: 1.625em;
-        line-height: 0em; }
     .full-profile .profile-header .profile-select-wrapper, .profile-setup .profile-header .profile-select-wrapper {
       width: auto;
       margin: 0;
@@ -5824,25 +5832,42 @@ position: absolute;
 }
 */
 .profile-setup .profile-header {
-  display: table; }
-  .profile-setup .profile-header .user-img {
+  width: auto;
+  margin: 0;
+  max-width: none;
+  *zoom: 1; }
+  .profile-setup .profile-header:before, .profile-setup .profile-header:after {
+    content: " ";
+    display: table; }
+  .profile-setup .profile-header:after {
+    clear: both; }
+  .profile-setup .profile-header .profile-right {
+    position: relative;
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+    width: 66.66667%;
+    float: left;
+    height: 94px; }
+  .profile-setup .profile-header .user-img:before {
     height: 94px;
     width: 94px;
     background-image: url('/introductions/img/icons-s30a83a7e3a.png');
     background-position: 0 0;
-    background-repeat: no-repeat; }
+    background-repeat: no-repeat;
+    display: block;
+    content: ''; }
     @media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 1.5) {
-      .profile-setup .profile-header .user-img {
+      .profile-setup .profile-header .user-img:before {
         background-image: url('/introductions/img/icons2x-s2d80a85604.png');
         background-position: 0 0;
         -webkit-background-size: 94px auto;
         -moz-background-size: 94px auto;
         -o-background-size: 94px auto;
         background-size: 94px auto; } }
-    .profile-setup .profile-header .user-img img {
-      width: auto; }
-    .profile-setup .profile-header .user-img.loaded {
-      background-image: none; }
+  .profile-setup .profile-header .user-img img {
+    width: auto; }
+  .profile-setup .profile-header .user-img.loaded {
+    background-image: none; }
 .profile-setup .photo-input {
   max-width: 250px; }
 
@@ -6389,13 +6414,19 @@ b.disabled {
     background-position: 0 -343px;
     background-repeat: no-repeat; }
   .edit-photo:before {
-    height: 16px;
-    width: 18px;
+    height: 28px;
+    width: 34px;
     background-image: url('/introductions/img/icons-s30a83a7e3a.png');
-    background-position: 0 -1121px;
+    background-position: 0 -687px;
     background-repeat: no-repeat;
     display: inline-block;
-    content: ''; } }
+    content: ''; }
+  .name:before {
+    height: 39px;
+    width: 32px;
+    background-image: url('/introductions/img/icons-s30a83a7e3a.png');
+    background-position: 0 -564px;
+    background-repeat: no-repeat; } }
   @media only screen and (min-width: 48em) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-width: 48em) and (min--moz-device-pixel-ratio: 1.5), only screen and (min-width: 48em) and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-width: 48em) and (min-device-pixel-ratio: 1.5) {
     .question {
       background-image: url('/introductions/img/icons2x-s2d80a85604.png');
@@ -6485,7 +6516,16 @@ b.disabled {
   @media only screen and (min-width: 48em) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-width: 48em) and (min--moz-device-pixel-ratio: 1.5), only screen and (min-width: 48em) and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-width: 48em) and (min-device-pixel-ratio: 1.5) {
     .edit-photo:before {
       background-image: url('/introductions/img/icons2x-s2d80a85604.png');
-      background-position: 0 -1112px;
+      background-position: 0 -818px;
+      -webkit-background-size: 94px auto;
+      -moz-background-size: 94px auto;
+      -o-background-size: 94px auto;
+      background-size: 94px auto; } }
+
+  @media only screen and (min-width: 48em) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-width: 48em) and (min--moz-device-pixel-ratio: 1.5), only screen and (min-width: 48em) and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-width: 48em) and (min-device-pixel-ratio: 1.5) {
+    .name:before {
+      background-image: url('/introductions/img/icons2x-s2d80a85604.png');
+      background-position: 0 -1038px;
       -webkit-background-size: 94px auto;
       -moz-background-size: 94px auto;
       -o-background-size: 94px auto;

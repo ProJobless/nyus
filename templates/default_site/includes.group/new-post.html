@@ -46,9 +46,14 @@
                 </div> <!-- .upload-buttons -->
     
                 <div class="question-wrapper">
+                    {if segment_1!='post'}
+                    <input id="question" name="question" type="checkbox" value="1">
+                    <label for="question" class="question-input"></label>
+                    {if:else}
                     <label for="question" class="question-input">
                         <input id="question" name="question" type="checkbox" value="1">
-                    </label>
+                    </label>                    
+                    {/if}
                 </div>	<!-- .question-wrapper -->
             </div> <!-- .post-inputs -->
 	

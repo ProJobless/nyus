@@ -1,12 +1,12 @@
-{!-- 
-{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-all" process_indicator="process_indicator" parse="inward"}
---}
 
-	{!--{infinite_scroll_container_top} --}
+{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-all" process_indicator="process_indicator" parse="inward"}
+
+
+	{infinite_scroll_container_top} 
 	<section class="great-wall" id="ajax_container">
-{!--	{/infinite_scroll_container_top} --}
+	{/infinite_scroll_container_top} 
 	
-	   {embed="includes/new-post"}
+	{embed="includes/new-post"}
 	   
 		{exp:query limit="10" sql="
 		SELECT
@@ -85,20 +85,19 @@
 			{/exp:user:stats}
 		
 		{paginate}
-			{!--{exp:infinite_scroll:next_chunk_link} --}
+				{exp:infinite_scroll:next_chunk_link} 
 				{if next_page}
-					<a href="{auto_path}" class="next_chunk_link">More Entries</a>
+					<p><a href="{auto_path}" class="next_chunk_link">More Entries</a></p>
 				{/if}
-{!--			{/exp:infinite_scroll:next_chunk_link} --}
+			{/exp:infinite_scroll:next_chunk_link}
 		{/paginate}
 		
 		{/exp:query}
 	
-{!--	{infinite_scroll_container_bottom} --}
+	{infinite_scroll_container_bottom}
 	</section>
-{!--	{/infinite_scroll_container_bottom} --}
+	{/infinite_scroll_container_bottom}
 
-{!--
 {/exp:infinite_scroll:wrapper}
---}
+
 

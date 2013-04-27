@@ -1,9 +1,8 @@
-    	        
 {exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-aactions" process_indicator="process_indicator" parse="inward"}
 
 
 	{infinite_scroll_container_top}
-	<section class="great-wall" id="ajax_container">
+	<section class="action-wall" id="ajax_container">
 	{/infinite_scroll_container_top}
 	
 	   {embed="includes/new-post"}
@@ -23,30 +22,31 @@
 		"}
 		
 			
-					<article class="post section-container accordion" data-section="accordion">
-					<div class="details info">
-						<h4><a href="{path='member-list'}/{entry_id}" >{title}</a></h4>
-					</div>
-				    <div class="status post-content">
-							<p>	
-								{description}<br>
-								<small>{entry_date format="%F %j, %Y at %h:%i %a"}</small>
-							</p>
-				    </div> <!-- .post-content -->	
-				    <section class="comments section">
-				        <div class="controls title">
-				        	
-				            <a href="#" class="comment-icon" rel="ignore">
-					           {embed="includes/action-counter" action_id="{entry_id}"}
-				            </a>
-				            <article class="most-recent">
-				               <h5>
-				               <a href="{path='member-list'}/{entry_id}">See list of students</a>
-				               </h5>	
-				            </article>
-				        </div> <!-- .comment-count -->				    
-				    </section> <!-- .comments -->   
-				    </article>
+        <article class="action-post section-container accordion" data-section="accordion">
+        	<div class="details info">
+        		<h4><a href="{path='member-list'}/{entry_id}" >{title}</a></h4>
+        	</div>
+            <div class="status post-content">
+        			<p>	
+        				{description}<br>
+        				<small>{entry_date format="%F %j, %Y at %h:%i %a"}</small>
+        			</p>
+            </div> <!-- .post-content -->	
+            <section class="comments section">
+                <div class="controls title">
+                	
+                    <a href="#" class="comment-icon" rel="ignore">
+        	           {embed="includes/action-counter" action_id="{entry_id}"}
+                    </a>
+                    <article class="most-recent">
+                       <h5>See Everyone</h5>
+                    </article>
+                </div> <!-- .comment-count -->
+                <div class="action-feed content">
+                    {embed='includes/member-list-action'}
+                </div> <!-- .action-feed -->				    
+            </section> <!-- .comments -->   
+        </article> <!-- .action-post -->
 				    
 		
 		{paginate}

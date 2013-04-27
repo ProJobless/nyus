@@ -6,7 +6,7 @@
         <div class="profile-header clearfix">
             <!-- takes up the left column on larger screens, stacks on smaller screens -->
             <div class="user-img" id="preview">
-                <img src="{site_url}img/setup-flower.jpg">
+                <!-- <img src="{site_url}img/setup-flower.jpg"> -->
                 <span id="size" class="size"></span>
             </div> <!-- .profile-photo -->
             <div class="profile-right">
@@ -14,7 +14,7 @@
                     <h4 data-icon="👤">{screen_name}</h4>
                 </div>
                 <div class="profile-select-wrapper">
-                    <a href="#" class="edit-photo" data-icon="📷" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
+                    <a href="#" class="edit-photo visuallyhidden" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
                     <input accept="image/*" class="photo-input visuallyhidden" data-maxwidth="1000" data-maxheight="1000" id="profile-input" required type="file" name="photo_filename" />
                 </div> <!-- .name -->
             </div>
@@ -22,7 +22,7 @@
 
         <section class="profile-details">
             <h4>Living</h4>
-            <a href="#" class="edit-details" data-icon="✎" id="edit-details"><span class="visuallyhidden">Edit Interests</span></a>
+            <a href="#" class="edit-details" id="edit-details"><span class="visuallyhidden">Edit Interests</span></a>
             <div class="instructions" id="instructions">
                 <table class="profile-info">
                     <tbody>

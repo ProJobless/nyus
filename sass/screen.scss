@@ -68,9 +68,9 @@ body.profile {
 }
 
 [data-icon]:before {
-  font-family: "Entypo"; /* BYO icon font, mapped smartly */
-  content: attr(data-icon);
-  speak: none; /* Not to be trusted, but hey. */
+//  font-family: "Entypo"; /* BYO icon font, mapped smartly */
+//  content: attr(data-icon);
+//  speak: none; /* Not to be trusted, but hey. */
 }
 
 .outer-wrap {
@@ -117,6 +117,27 @@ body.profile {
     @include small-black-square;
 }
 
+.menu-btn{
+    &:before {
+        display: inline-block;
+        content: '';
+        margin-top: 14px;
+        @include retina-sprite(Menu_Phone);
+    }
+}
+
+.post-btn {
+    &:before {
+        display: inline-block;
+        content: '';
+        margin-top: 10px;
+        @include retina-sprite(NewPost_Active_Phone);
+    }
+    &.disabled:before {
+        @include retina-sprite(NewPost_Inactive_Phone);
+    }
+}
+
 .menu-btn:hover, .menu-btn:focus,
 .post-btn:hover, .post-btn:focus {
     color: #999;
@@ -129,10 +150,8 @@ body.profile {
 }
 
 .ribbon {
-    background: url(../img/header-ribbon.png) no-repeat;
-    width: 27px;
-    height: 41px;
-    top: -0.25em;
+    @include retina-sprite(header-ribbon);
+    top: -0.4em;
     position: relative;
 }
 
@@ -158,11 +177,19 @@ body.profile {
 }
 
 .notifications-icon {
-    background: url(../img/activity.png) no-repeat;
+    @include retina-sprite(Notifications_Active_Phone);
+    
+    &.disabled {
+        @include retina-sprite(Notifications_Inactive_Phone);
+    }
 }
 
 .actions-icon {
-    background: url(../img/action.png) no-repeat;
+    @include retina-sprite(Actions_Active_Phone);
+    
+    &.disabled {
+        @include retina-sprite(Actions_Inactive_Phone);
+    }
 }
 
 .drop,
@@ -182,19 +209,16 @@ body.profile {
         &:not(:first-child) {
             padding: 0.5em 1em;
         }
-    }
-        
-    a { 
-        color: $dark-gray;
-        display: block;
-        height: 100%;
-        width: 100%;
+
+        a { 
+            color: $dark-gray;
+            display: block;
+            padding: 0;
+        }
     }
         
     p {
-        @include adjust-font-size-to(16px, .9);
-        @include grid-column(9, $collapse: true);
-        padding-left: 0.5em;
+        @include adjust-font-size-to(16px, .8);
     }
     
     li:first-child {
@@ -234,13 +258,9 @@ body.profile {
 */
 
 .actions {
-    li:not(:first-child):before {
-        content: "";
-        background-image: url(../img/purple-flower.png);
-        display: block;
+    li:not(:first-child):before { // content and display set by dropdown include
+        @include retina-sprite(NewAction_Large_Phone);
         float: left;
-        width: 27px;
-        height: 27px;
         margin-top: 7px;
     }
     
@@ -714,10 +734,8 @@ body.profile {
         position: relative;
         
         .user-img {
-//            position: relative;
             @include grid-column(4, $collapse: true);
             height: 94px;
-//            background: url(../img/juan-marin_profile_94px.jpg) no-repeat;
             
             img {
                 @include shadow;
@@ -844,6 +862,7 @@ position: absolute;
         resize: none;
         height: inherit;
         margin-bottom: 0;
+        border-radius: 0;
     }
     
     .upload-buttons {
@@ -860,29 +879,7 @@ position: absolute;
                 border-right: none;
             }
         }
-        
-        .post-button {
-/*
-            cursor: pointer;
-            position: relative;
-            display: block;
-            text-align: center;
-            @include adjust-font-size-to(35px, 1);
-            color: white;
-            height: 30px;
-            
-            &.disabled { 
-                @include disabled;
-            }
-            
-            &:before { font-weight: normal; }
-            
-            a {
-                cursor: default;
 
-            }
-*/
-        }
     }
 
     .question-wrapper {
@@ -962,9 +959,9 @@ position: absolute;
     .profile-header {
         display: table;
         .user-img {
-//            width: auto;
-            height: auto;
+            @include retina-sprite(setup-flower);
             img { width: auto;}
+            &.loaded {background-image: none;}
         }
         .name {
 //            height: auto;
@@ -1262,9 +1259,6 @@ b.disabled {
 //        margin-top: 4em;
 //        @include grid-column(8, $push: 4);
     }    
-    .question-input {
-        left: 0;
-    }
     
     .profile-setup {
         margin-top: 4em;
@@ -1322,7 +1316,51 @@ b.disabled {
         }
 
     }
-           
+     
+// ***********************************************************************************************************************//
+// DESKTOP SPRITES
+
+    .question {
+        @include retina-sprite(QuestionRibbon_Desktop);
+        top: -9px;
+    }
+    .comment-icon span:before {
+        @include retina-sprite(Comment_Desktop);
+    }
+    .actions li:not(:first-child):before { 
+        @include retina-sprite(NewAction_Large_Desktop);
+    }
+    .actions-icon {
+        @include retina-sprite(Actions_Active_Desktop);
+        
+        &.disabled {
+            @include retina-sprite(Actions_Inactive_Desktop);
+        }
+    }
+    .notifications-icon {
+        @include retina-sprite(Notifications_Active_Desktop);
+        
+        &.disabled {
+            @include retina-sprite(Notifications_Inactive_Desktop);
+        }
+    }
+    .attach-media{
+        &.photo:before {
+        @include retina-sprite(Photo_Desktop);
+        }
+        &.video:before {
+            @include retina-sprite(Video_Desktop);
+        }
+        &.audio:before {
+            @include retina-sprite(Audio_Desktop);
+        }
+    }
+    
+    .edit-photo:before {
+        @include retina-sprite(EditPhoto_Phone);
+        display: inline-block;
+        content: '';
+    }      
 }
 
 @media screen and (max-width: 48em) {
@@ -1478,44 +1516,44 @@ b.disabled {
     }
     
     .ribbon {
-        background: url(../img/header-ribbon@2x.png) no-repeat;
-        background-size: 27px 41px;
+//        background: url(../img/header-ribbon@2x.png) no-repeat;
+//        background-size: 27px 41px;
     }   
     
     .notifications-icon {
-        background: url(../img/activity@2x.png) no-repeat;
-        background-size: 17px 16px;
+//        background: url(../img/activity@2x.png) no-repeat;
+//        background-size: 17px 16px;
     }
     
     .actions-icon {
-        background: url(../img/action@2x.png) no-repeat;
-        background-size: 16px 16px;
+//        background: url(../img/action@2x.png) no-repeat;
+//        background-size: 16px 16px;
     }
     
     .question {
-        background: url(../img/question@2x.png) no-repeat;
-        background-size: 27px 51px;
+//        background: url(../img/question@2x.png) no-repeat;
+//        background-size: 27px 51px;
     }	
     .comment-icon:before {
-        background: url(../img/comment-icon@2x.png) no-repeat;
-        background-size: 17px 16px;
+//        background: url(../img/comment-icon@2x.png) no-repeat;
+//        background-size: 17px 16px;
     }
     
     .profile-header .user-img {
 //        background: url(../img/juan-marin_profile_@2x.jpg) no-repeat;
-        background-size: 94px 94px;
+//        background-size: 94px 94px;
     }
     
     .profile-setup {
         .user-img {
-            background: url(../img/setup-flower@2x.jpg);
-            background-size: 94px 94px;
+//            background: url(../img/setup-flower@2x.jpg);
+//            background-size: 94px 94px;
         }
     }
     
     .drop li:not(:first-child):before {
-        background-image: url(../img/purple-flower@2x.png) no-repeat;
-        background-size: 27px 27px;
+//        background-image: url(../img/purple-flower@2x.png) no-repeat;
+//        background-size: 27px 27px;
     }
 
 }

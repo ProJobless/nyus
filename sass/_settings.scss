@@ -3,6 +3,7 @@
 @import "h5bp";
 @include h5bp-helpers;
 @import "compass";
+@import "retina-sprites";
 
 // ***********************************************************************************************************************//
 // NON-FOUNDATION VARIABLES
@@ -16,6 +17,9 @@ $light-gray: #dedede;
 $medium-gray: #bcbcbc;
 $dark-gray: #909090;
 
+$sprites: sprite-map("icons/*.png");  // Import 1x sprites for mobile
+$sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
+
 // ***********************************************************************************************************************//
 // MIXINS
 @mixin question-flag {
@@ -24,10 +28,11 @@ $dark-gray: #909090;
         content: "";
         position: absolute;
         right: -3px;
+        top: 1px;
         width: 0px;
         height: 0px;
         border-style: solid;
-        border-width: 4px 0 0 3px;
+        border-width: 4px 0 0 4px;
         border-color: transparent transparent transparent #4a0f2f;
         line-height: 0px;
         _border-color: #000000 #000000 #000000 #4a0f2f;
@@ -88,18 +93,16 @@ $dark-gray: #909090;
 }
 
 @mixin small-black-square {
-    @include adjust-font-size-to(60px, 1.1);
     @include single-text-shadow;
     @include black-sheen;
     display: block;
-    width: 0.65em;
-    height: 0.65em;
+    width: 39px;
+    height: 39px;
     text-align: center;
     color: #f1f1f1;
     padding: 0;
     border: 0;
     outline: none;
-    white-space: nowrap;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -335,33 +338,55 @@ input:not([type='file'])[disabled] {
 
 .edit-photo {
     @include small-gray-square;
-    @include adjust-font-size-to(38px, .9);
+    @include adjust-font-size-to(32px, .9);
     position: absolute;
     bottom: 0;
 /*
     top: 64px;
     left: 104px;
 */
-    width: 31px;
+
     cursor: pointer;
+    
+    &:before {
+        @include retina-sprite(EditPhoto_Phone);
+        display: inline-block;
+        content: '';
+    }
 }
 
 .edit-details {
     @include small-gray-square;
-    @include adjust-font-size-to(40px, 1);
+    @include adjust-font-size-to(32px, 1);
     float: right;
+    
+    &:before {
+        @include retina-sprite(EditInfo_Phone);
+        display: inline-block;
+        content: '';
+    }
+    &:active:before,
+    &.open:before {
+        @include retina-sprite(EditInfo_Active_Phone);
+    }
+
 }
 
 .question {
-    background: url(../img/question.png) no-repeat;
-    width: 27px;
-    height: 51px;
+    @include retina-sprite(QuestionRibbon_Phone);
     @include single-text-shadow;
-    @include question-flag;
+}
+
+.question-input {
+    @include retina-sprite(QuestionRibbonPost_Phone);
+    display: inline-block;
+    position: relative;
 }
 
 .attach-media {
     display: block;
+    width: 100%;
+    height: 100%;
     color: $white;
     text-align: center;
     @include adjust-font-size-to(35px);
@@ -381,23 +406,28 @@ input:not([type='file'])[disabled] {
     .no-filereader & input {
         //@include file-blanket;
     }
+    
+    &:before {display:inline-block;content:'';}
+    
+    &.photo:before {
+        @include retina-sprite(Photo_Phone);
+    }
+    &.video:before {
+        @include retina-sprite(Video_Phone);
+    }
+    &.audio:before {
+        @include retina-sprite(Audio_Phone);
+    }
 }
 
 .comment-icon {
     text-align: right;
-/*
-    margin-top: .5em;
-    margin-bottom: .5em;
-*/
-//    border-left: 1px solid $light-gray;
     height: 31px;
     
     span:before {
         content: '';
-        background: url(../img/comment-icon.png) no-repeat;
+        @include retina-sprite(Comment_Phone);
         display: inline-block;
-        width: 17px;
-        height: 16px;
         vertical-align: text-top;
         margin-right: .5em;
     }

@@ -228,6 +228,7 @@ function c(a) { console.log(a) }
         $preview.find('.thumb').prepend(img)
         $preview.find('.details').append(clearButton)
         $preview.find('.size').append(size)
+        $preview.addClass('loaded')
         $('#profile-select').toggleClass('visuallyhidden')
     }
     
@@ -479,15 +480,15 @@ function c(a) { console.log(a) }
     if (!!$('canvas').length){
         $('canvas').remove()
     }
-    
-    $('#profile-select').toggleClass('visuallyhidden')
-    var $inputs = $('input[type=file]')
-    $inputs.val('').prop('disabled', false)
-    $inputs.parent().removeClass('disabled')
-    var size = $('<span/>').addClass('size').attr('id','size')
-    $('#preview').find('img, #size').remove()
-    $('#preview').prepend(oldPhoto, size)
-}
+        
+        $('#profile-select').toggleClass('visuallyhidden')
+        var $inputs = $('input[type=file]')
+        $inputs.val('').prop('disabled', false)
+        $inputs.parent().removeClass('disabled')
+        var size = $('<span/>').addClass('size').attr('id','size')
+        $('#preview').find('img, #size').remove()
+        $('#preview').prepend(oldPhoto, size)
+    }
 
 }())
 

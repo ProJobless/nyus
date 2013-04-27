@@ -63,16 +63,6 @@ body {
     background: #2e2e2e url(../img/pinstripes-black.png) repeat;
 }
 
-body.profile {
-//    background: #ccc url(../img/pinstripes-white.png) repeat;
-}
-
-[data-icon]:before {
-//  font-family: "Entypo"; /* BYO icon font, mapped smartly */
-//  content: attr(data-icon);
-//  speak: none; /* Not to be trusted, but hey. */
-}
-
 .outer-wrap {
     position: relative;
     width: 100%;
@@ -570,7 +560,7 @@ body.profile {
     }
     
     .comments .controls {
-        .comment-icon { @include grid-column(2.5, $push: 9.5); } // overriding foundation dropdown styles
+        .comment-icon { @include grid-column(3.5, $push: 8.5); } // overriding foundation dropdown styles
     }
     
     .post-content {
@@ -603,6 +593,7 @@ body.profile {
     border-top: 1px solid $light-gray;
     
     .controls {
+        padding: 0.5em 0;
         @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
         @include grid-row(collapse);
         
@@ -610,7 +601,7 @@ body.profile {
         // SO WE'RE CALLING GRID COLUMNS HERE.
         
         .comment-icon {
-//            @include grid-column(2.5, $push: 9.5);
+//           @include grid-column(2.5, $push: 9.5);
               
             span {
                 display: inline-block;
@@ -623,7 +614,7 @@ body.profile {
         }
         
         .most-recent {
-            @include grid-column(9.5, $pull: 2.5);
+            @include grid-column(8.5, $pull: 3.5);
             @include adjust-font-size-to(12px, .5);
             padding-top: .5em;
             padding-bottom: .5em;
@@ -1072,10 +1063,13 @@ b.disabled {
     
     .drop { max-width: 400px;}
     
-    .notifications-icon,
-    .actions-icon {
+    .notifications-icon {
         top: 15px;
         height: 45px;
+    }
+    
+    .actions-count {
+        height: 50px;
     }
     
     .notifications-count,
@@ -1236,10 +1230,8 @@ b.disabled {
     }
     
     .comments .controls {
-        padding: 0.5em 0;
         .comment-icon span {
             @include adjust-font-size-to(20px, 1.4);
-            vertical-align: bottom;
         }
         .most-recent {
             @include adjust-font-size-to(16px);

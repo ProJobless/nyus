@@ -1000,10 +1000,14 @@ $(document).ready(function(){
     
     $('#notifications-icon').click(function(){
         $('.notifications-count').addClass('viewed')
+        var t = new Date()
+        $.cookie('last_viewed_notifications', t.getTime(), {expires: 365, path : '/'})
     })    
     
     $('#actions-icon').click(function(){
         $('.actions-count').addClass('viewed')
+        var t = new Date()
+        $.cookie('last_view_actions', t.getTime(), {expires: 365, path : '/'})
     })
     
     // GENERAL PURPOSE STOP PROPAGATION

@@ -751,8 +751,11 @@ $(document).ready(function(){
         
         if ($.cookie('terms') === undefined ) {
             $.fancybox.open([{
-                href: '../includes/accept-terms',
-                type: 'ajax'
+                href: '/introductions/includes/accept-terms',
+                type: 'ajax',
+                ajax: {
+                    type: 'POST'
+                }
             }], {
                 minHeight : 65,
                 minWidth : 250,

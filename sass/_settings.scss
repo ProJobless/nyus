@@ -354,6 +354,8 @@ input:not([type='file'])[disabled] {
     @include small-gray-square;
     @include adjust-font-size-to(32px, 1);
     float: right;
+    width: 44px;
+    margin-left: 0.5em;
     
     &:before {
         @include retina-sprite(EditInfo_Phone);

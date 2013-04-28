@@ -226,8 +226,8 @@ $sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
     opacity: 0;
     filter: alpha(opacity=0);
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    *zoom: 1;
-    *height: 100%;
+    zoom: 1;
+    height: 100%;
 }
 
 // ***********************************************************************************************************************//

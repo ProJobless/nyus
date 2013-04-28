@@ -26,11 +26,7 @@
 	{exp:user:stats}
         <div class="user-img">
             <a href="{path='profile'}/{logged_in_member_id}">
-                {if photo_filename}
-    	    	<img src="{photo_url}">
-        	    {if:else}
-                <img src="http://placehold.it/40x40&text=NO IMAGE">
-                {/if}
+    	    	<img src="{photo_url}?<?php echo time(); ?>">
             </a>
         </div> <!-- .user-img -->
         <div class="comment-text">

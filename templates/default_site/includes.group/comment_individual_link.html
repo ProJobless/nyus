@@ -1,59 +1,42 @@
-                    	{exp:query sql="
-							SELECT 
-							exp_channel_data.field_id_4 as status_owner,
-							exp_channel_data.field_id_5 as question,
-							exp_channel_data.field_id_8 as image,
-							exp_channel_data.field_id_9 as audio,
-							exp_channel_data.field_id_10 as video,
-							exp_channel_titles.author_id as author
-							FROM 
-							exp_channel_data
-							LEFT JOIN exp_channel_titles
-							ON exp_channel_data.entry_id=exp_channel_titles.entry_id
-							WHERE
-							exp_channel_titles.channel_id='2' AND
-							exp_channel_data.field_id_4='{embed:owner_status}'
-							Limit 1
-        		        "}
-        		        		{exp:user:users member_id='{author}'}
-        		        		<li>
-	        		        		
-        		            	 <a href="{path='includes/view-status'}/{member_id}/{embed:owner_status}" data-member="{member_id}" data-related-status="{status_owner}">
-        		            	     <div class="user-img"><img src="{photo_url}{photo_filename}"></div>
-        		            	     <p>
-        		            	     <span>{screen_name}</span>
-        		            	     {if image=='' AND audio=='' AND video=='' AND question=='0'}
-        		            	     commented on one of your posts
-        		            	     {/if}
-        		            	     
-        		            	     {if image!=''}
-	        		            	     commented on one of your photos
-	        		            	     {if question!='0'}
-	        		            	     	and replied to one of your questions
-	        		            	     {/if}
-        		            	     {/if}
-        		            	     
-        		            	     {if audio!=''}
-        		            	     	commented on one of your audio clips
-        		            	     	{if question!='0'}
-	        		            	     	and replied to one of your questions
-	        		            	    {/if}
-        		            	     {/if}
-        		            	     
-        		            	     {if video!=''}
-        		            	     	commented on one of your videos
-        		            	     	{if question!='0'}
-	        		            	     	and replied to one of your questions
-	        		            	    {/if}
-        		            	     {/if}
-        		            	     
-        		            	     {if question!='0' AND image=='' AND audio=='' AND video==''}
-        		            	     replied to one of your questions
-        		            	     {/if}
-        		            	     </p>
-        		            	</a>
-        		            	
-        		            	</li>
-        		            	{/exp:user:users} 
-        		        
-        		        {/exp:query}
+{exp:query sql="SELECT field_id_5 as question,field_id_8 as image,field_id_9 as audio,field_id_10 as video FROM exp_channel_data WHERE field_id_4='{embed:field_id_2}' Limit 1"}		        
+	{exp:user:stats member_id='{embed:field_id_13}' dynamic='off'}
+	<li>
+		<a href="{path='includes/view-status'}/{member_id}/{embed:field_id_2}" data-member="{member_id}" data-related-status="{status_owner}">
+			<div class="user-img"><img src="{photo_url}{photo_filename}"></div>
+			<p>
+			<span>{screen_name}</span>
+			        		            	     
+			{if image=='' AND audio=='' AND video=='' AND question=='0'}
+			commented on one of your posts
+			{/if}
+			        		            	     
+			{if image!=''}
+			commented on one of your photos
+			{if question!='0'}
+			and replied to one of your questions
+			{/if}
+			{/if}
+			        		            	     
+			{if audio!=''}
+			commented on one of your audio clips
+			{if question!='0'}
+			and replied to one of your questions
+			{/if}
+			{/if}
+			        		            	     
+			{if video!=''}
+			commented on one of your videos
+			{if question!='0'}
+			and replied to one of your questions
+			{/if}
+			{/if}
+			        		            	     
+			{if question!='0' AND image=='' AND audio=='' AND video==''}
+			replied to one of your questions
+			{/if}
+			
+			</p>
+		</a>    		            	
+	</li>
+	{/exp:user:stats}
+{/exp:query}

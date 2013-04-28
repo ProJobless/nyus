@@ -562,7 +562,7 @@ $(document).ready(function(){
         $disable.addClass('disable').attr('rel', 'ignore')
     }
     
-    if (!!$('.step-one').length && !!$.cookie('accepted_terms')){
+    if (!!$('.step-one').length && !!$.cookie('terms')){
         menu = document.getElementById('menu-btn')
         navReveal = function(){
             menu.click()

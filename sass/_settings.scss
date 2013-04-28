@@ -223,7 +223,6 @@ $sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
 
 @mixin file-blanket { // FILE TYPES COVER THEIR PRETTY LINK SIBLINGS ON OLDER BROWSER THAT DON'T SUPPORT FILE API
     position: absolute;
-    height: 100%;
     filter: alpha(opacity=0);
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
@@ -400,6 +399,7 @@ input:not([type='file'])[disabled] {
     
     .no-filereader & input {
         @include file-blanket;
+//        *& { height: 100%; }
     }
     
     &:before {display:inline-block;content:'';}

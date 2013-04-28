@@ -6,8 +6,8 @@
         <div class="profile-header clearfix">
             <!-- takes up the left column on larger screens, stacks on smaller screens -->
             <div class="user-img" id="preview">
-                <!-- <img src="{site_url}img/setup-flower.jpg"> -->
-                <span id="size" class="size"></span>
+                <div class="thumb" id="thumb"></div> <!-- .thumb -->
+                <div class="specs"></div> <!-- .specs -->
             </div> <!-- .profile-photo -->
             <div class="profile-right">
                 <div class="name">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="profile-select-wrapper">
                     <a href="#" class="edit-photo visuallyhidden" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
-                    <input accept="image/*" class="photo-input visuallyhidden" data-maxwidth="1000" data-maxheight="1000" id="profile-input" required type="file" name="photo_filename" />
+                    <input accept="image/*" class="photo-input visuallyhidden" data-maxwidth="1000" data-maxheight="1000" id="profile-input" name="photo_filename" required type="file">
                 </div> <!-- .name -->
             </div>
         </div> <!-- .profile-header -->
@@ -59,7 +59,7 @@
                 </table>
                 <h4><label for="interests">Interests</label></h4>
                 <div class="interests">
-                    <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." required value="{interests}">{interests}</textarea>
+                    <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." required rows="8" value="{interests}">{interests}</textarea>
                 </div> <!-- .interests -->
             </div> <!-- .form -->
         </section> <!-- .profile-details takes up the right column on large screens, stacks on smaller screens-->

@@ -1,9 +1,13 @@
-{exp:safecracker channel="terms_and_conditions" id="comments" class="comment-form" return="/" dynamic="on" safecracker_head="no" secure_action="no" secure_return="no"}
+{exp:safecracker channel="terms_and_conditions" id="terms" class="terms-form" name="terms" return="setup/step-one" dynamic="on" safecracker_head="no" secure_action="no" secure_return="no"}
 <input type="hidden" name="title" id="title" value="Terms Accepted" />
 <input type="hidden" name="entry_date" value="{entry_date}" />
 <input type="hidden" name="member_id_terms" value="{logged_in_member_id}" />
 <input type="hidden" name="url_title" id="url_title" value="{url_title}" />
-This is a check box
-<input type="checkbox" name="accept_terms" value="1">
-<input name="submit" type="submit" value="Post">
+<input type="hidden" name="name_accepted_terms" id="name_accepted_terms" value="{screen_name}" />
+<label for="accept_terms">
+    <input id="accept_terms" type="checkbox" name="accept_terms" value="1" required>
+    <span>I accept the <a href="{path='pages/terms'}" id="terms-content" target="_blank">Terms of Use</a></span>
+</label>
+
+<button class="terms-accept" id="terms-accept" name="submit" type="submit">Continue &gt;</button>
 {/exp:safecracker}

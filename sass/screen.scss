@@ -887,6 +887,7 @@ body {
         
         > div { 
             @include grid-column(4, $collapse: true); 
+            width: 33.333333%;
             border-right: 1px solid $black;
             cursor: pointer;
             

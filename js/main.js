@@ -172,7 +172,10 @@ function infiniteScroll() {
 // SEE MORE HERE: http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas
 
 // this is where it starts. event triggered when user selects files
-function c(a) { console.log(a) }
+if (!!window.console){
+    function c(a) { console.log(a) }
+    function d(a) { console.dir(a) }
+}
 
 (function(){
     var canvas = document.createElement('canvas')
@@ -184,6 +187,7 @@ function c(a) { console.log(a) }
     var photoBag = $('input[type=hidden], canvas') // used in readfiles
     var $preview = $('#preview') // container for thumbnail and controls
     var $camera = $('#profile-select')
+    var oldInputs = []
     
 //    var image = new Image()
     var TO_RADIANS = Math.PI/180
@@ -196,40 +200,256 @@ function c(a) { console.log(a) }
     try {
         $fileinput = $('.filereader .photo-input')
         $fileinput.change(function(e){
-            c('file api supported, calling change event on .filereader #photo-input')
+//            c('file api supported, calling change event on .filereader #photo-input')
             
-            imgProps['type'] = this.files[0].type
+            var file = this.files[0]
+            imgProps['type'] = file.type
+            imgProps['name'] = file.name
+            imgProps['type'] = file.type        
                     
              if (this.name === 'photo_filename') {
                 if (!!$preview.find('img').length) { 
                     // CLEAR ANY IMAGES INSIDE PREVIEW
                     oldPhoto = $preview.find('img').detach()
-                    c('detaching placeholder image')
+//                    c('detaching placeholder image')
                 }
             }
             
-            read(this.files)
+            // PROFILE PHOTOS ARE HANDLED VIA SAFECRACKER.
+            // NEED TO HOOK INTO SUBMISSION PROCESS AND READ IN DATA URI TO BINARY FILE
+            if (!!$('.step-one').length || !!$('.profile').length) { // PROFILE PHOTOS VIA SAFECRACKER
+//                c('choosing a profile photo')
+                profileImages(this.files)
+            } else { // IMAGE POST PHOTOS, UPLOADED VIA POST
+//                c('posting photo to feed')
+                postImages(file, 1000, 1000, 0.7, imgProps['type'])
+            }
         })
     } catch(e){}
 
-    read = function(files){
-        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+    postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
+//        c('setting up variables')
+        var fileLoader = new FileReader(),
+        canvas = document.createElement('canvas'),
+        context = null,
+        imageObj = new Image(),
+        blob = null;            
+    
+        //create a hidden canvas object we can use to create the new resized image data
+        canvas.id     = "hiddenCanvas";
+//        canvas.width  = max_width;
+//        canvas.height = max_height;
+        canvas.style.visibility = "hidden";   
+        document.body.appendChild(canvas);  
+    
+        //get the context to use 
+        context = canvas.getContext('2d');  
+    
+        // check for an image then
+        //trigger the file loader to get the data from the image         
+        if (file.type.match('image.*')) {
+//            c('reading file')
+            fileLoader.readAsDataURL(file);
+        } else {
+//            c('not an image...')
+            alert('File is not an image');
+        }
+    
+        // setup the file loader onload function
+        // once the file loader has the data it passes it to the 
+        // image object which, once the image has loaded, 
+        // triggers the images onload function
+        fileLoader.onload = function() {
+//            c('file reader loaded')
+            var data = this.result;
+//            c('setting image source to data') 
+            imageObj.src = data;
+        };
+    
+        fileLoader.onabort = function() {
+            alert("The upload was aborted.");
+        };
+    
+        fileLoader.onerror = function() {
+            alert("An error occured while reading the file.");
+        };  
+    
+    
+        // set up the images onload function which clears the hidden canvas context, 
+        // draws the new image then gets the blob data from it
+        imageObj.onload = function() {  
+            
+//            c('inside image load')
+//            c(this)
+            // Check for empty images
+//            c(this.width + ', ' + this.height)
+            
+            if(this.width == 0 || this.height == 0){
+                alert('Image is empty');
+            } else {          
+            
+                var currentWidth = this.width
+                var currentHeight = this.height
+                var newWidth, newHeight
+                
+                // calculate the width and height, constraining the proportions
+                if (currentWidth > currentHeight) {
+                    if (currentWidth > max_width) {
+                        //height *= max_width / width;
+                        newHeight = Math.round(currentHeight *= (max_width / currentWidth))
+                        newWidth = max_width
+                    } else { // if we're smaller than max dimensions, keep the dimensions the same
+                        newHeight = currentHeight 
+                        newWidth = currentWidth
+                    }
+                } else {
+                    if (currentHeight > max_height) {
+                        //width *= max_height / height;
+                        newWidth = Math.round(currentWidth *= (max_height / currentHeight))
+                        newHeight = max_height
+                    } else { // see above...
+                        newHeight = currentHeight  
+                        newWidth = currentWidth 
+                    }
+                }      
+                
+//                c(newWidth + ', ' + newHeight)
+                canvas.width = newWidth
+                canvas.height = newHeight
+                context.clearRect(0,0,newWidth,newHeight);
+                context.drawImage(imageObj, 0, 0, this.width, this.height, 0, 0, newWidth, newHeight);    
+    
+                //dataURItoBlob function available here:
+                // http://stackoverflow.com/questions/12168909/blob-from-dataurl
+                blob = dataURItoBlob(canvas.toDataURL(imageEncoding, compression_ratio))
+//                d(blob)
+                size = getSize(blob)
+//                c(size)
+                
+                imgProps['image'] = canvas.toDataURL(imageEncoding, compression_ratio)
+//                d(imgProps['image'])
+                //pass this blob to your upload function
+//                upload(blob);
+                updatePreview(this)
+                prepInputs()
+                
+            }       
+        };
+    
+        imageObj.onabort = function() {
+            alert("Image load was aborted.");
+        };
+    
+        imageObj.onerror = function() {
+            alert("An error occured while loading image.");
+        };
+    
+    }
+    
+    prepInputs = function() {    
+        if (!!oldInputs) {
+            $(oldInputs).remove()
+        }
+        for (prop in imgProps) {
+            var toPHP = document.createElement('input')
+            if (imgProps.hasOwnProperty(prop)) {
+                toPHP.type = 'hidden'
+                toPHP.name = 'images['+prop+']'
+                toPHP.value = imgProps[prop]
+                form.appendChild(toPHP)
+                oldInputs.push(toPHP)
+            }
+        }
+        $fileinput[0].value = "";
+        return oldInputs
+    
+    }
+    
+    dataURItoBlob = function(dataURL) {
+        var BASE64_MARKER = ';base64,';
+        if (dataURL.indexOf(BASE64_MARKER) == -1) {
+            var parts = dataURL.split(',');
+            var contentType = parts[0].split(':')[1];
+            var raw = parts[1];
+            
+            return new Blob([raw], {type: contentType});
+        }
+        
+        var parts = dataURL.split(BASE64_MARKER);
+        var contentType = parts[0].split(':')[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+        
+        var uInt8Array = new Uint8Array(rawLength);
+        
+        for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+        
+        return new Blob([uInt8Array], {type: contentType});
+    }
+
+    profileImages = function(files){
+//        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
         var file = files[0]
         var reader = new FileReader()
         var image = new Image()
         reader.onload = function(event) {
-            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
-            image.onload = updatePreview
+//            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
+            image.onload = function(){
+                updatePreview(this)
+            }
             image.src = event.target.result
             size = getSize(file)
         }
-        c('loading filereader with file object')
+//        c('loading filereader with file object')
         reader.readAsDataURL(file)
     }
     
-    updatePreview = function(event){
-        c('anonymous image loaded. updating preview container')
-        var img = this
+    blobReader = function(files){
+//        c('grabbing the file')
+        var file = files[0]
+//        d(file)
+//        c('generating the file reader')
+        var reader = new FileReader()
+//        c('generating an anonymous image')
+        var image = new Image()
+//        c('creating a new Int8Array, I think')
+        
+//        c('defining reader onload')
+        reader.onload = function(event) {
+//            c('inside reader. creating a new blob')
+            var int8 = new Int8Array(event.target.result)
+//            d(int8)
+            
+            var blob = new Blob([int8], {type : 'image/png'})
+//            d(blob)
+//            c('setting up a url to the blob')
+            var url = window.URL.createObjectURL(blob) || window.webkitURL.createObjectURL(blob)
+//            d(url)
+            
+//            c('defining image onload to be updatePreview')
+            image.onload = updatePreview
+//            c('setting anonymous image src to url')
+            image.src = url
+//            c('getting file size')
+            size = getSize(file)
+            
+//            c('try replacing filelist with blob?')
+            $fileinput[0].files[0] = blob
+//            d($fileinput[0].files)
+        }
+        
+//        c('calling readAsArrayBuffer on int8')
+        reader.readAsArrayBuffer(file)
+    }
+    
+    updatePreview = function(img){
+        
+//        c('calling compress on anonymous image')
+//        resized = compress(img, imgProps['type'])
+//        d(resized)
+        
         $preview.find('.thumb').prepend(img)
         
         if (!!$('.full-profile').length){
@@ -243,6 +463,49 @@ function c(a) { console.log(a) }
         $camera.toggleClass('visuallyhidden')
     }
     
+    // === RESIZE ====
+    
+    function compress(img, fileType) {
+//        c('setting max width & height')
+        var max_width = $fileinput.data('maxwidth')
+        var max_height = $fileinput.data('maxheight')
+        
+//        c('grabbing images current dimensions', img.width, img.height)
+        var currentWidth = img.width
+        var currentHeight = img.height
+        var newWidth, newHeight
+        
+        // calculate the width and height, constraining the proportions
+        if (currentWidth > currentHeight) {
+            if (currentWidth > max_width) {
+                //height *= max_width / width;
+                newHeight = Math.round(currentHeight *= max_width / currentWidth)
+                newWidth = max_width
+            }
+        } else {
+            if (currentHeight > max_height) {
+                //width *= max_height / height;
+                newWidth = Math.round(currentWidth *= max_height / currentHeight)
+                newHeight = max_height
+            }
+        }
+        
+//        c('new dimensions are: ', newWidth, newHeight)
+        // resize the canvas and draw the image data into it
+        canvas.width = newWidth
+        canvas.height = newHeight
+        
+//        c('creating canvas context')
+        ctx = canvas.getContext("2d");
+//        c('drawing image to canvas')
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        
+        //$('#preview').append(canvas); // do the actual resized preview
+//        c('returning data URL representation of canvas')
+        return canvas.toDataURL(fileType,0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+        
+    }
+    
     getSize = function(file) {
         var nBytes = file.size
         var output = nBytes + ' bytes'
@@ -252,31 +515,32 @@ function c(a) { console.log(a) }
         return output  
     }
     
+    
+    
      // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
     fileClear = function(){
-        if (oldInputs) {
-            $(oldInputs).remove()
-        }
-        if (!!$('canvas').length){
-            $('canvas').remove()
-        }
-        
         $preview.find('img, #size').remove()
         
-        var $inputs = $('input[type=file]')
-        $inputs.val('').prop('disabled', false)
-        $inputs.parent().removeClass('disabled')
-        
-        $camera.toggleClass('visuallyhidden')
-        
+        if (!!oldInputs) {
+            $(oldInputs).remove()
+        }
         if (!!oldPhoto) {
             $preview.append(oldPhoto)   
         } else {
             $preview.removeClass('loaded')
         }
+        if (!!$('canvas').length){
+            $('canvas').remove()
+        }
         if (!!$('#profile-input').length){
             $('#profile-input')[0].flag = false
         }
+                
+        var $inputs = $('input[type=file]')
+        $inputs.val('').prop('disabled', false)
+        $inputs.parent().removeClass('disabled')
+        
+        $camera.toggleClass('visuallyhidden')
     }
                 
                /*
@@ -382,60 +646,7 @@ function c(a) { console.log(a) }
         return oldPhoto
     }
     
-    function prepInputs(oldInputs) {    
-        if (oldInputs) {
-            $(oldInputs).remove()
-        }
-        var oldInputs = []
-        for (prop in imgProps) {
-            var toPHP = document.createElement('input')
-            if (imgProps.hasOwnProperty(prop)) {
-                toPHP.type = 'hidden'
-                toPHP.name = 'images['+prop+']'
-                toPHP.value = imgProps[prop]
-                form.appendChild(toPHP)
-                oldInputs.push(toPHP)
-            }
-        }
-        return oldInputs
     
-    }
-    
-    // === RESIZE ====
-    
-    function compress(img, fileType) {
-        var max_width = fileinput.getAttribute('data-maxwidth');
-        var max_height = fileinput.getAttribute('data-maxheight');
-        
-        var width = img.width;
-        var height = img.height;
-        
-        // calculate the width and height, constraining the proportions
-        if (width > height) {
-            if (width > max_width) {
-                //height *= max_width / width;
-                height = Math.round(height *= max_width / width);
-                width = max_width;
-            }
-        } else {
-            if (height > max_height) {
-                //width *= max_height / height;
-                width = Math.round(width *= max_height / height);
-                height = max_height;
-            }
-        }
-        
-        // resize the canvas and draw the image data into it
-        canvas.width = width;
-        canvas.height = height;
-        ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-        
-        //$('#preview').append(canvas); // do the actual resized preview
-        
-        return canvas.toDataURL(fileType,0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
-        
-    }
 
 
     window.rotate = function(direction) {
@@ -591,14 +802,17 @@ $(document).ready(function(){
             if (!!this.value) {
                 this.flag = true
             }
-            c(this.value)
+//            c(this.value)
         })
         
         $('.step-one').on('submit', function(e){
             for (var i=0;i<$requiredFields.length-1; i++){
                 if ($requiredFields[i].flag){
                     continue
-                } else { $.fancybox($requiredMessage); console.log('Not so fast hax0r. Fill out all fields first.'); return false}
+                } else { 
+                    $.fancybox($requiredMessage)
+                    if (!!window.console){console.log('Not so fast hax0r. Fill out all fields first.')}
+                    return false}
             }
         })
     }
@@ -663,7 +877,7 @@ $(document).ready(function(){
     
     $('#preview').on('click', '#clear', function(e){ 
         try {
-            c('click event triggered on #clear. calling fileClear()')
+//            c('click event triggered on #clear. calling fileClear()')
             fileClear(oldPhoto); 
         } catch(e) {
             fileClear()

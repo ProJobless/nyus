@@ -1007,7 +1007,7 @@ $(document).ready(function(){
     $('#actions-icon').click(function(){
         $('.actions-count').addClass('viewed')
         var t = new Date()
-        $.cookie('last_view_actions', t.getTime(), {expires: 365, path : '/'})
+        $.cookie('last_viewed_actions', t.getTime(), {expires: 365, path : '/'})
     })
     
     // GENERAL PURPOSE STOP PROPAGATION

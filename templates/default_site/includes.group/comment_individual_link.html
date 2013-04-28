@@ -1,7 +1,7 @@
 {exp:query sql="SELECT field_id_5 as question,field_id_8 as image,field_id_9 as audio,field_id_10 as video FROM exp_channel_data WHERE field_id_4='{embed:field_id_2}' Limit 1"}		        
 	{exp:user:stats member_id='{embed:field_id_13}' dynamic='off'}
 	<li>
-		<a href="{path='includes/view-status'}/{member_id}/{embed:field_id_2}" data-member="{member_id}" data-related-status="{status_owner}">
+		<a href="{path='includes/view-status'}" data-member="{logged_in_member_id}" data-related-status="{status_owner}">
 			<div class="user-img"><img src="{photo_url}{photo_filename}"></div>
 			<p>
 			<span>{screen_name}</span>

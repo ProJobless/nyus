@@ -34,7 +34,6 @@
 
             <!-- Header and Nav -->
                 <header class="global" id="top" role="banner">
-
                     <div class="header-left">
                         <div class="menu">
                         {if segment_2=='profile'}  
@@ -45,7 +44,7 @@
                             <h1 class="logo">Introductions</h1>
                         </div> <!-- .menu -->
                                                 
-                        {if segment_1=='setup'}
+                        {if segment_1=='setup' || segment_2=='terms'}
                         
                          <div class="first ribbon">   
                             <a href="#" class="disabled notifications-icon" id="notifications-icon"></a>
@@ -90,7 +89,7 @@
                     </div> <!-- .header-left -->
                     <div class="header-right">
                        
-                    	{if segment_1=='setup'}
+                    	{if segment_1=='setup' || segment_2=='terms'}
                         <div class="second ribbon">
                     		<a href="#" class="disabled actions-icon" id="actions-icon" rel="ignore"></a>
                     	</div> <!-- .second.ribbon -->
@@ -136,6 +135,7 @@
                 {if:else}
                 <div id="main" class="main setup">
                 {/if}
+                    {if segment_2!='terms'}
                     <nav id="nav" class="nav" role="navigation">
                     
                         <div class="nav-wrapper">
@@ -152,6 +152,8 @@
                                 <li><a href="{path='profile'}/{logged_in_member_id}" {if embed:loc =="profile"}class="current"{/if} id="nav-profile">Your Profile</a></li>
                                {if logged_in}<li><a href="https://shanghai.nyu.edu/Shibboleth.sso/Logout?return=https://login.nyu.edu/sso/UI/Logout" id="nav-logout">Log Out</a></li>{/if}
                             </ul>
+                            <small><em><a href="{path='pages/terms'}">Terms</a></em></small>
                         </div> <!-- .nav-wrapper -->
                     </nav>
+                    {/if}
 

@@ -562,7 +562,7 @@ $(document).ready(function(){
         $disable.addClass('disable').attr('rel', 'ignore')
     }
     
-    if (!!$('.step-one').length){
+    if (!!$('.step-one').length && !!$.cookie('accepted_terms')){
         menu = document.getElementById('menu-btn')
         navReveal = function(){
             menu.click()
@@ -745,6 +745,30 @@ $(document).ready(function(){
             },
             helpers : commonHelpers
         })
+    })
+    
+    if (!!$('.step-one').length){
+        
+        if ($.cookie('terms') === undefined ) {
+            $.fancybox.open([{
+                href: '../includes/accept-terms',
+                type: 'ajax'
+            }], {
+                minHeight : 65,
+                minWidth : 250,
+                modal : true,
+                padding : [35, 15,15,15]
+            })
+            
+            // Fancybox blocks the first click on modals, so we have to manually handle the first event.
+            $('body').one('click', '#terms-content', function(){ 
+                window.open(this.href, '_blank') 
+            })
+        }
+    }
+    
+    $('body').on('submit', '#terms', function(e){
+        $.cookie('terms', 'accepted', {expires: 365, path : '/'})
     })
 
     // ***********************************************************************************************************************//

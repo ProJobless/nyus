@@ -240,6 +240,32 @@ function c(a) { console.log(a) }
         }
         return output  
     }
+    
+     // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
+    fileClear = function(){
+        if (oldInputs) {
+            $(oldInputs).remove()
+        }
+        if (!!$('canvas').length){
+            $('canvas').remove()
+        }
+        
+        $preview.find('img, #size').remove()
+        var $inputs = $('input[type=file]')
+        $inputs.val('').prop('disabled', false)
+        $inputs.parent().removeClass('disabled')
+        
+        var size = $('<span/>').addClass('size').attr('id','size')
+        $preview.find('.details').append(size)
+        
+        $('#profile-select').toggleClass('visuallyhidden')
+        
+        if (!!oldPhoto) {
+            $preview.append(oldPhoto)   
+        } else {
+            $preview.removeClass('loaded')
+        }
+    }
                 
                /*
  reader.readAsArrayBuffer(this.files[0]);
@@ -471,24 +497,6 @@ function c(a) { console.log(a) }
     }
     
     //return rotate
-    
-    // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
-    fileClear = function(){
-    if (oldInputs) {
-        $(oldInputs).remove()
-    }
-    if (!!$('canvas').length){
-        $('canvas').remove()
-    }
-        
-        $('#profile-select').toggleClass('visuallyhidden')
-        var $inputs = $('input[type=file]')
-        $inputs.val('').prop('disabled', false)
-        $inputs.parent().removeClass('disabled')
-        var size = $('<span/>').addClass('size').attr('id','size')
-        $('#preview').find('img, #size').remove()
-        $('#preview').prepend(oldPhoto, size)
-    }
 
 }())
 
@@ -529,6 +537,33 @@ function checkFileSize(file) {
     return output    
 }
 
+$('.no-formvalidation .step-one').ready(function(){
+    var $requiredFields = $('input[type=text], textarea, #profile-input')
+    var $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
+    
+    
+    $('.no-formvalidation .step-one').ready(function(){
+        $requiredFields.each(function(){ 
+            if (!this.value){ 
+                this.flag = false
+            } else { this.flag = true }
+        })
+        $requiredFields.on('change', function(){ 
+            if (!!this.value) {
+                this.flag = true
+            }
+        })
+    })
+    
+    $('.no-formvalidation .step-one').submit(function(e){
+        for (var i=0;i<$requiredFields.length-1; i++){
+            if ($requiredFields[i].flag){
+                continue
+            } else { $.fancybox($requiredMessage); console.log('Not so fast hax0r boy. Fill out all fields first.'); return false}
+        }
+    })
+})
+
 
 $(document).ready(function(){
     infiniteScroll()
@@ -536,9 +571,9 @@ $(document).ready(function(){
     // ***********************************************************************************************************************//
     // PROFILE SETUP PROCESS
     
-    if ($('#actions').hasClass('open')) {
-
-    }
+    
+   
+    
     if (!!$('.setup').length) {
         var selector = ''
         var a = ['all', 'questions', 'actions', 'yours', 'students', 'profile']
@@ -560,6 +595,7 @@ $(document).ready(function(){
         }
         window.setTimeout(navReveal, 500)
     }
+
     
     
     // ***********************************************************************************************************************//
@@ -627,18 +663,27 @@ $(document).ready(function(){
         } catch(e) {
             fileClear()
         }
-        $(this).detach() })       
+        $(this).detach() 
+    })       
         
 
 
     //**********************************************************************************************************************//    
     // FILE INPUTS
     
-    $('.filereader .attach-media').click(function(){ $(this).siblings('input').click() })
+    // Filereader API Posts
+    $('.filereader .attach-media, .filereader #profile-select').click(function(){ 
+        $(this).siblings('input').click() 
+    })
+    
+    // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
+    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
+    
+    /* 
     $('.gt-ie9 #profile-select').click(function(){
         $('#profile-input').click()
     })
-    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
+    */
     
     $('input[type=file]').change(function(){
     

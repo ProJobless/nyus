@@ -399,12 +399,7 @@ input:not([type='file'])[disabled] {
         @include background-image(linear-gradient(#5c0f9c, #954bca));
         color: $black;
     }
-    
-    .no-filereader & input {
-        @include file-blanket;
-//        *& { height: 100%; }
-    }
-    
+        
     &:before {display:inline-block;content:'';}
     
     &.photo:before {
@@ -416,6 +411,10 @@ input:not([type='file'])[disabled] {
     &.audio:before {
         @include retina-sprite(Audio_Phone);
     }
+}
+
+.no-filereader .upload-buttons input {
+    @include file-blanket;
 }
 
 .comment-icon {

@@ -191,7 +191,6 @@ body {
 
 .drop,
 .steps { // dropdowns. revealed when .activity is clicked
-    @include dropdown-container($content: list);
     padding: 0;
     border-width: 2px;
     
@@ -233,9 +232,13 @@ body {
     }
 }
 
+.drop {
+    @include dropdown-container($content: list);
+}
 
 // STATIC BOX FOR SETUP FLOW
 .steps {
+    @include dropdown-container($content: list, $triangle: false);
     position: static;
     max-width: 800px;
 //    margin: 1em auto;
@@ -801,11 +804,11 @@ body {
         .interests {
             @include grid-column(12, $collapse: true);
             background: white;
-            padding-top: 1em;
+//            padding-top: 1em;
             margin-top: 0.5em;
             @include shadow;
             
-            p { padding-left: 1em;}
+            p { margin-top: 1em; padding-left: 1em;}
         }
     }
     
@@ -856,14 +859,13 @@ body {
     text-align: right;
     
     .preview { @include grid-row(nest); padding: 0.75em; }
-    .thumb { // Child of .preview, sibling to .details
+    .thumb { // Child of .preview, sibling to .specs
         @include grid-column(8, $collapse: true); }
-    .details { //parent of .size and .clear
+    .specs { //parent of .size and .clear
         @include grid-column(4, $collapse: true); text-align: center;
     }
     .size { @include adjust-font-size-to(14px); display: inline-block; color: $black; text-align: center; margin-top: 1em; }
-    button {display: block; margin-top: 1em; margin-bottom: 0;}
-    .clear {float: right; padding: 0.7em 1em;}
+    .clear {padding: 0.7em 1em; margin: 1em 0 0 0.5em; }
         
     textarea {
         resize: none;
@@ -995,6 +997,8 @@ body {
 .step-two,
 .step-three {
     @include box-shadow(-1em -0.7em 1em -0.4em rgba(0,0,0,.25));
+    
+    textarea { margin: 0; }
 }
 
 .step-one {
@@ -1171,11 +1175,11 @@ b.disabled {
             margin-bottom: 1em;
             
             .preview { @include grid-row(nest-collapse); padding: 0 1em; }
-            .thumb { // Child of .preview, sibling to .details
+            .thumb { // Child of .preview, sibling to .specs
                 @include grid-column(8, $collapse: true); 
                 img {padding: 1em 0; }
             }
-            .details { //parent of .size and .clear
+            .specs { //parent of .size and .clear
                 @include grid-column(4, $collapse: true); text-align: right;
             }
             .post-form {
@@ -1220,7 +1224,7 @@ b.disabled {
                     border-right: 1px solid $light-gray;
                     color: $purple; 
                    // text-align: left;
-                    @include adjust-font-size-to(60px);
+                    @include adjust-font-size-to(46px);
                     padding-top: .1em;
                     padding-bottom: .2em;
                     

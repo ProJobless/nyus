@@ -177,9 +177,14 @@ function c(a) { console.log(a) }
 (function(){
     var canvas = document.createElement('canvas')
     var form = document.getElementById('form')
-    var clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Clear') // user-intent to clear current inputs
+    
+    var $clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Clear') // user-intent to clear current inputs
+    var $sizeEl = $('<span/>').addClass('size').attr('id','size')
+    
     var photoBag = $('input[type=hidden], canvas') // used in readfiles
     var $preview = $('#preview') // container for thumbnail and controls
+    var $camera = $('#profile-select')
+    
     var image = new Image()
     var TO_RADIANS = Math.PI/180
     var currentAngle = 0
@@ -226,10 +231,10 @@ function c(a) { console.log(a) }
         c('anonymous image loaded. updating preview container')
         var img = this
         $preview.find('.thumb').prepend(img)
-        $preview.find('.details').append(clearButton)
-        $preview.find('.size').append(size)
+        $preview.find('.specs').append($clearButton)
+        $sizeEl.text(size).prependTo('.specs')
         $preview.addClass('loaded')
-        $('#profile-select').toggleClass('visuallyhidden')
+        $camera.toggleClass('visuallyhidden')
     }
     
     getSize = function(file) {
@@ -251,14 +256,12 @@ function c(a) { console.log(a) }
         }
         
         $preview.find('img, #size').remove()
+        
         var $inputs = $('input[type=file]')
         $inputs.val('').prop('disabled', false)
         $inputs.parent().removeClass('disabled')
         
-        var size = $('<span/>').addClass('size').attr('id','size')
-        $preview.find('.details').append(size)
-        
-        $('#profile-select').toggleClass('visuallyhidden')
+        $camera.toggleClass('visuallyhidden')
         
         if (!!oldPhoto) {
             $preview.append(oldPhoto)   
@@ -357,7 +360,7 @@ function c(a) { console.log(a) }
 //                }
                 imgProps['image'] = compress(this, imgProps.type) // sending to canvas
     //            this.classList.add('thumb')
-                $preview.prepend(this).append(clearButton)
+                $preview.prepend(this).append($clearButton)
                 
                 if (self.name != 'photo_filename') {
                     try {
@@ -537,31 +540,31 @@ function checkFileSize(file) {
     return output    
 }
 
-$('.no-formvalidation .step-one').ready(function(){
+$('.step-one').ready(function(){
     var $requiredFields = $('input[type=text], textarea, #profile-input')
     var $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
+    $('#form').attr('novalidate', true)
     
     
-    $('.no-formvalidation .step-one').ready(function(){
-        $requiredFields.each(function(){ 
-            if (!this.value){ 
-                this.flag = false
-            } else { this.flag = true }
-        })
-        $requiredFields.on('change', function(){ 
-            if (!!this.value) {
-                this.flag = true
-            }
-        })
+    $requiredFields.each(function(){ 
+        if (!this.value){ 
+            this.flag = false
+        } else { this.flag = true }
+    })
+    $requiredFields.on('change', function(){ 
+        if (!!this.value) {
+            this.flag = true
+        }
     })
     
-    $('.no-formvalidation .step-one').submit(function(e){
+    $('.step-one').on('submit', function(e){
         for (var i=0;i<$requiredFields.length-1; i++){
             if ($requiredFields[i].flag){
                 continue
             } else { $.fancybox($requiredMessage); console.log('Not so fast hax0r boy. Fill out all fields first.'); return false}
         }
     })
+    
 })
 
 

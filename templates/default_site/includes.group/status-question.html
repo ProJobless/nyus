@@ -24,11 +24,7 @@ ORDER BY status_date DESC "}
     <div class="post-header author">
         <div class="user-img photo">
             <a href="{path='profile'}/{member_id}">
-                {if photo_filename}
                 <img src="{photo_url}{photo_filename}">
-                {if:else}
-                <img src="http://placehold.it/90x90&text=NO IMAGE">
-                {/if}
             </a>
         </div> <!-- .photo -->
         <div class="details info">
@@ -68,9 +64,9 @@ ORDER BY status_date DESC "}
             
     <section class="comments section">
         <div class="controls title">
-            <a href="#" class="comment-icon" rel="ignore">
+            <div class="comment-icon">
                 {embed='includes/comment-counter' id_status='{status_id}'} <!-- Counter of Comments -->
-            </a>
+            </div> <!-- .comment-icon -->
             {embed='includes/comments' id_member='{member_id}' id_status='{status_id}' summary='yes'}
         </div> <!-- .comment-count -->
         <div class="comment-feed content">

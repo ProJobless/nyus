@@ -9,17 +9,14 @@
                 <div class="profile-header clearfix">
                     <!-- takes up the left column on larger screens, stacks on smaller screens -->
                     <div class="user-img" id="preview">
-                        {if photo_filename}
-    	                <img src="{photo_url}{photo_filename}?<?php echo time(); ?>" />
-    	                {if:else}
-    	                <img src="http://placehold.it/94x94&text=NO PHOTO">
-    	                {/if}
-    	                <span id="size" class="size"></span>
+    	               <img src="{photo_url}{photo_filename}?<?php echo time(); ?>" />
+    	               <div class="thumb" id="thumb"></div>
+    	               <div class="specs" id="specs"></div>
                     </div> <!-- .user-img -->
                     <div class="name">
                         <h4>{screen_name}</h4>
                         <a href="#" class="edit-photo visuallyhidden" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
-                        <input accept="image/*" class="photo-input" id="photo-input" name="photo_filename" type="file">
+                        <input accept="image/*" class="photo-input visuallyhidden" id="photo-input" name="photo_filename" type="file">
                     </div> <!-- .name -->
                 </div> <!-- .profile-header -->
        
@@ -64,7 +61,7 @@
                         <div class="interests">
                             <textarea id="interests" name="interests" placeholder="Tell your classmates what you're into..." value="{interests}">{interests}</textarea>
                         </div> <!-- .interests -->
-                        <b><input class="approve" name="next" id="submit" type="submit" value="Submit"></b>
+                        <b><input class="approve" name="next" id="submit" type="submit" value="Save"></b>
                     </div> <!-- .form -->
                 </section> <!-- .profile-details -->
                 {/exp:user:edit}  
@@ -74,11 +71,7 @@
                 <div class="profile-header clearfix">
                     <!-- takes up the left column on larger screens, stacks on smaller screens -->
                     <div class="user-img">
-                        {if photo_filename}
-    	                <img src="{photo_url}{photo_filename}" />
-    	                {if:else}
-    	                <img src="http://placehold.it/94x94&text=NO PHOTO">
-    	                {/if}
+    	                <img src="{photo_url}{photo_filename}?<?php echo time(); ?>">
                     </div> <!-- .user-img -->
                     <div class="name">
                         <h4>{screen_name}</h4>

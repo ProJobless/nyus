@@ -91,8 +91,8 @@ body {
 	display:block; 
 	height:100%; 
 	max-height:100%; 
-	overflow:auto; 
-	}
+//	overflow:auto; 
+}
 
 .header-left,
 .header-right {
@@ -501,7 +501,10 @@ body {
     left: 70%;
 }
 
-.white-stripes { @include grid-column(12);}
+.white-stripes { 
+    @include grid-column(12);
+    overflow: hidden;
+}
 
 .profile-container {
     @include grid-column(12);
@@ -808,6 +811,8 @@ body {
             margin-top: 0.5em;
             @include shadow;
             
+            textarea { margin-bottom: 0; }
+            
             p { margin-top: 1em; padding-left: 1em;}
         }
     }
@@ -1005,6 +1010,8 @@ body {
     @include grid-row(nest-collapse); 
     padding: 1em;
     background: $white; 
+    
+    .clear { margin: 1em 0 0 0.5em; }
 }
 
 //.step-one > b { text-align: right; z-index: 100;}

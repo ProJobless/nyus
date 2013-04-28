@@ -1,4 +1,3 @@
-
 {exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-all" process_indicator="process_indicator" parse="inward"}
 
 
@@ -25,11 +24,7 @@
 					    <div class="post-header author">
 				        <div class="user-img">
 				            <a href="{path='profile'}/{member_id}">
-				                {if photo_filename}
-				                <img src="{photo_url}{photo_filename}">
-				                {if:else}
-				                <!-- <img src="http://placehold.it/90x90&text=NO IMAGE"> -->
-				                {/if}
+    			                <img src="{photo_url}{photo_filename}">
 				            </a>
 				        </div> <!-- .photo -->
 				        <div class="details info">
@@ -85,7 +80,7 @@
 			{/exp:user:stats}
 		
 		{if count == total_results}
-		<div class="process_indicator">Loading...</div>
+    		<div class="process_indicator">Loading...</div>
 		{/if}
 		
 		{paginate}

@@ -265,8 +265,9 @@ function c(a) { console.log(a) }
         
         if (!!oldPhoto) {
             $preview.append(oldPhoto)   
-        } else {
+        } else { // we're in the first profile set up step
             $preview.removeClass('loaded')
+            $('#profile-input')[0].flag = false
         }
     }
                 
@@ -538,34 +539,7 @@ function checkFileSize(file) {
     $('#submit').prop('disabled', false)
 
     return output    
-}
-
-$('.step-one').ready(function(){
-    var $requiredFields = $('input[type=text], textarea, #profile-input')
-    var $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
-    $('#form').attr('novalidate', true)
-    
-    
-    $requiredFields.each(function(){ 
-        if (!this.value){ 
-            this.flag = false
-        } else { this.flag = true }
-    })
-    $requiredFields.on('change', function(){ 
-        if (!!this.value) {
-            this.flag = true
-        }
-    })
-    
-    $('.step-one').on('submit', function(e){
-        for (var i=0;i<$requiredFields.length-1; i++){
-            if ($requiredFields[i].flag){
-                continue
-            } else { $.fancybox($requiredMessage); console.log('Not so fast hax0r boy. Fill out all fields first.'); return false}
-        }
-    })
-    
-})
+}    
 
 
 $(document).ready(function(){
@@ -573,9 +547,6 @@ $(document).ready(function(){
         
     // ***********************************************************************************************************************//
     // PROFILE SETUP PROCESS
-    
-    
-   
     
     if (!!$('.setup').length) {
         var selector = ''
@@ -597,9 +568,32 @@ $(document).ready(function(){
             menu.click()
         }
         window.setTimeout(navReveal, 500)
+        
+        var $requiredFields = $('input[type=text], textarea, #profile-input')
+        var $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
+        $('#form').attr('novalidate', true)
+        
+        
+        $requiredFields.each(function(){ 
+            if (!this.value){ 
+                this.flag = false
+            } else { this.flag = true }
+        })
+        $requiredFields.change(function(){ 
+            if (!!this.value) {
+                this.flag = true
+            }
+            c(this.value)
+        })
+        
+        $('.step-one').on('submit', function(e){
+            for (var i=0;i<$requiredFields.length-1; i++){
+                if ($requiredFields[i].flag){
+                    continue
+                } else { $.fancybox($requiredMessage); console.log('Not so fast hax0r. Fill out all fields first.'); return false}
+            }
+        })
     }
-
-    
     
     // ***********************************************************************************************************************//
     // EDIT PROFILE FORM

@@ -751,7 +751,7 @@ $(document).ready(function(){
         
         if ($.cookie('terms') === undefined ) {
             $.fancybox.open([{
-                href: '/introductions/includes/accept-terms',
+                href: 'https://shanghai.nyu.edu/introductions/includes/accept-terms',
                 type: 'ajax',
                 ajax: {
                     type: 'POST'

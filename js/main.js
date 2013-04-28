@@ -185,7 +185,7 @@ function c(a) { console.log(a) }
     var $preview = $('#preview') // container for thumbnail and controls
     var $camera = $('#profile-select')
     
-    var image = new Image()
+//    var image = new Image()
     var TO_RADIANS = Math.PI/180
     var currentAngle = 0
     var imgProps = {}
@@ -197,7 +197,7 @@ function c(a) { console.log(a) }
         $fileinput = $('.filereader .photo-input')
         $fileinput.change(function(e){
             c('file api supported, calling change event on .filereader #photo-input')
-
+            
             imgProps['type'] = this.files[0].type
                     
              if (this.name === 'photo_filename') {
@@ -216,7 +216,7 @@ function c(a) { console.log(a) }
         c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
         var file = files[0]
         var reader = new FileReader()
-        
+        var image = new Image()
         reader.onload = function(event) {
             c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
             image.onload = updatePreview
@@ -231,7 +231,13 @@ function c(a) { console.log(a) }
         c('anonymous image loaded. updating preview container')
         var img = this
         $preview.find('.thumb').prepend(img)
+        
+        if (!!$('.full-profile').length){
+            $clearButton.html('Revert')
+        }
         $preview.find('.specs').append($clearButton)
+        
+        
         $sizeEl.text(size).prependTo('.specs')
         $preview.addClass('loaded')
         $camera.toggleClass('visuallyhidden')
@@ -265,8 +271,10 @@ function c(a) { console.log(a) }
         
         if (!!oldPhoto) {
             $preview.append(oldPhoto)   
-        } else { // we're in the first profile set up step
+        } else {
             $preview.removeClass('loaded')
+        }
+        if (!!$('#profile-input').length){
             $('#profile-input')[0].flag = false
         }
     }
@@ -567,7 +575,7 @@ $(document).ready(function(){
         navReveal = function(){
             menu.click()
         }
-        window.setTimeout(navReveal, 500)
+        window.setTimeout(navReveal, 250)
         
         var $requiredFields = $('input[type=text], textarea, #profile-input')
         var $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')

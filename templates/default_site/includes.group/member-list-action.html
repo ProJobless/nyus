@@ -1,25 +1,60 @@
-{exp:query sql="
-	SELECT 
-	exp_members.screen_name,
-	exp_members.photo_filename,
-	exp_members.member_id
-	FROM 
-	exp_members, 
-	exp_channel_data
-	WHERE
-	exp_members.member_id=exp_channel_data.field_id_16 AND
-	exp_channel_data.field_id_15 = '{segment_2}'
-"}            
-            
-<div class="student">
-    <div class="user-img">
-        <a href="{path='profile'}/{member_id}">
-        	<img src="{site_url}/images/member_photos/{photo_filename}">
-        </a>
-    </div> <!-- .user-img -->
-    <div class="name">
-        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
-    </div>
-</div> <!-- .student -->
+{if embed:action_id}
 
-{/exp:query}
+	{exp:query sql="
+		SELECT 
+		exp_members.screen_name,
+		exp_members.photo_filename,
+		exp_members.member_id
+		FROM 
+		exp_members, 
+		exp_channel_data
+		WHERE
+		exp_members.member_id=exp_channel_data.field_id_16 AND
+		exp_channel_data.field_id_15 = '{embed:action_id}'
+	"}            
+	            
+	<div class="student">
+	    <div class="user-img">
+	        <a href="{path='profile'}/{member_id}">
+	        	<img src="{site_url}/images/member_photos/{photo_filename}">
+	        </a>
+	    </div> <!-- .user-img -->
+	    <div class="name">
+	        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
+	    </div>
+	</div> <!-- .student -->
+	
+	{/exp:query}
+
+{/if}
+
+
+{if segment_2}
+
+	{exp:query sql="
+		SELECT 
+		exp_members.screen_name,
+		exp_members.photo_filename,
+		exp_members.member_id
+		FROM 
+		exp_members, 
+		exp_channel_data
+		WHERE
+		exp_members.member_id=exp_channel_data.field_id_16 AND
+		exp_channel_data.field_id_15 = '{segment_2}'
+	"}            
+	            
+	<div class="student">
+	    <div class="user-img">
+	        <a href="{path='profile'}/{member_id}">
+	        	<img src="{site_url}/images/member_photos/{photo_filename}">
+	        </a>
+	    </div> <!-- .user-img -->
+	    <div class="name">
+	        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
+	    </div>
+	</div> <!-- .student -->
+	
+	{/exp:query}
+
+{/if}

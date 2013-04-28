@@ -5,11 +5,11 @@
         <input type="hidden" name="next-step" value="{embed:next-step}">
         {/if}
         
+        <!--Record the action-->
         {if embed:action_id}
         <input type="hidden" name="action_id" value="{embed:action_id}">
         <input type="hidden" name="id_member" value="{logged_in_member_id}">
         {/if}
-        
         <div class="preview" id="preview">
             <div class="thumb" id="thumb">
                    <!--

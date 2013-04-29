@@ -53,7 +53,7 @@
                          <div class="first ribbon">                        
 						 
 							{exp:user:stats dynamic='off'} 
-								{exp:comments_counter user_member_id='{member_id}' user_last_visit='{last_visit}' only_count='0'}
+								{exp:comments_counter user_member_id='{CURRENT_USER}' user_last_visit='{last_visit}' only_count='0'}
 							{/exp:user:stats}
 						 	
 						 </div> <!-- .first.ribbon -->   
@@ -74,23 +74,21 @@
                         {if:else}
                         
                         <div class="second ribbon">   
-                        
-                        	
-                          
-                        	<?php $counter_verify=0; ?>
-                        	<?php $counter_actions_verify=0; ?>
-                        	
-                        	{exp:channel:entries channel='actions' dynamic='off'}
-	                        	    <?php $counter_verify++; ?>
-                        	{/exp:channel:entries}
-                        	
-	                        
-	                        	<?php if ($counter_verify > 0) { ?>
-			                    <div class="actions-count" id="actions-count"><span><?php echo $counter_verify; ?></span></div>
-	                            <?php } ?>
-	                            
-	                            <a href="#" class="actions-icon" data-dropdown="actions" <?php if ($counter_verify > 0) { ?> data-dropdown="actions" <?php } ?> id="actions-icon" rel="ignore" title="Actions"></a>	
-	                            
+						{exp:query sql=" SELECT count(*) as counter_action FROM  exp_channel_data  WHERE  channel_id='3' "}
+								<?php $counter_action='{counter_action}'; ?>
+						{/exp:query}
+						
+						{exp:user:edit dynamic='off'
+form:style="margin:0px;"}
+						{exp:query sql=" SELECT count(*) as counter_not_take_action FROM  exp_channel_data  WHERE  channel_id='4' AND field_id_16='{member_id}' "}
+								<?php $counter_not_take_action='{counter_not_take_action}'; ?>
+						{/exp:query}
+						{/exp:user:edit}
+
+						
+	                    <div class="actions-count" id="actions-count"><span><?php echo $counter_action=$counter_action-$counter_not_take_action; ?></span></div>
+	                    <a href="#" class="actions-icon" data-dropdown="actions"  data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
+	                    
 	                          
                         </div> <!-- .second.ribbon -->
                         <div class="post-icon">

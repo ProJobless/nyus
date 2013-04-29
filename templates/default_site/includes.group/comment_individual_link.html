@@ -1,7 +1,18 @@
-{exp:query sql="SELECT exp_channel_titles.author_id as author_status, exp_channel_data.field_id_5 as question, exp_channel_data.field_id_8 as image, exp_channel_data.field_id_9 as audio, exp_channel_data.field_id_10 as video, exp_channel_titles.entry_date as date_of_entry FROM exp_channel_data, exp_channel_titles WHERE exp_channel_data.entry_id=exp_channel_titles.entry_id AND exp_channel_data.field_id_4='{embed:field_id_2}' Limit 1"}		      
+{exp:query sql="
+SELECT 
+exp_channel_titles.author_id as author_status, 
+exp_channel_data.field_id_5 as question, 
+exp_channel_data.field_id_8 as image, 
+exp_channel_data.field_id_9 as audio, 
+exp_channel_data.field_id_10 as video, 
+exp_channel_titles.entry_date as date_of_entry 
+FROM exp_channel_data, exp_channel_titles 
+WHERE exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
+exp_channel_data.field_id_4='{embed:field_id_2}' Limit 1
+"}		      
 
 {if embed:field_id_13!=user_member_logged_in}
-	{exp:user:stats member_id='{embed:field_id_13}' dynamic='off'}
+	{exp:user:stats member_id='{embed:field_id_13}'}
 	<li>
 		<a href="{path='includes/view-status'}/{author_status}/{embed:field_id_2}" data-member="{logged_in_member_id}" data-related-status="{status_owner}">
 			<div class="user-img"><img src="{photo_url}{photo_filename}"></div>

@@ -1,4 +1,4 @@
-{exp:query sql="SELECT field_id_5 as question,field_id_8 as image,field_id_9 as audio,field_id_10 as video FROM exp_channel_data WHERE field_id_4='{embed:field_id_2}' Limit 1"}		      
+{exp:query sql="SELECT exp_channel_data.field_id_5 as question, exp_channel_data.field_id_8 as image, exp_channel_data.field_id_9 as audio, exp_channel_data.field_id_10 as video, exp_channel_titles.entry_date as date_of_entry FROM exp_channel_data, exp_channel_titles WHERE exp_channel_data.entry_id=exp_channel_titles.entry_id AND exp_channel_data.field_id_4='{embed:field_id_2}' Limit 1"}		      
 
 {if embed:field_id_13!=logged_in_member_id}
 	{exp:user:stats member_id='{embed:field_id_13}' dynamic='off'}

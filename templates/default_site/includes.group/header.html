@@ -73,20 +73,17 @@
                         
                         {if:else}
                         
-                        <div class="second ribbon">     
+                        <div class="second ribbon">   
+                        
+                        	
+                          
                         	<?php $counter_verify=0; ?>
                         	<?php $counter_actions_verify=0; ?>
                         	
-                        	{exp:channel:entries channel='action_participation' search:body="{logged_in_member_id}" dynamic='off'}
-                        		<?php $counter_verify++; ?>
+                        	{exp:channel:entries channel='actions' dynamic='off'}
+	                        	    <?php $counter_verify++; ?>
                         	{/exp:channel:entries}
-           
-                            
-	                        {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
-	                	        <?php $counter_actions_verify++; ?>
-	                        {/exp:channel:entries} 
-	                        
-	                        <?php $counter_verify = $counter_actions_verify - $counter_verify; ?>
+                        	
 	                        
 	                        	<?php if ($counter_verify > 0) { ?>
 			                    <div class="actions-count" id="actions-count"><span><?php echo $counter_verify; ?></span></div>

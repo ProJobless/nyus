@@ -1,8 +1,7 @@
 {embed='includes/header'}
 
 <div class="step-three">
-    {embed='includes/setup-directions'}
-
-    {embed='includes/new-post' next-step='finish'}
+    {setup_directions}
+    {embed='includes/new-post' next-step='finish' action_id="<?php echo $actionID; ?>"}
 </div>
 {embed='includes/footer'}

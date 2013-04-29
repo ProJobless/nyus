@@ -74,6 +74,7 @@
                         {if:else}
                         
                         <div class="second ribbon">   
+
 						{exp:query sql=" SELECT count(*) as counter_action FROM  exp_channel_data  WHERE  channel_id='3' "}
 								<?php $counter_action='{counter_action}'; ?>
 						{/exp:query}
@@ -88,7 +89,6 @@ form:style="margin:0px;"}
 						
 	                    <div class="actions-count" id="actions-count"><span><?php echo $counter_action=$counter_action-$counter_not_take_action; ?></span></div>
 	                    <a href="#" class="actions-icon" data-dropdown="actions"  data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
-	                    
 	                          
                         </div> <!-- .second.ribbon -->
                         <div class="post-icon">

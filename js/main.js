@@ -1,4 +1,3 @@
-console.log('hit')
 /*!
 *
 * Copyright (c) David Bushell | http://dbushell.com/

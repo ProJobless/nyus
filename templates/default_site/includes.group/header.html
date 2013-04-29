@@ -50,21 +50,14 @@
                         </div> <!-- .first .ribbon -->
                         
                         {if:else}	
-                         <div class="first ribbon">  
-                         	<?php $counter_verify_comments=0; ?>             
-		                    {exp:user:stats} 
-		                           		                        
-		                        {exp:query sql=" SELECT DISTINCT exp_friends_status.status_date as status_date FROM  exp_channel_data, exp_friends_status  WHERE  exp_channel_data.field_id_2=exp_friends_status.status_id AND  exp_friends_status.member_id='{member_id}' AND exp_friends_status.status_date > '{last_visit}'"}
-		                        <?php $counter_verify_comments++; ?>
-	                            {status_date}
-	                            {/exp:query}  
-	                            
-	                            <?php if ($counter_verify_comments > 0) { ?>
-									<div class="notifications-count" id="notifications-count"><span><?php echo $counter_verify_comments; ?></span></div>	
-	                            <?php } ?>
-		                        <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
-
-	                        {/exp:user:stats} 
+                         <div class="first ribbon">                        
+						 <div class="notifications-count" id="notifications-count">
+							{exp:user:stats dynamic='off'} 
+						 	<span>{exp:comments_counter user_member_id='{member_id}' user_last_visit='{last_visit}'}</span>
+						 	{/exp:user:stats}
+						 	
+						 </div>	
+						 <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
                          </div> <!-- .first.ribbon -->   
                         {/if}
                         

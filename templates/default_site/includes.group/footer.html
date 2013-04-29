@@ -1,4 +1,3 @@
-
                 </div> <!-- #main -->
             </div> <!-- #page -->
 
@@ -13,7 +12,7 @@
         <ul id="notifications" class="notifications drop f-dropdown" data-dropdown-content>
             <li><h4>Notifications</h4></li>
 
-        		    {exp:query sql="SELECT field_id_2, field_id_13 FROM exp_channel_data WHERE field_id_13!='{id_member}' AND channel_id='1' order by entry_id DESC limit 5 "}
+        		    {exp:query sql="SELECT field_id_2, field_id_13 FROM exp_channel_data WHERE channel_id='1' AND field_id_13!='{logged_in_member_id}' order by entry_id DESC limit 6"}
 		        		{embed="includes/comment_individual_link" field_id_2='{field_id_2}' field_id_13='{field_id_13}' id_member='{id_member}'}
 		        	{/exp:query}
 

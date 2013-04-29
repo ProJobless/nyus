@@ -86,6 +86,9 @@
 	                	        <?php $counter_actions_verify++; ?>
 	                        {/exp:channel:entries} 
 	                        
+	                        <?php echo '<!-- '.$counter_verify.' -->'; ?>
+	                        <?php echo '<!-- '.$counter_actions_verify.' -->'; ?>
+	                        
 	                        <?php $counter_verify = $counter_actions_verify - $counter_verify; ?>
 	                        
 	                        	<?php if ($counter_verify > 0) { ?>

@@ -51,14 +51,12 @@
                         
                         {if:else}	
                          <div class="first ribbon">                        
-						 <div class="notifications-count" id="notifications-count">
+						 
 							{exp:user:stats dynamic='off'} 
-						 	<span>{exp:comments_counter user_member_id='{member_id}' user_last_visit='{last_visit}'}</span>
-						 	{/exp:user:stats}
+								{exp:comments_counter user_member_id='{member_id}' user_last_visit='{last_visit}' only_count='0'}
+							{/exp:user:stats}
 						 	
-						 </div>	
-						 <a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
-                         </div> <!-- .first.ribbon -->   
+						 </div> <!-- .first.ribbon -->   
                         {/if}
                         
                     </div> <!-- .header-left -->

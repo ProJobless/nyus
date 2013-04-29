@@ -10,6 +10,7 @@
     <li><h4>{title}</h4></li>
     <li><p>{description}</p></li>
     <?php $actionID = '{entry_id}'; ?>
+    <?php echo '<!-- '. $actionID . ' -->'; ?>
     {/exp:channel:entries}
 
     {if:elseif segment_2=='step-three'}

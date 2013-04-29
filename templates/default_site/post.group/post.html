@@ -1,9 +1,9 @@
-{!--exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'--} <!-- Updates the statusn -->
+{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'} <!-- Updates the statusn -->
 
 {exp:status_action_updates date_of_entry='{current_time}'} <!-- Record the users that perfom an action -->
 
-<?php //if (isset($_POST['next-step'])) { ?>
-        <?php //echo "{redirect='setup/" . $_POST["next-step"] . "'}"; ?>
-<?php //} else { ?>
-        <?php //echo "{redirect=''}"; ?>
-<?php //} ?>
+<?php if (isset($_POST['next-step'])) { ?>
+        <?php echo "{redirect='setup/" . $_POST["next-step"] . "'}"; ?>
+<?php } else { ?>
+        <?php echo "{redirect=''}"; ?>
+<?php } ?>

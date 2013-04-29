@@ -826,14 +826,14 @@ $(document).ready(function(){
         if (!!$('#instructions').length) { // WE'RE ON FIRST-TIME PROFILE SETUP
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('.filereader #profile-select').toggleClass('visuallyhidden')
+                $('#profile-select').toggleClass('visuallyhidden')
             }
             $('#next').prop('disabled', false)
         
         } else if (!!$('#info').length) { // WE'RE ON THE USER'S PROFILE PAGE, WHICH THEY CAN EDIT
             $('#form, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
-                $('.filereader #profile-select').toggleClass('visuallyhidden')
+                $('#profile-select').toggleClass('visuallyhidden')
             }
         }
         
@@ -896,7 +896,7 @@ $(document).ready(function(){
     })
     
     // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
-    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
+//    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
     
     /* 
     $('.gt-ie9 #profile-select').click(function(){
@@ -1023,7 +1023,7 @@ $(document).ready(function(){
         e.preventDefault()
         $('#nav').toggleClass('open')
     })
-    if (!Modernizr.mq('all')){ 
+    if (!Modernizr.mq('only all')){ 
         $('.post-icon').addClass('visuallyhidden') 
     }
     

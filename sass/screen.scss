@@ -1115,6 +1115,10 @@ b.disabled {
         }
     }
     
+    .no-csstransforms3d .nav {
+        left: 0;
+    }
+
     .nav {
         @include grid-column(4, $collapse: true);
         float: left;

@@ -413,8 +413,12 @@ input:not([type='file'])[disabled] {
     }
 }
 
-.no-filereader .upload-buttons input {
-    @include file-blanket;
+.no-filereader {
+    
+    & .upload-buttons input,
+    & .profile-header input {
+        @include file-blanket;
+    }   
 }
 
 .comment-icon {

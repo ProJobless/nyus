@@ -52,8 +52,8 @@
                         {if:else}	
                          <div class="first ribbon">                        
 						 
-							{exp:user:stats dynamic='off'} 
-								{exp:comments_counter user_member_id='{CURRENT_USER}' user_last_visit='{last_visit}' only_count='0'}
+							{exp:user:edit allowed_groups='5' form:style="margin:0px;"} 
+								{exp:comments_counter user_member_id='{member_id}' user_last_visit='{last_visit}' only_count='0'}
 							{/exp:user:stats}
 						 	
 						 </div> <!-- .first.ribbon -->   
@@ -79,8 +79,7 @@
 								<?php $counter_action='{counter_action}'; ?>
 						{/exp:query}
 						
-						{exp:user:edit dynamic='off'
-form:style="margin:0px;"}
+						{exp:user:edit allowed_groups='5' form:style="margin:0px;"}
 						{exp:query sql=" SELECT count(*) as counter_not_take_action FROM  exp_channel_data  WHERE  channel_id='4' AND field_id_16='{member_id}' "}
 								<?php $counter_not_take_action='{counter_not_take_action}'; ?>
 						{/exp:query}

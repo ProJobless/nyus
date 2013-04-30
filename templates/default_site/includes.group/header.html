@@ -1,4 +1,4 @@
-{exp:cookie_plus:set name="current_time_log_in" value="{current_time}" seconds="30"}
+{exp:cookie_plus:set name="first_load" value="1" seconds="30"}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -52,25 +52,48 @@
                         {if:else}	
                          <div class="first ribbon">       
                          
-                         <?php //echo 'lva'.$_COOKIE["exp_last_visit"]; ?>     
-                         <?php //echo 'lvn'.$_COOKIE["last_viewd_notifications"]; ?>        
-                         <?php //print_r($_COOKIE); ?>    
-						 
-                            {exp:user:stats dynamic="off"} 
+                         <?php $last_viewed_notifications = $_COOKIE["last_viewed_notifications"]; ?>   
+                         <?php //$last_viewed_actions = $_COOKIE["last_viewed_actions"]; ?>                
+
+                         	{exp:user:stats dynamic="off"} 
+                         		<?php $member_id = '{member_id}'; ?>
     							{exp:query sql="
-        							SELECT
-                                    count(*) as count
-                                    FROM
-                                    exp_channel_data
-                                    WHERE
-                                    channel_id=1 and field_id_14='{member_id}'
+                                    SELECT 
+                                    field_id_19 as entry_date
+                                    FROM 
+                                    exp_channel_data 
+                                    WHERE 
+                                    channel_id='1' AND 
+                                    field_id_14='{member_id}' 
+                                    ORDER BY field_id_19 DESC Limit 1
                                 "}
-                                    {if count!=0}
-                                        <div class="notifications-count" id="notifications-count"><span>{count}</span></div>
-                                    {/if}
-                                    <?php $dropdown_off = '{count}'; ?>
+                                	 <?php $last_comment_date = '{entry_date}';?> 
                                 {/exp:query}
 							{/exp:user:stats}
+							
+							<?php $query = $this->EE->db->query("
+									SELECT count(*) as count
+									FROM 
+									exp_channel_data 
+									WHERE 
+									channel_id='1' AND 
+									field_id_14='$member_id' AND
+									field_id_19 > '$last_viewed_notifications'
+							"); ?>
+							
+							<?php foreach ($query->result() as $row) ?>
+							<?php { ?>
+								<?php $dropdown_off = $row->count; ?>
+							<?php } ?>
+                            
+  						
+							<?php if ($dropdown_off>0) { ?>
+	                            <?php if ($last_viewed_notifications <= $last_comment_date) { ?>
+	                            <div class="notifications-count" id="notifications-count"><span><?php echo $dropdown_off; ?></span></div>
+	                            <?php } ?>
+                            <?php } ?>
+							
+							
 						 	<?php if ($dropdown_off>0) { ?>
 						 		<a href="#" class="notifications-icon"  data-dropdown="notifications"  id="notifications-icon" title="Notifications"></a>
 						 	<?php } else { ?>
@@ -94,36 +117,32 @@
                         {if:else}
                         
                         <div class="second ribbon">   
-                            <?php 
-                                $counter_action=0; 
-                                $counter_not_take_action=0;
-                            ?>
+                            <?php $counter_action=0; ?> 
+                            <?php $counter_not_take_action=0; ?>
                             
-                        {exp:channel:entries channel="actions" category="not 1" dynamic="off" disable="pagination|member_data|category_fields|custom_fields"}
+                            {exp:channel:entries channel="actions" category="not 1" dynamic="off" disable="pagination|member_data|category_fields|custom_fields"}
 								<?php $counter_action='{total_results}'; ?>                        
-                        {/exp:channel:entries}
+							{/exp:channel:entries}
 						
-						{exp:user:stats dynamic="off"}
-						{exp:query sql=" SELECT count(*) as counter_not_take_action FROM  exp_channel_data  WHERE  channel_id='4' AND field_id_16='{member_id}' "}
-								<?php $counter_not_take_action='{counter_not_take_action}'; ?>
-						{/exp:query}
-						{/exp:user:stats}
+							{exp:user:stats dynamic="off"}
+								{exp:query sql=" SELECT count(*) as counter_not_take_action FROM  exp_channel_data  WHERE  channel_id='4' AND field_id_16='{member_id}' "}
+									<?php $counter_not_take_action='{counter_not_take_action}'; ?>
+								{/exp:query}
+							{/exp:user:stats}
 
-						<?php 
-						  $counter_action=$counter_action-$counter_not_take_action;
-						  if ($counter_action > 0) { 
-						  ?>
-						  	<div class="actions-count" id="actions-count"><span><?php echo $counter_action; ?></span></div>
-						  <?php } ?>	
+							<?php $counter_action=$counter_action-$counter_not_take_action; ?>
+							<?php if ($counter_action > 0) { ?>
+						  		<div class="actions-count" id="actions-count">
+						  			<span><?php echo $counter_action; ?></span>
+						  		</div>
+						  	<?php } ?>	
 						  
-						  <?php if ($counter_action > 0) { ?>	
-						  	<a href="#" class="actions-icon"   data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
-						  <?php } else { ?>
-						  	<a href="#" class="actions-icon" id="actions-icon" rel="ignore" title="Actions"></a>
-						  <?php } ?>	
+						  	<?php if ($counter_action > 0) { ?>	
+						  		<a href="#" class="actions-icon"   data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
+						  	<?php } else { ?>
+						  		<a href="#" class="actions-icon" id="actions-icon" rel="ignore" title="Actions"></a>
+						  	<?php } ?>	
 	                      
-	                      
-	                    
 	                          
                         </div> <!-- .second.ribbon -->
                         <div class="post-icon">

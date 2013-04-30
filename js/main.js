@@ -980,7 +980,8 @@ $(document).ready(function(){
     })
 
     // ***********************************************************************************************************************//
-    
+   
+
     $('#notifications-icon').click(function(){
         $('.notifications-count').addClass('viewed')
         var t = new Date()
@@ -1017,6 +1018,11 @@ $(document).ready(function(){
             window.setTimeout(navReveal, 250)
         }
     }
+    
+    $('.comment-form').submit(function(e){ 
+    	t = new Date(); 
+    	$(this).find('input[name=comment_date]').val(t.getTime())
+    })
     
     // ***********************************************************************************************************************//
     // FORM VALIDATION

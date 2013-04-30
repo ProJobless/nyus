@@ -61,7 +61,9 @@
                                     WHERE
                                     channel_id=1 and field_id_14='{member_id}'
                                 "}
-                                    <div class="notifications-count" id="notifications-count"><span>{count}</span></div>
+                                    {if count!=0}
+                                        <div class="notifications-count" id="notifications-count"><span>{count}</span></div>
+                                    {/if}
                                 {/exp:query}
 							{/exp:user:stats}
 						 	<a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>

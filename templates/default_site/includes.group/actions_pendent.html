@@ -1,22 +1,21 @@
-{exp:query sql="
-SELECT  
-count(*) as counter_action
-FROM 
-exp_channel_data 
-WHERE 
-channel_id='4' AND
-field_id_15='{embed:entry_id}'
-"}
+{exp:user:edit dynamic='off'
+form:style="margin:0px;"}
+{exp:query sql=" SELECT count(*) as counter_not_take_action FROM  exp_channel_data  WHERE  channel_id='4' AND field_id_16='{member_id}' AND field_id_15='{embed:entry_id}' "}
 
-{if counter_action=='0'}
-<li>
-	<a href="{path='action'}/{member_id}/{embed:entry_id}" >
-		<p>
-			{embed:title}<br>
-			<small>{embed:entry_date}</small>
-		</p>
-	</a>
-</li>
+{if counter_not_take_action=='0'}
+	<li>
+		<a href="{path='action'}/{member_id}/{embed:entry_id}" >
+			<p>
+				{embed:title}<br>
+				<small>{embed:entry_date}</small>
+			</p>
+		</a>
+	</li>
 {/if}
 
 {/exp:query}
+{/exp:user:edit}					
+
+
+
+		

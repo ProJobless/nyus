@@ -16,11 +16,11 @@
 
             		{exp:channel:entries channel="wall_posts" limit="20" dynamic="off" disable="categories|member_data|pagination" }
             		
-	            		{if comment_author!=logged_in_member_id}
-	            		
-	            			{embed="includes/comment_individual_link" field_id_2='{status_owner}' field_id_13='{comment_author}' id_member='{id_member}'}
-	            		
-	            		{/if}
+            		{if comment_author!=logged_in_member_id}
+            		
+            			{embed="includes/comment_individual_link" field_id_2='{status_owner}' field_id_13='{comment_author}' id_member='{id_member}'}
+            		
+            		{/if}
             		
             		{/exp:channel:entries}
             		
@@ -46,5 +46,5 @@
         </script>        
         <script type="text/javascript" src="{site_url}js/main.js?<?php echo time(); ?>"></script>
 
-    </body>
+
 </html>

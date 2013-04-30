@@ -5,7 +5,7 @@
             <!-- all profiles are contained in .full-profile -->
             
                 {if segment_2=='' || segment_2==logged_in_member_id}
-                {exp:user:edit dynamic='off' override_return='profile' return='profile'  password_required='n' }
+                {exp:user:edit dynamic='off' override_return='profile' return='profile'  password_required='n' form:name="profle-form"}
                 <div class="profile-header clearfix">
                     <!-- takes up the left column on larger screens, stacks on smaller screens -->
                     <div class="user-img" id="preview">
@@ -16,7 +16,7 @@
                     <div class="name">
                         <h4>{screen_name}</h4>
                         <div class="profile-select-wrapper">
-                            <input accept="image/*" class="photo-input visuallyhidden" id="photo-input" name="photo_filename" type="file">
+                            <input accept="image/*" class="photo-input visuallyhidden" id="profile-input" name="photo_filename" type="file">
                             <a href="#" class="edit-photo visuallyhidden" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
                         </div>
                     </div> <!-- .name -->
@@ -45,7 +45,7 @@
                         </div> <!-- .interests -->
                     </div> <!-- .info -->
                     
-                    <div class="form visuallyhidden" id="form">
+                    <div class="form visuallyhidden" id="profile-form">
                         <table class="profile-info">
                             <tbody>
                                 <tr>

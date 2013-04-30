@@ -1,9 +1,10 @@
+
 /*!
 *
 * Copyright (c) David Bushell | http://dbushell.com/
 *
 */
-(function(window, document, undefined)
+;(function(window, document, undefined)
 {
     // helper functions
     var trim = function(str)
@@ -227,11 +228,11 @@ if (!!window.console){
     })
 
     $unsupported = $('<p>').html('Image previews are not supported by your browser').css({marginTop : '1em', marginBottom : '55px'})
-//    $noFileReader = $('.no-filereader .photo-input')
-//    $noFileReader.change(function(e) {
-        //$preview.append($unsupported)
+    $noFileReader = $('.no-filereader .photo-input')
+    $noFileReader.change(function(e) {
+        $preview.append($unsupported)
         //d(e)
-//    })
+    })
 
 
     postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
@@ -522,8 +523,6 @@ if (!!window.console){
         return output  
     }
     
-    
-    
      // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
     fileClear = function(){
         $preview.find('img, #size').remove()
@@ -550,112 +549,6 @@ if (!!window.console){
         $camera.toggleClass('visuallyhidden')
     }
                 
-               /*
- reader.readAsArrayBuffer(this.files[0]);
-                reader.onload = function (event) {
-                    c(event)
-                    // set up the blob
-                    var blob = new Blob([event.target.result], {type: imgProps.type})
-                    var blobURL = window.URL.createObjectURL(blob)
-                    
-                    // Preview Image to be inserted into canvas
-                    image.src = blobURL
-                    
-                    // REVOKE OBJECT URL ASAP TO SAVE MEMORY
-                    // https://developer.mozilla.org/pt-BR/docs/DOM/window.URL.revokeObjectURL
-                    window.URL.revokeObjectURL(blobURL)
-                    
-                }
-                
-            } else { readfiles(fileinput, this); }
-*/
-//            $('.photo-control').removeClass('visuallyhidden')
-    
-    function readfiles(fileinput, self) {
-        var files = fileinput.files
-    
-        // remove the existing canvases and hidden inputs if user re-selects new pics
-        if (!!$('canvas').length){$('canvas').remove()}
-                
-        for (var i = 0; i < files.length; i++) {
-          oldPhoto = processfile(files[i], self); // process each file at once
-        }
-
-        if (self.name != 'photo_filename') {
-
-            // TEMPORARY WORKAROUND
-            // USER EDIT FORM NEEDS WORK OR AN EXTENSION TO BE COMPATIBLE WITH DATA URI PHOTOS
-            // CAN CURRENTLY ONLY ACCEPT NEW USER PHOTOS VIA FILE INPUT VALUE
-            
-            fileinput.value = "";
-        }
-        
-        if (!!$('.upload-buttons').length) {
-            $notSelected = $('input[type=file]').not(self)
-            $notSelected.parent().addClass('disabled')
-            $notSelected.prop('disabled', true)
-        }
-        
-        if ($(self).hasClass('photo-input')) {
-            $('#profile-select').toggleClass('visuallyhidden')
-        }
-        
-        return oldPhoto
-    }
-    
-    function processfile(file, self) {
-
-        imgProps['name'] = file.name
-        imgProps['type'] = file.type        
-        
-        if (self.className.match('photo')) {
-        
-            if (!!$preview.find('img').length) { 
-                // CLEAR ANY IMAGES INSIDE PREVIEW
-                var oldPhoto = $preview.find('img').detach()
-            }
-        }   
-    
-        // read in the files
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        
-        reader.onload = function (event) {
-            
-            // set up the blob
-            var blob = new Blob([event.target.result], {type: imgProps.type})
-            window.URL = window.URL || window.webkitURL
-            var blobURL = window.URL.createObjectURL(blob)
-            
-            // Preview Image to be inserted into canvas
-            image.src = blobURL
-            
-            // REVOKE OBJECT URL ASAP TO SAVE MEMORY
-            // https://developer.mozilla.org/pt-BR/docs/DOM/window.URL.revokeObjectURL
-            window.URL.revokeObjectURL(blobURL)
-            
-            image.onload = function() {
-//                if (!!$('input[type=hidden]').length) {
-//                    $('input[type=hidden]').remove()
-//                }
-                imgProps['image'] = compress(this, imgProps.type) // sending to canvas
-    //            this.classList.add('thumb')
-                $preview.prepend(this).append($clearButton)
-                
-                if (self.name != 'photo_filename') {
-                    try {
-                        window.oldInputs = prepInputs(oldInputs)
-                    } catch(e) { window.oldInputs = prepInputs() }
-                }
-            }
-        };
-        
-        return oldPhoto
-    }
-    
-    
-
-
     window.rotate = function(direction) {
         //var context = canvas.getContext('2d')
 //        console.log(currentAngle)
@@ -769,7 +662,8 @@ function checkFileSize(file) {
 
 
 $(document).ready(function(){
-    infiniteScroll()
+
+//    infiniteScroll()
         
     // ***********************************************************************************************************************//
     // PROFILE SETUP PROCESS
@@ -786,38 +680,6 @@ $(document).ready(function(){
         }
         $disable = $('.setup').find(selector)
         $disable.addClass('disable').attr('rel', 'ignore')
-    }
-    
-    if (!!$('.step-one').length && !!$.cookie('terms')){
-        
-        var $requiredFields = $('input[type=text], textarea, #profile-input')
-        var $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
-        $('#form').attr('novalidate', true)
-        
-        
-        $requiredFields.each(function(){ 
-            if (!this.value){ 
-                this.flag = false
-            } else { this.flag = true }
-        })
-        $requiredFields.change(function(){ 
-            if (!!this.value) {
-                this.flag = true
-            }
-//            c(this.value)
-        })
-        
-        $('.step-one').on('submit', function(e){
-            for (var i=0;i<$requiredFields.length-1; i++){
-                if ($requiredFields[i].flag){
-                    continue
-                } else { 
-                    $.fancybox($requiredMessage)
-                    if (!!window.console){console.log('Not so fast hax0r. Fill out all fields first.')}
-                    return false
-                }
-            }
-        })
     }
     
     if (!!$('.step-one').length){
@@ -865,71 +727,14 @@ $(document).ready(function(){
             $('#next').prop('disabled', false)
         
         } else if (!!$('#info').length) { // WE'RE ON THE USER'S PROFILE PAGE, WHICH THEY CAN EDIT
-            $('#form, #info').toggleClass('visuallyhidden')
+            $('#profile-form, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('#profile-select').toggleClass('visuallyhidden')
             }
         }
         
         $(this).toggleClass('open')
-    })
-    
-/*
-    $('.no-filereader #profile-input').change(function(){
-        $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
-    })
-*/
-//    if (!!$('#profile-input, #photo-input').length) {
-        Modernizr.load({
-            
-        })
-//    }
-    
-    $('#preview').on('click', '#clear', function(e){ 
-        try {
-//            c('click event triggered on #clear. calling fileClear()')
-            fileClear(oldPhoto); 
-        } catch(e) {
-            fileClear()
-        }
-        $(this).detach() 
     })       
-        
-
-
-    //**********************************************************************************************************************//    
-    // FILE INPUTS
-    
-    // Filereader API Posts
-    $('.filereader .attach-media, .filereader #profile-select').click(function(){ 
-        $(this).siblings('input').click() 
-    })
-    
-    // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
-    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
-    
-    /* 
-    $('.gt-ie9 #profile-select').click(function(){
-        $('#profile-input').click()
-    })
-    */
-    
-    $('input[type=file]').change(function(){
-    
-        if (!!$('.upload-buttons').length) {
-            $notSelected = $('input[type=file]').not(this)
-            $notSelected.parent().addClass('disabled')
-            $notSelected.prop('disabled', true)
-        }
-    })
-
-    
-    // TEST FOR SETUP IN URL SEGMENT TO AUTOMATICALLY OPEN ACTION PROMPTS
-    try {
-        if (!!document.URL.match(/setup/).length) { 
-//            $('#actions-icon').trigger('click')
-        }
-    } catch(e) {}
     
     //**********************************************************************************************************************//
     // FANCYBOX
@@ -1018,18 +823,71 @@ $(document).ready(function(){
         }
     }
     
+    // COMMENT TIME STAMPS
+    $('.comment-form').submit(function(e){ 
+        t = new Date()
+        $(this).find('input[name=comment_date]').val(t.getTime())
+    })
+    
+    //**********************************************************************************************************************//    
+    // FILE INPUTS
+    
+    // Filereader API Posts
+    $('.filereader .attach-media, .filereader #profile-select').click(function(){ 
+        $(this).siblings('input').click() 
+    })
+    
+    // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
+    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
+    
+    // DISABLE THE NOT CLICKED INPUTS SO THEY AREN'T SENT TO THE SERVER
+    $('input[type=file]').change(function(){
+    
+        if (!!$('.upload-buttons').length) {
+            $notSelected = $('input[type=file]').not(this)
+            $notSelected.parent().addClass('disabled')
+            $notSelected.prop('disabled', true)
+        }
+    })
+    
+    // CLEAR PHOTO FUNCTION
+    $('#preview').on('click', '#clear', function(e){ 
+        try {
+//            c('click event triggered on #clear. calling fileClear()')
+            fileClear(oldPhoto); 
+        } catch(e) {
+            fileClear()
+        }
+        $(this).detach() 
+    })
+    
+    
     // ***********************************************************************************************************************//
     // FORM VALIDATION
-    $('.form-validation form').submit(function(e){
+    $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
+    
+
+    $('.formvalidation form').submit(function(e){
         if (this.checkValidity()) {
+            d($(this).find('input[name=site_id]'))
+            e.preventDefault()
             $(this).find('input[type=submit]').prop('disabled', 'true')
         } else {
+            d(this)
+            if (this.id='setup-form'){$.fancybox($requiredMessage)}
             return false;
         }
     })
     
+
+    $('.no-filereader .photo-input').change(function(){
+        $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
+    })
+
+    
     Modernizr.load([{
-        test : Modernizr.formvalidation,
+ 
+       test : Modernizr.formvalidation,
         nope : '/introductions/js/vendor/validate.min.js',
         complete : function(){
             validator = new FormValidator('new-post', [{
@@ -1042,34 +900,76 @@ $(document).ready(function(){
                     $form.find('input[type=submit]').prop('disabled', 'true')
                 }
             })
+            setupValidator = new FormValidator('setup-form', [{
+                name : 'photo_filename',
+                display : 'Photo',
+                rules : 'required'
+            }, {
+                name : 'location',
+                display : 'Hometown',
+                rules : 'required'
+            }, {
+                name : 'occupation',
+                display : 'Current City',
+                rules : 'required'
+            }, {
+                name  : 'interests',
+                display : 'Interests',
+                rules : 'required'
+            }], function(errors, event) {
+                $form = $(this.form)
+                if (errors.length > 0) {
+                    $.fancybox($requiredMessage)
+                }
+                
+            })
         }
-    },
-    { test : Modernizr.filereader,
-            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
-            complete : function() {
-                c('completed modernizr testing')
-                    c('filereader api is not supported. loading filereader polyfill')
-
-                        c($('#profile-input').length)
-                        $('#profile-input').fileReader({
-                            id : 'fileReaderSWF',
-                            filereader : '/introductions/js/vendor/filereader/filereader.swf',
-                            expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                            debugMode : true,
-                            callback : function(){  c('filereader polyfill loaded') }
-                        })
-        
-                        $('#profile-input').on('change', function(evt) {
-                            //c('change event triggered on #profile-input')
-                            d(evt.target.files)
-                        })
-
-            }
-        }
+    }
+    
+//    , { test : Modernizr.filereader,
+//            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
+//            complete : function() {
+//                //c('completed modernizr testing')
+//                //c('filereader api is not supported. loading filereader polyfill')
+//
+//                //c($('#profile-input').length)
+//                if (!!$('#profile-input').length) {
+//                    $('#profile-input').fileReader({
+//                        id : 'fileReaderSWF',
+//                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
+//                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+//                        debugMode : true,
+//                        callback : function(){  c('filereader polyfill loaded') }
+//                    })
+//    
+//                } else {
+//                    $('#photo-input').fileReader({
+//                        id : 'fileReaderSWF',
+//                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
+//                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+//                        debugMode : true,
+//                        callback : function(){  c('filereader polyfill loaded') }
+//                    })
+//                }
+//    
+//    
+//                $('#profile-input').on('change', function(evt) {
+//                    //c('change event triggered on #profile-input')
+//                    if (!!$('#preview').find('img').length) { 
+//                        // CLEAR ANY IMAGES INSIDE PREVIEW
+//                        oldPhoto = $('#preview').find('img').detach()
+//                           c('detaching placeholder image')
+//                    }
+//                    profileImages(evt.target.files)
+//                   updatePreview(evt.target.files[0])
+//                    d($(this).val())
+//                })
+//                $('#photo-input').on('change', function(evt) {
+//                    //c('change event triggered on #profile-input')
+//                    postImages(evt.target.files[0], 1000, 1000, 0.7, imgProps['type'])
+//                    updatePreview(evt.target.files[0])
+//                })
+//            }
+//        }
     ])
-    
-    
-    
-    
-    
 })

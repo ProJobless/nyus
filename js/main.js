@@ -1029,17 +1029,35 @@ $(document).ready(function(){
         e.preventDefault()
         $('#nav').toggleClass('open')
     })
-    $('form').submit(function(e){
-        $this = $(this)
-        if ($this[0].checkValidity()) {
-            $(this).find('input[type=submit]').prop('disabled', 'true')
-        } else {
-            return false
-        }
-    })
-    
     if (!Modernizr.mq('only all')){ 
         $('.post-icon').addClass('visuallyhidden') 
     }
+    
+    // ***********************************************************************************************************************//
+    // FORM VALIDATION
+    $('.form-validation form').submit(function(e){
+        e.preventDefault()
+        if (this.checkValidity()) {
+            $(this).find('input[type=submit]').prop('disabled', 'true')
+        } else {
+            return false;
+        }
+    })
+    
+    Modernizr.load({
+        test : Modernizr.formvalidation,
+        nope : '/introductions/js/vendor/validate.min.js',
+        complete : function(){
+            validator = new FormValidator('new-post', [{
+                name : 'friends_status',
+                display : 'Post',
+                rules : 'required'
+            }], function(errors, event){})
+        }
+    })
+    
+    
+    
+    
     
 })

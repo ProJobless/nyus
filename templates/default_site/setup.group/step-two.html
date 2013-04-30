@@ -1,7 +1,9 @@
+{exp:cookie_plus:set name="setup" value="step-two" seconds="31536000"}
+
 {embed='includes/header'}
 
 <div class="step-two">
-    {!--{embed='includes/setup-directions'}--}
+
     {setup_directions}
     {embed='includes/new-post' next-step='step-three' action_id="<?php echo $actionID; ?>"}
 </div>

@@ -783,7 +783,7 @@ $(document).ready(function(){
                 selector += '#nav-' + a[i] + ', '
             }
         }
-        $disable = $('.setup').find($(selector))
+        $disable = $('.setup').find(selector)
         $disable.addClass('disable').attr('rel', 'ignore')
     }
     
@@ -818,10 +818,38 @@ $(document).ready(function(){
                 } else { 
                     $.fancybox($requiredMessage)
                     if (!!window.console){console.log('Not so fast hax0r. Fill out all fields first.')}
-                    return false}
+                    return false
+                }
             }
         })
     }
+    
+    if (!!$('.step-one').length){
+        
+        if ($.cookie('terms') === undefined ) {
+            $.fancybox.open({
+                href: '../includes/accept-terms',
+                type: 'ajax',
+                ajax : {
+                    method: "POST"
+                }
+            }, {
+                minHeight : 65,
+                minWidth : 250,
+                modal : true,
+                padding : [35, 15,15,15]
+            })
+            
+            // Fancybox blocks the first click on modals, so we have to manually handle the first event.
+            $('body').one('click', '#terms-content', function(){ 
+                window.open(this.href, '_blank') 
+            })
+        }
+    }
+    
+    $('body').on('submit', '#terms', function(e){
+        $.cookie('terms', 'accepted', {expires: 365, path : '/'})
+    })
     
     // ***********************************************************************************************************************//
     // EDIT PROFILE FORM
@@ -973,33 +1001,6 @@ $(document).ready(function(){
             },
             helpers : commonHelpers
         })
-    })
-    
-    if (!!$('.step-one').length){
-        
-        if ($.cookie('terms') === undefined ) {
-            $.fancybox.open({
-                href: '../includes/accept-terms',
-                type: 'ajax',
-                ajax : {
-                    method: "POST"
-                }
-            }, {
-                minHeight : 65,
-                minWidth : 250,
-                modal : true,
-                padding : [35, 15,15,15]
-            })
-            
-            // Fancybox blocks the first click on modals, so we have to manually handle the first event.
-            $('body').one('click', '#terms-content', function(){ 
-                window.open(this.href, '_blank') 
-            })
-        }
-    }
-    
-    $('body').on('submit', '#terms', function(e){
-        $.cookie('terms', 'accepted', {expires: 365, path : '/'})
     })
 
     // ***********************************************************************************************************************//

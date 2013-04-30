@@ -5,6 +5,7 @@
 
     {exp:user:stats}
         {if last_segment=='finish'}
+            {exp:cookie_plus:set name="setup" value="finish" seconds="31536000" method="script"}
             <b><a href="{site_url}" class="approve" id="next">Finish</a></b>
         {if:elseif photo_filename}
             {redirect=''}

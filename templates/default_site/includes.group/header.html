@@ -52,10 +52,19 @@
                         {if:else}	
                          <div class="first ribbon">                        
 						 
-							{exp:user:edit allowed_groups='5' form:style='margin:0px;'} 
-								{exp:comments_counter user_member_id='{member_id}' user_last_visit='{last_visit}' only_count='0'}
-							{/exp:user:edit}
-						 	
+                            {exp:user:stats dynamic="off"} 
+    							{exp:query sql="
+        							SELECT
+                                    count(*) as count
+                                    FROM
+                                    exp_channel_data
+                                    WHERE
+                                    channel_id=1 and field_id_14='{member_id}'
+                                "}
+                                    <div class="notifications-count" id="notifications-count"><span>{count}</span></div>
+                                {/exp:query}
+							{/exp:user:stats}
+						 	<a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
 						 </div> <!-- .first.ribbon -->   
                         {/if}
                         
@@ -74,19 +83,27 @@
                         {if:else}
                         
                         <div class="second ribbon">   
-
-						{exp:query sql=" SELECT count(*) as counter_action FROM  exp_channel_data  WHERE  channel_id='3' "}
-								<?php $counter_action='{counter_action}'; ?>
-						{/exp:query}
+                            <?php 
+                                $counter_action=0; 
+                                $counter_not_take_action=0;
+                            ?>
+                            
+                        {exp:channel:entries channel="actions" category="not 1" dynamic="off" disable="pagination|member_data|category_fields|custom_fields"}
+								<?php $counter_action='{total_results}'; ?>                        
+                        {/exp:channel:entries}
 						
-						{exp:user:edit allowed_groups='5' form:style='margin:0px;'}
+						{exp:user:stats dynamic="off"}
 						{exp:query sql=" SELECT count(*) as counter_not_take_action FROM  exp_channel_data  WHERE  channel_id='4' AND field_id_16='{member_id}' "}
 								<?php $counter_not_take_action='{counter_not_take_action}'; ?>
 						{/exp:query}
-						{/exp:user:edit}
+						{/exp:user:stats}
 
-						
-	                    <div class="actions-count" id="actions-count"><span><?php echo $counter_action=$counter_action-$counter_not_take_action; ?></span></div>
+						<?php 
+						  $counter_action=$counter_action-$counter_not_take_action;
+						  if ($counter_action > 0) { 
+						  ?>
+	                    <div class="actions-count" id="actions-count"><span><?php echo $counter_action; ?></span></div>
+	                      <?php } ?> 
 	                    <a href="#" class="actions-icon" data-dropdown="actions"  data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
 	                          
                         </div> <!-- .second.ribbon -->
@@ -113,9 +130,9 @@
                                 <li>Filter By</li>
                                     <li><a href="{path='content/index'}" {if embed:loc =="great_wall"}class="current"{/if} id="nav-all">All</a></li>
                                  <li><a href="{path='content/question'}" {if embed:loc =="questions"}class="current"{/if} id="nav-questions">Questions</a></li>
-                                <li><a href="{path='content/actions'}" {if embed:loc =="actions"}class="current"{/if} id="nav-actions">Actions</a></li>
-<!--                                 <li><a href="{path='member-list/index'}" {if embed:loc ==""}class="current"{/if} id="nav-yours">Your Posts</a></li> -->
-                                <li><a href="{path='member-list/index'}" {if embed:loc =="students"}class="current"{/if} id="nav-students">Student List</a></li>
+                                <li><a href="{path='actions'}" {if embed:loc =="actions"}class="current"{/if} id="nav-actions">Actions</a></li>
+<!--                                 <li><a href="{path='member-list'}" {if embed:loc ==""}class="current"{/if} id="nav-yours">Your Posts</a></li> -->
+                                <li><a href="{path='member-list'}" {if embed:loc =="students"}class="current"{/if} id="nav-students">Student List</a></li>
                                 <li><a href="{path='profile'}/{logged_in_member_id}" {if embed:loc =="profile"}class="current"{/if} id="nav-profile">Your Profile</a></li>
                                {if logged_in}<li><a href="https://shanghai.nyu.edu/Shibboleth.sso/Logout?return=https://login.nyu.edu/sso/UI/Logout" id="nav-logout">Log Out</a></li>{/if}
                             </ul>

@@ -3,7 +3,7 @@
         <section class="student-list">
         	
         	{if segment_2}
-	            {exp:channel:entries channel="actions" limit="1" entry_id='{segment_2}'}
+	            {exp:channel:entries channel="actions" limit="1" entry_id='{segment_2}' disable="pagination|member_data|category_fields|categories"}
 				 <div class="student">
 	                <div class="name">
 	                    <h3>{title}</h3>

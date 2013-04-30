@@ -8,13 +8,12 @@ exp_channel_data.field_id_10 as video,
 exp_channel_titles.entry_date as date_of_entry 
 FROM exp_channel_data, exp_channel_titles 
 WHERE exp_channel_data.entry_id=exp_channel_titles.entry_id AND 
-exp_channel_data.field_id_4='{embed:field_id_2}' Limit 1
+exp_channel_data.field_id_4='{embed:originalPostID}' Limit 1
 "}		      
 
-{if embed:field_id_13!=user_member_logged_in}
-	{exp:user:stats member_id='{embed:field_id_13}'}
+	{exp:user:stats member_id='{embed:commenter}' dynamic="off"}
 	<li>
-		<a href="{path='includes/view-status'}/{author_status}/{embed:field_id_2}" data-member="{logged_in_member_id}" data-related-status="{status_owner}">
+		<a href="{path='includes/view-status'}/{author_status}/{embed:originalPostID}" data-member="{embed:user}" data-related-status="{embed:originalPostID}">
 			<div class="user-img"><img src="{photo_url}{photo_filename}"></div>
 			<p>
 			<span>{screen_name}</span>
@@ -26,7 +25,7 @@ exp_channel_data.field_id_4='{embed:field_id_2}' Limit 1
 			{if image!=''}
 			commented on one of your photos
 			{if question!='0'}
-			and replied to one of your questionsß
+			and replied to one of your questions
 			{/if}
 			{/if}
 			        		            	     
@@ -52,5 +51,5 @@ exp_channel_data.field_id_4='{embed:field_id_2}' Limit 1
 		</a>    		            	
 	</li>
 	{/exp:user:stats}
-{/if}	
+
 {/exp:query}

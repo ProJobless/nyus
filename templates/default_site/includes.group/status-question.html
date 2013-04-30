@@ -31,7 +31,7 @@ ORDER BY status_date DESC "}
             <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
             <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
         </div> <!-- .info -->
-        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}
         {if question}
         <div class="question"></div>
         {/if}
@@ -40,7 +40,7 @@ ORDER BY status_date DESC "}
             
     <div class="status post-content">
         <p>{status}</p>
-        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='no' limit="1"}
+        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}
              {if media_images}
 		        <div class="post-img">
 			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}"></a>

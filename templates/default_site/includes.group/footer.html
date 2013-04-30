@@ -6,7 +6,7 @@
         
         <ul id="actions" class="actions drop f-dropdown" data-dropdown-content>
             <li><h4>Actions</h4></li>
-            {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
+            {exp:channel:entries channel='actions' category='not 1' dynamic='off' disable="pagination|member_data|category_fields|custom_fields"}
             	{embed="includes/actions_pendent" entry_id="{entry_id}" title="{title}" entry_date="{entry_date format='%F %j, %Y'}"}
             {/exp:channel:entries}
         </ul> <!-- .actions -->
@@ -14,17 +14,25 @@
         <ul id="notifications" class="notifications drop f-dropdown" data-dropdown-content>
             <li><h4>Notifications</h4></li>
 
-            		{exp:channel:entries channel='wall_posts' limit='20' dynamic='off' disable='categories|member_data|pagination' }
-
-            		{if comment_author!=logged_in_member_id}
+    		{exp:user:stats dynamic="off"}
+        		
+        		{exp:query sql="
+                    SELECT
+                    field_id_13 as commenter,
+                    field_id_2 as originalPostID
+                    FROM
+                    exp_channel_data
+                    WHERE
+                    channel_id=1 and field_id_14='{member_id}' Limit 5
+                "}
+                
+                
+                    {embed='includes/comment_individual_link' originalPostID='{originalPostID}' commenter='{commenter}' user='{member_id}'}
+                
+                {/exp:query}
+                
+            {/exp:user:stats}
             		
-            			{embed='includes/comment_individual_link' field_id_2='{status_owner}' field_id_13='{comment_author}' id_member='{id_member}'}
-            		
-            		{/if}
-            		
-            		{/exp:channel:entries}
-            		
-
         </ul> <!-- .notifications -->
                 
         <script type="text/javascript" src="{site_url}js/jquery.js?<?php echo time(); ?>"></script>

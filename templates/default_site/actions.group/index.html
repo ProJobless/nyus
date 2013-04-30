@@ -1,1 +1,23 @@
-{embed='setup/step-one'}
+{embed='includes/header' loc="actions"}
+
+{if segment_2}
+<section class="student-list">
+                {exp:channel:entries channel="actions" limit="1" entry_id='{segment_2}' disable="pagination|member_data|category_fields|categories"}
+				 <div class="student">
+	                <div class="name">
+	                    <h3>{title}</h3>
+	                    <p>{description}</p>
+	                </div>
+	             </div> <!-- .student -->    
+			    {/exp:channel:entries}
+			    
+			    {embed="includes/new-post" action_id="{segment_2}"}
+			    
+			    {embed="includes/member-list-action"}
+</section>
+{if:else}
+{embed='includes/status-actions'}
+{/if}
+
+
+{embed='includes/footer'}

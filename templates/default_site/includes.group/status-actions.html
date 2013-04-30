@@ -1,12 +1,4 @@
-{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-aactions" process_indicator="process_indicator" parse="inward"}
-
-
-	{infinite_scroll_container_top}
-	<section class="action-wall" id="ajax_container">
-	{/infinite_scroll_container_top}
-	
-	   
-		{exp:query limit="10" sql="
+   		{exp:query limit="10" sql="
 		SELECT 
 		exp_channel_titles.title as title,
 		exp_channel_titles.entry_date as entry_date, 
@@ -57,12 +49,3 @@
 		{/paginate}
 		
 		{/exp:query}
-	
-	{infinite_scroll_container_bottom}
-	</section>
-	{/infinite_scroll_container_bottom}
-
-
-{/exp:infinite_scroll:wrapper}
-
-

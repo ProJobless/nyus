@@ -746,6 +746,8 @@ body {
     }
     
     .action-feed { @extend .comment-feed; }
+    .action { @extend .comment; }
+    .action { @extend .action-text; }
 }
 
 .full-profile { // nested within .page on your-profile.php

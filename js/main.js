@@ -227,10 +227,11 @@ if (!!window.console){
     })
 
     $unsupported = $('<p>').html('Image previews are not supported by your browser').css({marginTop : '1em', marginBottom : '55px'})
-    $noFileReader = $('.no-filereader .photo-input')
-    $noFileReader.change(function() {
-        $preview.append($unsupported)
-    })
+//    $noFileReader = $('.no-filereader .photo-input')
+//    $noFileReader.change(function(e) {
+        //$preview.append($unsupported)
+        //d(e)
+//    })
 
 
     postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
@@ -879,33 +880,9 @@ $(document).ready(function(){
     })
 */
 //    if (!!$('#profile-input, #photo-input').length) {
-//        Modernizr.load({
-//            test : Modernizr.filereader,
-//            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
-//            complete : function() {
-//                //c('completed modernizr testing')
-//                
-//                if (!Modernizr.filereader) {
-//                    //c('filereader api is not supported. loading filereader polyfill')
-//                    
-//                    try {
-//                        //c($('#profile-input'))
-//                        $('#profile-input').fileReader({
-//                            id : 'fileReaderSWF',
-//                            filereader : '/introductions/js/vendor/filereader/filereader.swf',
-//                            expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-//                            debugMode : false,
-//                            callback : function(){ /* c('filereader polyfill loaded') */ }
-//                        })
-//        
-//                        $('#profile-input').change(function(evt) {
-//                            //c('change event triggered on #profile-input')
-//                            read(evt.target.files)
-//                        })
-//                    } catch(e) { /* c('caught an error loading filereader polyfill: ' + e.message ) */ }
-//                } else { /* c('filereader api supported') */}
-//            }
-//        })
+        Modernizr.load({
+            
+        })
 //    }
     
     $('#preview').on('click', '#clear', function(e){ 
@@ -1051,7 +1028,7 @@ $(document).ready(function(){
         }
     })
     
-    Modernizr.load({
+    Modernizr.load([{
         test : Modernizr.formvalidation,
         nope : '/introductions/js/vendor/validate.min.js',
         complete : function(){
@@ -1066,7 +1043,30 @@ $(document).ready(function(){
                 }
             })
         }
-    })
+    },
+    { test : Modernizr.filereader,
+            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
+            complete : function() {
+                c('completed modernizr testing')
+                    c('filereader api is not supported. loading filereader polyfill')
+
+                        c($('#profile-input').length)
+                        $('#profile-input').fileReader({
+                            id : 'fileReaderSWF',
+                            filereader : '/introductions/js/vendor/filereader/filereader.swf',
+                            expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+                            debugMode : true,
+                            callback : function(){  c('filereader polyfill loaded') }
+                        })
+        
+                        $('#profile-input').on('change', function(evt) {
+                            //c('change event triggered on #profile-input')
+                            d(evt.target.files)
+                        })
+
+            }
+        }
+    ])
     
     
     

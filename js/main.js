@@ -851,6 +851,10 @@ $(document).ready(function(){
         $.cookie('terms', 'accepted', {expires: 365, path : '/'})
     })
     
+    $('#back-to-one').click(function(){
+        window.location = 'https://shanghai.nyu.edu/introductions/setup/step-one'
+    })
+    
     // ***********************************************************************************************************************//
     // EDIT PROFILE FORM
 

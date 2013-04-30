@@ -747,7 +747,10 @@ body {
     
     .action-feed { @extend .comment-feed; }
     .action { @extend .comment; }
-    .action { @extend .action-text; }
+    .action-text { 
+        @extend .comment-text; 
+        @include adjust-font-size-to(26px);
+    }
 }
 
 .full-profile { // nested within .page on your-profile.php

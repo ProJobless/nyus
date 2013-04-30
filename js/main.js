@@ -1036,7 +1036,6 @@ $(document).ready(function(){
     // ***********************************************************************************************************************//
     // FORM VALIDATION
     $('.form-validation form').submit(function(e){
-        e.preventDefault()
         if (this.checkValidity()) {
             $(this).find('input[type=submit]').prop('disabled', 'true')
         } else {
@@ -1052,7 +1051,12 @@ $(document).ready(function(){
                 name : 'friends_status',
                 display : 'Post',
                 rules : 'required'
-            }], function(errors, event){})
+            }], function(errors, event){
+                $form = $(this.form)
+                if (errors.length === 0) {
+                    $form.find('input[type=submit]').prop('disabled', 'true')
+                }
+            })
         }
     })
     

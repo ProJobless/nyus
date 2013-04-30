@@ -82,11 +82,13 @@ $sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
     height: 30px;
     border: 1px solid $medium-gray;
     text-align: center;
+    background: #d0d0d0;
     @include background-image(linear-gradient(#fff #d0d0d0));
     
     &:active,
     &.open {
         color: $black;
+        background: #fff;
         @include background-image(linear-gradient(#d0d0d0, #fff));
         border-color: $black;        
     }
@@ -334,8 +336,8 @@ input:not([type='file'])[disabled] {
 .edit-photo {
     @include small-gray-square;
     @include adjust-font-size-to(32px, .9);
-    position: absolute;
-    bottom: 0;
+//    position: absolute;
+//    bottom: 0;
 /*
     top: 64px;
     left: 104px;
@@ -418,7 +420,14 @@ input:not([type='file'])[disabled] {
     & .upload-buttons input,
     & .profile-header input {
         @include file-blanket;
-    }   
+    }
+}
+
+.profile-input-wrapper {
+    position: absolute;
+    width: 39px;
+    height: 39px;
+    bottom: 0;
 }
 
 .comment-icon {

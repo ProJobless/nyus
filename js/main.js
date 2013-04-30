@@ -197,35 +197,41 @@ if (!!window.console){
     window.URL = window.URL || window.webkitURL
     
     
-    try {
-        $fileinput = $('.filereader .photo-input')
-        $fileinput.change(function(e){
+
+    $fileinput = $('.filereader .photo-input')
+    $fileinput.change(function(e){
 //            c('file api supported, calling change event on .filereader #photo-input')
-            
-            var file = this.files[0]
-            imgProps['type'] = file.type
-            imgProps['name'] = file.name
-            imgProps['type'] = file.type        
-                    
-             if (this.name === 'photo_filename') {
-                if (!!$preview.find('img').length) { 
-                    // CLEAR ANY IMAGES INSIDE PREVIEW
-                    oldPhoto = $preview.find('img').detach()
+        
+        var file = this.files[0]
+        imgProps['type'] = file.type
+        imgProps['name'] = file.name
+        imgProps['type'] = file.type        
+                
+         if (this.name === 'photo_filename') {
+            if (!!$preview.find('img').length) { 
+                // CLEAR ANY IMAGES INSIDE PREVIEW
+                oldPhoto = $preview.find('img').detach()
 //                    c('detaching placeholder image')
-                }
             }
-            
-            // PROFILE PHOTOS ARE HANDLED VIA SAFECRACKER.
-            // NEED TO HOOK INTO SUBMISSION PROCESS AND READ IN DATA URI TO BINARY FILE
-            if (!!$('.step-one').length || !!$('.profile').length) { // PROFILE PHOTOS VIA SAFECRACKER
+        }
+        
+        // PROFILE PHOTOS ARE HANDLED VIA SAFECRACKER.
+        // NEED TO HOOK INTO SUBMISSION PROCESS AND READ IN DATA URI TO BINARY FILE
+        if (!!$('.step-one').length || !!$('.profile').length) { // PROFILE PHOTOS VIA SAFECRACKER
 //                c('choosing a profile photo')
-                profileImages(this.files)
-            } else { // IMAGE POST PHOTOS, UPLOADED VIA POST
+            profileImages(this.files)
+        } else { // IMAGE POST PHOTOS, UPLOADED VIA POST
 //                c('posting photo to feed')
-                postImages(file, 1000, 1000, 0.7, imgProps['type'])
-            }
-        })
-    } catch(e){}
+            postImages(file, 1000, 1000, 0.7, imgProps['type'])
+        }
+    })
+
+    $unsupported = $('<p>').html('Image previews are not supported by your browser').css({marginTop : '1em', marginBottom : '55px'})
+    $noFileReader = $('.no-filereader .photo-input')
+    $noFileReader.change(function() {
+        $preview.append($unsupported)
+    })
+
 
     postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
 //        c('setting up variables')
@@ -896,7 +902,7 @@ $(document).ready(function(){
     })
     
     // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
-//    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
+    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
     
     /* 
     $('.gt-ie9 #profile-select').click(function(){

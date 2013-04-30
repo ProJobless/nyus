@@ -50,7 +50,11 @@
                         </div> <!-- .first .ribbon -->
                         
                         {if:else}	
-                         <div class="first ribbon">                        
+                         <div class="first ribbon">       
+                         
+                         <?php //echo 'lva'.$_COOKIE["exp_last_visit"]; ?>     
+                         <?php //echo 'lvn'.$_COOKIE["last_viewd_notifications"]; ?>        
+                         <?php //print_r($_COOKIE); ?>    
 						 
                             {exp:user:stats dynamic="off"} 
     							{exp:query sql="
@@ -111,7 +115,12 @@
 						  ?>
 						  	<div class="actions-count" id="actions-count"><span><?php echo $counter_action; ?></span></div>
 						  <?php } ?>	
+						  
+						  <?php if ($counter_action > 0) { ?>	
 						  	<a href="#" class="actions-icon"   data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
+						  <?php } else { ?>
+						  	<a href="#" class="actions-icon" id="actions-icon" rel="ignore" title="Actions"></a>
+						  <?php } ?>	
 	                      
 	                      
 	                    

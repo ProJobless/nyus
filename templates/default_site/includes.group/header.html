@@ -64,9 +64,14 @@
                                     {if count!=0}
                                         <div class="notifications-count" id="notifications-count"><span>{count}</span></div>
                                     {/if}
+                                    <?php $dropdown_off = '{count}'; ?>
                                 {/exp:query}
 							{/exp:user:stats}
-						 	<a href="#" class="notifications-icon" data-dropdown="notifications" id="notifications-icon" title="Notifications"></a>
+						 	<?php if ($dropdown_off>0) { ?>
+						 		<a href="#" class="notifications-icon"  data-dropdown="notifications"  id="notifications-icon" title="Notifications"></a>
+						 	<?php } else { ?>
+						 		<a href="#" class="notifications-icon"  id="notifications-icon" title="Notifications"></a>
+						 	<?php } ?>
 						 </div> <!-- .first.ribbon -->   
                         {/if}
                         
@@ -104,9 +109,12 @@
 						  $counter_action=$counter_action-$counter_not_take_action;
 						  if ($counter_action > 0) { 
 						  ?>
-	                    <div class="actions-count" id="actions-count"><span><?php echo $counter_action; ?></span></div>
-	                      <?php } ?> 
-	                    <a href="#" class="actions-icon" data-dropdown="actions"  data-dropdown="actions" id="actions-icon" rel="ignore" title="Actions"></a>
+						  	<div class="actions-count" id="actions-count"><span><?php echo $counter_action; ?></span></div>
+						  <?php } ?>	
+						  	<a href="#" class="actions-icon"   data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
+	                      
+	                      
+	                    
 	                          
                         </div> <!-- .second.ribbon -->
                         <div class="post-icon">

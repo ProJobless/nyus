@@ -374,7 +374,7 @@ body {
     overflow: hidden;
     background: rgba(155, 155, 155, 0.5);
     position: absolute;
-    top: 0;
+//    top: 0;
     
     a, li {
         color: $light-gray;
@@ -427,22 +427,25 @@ body {
 }
 
 .no-csstransforms3d .nav {
-    left: -9999px;
+    display: none;
 }
 
 .no-csstransforms3d .nav.open {
+    display: block;
     left: 0px;
     top: 70px;
     z-index: 1;
+    height: auto;
     
     .nav-wrapper {
         background: #222;
+        padding-bottom: 1em;
     }
 }
 
 
 .nav ul {
-    margin-bottom: .25em
+    margin-bottom: .25em;
       /*
 *zoom: 1;
       display: block;
@@ -786,7 +789,11 @@ body {
     }
     
     .profile-select-wrapper {
-        @include grid-row(nest-collapse);
+//        @include grid-row(nest-collapse);
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        bottom: 0;
     }
 
 
@@ -1116,7 +1123,7 @@ b.disabled {
     }
     
     .no-csstransforms3d .nav {
-        left: 0;
+        display: block;
     }
 
     .nav {
@@ -1476,6 +1483,7 @@ b.disabled {
     }
     
     .csstransforms3d.csstransitions.js-ready .nav {
+        top: 0;
         left: 0;
         -webkit-transform: translate3d(-100%, 0, 0);
         -moz-transform: translate3d(-100%, 0, 0);

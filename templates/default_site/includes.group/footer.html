@@ -6,7 +6,7 @@
         
         <ul id="actions" class="actions drop f-dropdown" data-dropdown-content>
             <li><h4>Actions</h4></li>
-            {exp:channel:entries channel='actions' category='not 1' dynamic="off"}
+            {exp:channel:entries channel='actions' category='not 1' dynamic='off'}
             	{embed="includes/actions_pendent" entry_id="{entry_id}" title="{title}" entry_date="{entry_date format='%F %j, %Y'}"}
             {/exp:channel:entries}
         </ul> <!-- .actions -->
@@ -14,11 +14,11 @@
         <ul id="notifications" class="notifications drop f-dropdown" data-dropdown-content>
             <li><h4>Notifications</h4></li>
 
-            		{exp:channel:entries channel="wall_posts" limit="20" dynamic="off" disable="categories|member_data|pagination" }
+            		{exp:channel:entries channel='wall_posts' limit='20' dynamic='off' disable='categories|member_data|pagination' }
 
             		{if comment_author!=logged_in_member_id}
             		
-            			{embed="includes/comment_individual_link" field_id_2='{status_owner}' field_id_13='{comment_author}' id_member='{id_member}'}
+            			{embed='includes/comment_individual_link' field_id_2='{status_owner}' field_id_13='{comment_author}' id_member='{id_member}'}
             		
             		{/if}
             		

@@ -24,7 +24,7 @@ ORDER BY status_date DESC "}
     <div class="post-header author">
         <div class="user-img photo">
             <a href="{path='profile'}/{member_id}">
-                <img src="{photo_url}{photo_filename}">
+                <img src="{photo_url}{photo_filename}?<?php echo time(); ?>">
             </a>
         </div> <!-- .photo -->
         <div class="details info">
@@ -43,7 +43,7 @@ ORDER BY status_date DESC "}
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}
              {if media_images}
 		        <div class="post-img">
-			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}"></a>
+			    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}?<?php echo time(); ?>"></a>
 		        </div> <!-- .post-img -->
 	        {/if}
 	        

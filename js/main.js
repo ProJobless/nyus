@@ -788,11 +788,6 @@ $(document).ready(function(){
     }
     
     if (!!$('.step-one').length && !!$.cookie('terms')){
-        menu = document.getElementById('menu-btn')
-        navReveal = function(){
-            menu.click()
-        }
-        window.setTimeout(navReveal, 250)
         
         var $requiredFields = $('input[type=text], textarea, #profile-input')
         var $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
@@ -1030,12 +1025,20 @@ $(document).ready(function(){
     // GLOBAL EVENT HANDLERS
     findIgnores()
     $ignoreMe.on('click', function(e){ e.preventDefault() })
+    
     $('.no-csstransforms3d #menu-btn').click(function(e){
         e.preventDefault()
         $('#nav').toggleClass('open')
     })
     if (!Modernizr.mq('only all')){ 
-        $('.post-icon').addClass('visuallyhidden') 
+        $('.post-icon').addClass('visuallyhidden')
+        if (!!$('.step-one').length && !!$.cookie('terms')){
+            menu = document.getElementById('menu-btn')
+            navReveal = function(){
+                menu.click()
+            }
+            window.setTimeout(navReveal, 250)
+        }
     }
     
     // ***********************************************************************************************************************//

@@ -1,6 +1,6 @@
-{exp:cookie_plus:set name="setup" value="step-one" seconds="31536000"}
-
 {embed='includes/header'}
+{exp:cookie_plus:set name="setup" value="step-one" seconds="31536000" method="script"}
+
     <section class="profile-setup">
     {embed='includes/setup-directions'}
         {exp:user:edit override_return='setup/to-do/2' return="setup/to-do/2" password_required='n' form:class="step-one clearfix" form:id="form"}
@@ -16,8 +16,8 @@
                     <h4>{screen_name}</h4>
                 </div>
                 <div class="profile-select-wrapper">
-                    <a href="#" class="edit-photo visuallyhidden" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>
                     <input accept="image/*" class="photo-input visuallyhidden" data-maxwidth="1000" data-maxheight="1000" id="profile-input" name="photo_filename" required type="file">
+                <a href="#" class="edit-photo visuallyhidden" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>           
                 </div> <!-- .name -->
             </div>
         </div> <!-- .profile-header -->

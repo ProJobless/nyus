@@ -52,9 +52,10 @@
                         {if:else}	
                          <div class="first ribbon">       
                          
-                         <?php $last_viewed_notifications = $_COOKIE["last_viewed_notifications"]; ?>   
-                         <?php //$last_viewed_actions = $_COOKIE["last_viewed_actions"]; ?>                
+                         <!--gets the cookie value-->
+                         <?php $last_viewed_notifications = $_COOKIE["last_viewed_notifications"]; ?>                 
 
+                            <!--Checks for the last comment posted based on the user logged in-->
                          	{exp:user:stats dynamic="off"} 
                          		<?php $member_id = '{member_id}'; ?>
     							{exp:query sql="
@@ -71,6 +72,7 @@
                                 {/exp:query}
 							{/exp:user:stats}
 							
+							<!--Generates the counte number-->
 							<?php $query = $this->EE->db->query("
 									SELECT count(*) as count
 									FROM 
@@ -86,7 +88,8 @@
 								<?php $dropdown_off = $row->count; ?>
 							<?php } ?>
                             
-  						
+							<!--Check if counter is bigger than 0, and if the date of the last comment is bigger 
+							than the last interaction with the button-->
 							<?php if ($dropdown_off>0) { ?>
 	                            <?php if ($last_viewed_notifications <= $last_comment_date) { ?>
 	                            <div class="notifications-count" id="notifications-count"><span><?php echo $dropdown_off; ?></span></div>
@@ -116,26 +119,51 @@
                         
                         {if:else}
                         
-                        <div class="second ribbon">   
+                        <div class="second ribbon"> 
+                        
+                        	<!--COunter variables setup-->  
                             <?php $counter_action=0; ?> 
                             <?php $counter_not_take_action=0; ?>
                             
                             {exp:channel:entries channel="actions" category="not 1" dynamic="off" disable="pagination|member_data|category_fields|custom_fields"}
 								<?php $counter_action='{total_results}'; ?>                        
 							{/exp:channel:entries}
+
+							{exp:query sql="
+									SELECT 
+									entry_date
+									FROM 
+									exp_channel_titles
+									WHERE 
+									channel_id='3'
+									ORDER BY entry_date DESC
+									Limit 1 
+							"}
+									<?php $last_action_published='{entry_date}'; ?>
+							{/exp:query}
 						
 							{exp:user:stats dynamic="off"}
 								{exp:query sql=" SELECT count(*) as counter_not_take_action FROM  exp_channel_data  WHERE  channel_id='4' AND field_id_16='{member_id}' "}
 									<?php $counter_not_take_action='{counter_not_take_action}'; ?>
 								{/exp:query}
 							{/exp:user:stats}
+							
+							<!--gets the cookie value-->
+							<?php $last_viewed_actions = $_COOKIE["last_viewed_actions"]/1000; ?> 
 
-							<?php $counter_action=$counter_action-$counter_not_take_action; ?>
+							<!--generates the final count-->
+							<?php $counter_action=$counter_action-$counter_not_take_action; ?> 
 							<?php if ($counter_action > 0) { ?>
+								<?php if ($last_action_published > $last_viewed_actions) { ?>
 						  		<div class="actions-count" id="actions-count">
 						  			<span><?php echo $counter_action; ?></span>
 						  		</div>
+						  		<?php } ?>
 						  	<?php } ?>	
+						  	
+						  	
+						  	 
+						  	
 						  
 						  	<?php if ($counter_action > 0) { ?>	
 						  		<a href="#" class="actions-icon"   data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>

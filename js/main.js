@@ -1029,6 +1029,15 @@ $(document).ready(function(){
         e.preventDefault()
         $('#nav').toggleClass('open')
     })
+    $('form').submit(function(e){
+        $this = $(this)
+        if ($this[0].checkValidity()) {
+            $(this).find('input[type=submit]').prop('disabled', 'true')
+        } else {
+            return false
+        }
+    })
+    
     if (!Modernizr.mq('only all')){ 
         $('.post-icon').addClass('visuallyhidden') 
     }

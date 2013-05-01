@@ -241,7 +241,7 @@ $sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
 
 *:focus {outline: none; }
 
-* {
+*:not(input) {
     -ms-word-break: break-all;
         word-break: break-all;
     

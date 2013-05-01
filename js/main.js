@@ -235,15 +235,16 @@ if (!!window.console){
         var file = files[0]
         var reader = new FileReader()
         var image = new Image()
+        size = getSize(file)
+        
         reader.onload = function(event) {
 //            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
             image.onload = function(){
                 updatePreview(this)
+                $sizeEl.text(size).prependTo('.specs')
+                $nameEl.text(file.name + ': ').prependTo('.specs')
             }
             image.src = event.target.result
-            size = getSize(file)
-            $sizeEl.text(size).prependTo('.specs')
-            $nameEl.text(file.name).prependTo('.specs')
         }
 //        c('loading filereader with file object')
         reader.readAsDataURL(file)

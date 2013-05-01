@@ -514,7 +514,7 @@ body {
     @include grid-column(12);
 }
 
-.great-wall {
+.borderimage .great-wall {
     @include grid-column(12);
     @include teeth;
     @include box-shadow(-1em -0.7em 1em -0.4em rgba(0,0,0,.25));
@@ -753,7 +753,7 @@ body {
     }
 }
 
-.full-profile { // nested within .page on your-profile.php
+.borderimage .full-profile { // nested within .page on your-profile.php
     @include grid-column(12);
     @include teeth;
     margin-top: 1em;
@@ -864,7 +864,7 @@ body {
     }   
 }
 
-.recent-activity {
+.borderimage .recent-activity {
     @include grid-column(12);
     @include teeth;
 }
@@ -1059,7 +1059,7 @@ b.disabled {
 //    .new-post { @include teeth; }
 }
 
-.student-list {
+.borderimage .student-list {
     margin-top: 1em;
     padding: 1em;
     @include teeth;

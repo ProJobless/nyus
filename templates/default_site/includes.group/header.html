@@ -60,13 +60,13 @@
                          		<?php $member_id = '{member_id}'; ?>
     							{exp:query sql="
                                     SELECT 
-                                    field_id_22 as entry_date
+                                    field_id_21 as entry_date
                                     FROM 
                                     exp_channel_data 
                                     WHERE 
                                     channel_id='1' AND 
                                     field_id_14='{member_id}' 
-                                    ORDER BY field_id_22 DESC Limit 1
+                                    ORDER BY field_id_21 DESC Limit 1
                                 "}
                                 	 <?php $last_comment_date = '{entry_date}';?> 
                                 {/exp:query}
@@ -80,7 +80,7 @@
 									WHERE 
 									channel_id='1' AND 
 									field_id_14='$member_id' AND
-									field_id_22 > '$last_viewed_notifications'
+									field_id_21 > '$last_viewed_notifications'
 							"); ?>
 							
 							<?php foreach ($query->result() as $row) ?>

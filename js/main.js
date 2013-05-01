@@ -852,8 +852,10 @@ $(document).ready(function(){
     // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
     $unsupported = $('.no-filereader input[type=file]')
     $unsupported.removeClass('visuallyhidden')
-    $unsupported.change(function(){
+    $unsupported.change(function(e){
         disabler(this)
+        var fileName = $(this).val().split('/').pop().split('\\').pop();
+        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
     })
     
     

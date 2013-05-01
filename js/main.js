@@ -258,6 +258,8 @@ if (!!window.console){
         $preview.find('.specs').append($clearButton)
         $preview.addClass('loaded')
         $camera.toggleClass('visuallyhidden')
+        $sizeEl.text(size).prependTo('.specs')
+        $nameEl.text(file.name).prependTo('.specs')
     }
     
     getSize = function(file) {

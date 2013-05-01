@@ -215,17 +215,149 @@ if (!!window.console){
             }
         }
         
+        profileImages(this.files)
+        
         // PROFILE PHOTOS ARE HANDLED VIA SAFECRACKER.
         // NEED TO HOOK INTO SUBMISSION PROCESS AND READ IN DATA URI TO BINARY FILE
-        if (!!$('.step-one').length || !!$('.profile').length) { // PROFILE PHOTOS VIA SAFECRACKER
+//        if (!!$('.step-one').length || !!$('.profile').length) { // PROFILE PHOTOS VIA SAFECRACKER
 //                c('choosing a profile photo')
-            profileImages(this.files)
-        } else { // IMAGE POST PHOTOS, UPLOADED VIA POST
+//            profileImages(this.files)
+//        } else { // IMAGE POST PHOTOS, UPLOADED VIA POST
 //                c('posting photo to feed')
-            postImages(file, 1000, 1000, 0.7, imgProps['type'])
-        }
+//            postImages(file, 1000, 1000, 0.7, imgProps['type'])
+//        }
     })
 
+    profileImages = function(files){
+//        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+        var file = files[0]
+        var reader = new FileReader()
+        var image = new Image()
+        reader.onload = function(event) {
+//            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
+            image.onload = function(){
+                updatePreview(this)
+            }
+            image.src = event.target.result
+            size = getSize(file)
+        }
+//        c('loading filereader with file object')
+        reader.readAsDataURL(file)
+    }
+    
+    updatePreview = function(img){
+        
+//        c('calling compress on anonymous image')
+//        resized = compress(img, imgProps['type'])
+//        d(resized)
+        $preview.find('.thumb').prepend(img)
+        
+        if (!!$('.full-profile').length){
+            $clearButton.html('Revert')
+        }
+        $preview.find('.specs').append($clearButton)
+        $preview.addClass('loaded')
+        $camera.toggleClass('visuallyhidden')
+    }
+    
+    getSize = function(file) {
+        var fileLimit, limit
+        var nBytes = file.size
+        
+        var output = nBytes + ' bytes'
+        for (var multiples = ['KB', 'MB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
+            output = approx.toFixed(2) + ' ' + multiples[n]
+        }
+        
+        return output  
+    }
+
+    fileClear = function(){
+        $preview.find('img, #size, #filename').remove()
+        
+        if (!!oldInputs) {
+            $(oldInputs).remove()
+        }
+        if (!!oldPhoto) {
+            $preview.append(oldPhoto)   
+        } else {
+            $preview.removeClass('loaded')
+        }
+        if (!!$('canvas').length){
+            $('canvas').remove()
+        }
+        if (!!$('#profile-input').length){
+            $('#profile-input')[0].flag = false
+        }
+                
+        var $inputs = $('input[type=file]')
+        $inputs.val('').prop('disabled', false)
+        $inputs.parent().removeClass('disabled')
+        
+        $camera.toggleClass('visuallyhidden')
+    }
+    
+    IEimageCheck = function(file) {
+        var size = getSize(file)
+        var fileLimit = 2500000
+        var limit = '2.5 MB'
+        
+        if (size > fileLimit) {
+            fileClear()
+            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. This file is is ' + size).prependTo('.specs') 
+            return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
+            $preview.append($clearButton)
+        } 
+        
+    }
+    
+    videoHandler = function(file) {
+        var size = getSize(file)
+        var fileLimit = 15000000
+        var limit = '15 MB'
+        
+        if (file.size > fileLimit) {
+            fileClear()
+            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. ' + file.name + ' is ' + size).prependTo('.specs') 
+            return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
+            $preview.append($clearButton)
+        }   
+    }
+    
+    audioHandler = function(file) {
+        var size = getSize(file)
+        var fileLimit = 5000000
+        var limit = '5 MB'
+        
+        if (file.size > fileLimit) {
+            fileClear()
+            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. ' + file.name + ' is ' + size).prependTo('.specs') 
+            return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
+            $preview.append($clearButton)
+        }
+    }
+    
+    disabler = function(self) {
+//        d(self)
+        if (!!$('.upload-buttons').length) {
+            $notSelected = $('input[type=file]').not(self)
+            $notSelected.parent().addClass('disabled')
+            $notSelected.prop('disabled', true)
+        }
+
+    }
+    
+    // ***********************************************************************************************************************//
+    // WIP COMPRESSION SCHEME
     postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
 //        c('setting up variables')
         var fileLoader = new FileReader(),
@@ -344,7 +476,6 @@ if (!!window.console){
         };
     
     }
-    
     prepInputs = function() {    
         if (!!oldInputs) {
             $(oldInputs).remove()
@@ -363,7 +494,6 @@ if (!!window.console){
         return oldInputs
     
     }
-    
     dataURItoBlob = function(dataURL) {
         var BASE64_MARKER = ';base64,';
         if (dataURL.indexOf(BASE64_MARKER) == -1) {
@@ -387,82 +517,7 @@ if (!!window.console){
         
         return new Blob([uInt8Array], {type: contentType});
     }
-
-    profileImages = function(files){
-//        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
-        var file = files[0]
-        var reader = new FileReader()
-        var image = new Image()
-        reader.onload = function(event) {
-//            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
-            image.onload = function(){
-                updatePreview(this)
-            }
-            image.src = event.target.result
-            size = getSize(file)
-        }
-//        c('loading filereader with file object')
-        reader.readAsDataURL(file)
-    }
-    
-    blobReader = function(files){
-//        c('grabbing the file')
-        var file = files[0]
-//        d(file)
-//        c('generating the file reader')
-        var reader = new FileReader()
-//        c('generating an anonymous image')
-        var image = new Image()
-//        c('creating a new Int8Array, I think')
-        
-//        c('defining reader onload')
-        reader.onload = function(event) {
-//            c('inside reader. creating a new blob')
-            var int8 = new Int8Array(event.target.result)
-//            d(int8)
-            
-            var blob = new Blob([int8], {type : 'image/png'})
-//            d(blob)
-//            c('setting up a url to the blob')
-            var url = window.URL.createObjectURL(blob) || window.webkitURL.createObjectURL(blob)
-//            d(url)
-            
-//            c('defining image onload to be updatePreview')
-            image.onload = updatePreview
-//            c('setting anonymous image src to url')
-            image.src = url
-//            c('getting file size')
-            size = getSize(file)
-            $sizeEl.text(size).prependTo('.specs')
-            $nameEl.text(file.name).prependTo('.specs')
-            
-//            c('try replacing filelist with blob?')
-            $fileinput[0].files[0] = blob
-//            d($fileinput[0].files)
-        }
-        
-//        c('calling readAsArrayBuffer on int8')
-        reader.readAsArrayBuffer(file)
-    }
-    
-    updatePreview = function(img){
-        
-//        c('calling compress on anonymous image')
-//        resized = compress(img, imgProps['type'])
-//        d(resized)
-        $preview.find('.thumb').prepend(img)
-        
-        if (!!$('.full-profile').length){
-            $clearButton.html('Revert')
-        }
-        $preview.find('.specs').append($clearButton)
-        $preview.addClass('loaded')
-        $camera.toggleClass('visuallyhidden')
-    }
-    
-    // === RESIZE ====
-    
-    function compress(img, fileType) {
+    compress = function(img, fileType) {
 //        c('setting max width & height')
         var max_width = $fileinput.data('maxwidth')
         var max_height = $fileinput.data('maxheight')
@@ -502,45 +557,6 @@ if (!!window.console){
         return canvas.toDataURL(fileType,0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
         
     }
-    
-    getSize = function(file) {
-        var fileLimit, limit
-        var nBytes = file.size
-        
-        var output = nBytes + ' bytes'
-        for (var multiples = ['KB', 'MB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
-            output = approx.toFixed(2) + ' ' + multiples[n]
-        }
-        
-        return output  
-    }
-    
-     // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
-    fileClear = function(){
-        $preview.find('img, #size, #filename').remove()
-        
-        if (!!oldInputs) {
-            $(oldInputs).remove()
-        }
-        if (!!oldPhoto) {
-            $preview.append(oldPhoto)   
-        } else {
-            $preview.removeClass('loaded')
-        }
-        if (!!$('canvas').length){
-            $('canvas').remove()
-        }
-        if (!!$('#profile-input').length){
-            $('#profile-input')[0].flag = false
-        }
-                
-        var $inputs = $('input[type=file]')
-        $inputs.val('').prop('disabled', false)
-        $inputs.parent().removeClass('disabled')
-        
-        $camera.toggleClass('visuallyhidden')
-    }
-                
     window.rotate = function(direction) {
         //var context = canvas.getContext('2d')
 //        console.log(currentAngle)
@@ -610,66 +626,44 @@ if (!!window.console){
             window.oldInputs = prepInputs(oldInputs)
         } catch(e) { window.oldInputs = prepInputs() }
     }
-    
-    //return rotate
-    
-    IEimageCheck = function(file) {
-        var size = getSize(file)
-        var fileLimit = 2500000
-        var limit = '2.5 MB'
+    blobReader = function(files){
+//        c('grabbing the file')
+        var file = files[0]
+//        d(file)
+//        c('generating the file reader')
+        var reader = new FileReader()
+//        c('generating an anonymous image')
+        var image = new Image()
+//        c('creating a new Int8Array, I think')
         
-        if (size > fileLimit) {
-            fileClear()
-            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. This file is is ' + size).prependTo('.specs') 
-            return false
-        } else {
+//        c('defining reader onload')
+        reader.onload = function(event) {
+//            c('inside reader. creating a new blob')
+            var int8 = new Int8Array(event.target.result)
+//            d(int8)
+            
+            var blob = new Blob([int8], {type : 'image/png'})
+//            d(blob)
+//            c('setting up a url to the blob')
+            var url = window.URL.createObjectURL(blob) || window.webkitURL.createObjectURL(blob)
+//            d(url)
+            
+//            c('defining image onload to be updatePreview')
+            image.onload = updatePreview
+//            c('setting anonymous image src to url')
+            image.src = url
+//            c('getting file size')
+            size = getSize(file)
             $sizeEl.text(size).prependTo('.specs')
-            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
-            $preview.append($clearButton)
-        } 
-        
-    }
-    
-    videoHandler = function(file) {
-        var size = getSize(file)
-        var fileLimit = 15000000
-        var limit = '15 MB'
-        
-        if (file.size > fileLimit) {
-            fileClear()
-            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. ' + file.name + ' is ' + size).prependTo('.specs') 
-            return false
-        } else {
-            $sizeEl.text(size).prependTo('.specs')
-            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
-            $preview.append($clearButton)
-        }   
-    }
-    
-    audioHandler = function(file) {
-        var size = getSize(file)
-        var fileLimit = 5000000
-        var limit = '5 MB'
-        
-        if (file.size > fileLimit) {
-            fileClear()
-            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. ' + file.name + ' is ' + size).prependTo('.specs') 
-            return false
-        } else {
-            $sizeEl.text(size).prependTo('.specs')
-            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
-            $preview.append($clearButton)
+            $nameEl.text(file.name).prependTo('.specs')
+            
+//            c('try replacing filelist with blob?')
+            $fileinput[0].files[0] = blob
+//            d($fileinput[0].files)
         }
-    }
-    
-    disabler = function(self) {
-//        d(self)
-        if (!!$('.upload-buttons').length) {
-            $notSelected = $('input[type=file]').not(self)
-            $notSelected.parent().addClass('disabled')
-            $notSelected.prop('disabled', true)
-        }
-
+        
+//        c('calling readAsArrayBuffer on int8')
+        reader.readAsArrayBuffer(file)
     }
 
 }())

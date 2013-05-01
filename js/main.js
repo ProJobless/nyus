@@ -203,6 +203,8 @@ if (!!window.console){
 //            c('file api supported, calling change event on .filereader #photo-input')
         disabler(this)
         var file = this.files[0]
+        
+        
         imgProps['type'] = file.type
         imgProps['name'] = file.name
         imgProps['type'] = file.type        
@@ -240,6 +242,8 @@ if (!!window.console){
             }
             image.src = event.target.result
             size = getSize(file)
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text(file.name).prependTo('.specs')
         }
 //        c('loading filereader with file object')
         reader.readAsDataURL(file)
@@ -258,8 +262,6 @@ if (!!window.console){
         $preview.find('.specs').append($clearButton)
         $preview.addClass('loaded')
         $camera.toggleClass('visuallyhidden')
-        $sizeEl.text(size).prependTo('.specs')
-        $nameEl.text(file.name).prependTo('.specs')
     }
     
     getSize = function(file) {

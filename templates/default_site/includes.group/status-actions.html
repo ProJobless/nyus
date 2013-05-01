@@ -42,11 +42,11 @@
 				    
 		
 		{paginate}
-			{exp:infinite_scroll:next_chunk_link}
+			{!--{exp:infinite_scroll:next_chunk_link}--}
 				{if next_page}
 					<a href="{auto_path}" class="next_chunk_link">More Entries</a>
 				{/if}
-			{/exp:infinite_scroll:next_chunk_link}
+			{!--{/exp:infinite_scroll:next_chunk_link}--}
 		{/paginate}
 		
 		{/exp:query}

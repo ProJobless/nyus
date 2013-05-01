@@ -17,6 +17,7 @@ if (width <= 320) {
 
 init = {
     file : ((audio) ? "{site_url}images/media_audio" : "{site_url}images/media_videos") + "/" + path,
+    primary: 'flash',
     height : (audio) ? 30 : window.innerHeight - 200,
     width: width,
     skin : "{site_url}js/six.xml"

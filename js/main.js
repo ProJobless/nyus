@@ -230,8 +230,9 @@ if (!!window.console){
     
     $noFileReader = $('.no-filereader .photo-input')
     $noFileReader.change(function(e) {
-        disabler(this)
-        $preview.append($unsupported)
+//        disabler(this)
+//        $preview.append($unsupported)
+//        IEimageCheck()
         //d(e)
     })
 
@@ -460,7 +461,6 @@ if (!!window.console){
 //        c('calling compress on anonymous image')
 //        resized = compress(img, imgProps['type'])
 //        d(resized)
-        
         $preview.find('.thumb').prepend(img)
         
         if (!!$('.full-profile').length){
@@ -624,6 +624,23 @@ if (!!window.console){
     
     //return rotate
     
+    IEimageCheck = function(file) {
+        var size = getSize(file)
+        var fileLimit = 2500000
+        var limit = '2.5 MB'
+        
+        if (size > fileLimit) {
+            fileClear()
+            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. This file is is ' + size).prependTo('.specs') 
+            return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
+            $preview.append($clearButton)
+        } 
+        
+    }
+    
     videoHandler = function(file) {
         var size = getSize(file)
         var fileLimit = 15000000
@@ -631,7 +648,7 @@ if (!!window.console){
         
         if (file.size > fileLimit) {
             fileClear()
-            $sizeEl.text('Sorry, but the maximum file size for videos is 15 MB. ' + file.name + ' is ' + size).prependTo('.specs') 
+            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. ' + file.name + ' is ' + size).prependTo('.specs') 
             return false
         } else {
             $sizeEl.text(size).prependTo('.specs')
@@ -647,7 +664,7 @@ if (!!window.console){
         
         if (file.size > fileLimit) {
             fileClear()
-            $sizeEl.text('Sorry, but the maximum file size for audio clips is 5 MB. ' + file.name + ' is ' + size).prependTo('.specs') 
+            $sizeEl.text('Sorry, but the maximum file size for videos is ' + limit + '. ' + file.name + ' is ' + size).prependTo('.specs') 
             return false
         } else {
             $sizeEl.text(size).prependTo('.specs')
@@ -885,7 +902,7 @@ $(document).ready(function(){
     
     Modernizr.load([{
  
-       test : Modernizr.formvalidation,
+        test : Modernizr.formvalidation,
         nope : '/introductions/js/vendor/validate.min.js',
         complete : function(){
             validator = new FormValidator('new-post', [{
@@ -922,52 +939,58 @@ $(document).ready(function(){
                 
             })
         }
-    }
+    /*
+}, {
+     
+        test : Modernizr.filereader,
+        nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
+        complete : function() {
+                c('completed modernizr testing')
+                c('filereader api is not supported. loading filereader polyfill')
+
+                c($('#profile-input').length)
+                c($('#photo-input').length)
+                if (!!$('#profile-input').length) {
+                    $('#profile-input').fileReader({
+                        id : 'fileReaderSWF',
+                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
+                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+                        debugMode : false,
+                        callback : function(){  c('filereader polyfill loaded') }
+                    })
     
-//    , { test : Modernizr.filereader,
-//            nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
-//            complete : function() {
-//                //c('completed modernizr testing')
-//                //c('filereader api is not supported. loading filereader polyfill')
-//
-//                //c($('#profile-input').length)
-//                if (!!$('#profile-input').length) {
-//                    $('#profile-input').fileReader({
-//                        id : 'fileReaderSWF',
-//                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
-//                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-//                        debugMode : true,
-//                        callback : function(){  c('filereader polyfill loaded') }
-//                    })
-//    
-//                } else {
-//                    $('#photo-input').fileReader({
-//                        id : 'fileReaderSWF',
-//                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
-//                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-//                        debugMode : true,
-//                        callback : function(){  c('filereader polyfill loaded') }
-//                    })
-//                }
-//    
-//    
-//                $('#profile-input').on('change', function(evt) {
-//                    //c('change event triggered on #profile-input')
-//                    if (!!$('#preview').find('img').length) { 
-//                        // CLEAR ANY IMAGES INSIDE PREVIEW
-//                        oldPhoto = $('#preview').find('img').detach()
-//                           c('detaching placeholder image')
-//                    }
-//                    profileImages(evt.target.files)
-//                   updatePreview(evt.target.files[0])
-//                    d($(this).val())
-//                })
-//                $('#photo-input').on('change', function(evt) {
-//                    //c('change event triggered on #profile-input')
-//                    postImages(evt.target.files[0], 1000, 1000, 0.7, imgProps['type'])
-//                    updatePreview(evt.target.files[0])
-//                })
-//            }
-//        }
-    ])
+                } else {
+                    $('#photo-select').fileReader({
+                        id : 'fileReaderSWF',
+                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
+                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+                        debugMode : false,
+                        callback : function(){  c('filereader polyfill loaded') }
+                    })
+                }
+    
+    
+                $('#profile-input').on('change', function(evt) {
+                    //c('change event triggered on #profile-input')
+                    if (!!$('#preview').find('img').length) { 
+                        // CLEAR ANY IMAGES INSIDE PREVIEW
+                        oldPhoto = $('#preview').find('img').detach()
+                           c('detaching placeholder image')
+                    }
+                    profileImages(evt.target.files)
+                    updatePreview(evt.target.files[0])
+                    d($(this).val())
+                })
+                $('#photo-select').change(function(evt) {
+                    c('change event triggered on #profile-input')
+                    file = evt.target.files[0]
+                    d(evt.target.files[0])
+                    IEimageCheck(evt.target.files[0])
+                    
+                    //postImages(evt.target.files[0], 1000, 1000, 0.7, imgProps['type'])
+                    //updatePreview(evt.target.files[0])
+                })
+            }
+*/
+    }])
 })

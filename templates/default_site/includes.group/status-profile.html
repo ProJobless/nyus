@@ -1,8 +1,8 @@
-{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-profile/{segment_2}" parse="inward" process_indicator="process_indicator" segment_url='{segment_2}'}
+{!--{exp:infinite_scroll:wrapper ajax_container="ajax_container" embed_template_url="{homepage}/includes/status-profile/{segment_2}" parse="inward" process_indicator="process_indicator" segment_url='{segment_2}'}--}
 
-	{infinite_scroll_container_top}
+	{!--{infinite_scroll_container_top}--}
 	<div id="ajax_container" >
-	{/infinite_scroll_container_top}
+	{!--{/infinite_scroll_container_top}--}
 
 {if segment_3}
 
@@ -74,16 +74,16 @@
 {/exp:user:stats}
 
 
-		{if count == total_results}
+		{!--{if count == total_results}
 		<div class="process_indicator">Loading...</div>
-		{/if}
+		{/if}--}
 
 		{paginate}
-			{exp:infinite_scroll:next_chunk_link}
+			{!--{exp:infinite_scroll:next_chunk_link}--}
 				{if next_page}
 					<p><a href="{auto_path}" class="next_chunk_link">More Entries</a></p>
 				{/if}
-			{/exp:infinite_scroll:next_chunk_link}
+			{!--{/exp:infinite_scroll:next_chunk_link}--}
 		{/paginate}
 
 
@@ -163,16 +163,16 @@
 {/exp:user:stats}
 
 
-		{if count == total_results}
+		{!--{if count == total_results}
 		<div class="process_indicator">Loading...</div>
-		{/if}
+		{/if}--}
 
 		{paginate}
-			{exp:infinite_scroll:next_chunk_link}
+			{!--{exp:infinite_scroll:next_chunk_link}--}
 				{if next_page}
 					<p><a href="{auto_path}" class="next_chunk_link">More Entries</a></p>
 				{/if}
-			{/exp:infinite_scroll:next_chunk_link}
+			{!--{/exp:infinite_scroll:next_chunk_link}--}
 		{/paginate}
 
 
@@ -180,8 +180,8 @@
 
 {/if}
 
-	{infinite_scroll_container_bottom}
+	{!--{infinite_scroll_container_bottom}--}
 	</div>
-	{/infinite_scroll_container_bottom}
+	{!--{/infinite_scroll_container_bottom}--]
 
-{/exp:infinite_scroll:wrapper}
+{!--{/exp:infinite_scroll:wrapper}--}

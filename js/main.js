@@ -765,7 +765,8 @@ $(document).ready(function(){
     })
 
     // ***********************************************************************************************************************//
-    
+   
+
     $('#notifications-icon').click(function(){
         $('.notifications-count').addClass('viewed')
         var t = new Date()

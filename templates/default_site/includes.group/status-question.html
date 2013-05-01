@@ -49,13 +49,13 @@ ORDER BY status_date DESC "}
 	        
 	        {if media_audio}
 	           <div class="media-container">
-	               <a href="{path='includes/player'}" class="posted-audio" data-path="{media_audio}" data-audio="true">click here for audio</a>
+	               <a href="{path='includes/player'}?<?php echo time(); ?>" class="posted-audio" data-path="{media_audio}" data-audio="true">click here for audio</a>
 	           </div> <!-- .media-container -->
 			{/if}
 			
 	        {if media_video}
 	           <div class="media-container">
-	               <a href="{path='includes/player'}" class="posted-video" data-path="{media_video}">click here for video</a>
+	               <a href="{path='includes/player'}?<?php echo time(); ?>" class="posted-video" data-path="{media_video}">click here for video</a>
 	           </div> <!-- .media-container -->
 			{/if}				
 	

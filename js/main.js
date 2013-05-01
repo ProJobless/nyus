@@ -226,17 +226,6 @@ if (!!window.console){
         }
     })
 
-    $unsupported = $('<p>').html('Image previews are not supported by your browser').css({marginTop : '1em', marginBottom : '55px'})
-    
-    $noFileReader = $('.no-filereader .photo-input')
-    $noFileReader.change(function(e) {
-//        disabler(this)
-//        $preview.append($unsupported)
-//        IEimageCheck()
-        //d(e)
-    })
-
-
     postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
 //        c('setting up variables')
         var fileLoader = new FileReader(),
@@ -862,7 +851,11 @@ $(document).ready(function(){
     })
     
     // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
-    $('.no-filereader input[type=file]').removeClass('visuallyhidden')
+    $unsupported = $('.no-filereader input[type=file]')
+    $unsupported.removeClass('visuallyhidden')
+    $unsupported.change(function(){
+        disabler(this)
+    })
     
     
     // CLEAR PHOTO FUNCTION
@@ -893,12 +886,6 @@ $(document).ready(function(){
         }
     })
     
-
-    $('.no-filereader .photo-input').change(function(){
-//        disabler(this)
-//        $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
-    })
-
     
     Modernizr.load([{
  

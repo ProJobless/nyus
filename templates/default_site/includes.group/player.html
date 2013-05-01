@@ -17,11 +17,27 @@ if (width <= 320) {
 
 init = {
     file : ((audio) ? "{site_url}images/media_audio" : "{site_url}images/media_videos") + "/" + path,
-    primary: 'flash',
-    height : (audio) ? 30 : window.innerHeight - 200,
-    width: width,
-    skin : "{site_url}js/six.xml"
+    primary: 'html5',
+//    primary: 'html5',
+    analytics: {
+        enabled: false,
+        cookies: false
+    },
+//    height : (audio) ? 30 : window.innerHeight - 200,
+ //   width: width,
+    skin : "{site_url}js/six.xml",
+    stretching: 'none'
+}
+
+var ua = navigator.userAgent.toLowerCase(); 
+if (ua.indexOf('safari')!=-1 && !ua.match(/(ipad|iphone);.*cpu.*os 5_\d/i)){ 
+    if(ua.indexOf('chrome')  === -1){
+        // in desktop safari
+        // set primary as flash, doesn't work for mobile safari, obviously
+        init['primary'] = 'flash'
+    } 
 }
 
 jwplayer('player').setup(init).onReady(function(){this.play()})
+
 </script>

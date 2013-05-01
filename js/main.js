@@ -681,33 +681,13 @@ $(document).ready(function(){
         $disable = $('.setup').find(selector)
         $disable.addClass('disable').attr('rel', 'ignore')
     }
-    
-    if (!!$('.step-one').length){
-        
-        if ($.cookie('terms') === undefined ) {
-            $.fancybox.open({
-                href: '../includes/accept-terms',
-                type: 'ajax',
-                ajax : {
-                    method: "POST"
-                }
-            }, {
-                minHeight : 65,
-                minWidth : 250,
-                modal : true,
-                padding : [35, 15,15,15]
-            })
+
             
             // Fancybox blocks the first click on modals, so we have to manually handle the first event.
             $('body').one('click', '#terms-content', function(){ 
                 window.open(this.href, '_blank') 
             })
-        }
-    }
-    
-    $('body').on('submit', '#terms', function(e){
-        $.cookie('terms', 'accepted', {expires: 365, path : '/'})
-    })
+
     
     $('#back-to-one').click(function(){
         window.location = 'https://shanghai.nyu.edu/introductions/setup/step-one'
@@ -870,8 +850,6 @@ $(document).ready(function(){
 
     $('.formvalidation form').submit(function(e){
         if (this.checkValidity()) {
-            d($(this).find('input[name=site_id]'))
-            e.preventDefault()
             $(this).find('input[type=submit]').prop('disabled', 'true')
         } else {
             d(this)

@@ -897,16 +897,19 @@ body {
         @include purple-gradient;
         border: 1px solid $black;
         
-        > div { 
-            @include grid-column(4, $collapse: true); 
-            width: 33.333333%;
-            border-right: 1px solid $black;
-            cursor: pointer;
+        > div {
             
-            &:last-child {
-                border-right: none;
+            &:nth-child(1),
+            &:nth-child(2) { 
+                @include grid-column(6, $collapse: true); 
+                border-right: 1px solid $black;
+                cursor: pointer;
             }
-        }
+            &:nth-child(2) { border-right: none;}
+            &:last-child {
+                display: none;
+            }
+        } 
 
     }
 

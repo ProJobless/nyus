@@ -1,5 +1,10 @@
 {embed='includes/header'}
-{exp:cookie_plus:set name="setup" value="to-do" seconds="31536000"}
+
+{exp:user:stats}
+
+{exp:setup_tracker action_id='1' member_id='{member_id}' position="1"}
+
+{/exp:user:stats}
 
 <div class="to-do">
     {setup_directions}

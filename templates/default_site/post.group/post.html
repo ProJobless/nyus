@@ -2,8 +2,18 @@
 
 {exp:status_action_updates date_of_entry='{current_time}'} <!-- Record the users that perfom an action -->
 
-<?php if (isset($_POST['next-step'])) { ?>
-        <?php echo "{redirect='setup/" . $_POST["next-step"] . "'}"; ?>
-<?php } else { ?>
-        <?php echo "{redirect=''}"; ?>
-<?php } ?>
+<?php 
+    if (isset($_POST['next-step'])) { 
+    
+        if ($_POST['next-step'] == 'finish'){
+            echo "{exp:user:stats}";
+            echo "{exp:setup_tracker action_id='695' member_id='{member_id}' position='4'}";
+            echo "{/exp:user:stats}";
+        }
+    
+        echo "{redirect='setup/" . $_POST["next-step"] . "'}"; 
+    
+    } else {
+        echo "{redirect=''}";
+    }
+?>

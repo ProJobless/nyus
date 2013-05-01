@@ -54,6 +54,40 @@
             $(document).foundation()
         </script>        
         <script type="text/javascript" src="{site_url}js/main.js?<?php echo time(); ?>"></script>
+        
+        {if segment_2=='step-one'}
+            {exp:user:stats}
+                {exp:query sql="
+                    SELECT
+                    count(*) as count
+                    FROM
+                    exp_status_tracker
+                    WHERE
+                    member_id='{member_id}' and action_id='713'
+                "}
+                
+                {if count=='0'}
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.fancybox.open({
+                            href: '../includes/accept-terms',
+                            type: 'ajax',
+                            ajax : {
+                                method: "POST"
+                            }
+                        }, {
+                            minHeight : 65,
+                            minWidth : 250,
+                            modal : true,
+                            padding : [35, 15,15,15]
+                        })
+                    })
+                </script>
+                {/if}
+                
+                {/exp:query}
+            {/exp:user:stats}
+        {/if}
 
 
 </html>

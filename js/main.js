@@ -198,12 +198,10 @@ if (!!window.console){
     var oldInputs, oldPhoto, size
     window.URL = window.URL || window.webkitURL
     
-    
-
     $fileinput = $('.filereader .photo-input')
     $fileinput.change(function(e){
 //            c('file api supported, calling change event on .filereader #photo-input')
-        
+        disabler(this)
         var file = this.files[0]
         imgProps['type'] = file.type
         imgProps['name'] = file.name
@@ -229,8 +227,10 @@ if (!!window.console){
     })
 
     $unsupported = $('<p>').html('Image previews are not supported by your browser').css({marginTop : '1em', marginBottom : '55px'})
+    
     $noFileReader = $('.no-filereader .photo-input')
     $noFileReader.change(function(e) {
+        disabler(this)
         $preview.append($unsupported)
         //d(e)
     })
@@ -239,10 +239,10 @@ if (!!window.console){
     postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
 //        c('setting up variables')
         var fileLoader = new FileReader(),
-        canvas = document.createElement('canvas'),
-        context = null,
-        imageObj = new Image(),
-        blob = null;            
+            canvas = document.createElement('canvas'),
+            context = null,
+            imageObj = new Image(),
+            blob = null;            
     
         //create a hidden canvas object we can use to create the new resized image data
         canvas.id     = "hiddenCanvas";
@@ -443,6 +443,8 @@ if (!!window.console){
             image.src = url
 //            c('getting file size')
             size = getSize(file)
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text(file.name).prependTo('.specs')
             
 //            c('try replacing filelist with blob?')
             $fileinput[0].files[0] = blob
@@ -465,8 +467,6 @@ if (!!window.console){
             $clearButton.html('Revert')
         }
         $preview.find('.specs').append($clearButton)
-        $sizeEl.text(size).prependTo('.specs')
-        $nameEl.text(file.name).prependTo('.specs')
         $preview.addClass('loaded')
         $camera.toggleClass('visuallyhidden')
     }
@@ -640,8 +640,24 @@ if (!!window.console){
         }   
     }
     
+    audioHandler = function(file) {
+        var size = getSize(file)
+        var fileLimit = 5000000
+        var limit = '5 MB'
+        
+        if (file.size > fileLimit) {
+            fileClear()
+            $sizeEl.text('Sorry, but the maximum file size for audio clips is 5 MB. ' + file.name + ' is ' + size).prependTo('.specs') 
+            return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
+            $preview.append($clearButton)
+        }
+    }
+    
     disabler = function(self) {
-        d(self)
+//        d(self)
         if (!!$('.upload-buttons').length) {
             $notSelected = $('input[type=file]').not(self)
             $notSelected.parent().addClass('disabled')
@@ -813,11 +829,6 @@ $(document).ready(function(){
     //**********************************************************************************************************************//    
     // FILE INPUTS
     
-    // DISABLE THE NOT CLICKED INPUTS SO THEY AREN'T SENT TO THE SERVER
-    $('input[type=file]').change(function(){
-    
-    })
-    
     // Filereader API Posts
     $('.filereader .attach-media, .filereader #profile-select').click(function(){ 
         $(this).siblings('input').click() 
@@ -826,6 +837,11 @@ $(document).ready(function(){
     $('.filereader #video-input').change(function(e){
         disabler(this)
         videoHandler(this.files[0])
+    })
+    
+    $('.filereader #audio-input').change(function(e){
+        disabler(this)
+        audioHandler(this.files[0])
     })
     
     // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
@@ -855,7 +871,6 @@ $(document).ready(function(){
         if (this.checkValidity()) {
             $(this).find('input[type=submit]').prop('disabled', 'true')
         } else {
-            d(this)
             if (this.id='setup-form'){$.fancybox($requiredMessage)}
             return false;
         }
@@ -863,7 +878,8 @@ $(document).ready(function(){
     
 
     $('.no-filereader .photo-input').change(function(){
-        $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
+//        disabler(this)
+//        $('#size').after('<p class="warning">Sorry, image previews are not supported by your browser.</p>')
     })
 
     

@@ -184,6 +184,7 @@ if (!!window.console){
     
     var $clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Clear') // user-intent to clear current inputs
     var $sizeEl = $('<span/>').addClass('size').attr('id','size')
+    var $nameEl = $('<span/>').addClass('filename').attr('id','filename')
     
     var photoBag = $('input[type=hidden], canvas') // used in readfiles
     var $preview = $('#preview') // container for thumbnail and controls
@@ -464,9 +465,8 @@ if (!!window.console){
             $clearButton.html('Revert')
         }
         $preview.find('.specs').append($clearButton)
-        
-        
         $sizeEl.text(size).prependTo('.specs')
+        $nameEl.text(file.name).prependTo('.specs')
         $preview.addClass('loaded')
         $camera.toggleClass('visuallyhidden')
     }
@@ -515,17 +515,20 @@ if (!!window.console){
     }
     
     getSize = function(file) {
+        var fileLimit, limit
         var nBytes = file.size
+        
         var output = nBytes + ' bytes'
         for (var multiples = ['KB', 'MB'], n = 0, approx = nBytes/1024; approx > 1; approx /= 1024, n++) {
             output = approx.toFixed(2) + ' ' + multiples[n]
         }
+        
         return output  
     }
     
      // DELETE THE UPLOADED PHOTO FROM THE DOM AND THE INPUT OBJECT
     fileClear = function(){
-        $preview.find('img, #size').remove()
+        $preview.find('img, #size, #filename').remove()
         
         if (!!oldInputs) {
             $(oldInputs).remove()
@@ -620,50 +623,47 @@ if (!!window.console){
     }
     
     //return rotate
+    
+    videoHandler = function(file) {
+        var size = getSize(file)
+        var fileLimit = 15000000
+        var limit = '15 MB'
+        
+        if (file.size > fileLimit) {
+            fileClear()
+            $sizeEl.text('Sorry, but the maximum file size for videos is 15 MB. ' + file.name + ' is ' + size).prependTo('.specs') 
+            return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text('File: ' + file.name + ' -- ').prependTo('.specs')
+            $preview.append($clearButton)
+        }   
+    }
+    
+    disabler = function(self) {
+        d(self)
+        if (!!$('.upload-buttons').length) {
+            $notSelected = $('input[type=file]').not(self)
+            $notSelected.parent().addClass('disabled')
+            $notSelected.prop('disabled', true)
+        }
+
+    }
 
 }())
-
-
-// Let's make sure we're not uploading huge things
-function checkFileSize(file) {
-    var output;
-    var fileLimit;
-    var limit;
-    var imageType = /image.*/
-    var videoType = /video.*/
-    var audioType = /audio.*/
     
-    if (file.type.match(imageType)) {
-        fileLimit = 2500000
-        limit = '2.5 MB'
-        input = document.getElementById('photo-input')
-    } else if (file.type.match(audioType)) {
-        fileLimit = 10000000
-        limit = '10 MB'
-        input = document.getElementById('audio-input')
-    } else {
-        fileLimit = 15000000
-        limit = '15 MB'
-        input = document.getElementById('video-input')
-    }
-    
-    if (file.size > fileLimit) {
-        try {
-            $('#size').html('Too Big! Choose another file')
-            $('#submit').prop('disabled', true)
-        } catch(e) {}
-        return
-    }
-    
-    $('#submit').prop('disabled', false)
-
-    return output    
-}    
 
 
 $(document).ready(function(){
 
 //    infiniteScroll()
+    
+    if ($.cookie('last_viewed_notifications') === undefined) {
+        var t = new Date()
+        $.cookie('last_viewed_notifications', t.getTime(), {expires: 365, path : '/'})
+        $.cookie('last_viewed_actions', t.getTime(), {expires: 365, path : '/'})
+    }
+   
         
     // ***********************************************************************************************************************//
     // PROFILE SETUP PROCESS
@@ -813,23 +813,24 @@ $(document).ready(function(){
     //**********************************************************************************************************************//    
     // FILE INPUTS
     
+    // DISABLE THE NOT CLICKED INPUTS SO THEY AREN'T SENT TO THE SERVER
+    $('input[type=file]').change(function(){
+    
+    })
+    
     // Filereader API Posts
     $('.filereader .attach-media, .filereader #profile-select').click(function(){ 
         $(this).siblings('input').click() 
     })
     
+    $('.filereader #video-input').change(function(e){
+        disabler(this)
+        videoHandler(this.files[0])
+    })
+    
     // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
     $('.no-filereader input[type=file]').removeClass('visuallyhidden')
     
-    // DISABLE THE NOT CLICKED INPUTS SO THEY AREN'T SENT TO THE SERVER
-    $('input[type=file]').change(function(){
-    
-        if (!!$('.upload-buttons').length) {
-            $notSelected = $('input[type=file]').not(this)
-            $notSelected.parent().addClass('disabled')
-            $notSelected.prop('disabled', true)
-        }
-    })
     
     // CLEAR PHOTO FUNCTION
     $('#preview').on('click', '#clear', function(e){ 
@@ -841,6 +842,8 @@ $(document).ready(function(){
         }
         $(this).detach() 
     })
+    
+
     
     
     // ***********************************************************************************************************************//

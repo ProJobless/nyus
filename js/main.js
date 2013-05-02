@@ -361,6 +361,15 @@ if (!!window.console){
 
     }
     
+    // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
+    $unsupported = $('.no-filereader input[type=file]')
+    $unsupported.removeClass('visuallyhidden')
+    $unsupported.change(function(e){
+        disabler(this)
+        var fileName = $(this).val().split('/').pop().split('\\').pop();
+        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
+    })
+    
     // ***********************************************************************************************************************//
     // WIP COMPRESSION SCHEME
     postImages = function(file, max_width, max_height, compression_ratio, imageEncoding){
@@ -849,16 +858,6 @@ $(document).ready(function(){
         audioHandler(this.files[0])
     })
     
-    // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
-    $unsupported = $('.no-filereader input[type=file]')
-    $unsupported.removeClass('visuallyhidden')
-    $unsupported.change(function(e){
-        disabler(this)
-        var fileName = $(this).val().split('/').pop().split('\\').pop();
-        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
-    })
-    
-    
     // CLEAR PHOTO FUNCTION
     $('#preview').on('click', '#clear', function(e){ 
         try {
@@ -927,34 +926,34 @@ $(document).ready(function(){
                 
             })
         }
-    /*
-}, {
+    }, {
      
         test : Modernizr.filereader,
         nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
         complete : function() {
-                c('completed modernizr testing')
-                c('filereader api is not supported. loading filereader polyfill')
+//                c('completed modernizr testing')
+//                c('filereader api is not supported. loading filereader polyfill')
 
-                c($('#profile-input').length)
-                c($('#photo-input').length)
-                if (!!$('#profile-input').length) {
-                    $('#profile-input').fileReader({
+                /*
+if (!!$('#profile-select').length) {
+                    $('#profile-select').fileReader({
                         id : 'fileReaderSWF',
                         filereader : '/introductions/js/vendor/filereader/filereader.swf',
                         expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
                         debugMode : false,
-                        callback : function(){  c('filereader polyfill loaded') }
+                        callback : function(){  c('filereader polyfill loaded on profile') }
                     })
     
                 } else {
-                    $('#photo-select').fileReader({
+*/
+                    $('#photo-input').fileReader({
                         id : 'fileReaderSWF',
                         filereader : '/introductions/js/vendor/filereader/filereader.swf',
                         expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                        debugMode : false,
-                        callback : function(){  c('filereader polyfill loaded') }
+                        debugMode : true,
+                        callback : function(){  c('filereader polyfill loaded on post photos') }
                     })
+/*
                 }
     
     
@@ -969,16 +968,45 @@ $(document).ready(function(){
                     updatePreview(evt.target.files[0])
                     d($(this).val())
                 })
-                $('#photo-select').change(function(evt) {
-                    c('change event triggered on #profile-input')
-                    file = evt.target.files[0]
-                    d(evt.target.files[0])
-                    IEimageCheck(evt.target.files[0])
+*/
+                $('#photo-input').change(function(evt) {
+                    window.evt = evt
+                    file = evt.files[0]
+                    form = document.getElementById('form')
+                    reader = new FileReader()
+                    img = new Image()
+                    props = {
+                        name : file.name
+                    }
+                    
+                    reader.onload = function(e){
+                        img.src = e.target.result
+                        props.image = e.target.result
+                    }
+                    reader.onloadend = function(){
+                        for (prop in props) {
+                            var toPHP = document.createElement('input')
+                            if (props.hasOwnProperty(prop)) {
+                                toPHP.type = 'hidden'
+                                toPHP.name = 'images['+prop+']'
+                                toPHP.value = props[prop]
+                                form.appendChild(toPHP)
+//                                oldInputs.push(toPHP)
+                            }
+                        } 
+                    }
+                    img.onload = function(){
+                        $('#preview').append(img)
+                    }
+                    reader.readAsDataURL(file)
+//                    c('change event triggered on #profile-input')
+//                    file = evt.target.files[0]
+//                    d(evt.target.files[0])
+//                    IEimageCheck(evt.target.files[0])
                     
                     //postImages(evt.target.files[0], 1000, 1000, 0.7, imgProps['type'])
                     //updatePreview(evt.target.files[0])
                 })
             }
-*/
     }])
 })

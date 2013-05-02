@@ -1237,6 +1237,8 @@ b.disabled {
                         @include grid-column(4, $collapse: true);
                         border: none;
                         
+                        &:last-child { display: block; }
+                        
                         &.disabled {
                             cursor: not-allowed;
                             

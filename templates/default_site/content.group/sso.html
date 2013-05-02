@@ -5,6 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <title>NYU Shanghai SSO Redirect</title>
 <script src="https://shanghai.nyu.edu/introductions/js/jquery.js"></script>
+<script src="https://shanghai.nyu.edu/introductions/js/vendor/foundation/foundation.cookie.js"></script>
+<script>
+if ($.cookie('last_viewed_notifications') === undefined) {
+    var t = new Date()
+    $.cookie('last_viewed_notifications', t.getTime(), {expires: 365, path : '/'})
+    $.cookie('last_viewed_actions', t.getTime(), {expires: 365, path : '/'})
+}
+</script>
 </head>
 <body>
 	<?php
@@ -68,7 +76,7 @@ if ($('#username').val() != '') {
 {/exp:ajax_form}
 <?php
 		} else {
-			die('No SSO token!');
+			die('No SSO token! <pre>' . print_r($_SERVER,true));
 		}
 // uncomment to enable if POST
 ?>

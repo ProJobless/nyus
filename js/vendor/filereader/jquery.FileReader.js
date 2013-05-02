@@ -9,6 +9,10 @@
 		return ;
 	}
 	
+	startedCount = 0;
+    loadedCount = 0;
+    lastLoaded = 0;
+	
 	/**
 	* JQuery Plugin
 	*/
@@ -262,11 +266,17 @@
 			switch (evt.type) {
 				case 'loadstart':
 					this.readyState = this.LOADING;
+					startedCount++;
 					break;
 				case 'loadend':
 					this.readyState = this.DONE;
 					break;
 				case 'load':
+				    loadedCount++;
+                    if ((loadedCount - lastLoaded) != startedCount) {
+                        return;
+                    }
+                    lastLoaded = loadedCount;
 					this.readyState = this.DONE;
 					this.result = FileAPIProxy.swfObject.result(this._id);
 					break;

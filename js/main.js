@@ -203,11 +203,9 @@ if (!!window.console){
 //            c('file api supported, calling change event on .filereader #photo-input')
         disabler(this)
         var file = this.files[0]
-        
-        
-        imgProps['type'] = file.type
-        imgProps['name'] = file.name
-        imgProps['type'] = file.type        
+
+//        imgProps['name'] = file.name
+//        imgProps['type'] = file.type        
                 
          if (this.name === 'photo_filename') {
             if (!!$preview.find('img').length) { 
@@ -231,28 +229,33 @@ if (!!window.console){
     })
 
     profileImages = function(files){
-//        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
         var file = files[0]
         var reader = new FileReader()
         var image = new Image()
         size = getSize(file)
         
         reader.onload = function(event) {
-//            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
+            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
             image.onload = function(){
                 updatePreview(this)
                 $sizeEl.text(size).prependTo('.specs')
                 $nameEl.text(file.name + ': ').prependTo('.specs')
             }
             image.src = event.target.result
+            imgProps.image = event.target.result
         }
-//        c('loading filereader with file object')
+        c('setting onloadend callback for reader')
+        reader.onloadend = function(){
+            prepInputs()
+        }
+        c('loading filereader with file object')
         reader.readAsDataURL(file)
     }
     
     updatePreview = function(img){
         
-//        c('calling compress on anonymous image')
+        c('calling compress on anonymous image')
 //        resized = compress(img, imgProps['type'])
 //        d(resized)
         $preview.find('.thumb').prepend(img)
@@ -365,9 +368,9 @@ if (!!window.console){
     $unsupported = $('.no-filereader input[type=file]')
     $unsupported.removeClass('visuallyhidden')
     $unsupported.change(function(e){
-        disabler(this)
-        var fileName = $(this).val().split('/').pop().split('\\').pop();
-        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
+//        disabler(this)
+//        var fileName = $(this).val().split('/').pop().split('\\').pop();
+//        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
     })
     
     // ***********************************************************************************************************************//
@@ -504,7 +507,7 @@ if (!!window.console){
                 oldInputs.push(toPHP)
             }
         }
-        $fileinput[0].value = "";
+//        $fileinput[0].value = "";
         return oldInputs
     
     }
@@ -679,6 +682,103 @@ if (!!window.console){
 //        c('calling readAsArrayBuffer on int8')
         reader.readAsArrayBuffer(file)
     }
+    
+    Modernizr.load([{
+ 
+        test : Modernizr.formvalidation,
+        nope : '/introductions/js/vendor/validate.min.js',
+        complete : function(){
+            validator = new FormValidator('new-post', [{
+                name : 'friends_status',
+                display : 'Post',
+                rules : 'required'
+            }], function(errors, event){
+                $form = $(this.form)
+                if (errors.length === 0) {
+                    $form.find('input[type=submit]').prop('disabled', 'true')
+                }
+            })
+            setupValidator = new FormValidator('setup-form', [{
+                name : 'photo_filename',
+                display : 'Photo',
+                rules : 'required'
+            }, {
+                name : 'location',
+                display : 'Hometown',
+                rules : 'required'
+            }, {
+                name : 'occupation',
+                display : 'Current City',
+                rules : 'required'
+            }, {
+                name  : 'interests',
+                display : 'Interests',
+                rules : 'required'
+            }], function(errors, event) {
+                $form = $(this.form)
+                if (errors.length > 0) {
+                    $.fancybox($requiredMessage)
+                }
+                
+            })
+        }
+    }, {
+     
+        test : Modernizr.filereader,
+        nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
+        complete : function() {
+//                c('completed modernizr testing')
+//                c('filereader api is not supported. loading filereader polyfill')
+
+                /*
+if (!!$('#profile-select').length) {
+                    $('#profile-select').fileReader({
+                        id : 'fileReaderSWF',
+                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
+                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+                        debugMode : false,
+                        callback : function(){  c('filereader polyfill loaded on profile') }
+                    })
+    
+                } else {
+*/
+/*
+                }
+    
+    
+                $('#profile-input').on('change', function(evt) {
+                    //c('change event triggered on #profile-input')
+                    if (!!$('#preview').find('img').length) { 
+                        // CLEAR ANY IMAGES INSIDE PREVIEW
+                        oldPhoto = $('#preview').find('img').detach()
+                           c('detaching placeholder image')
+                    }
+                    profileImages(evt.target.files)
+                    updatePreview(evt.target.files[0])
+                    d($(this).val())
+                })
+*/
+                if (!Modernizr.filereader){
+                    $('#photo-input').fileReader({
+                        id : 'fileReaderSWF',
+                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
+                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+                        debugMode : true,
+                        callback : function(){  c('filereader polyfill loaded on post photos') }
+                    })
+                    $('#photo-input').change(function(evt) {
+                        disabler(this)
+                        imgProps = {}
+                        var files = evt.files
+                        imgProps['name'] = files[0].name
+                        imgProps['type'] = files[0].type        
+                        profileImages(files)
+                    })
+
+                }
+                
+            }
+    }])
 
 }())
     
@@ -887,126 +987,4 @@ $(document).ready(function(){
     })
     
     
-    Modernizr.load([{
- 
-        test : Modernizr.formvalidation,
-        nope : '/introductions/js/vendor/validate.min.js',
-        complete : function(){
-            validator = new FormValidator('new-post', [{
-                name : 'friends_status',
-                display : 'Post',
-                rules : 'required'
-            }], function(errors, event){
-                $form = $(this.form)
-                if (errors.length === 0) {
-                    $form.find('input[type=submit]').prop('disabled', 'true')
-                }
-            })
-            setupValidator = new FormValidator('setup-form', [{
-                name : 'photo_filename',
-                display : 'Photo',
-                rules : 'required'
-            }, {
-                name : 'location',
-                display : 'Hometown',
-                rules : 'required'
-            }, {
-                name : 'occupation',
-                display : 'Current City',
-                rules : 'required'
-            }, {
-                name  : 'interests',
-                display : 'Interests',
-                rules : 'required'
-            }], function(errors, event) {
-                $form = $(this.form)
-                if (errors.length > 0) {
-                    $.fancybox($requiredMessage)
-                }
-                
-            })
-        }
-    }, {
-     
-        test : Modernizr.filereader,
-        nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
-        complete : function() {
-//                c('completed modernizr testing')
-//                c('filereader api is not supported. loading filereader polyfill')
-
-                /*
-if (!!$('#profile-select').length) {
-                    $('#profile-select').fileReader({
-                        id : 'fileReaderSWF',
-                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
-                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                        debugMode : false,
-                        callback : function(){  c('filereader polyfill loaded on profile') }
-                    })
-    
-                } else {
-*/
-                    $('#photo-input').fileReader({
-                        id : 'fileReaderSWF',
-                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
-                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                        debugMode : true,
-                        callback : function(){  c('filereader polyfill loaded on post photos') }
-                    })
-/*
-                }
-    
-    
-                $('#profile-input').on('change', function(evt) {
-                    //c('change event triggered on #profile-input')
-                    if (!!$('#preview').find('img').length) { 
-                        // CLEAR ANY IMAGES INSIDE PREVIEW
-                        oldPhoto = $('#preview').find('img').detach()
-                           c('detaching placeholder image')
-                    }
-                    profileImages(evt.target.files)
-                    updatePreview(evt.target.files[0])
-                    d($(this).val())
-                })
-*/
-                $('#photo-input').change(function(evt) {
-                    window.evt = evt
-                    file = evt.files[0]
-                    form = document.getElementById('form')
-                    reader = new FileReader()
-                    img = new Image()
-                    props = {
-                        name : file.name
-                    }
-                    
-                    reader.onload = function(e){
-                        img.src = e.target.result
-                        props.image = e.target.result
-                    }
-                    reader.onloadend = function(){
-                        for (prop in props) {
-                            var toPHP = document.createElement('input')
-                            if (props.hasOwnProperty(prop)) {
-                                toPHP.type = 'hidden'
-                                toPHP.name = 'images['+prop+']'
-                                toPHP.value = props[prop]
-                                form.appendChild(toPHP)
-//                                oldInputs.push(toPHP)
-                            }
-                        } 
-                    }
-                    img.onload = function(){
-                        $('#preview').append(img)
-                    }
-                    reader.readAsDataURL(file)
-//                    c('change event triggered on #profile-input')
-//                    file = evt.target.files[0]
-//                    d(evt.target.files[0])
-//                    IEimageCheck(evt.target.files[0])
-                    
-                    //postImages(evt.target.files[0], 1000, 1000, 0.7, imgProps['type'])
-                    //updatePreview(evt.target.files[0])
-                })
-            }
-    }])
 })

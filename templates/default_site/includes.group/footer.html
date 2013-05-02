@@ -1,3 +1,4 @@
+
                 </div> <!-- #main -->
             </div> <!-- #page -->
 
@@ -22,7 +23,7 @@
                     FROM
                     exp_channel_data
                     WHERE
-                    channel_id=1 and field_id_14!='{member_id}' Limit 5
+                    channel_id=1 and field_id_14='{member_id}' Order by field_id_22 DESC Limit 5
                 "}
                 
                     {embed='includes/comment_individual_link' originalPostID='{originalPostID}' commenter='{commenter}' user='{member_id}'}
@@ -98,5 +99,6 @@
                 {/exp:query}
             {/exp:user:stats}
         {/if}
+
 
 </html>

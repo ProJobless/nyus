@@ -152,11 +152,16 @@
 							<?php $last_viewed_actions = $_COOKIE["last_viewed_actions"]/1000; ?> 
 
 							<!--generates the final count-->
-							<?php $counter_action=$counter_action-$counter_not_take_action; ?> 
-							<?php if ($counter_action > 0) { ?>
+							<?php //$counter_action; ?>
+							<?php //$counter_not_take_action=$counter_not_taken_action+1; ?>
+							<?php //$counter_action=$counter_action-$counter_not_take_action; ?> 
+							<?php //$counter_action=abs($counter_action); ?>
+							
+							<?php //if ($counter_action > 0) { ?>
+							<?php if ($counter_not_take_action > 0) { ?>
 								<?php if ($last_action_published > $last_viewed_actions) { ?>
 						  		<div class="actions-count" id="actions-count">
-						  			<span><?php echo $counter_action; ?></span>
+						  			<span><?php //echo $counter_action; ?> <?php echo $counter_not_take_action; ?></span>
 						  		</div>
 						  		<?php } ?>
 						  	<?php } ?>	

@@ -1,0 +1,17 @@
+<section class="student-list">
+    		{exp:user:stats dynamic="off"}
+        		{exp:query sql="
+                    SELECT
+                    field_id_13 as commenter,
+                    field_id_2 as originalPostID
+                    FROM
+                    exp_channel_data
+                    WHERE
+                    channel_id=1 and field_id_14='{member_id}' Order by field_id_22 DESC
+                "}
+                    {embed='includes/comment_individual_link' originalPostID='{originalPostID}' commenter='{commenter}' user='{member_id}'}
+                
+                {/exp:query}
+                
+            {/exp:user:stats}
+</section>            

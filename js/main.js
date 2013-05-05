@@ -189,22 +189,20 @@ if (!!window.console){
     var $preview = $('#preview') // container for thumbnail and controls
     var $camera = $('#profile-select')
     var oldInputs = []
+    var props = {}
     
 //    var image = new Image()
     var TO_RADIANS = Math.PI/180
     var currentAngle = 0
-    var imgProps = {}
-    var oldInputs, oldPhoto, size
+    
+    var oldPhoto, size
     window.URL = window.URL || window.webkitURL
     
     $modernPhotoInput = $('.filereader .photo-input')
     $modernPhotoInput.change(function(e){
-//            c('file api supported, calling change event on .filereader #photo-input')
+        c('file api supported, calling change event on .filereader #photo-input')
         disabler(this)
-        var file = this.files[0]
-
-//        imgProps['name'] = file.name
-//        imgProps['type'] = file.type        
+        var file = this.files[0]     
                 
          if (this.name === 'photo_filename') {
             if (!!$preview.find('img').length) { 
@@ -214,49 +212,84 @@ if (!!window.console){
             }
         }
         
-        profileImages(this.files)
+        modernProcessor(this.files)
         
-        // PROFILE PHOTOS ARE HANDLED VIA SAFECRACKER.
-        // NEED TO HOOK INTO SUBMISSION PROCESS AND READ IN DATA URI TO BINARY FILE
-//        if (!!$('.step-one').length || !!$('.profile').length) { // PROFILE PHOTOS VIA SAFECRACKER
-//                c('choosing a profile photo')
-//            profileImages(this.files)
-//        } else { // IMAGE POST PHOTOS, UPLOADED VIA POST
-//                c('posting photo to feed')
-//            postImages(file, 1000, 1000, 0.7, imgProps['type'])
-//        }
     })
-
-    profileImages = function(files){
-//        c('calling read() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
-        var file = files[0]
-        if (!imageCheck(file)) {
+    
+    outdatedProcessor = function(filelist) {
+        //    console.log('calling procesFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+        var file = filelist[0]
+        var reader = new FileReader()
+        if (!sizeCheck(file)){
             return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text(file.name + ': ').prependTo('.specs')
+            $preview.append($clearButton)
         }
         
-        var reader = new FileReader()
-        var image = new Image()
-//        size = getSize(file)
-        
-        reader.onload = function(event) {
-//            c('filereader loaded. setting anonymous image source to data URL representation of file object. setting image to call updatePreview on load.')
+        if (file.type.match('image')){
+            var image = new Image()
+            reader.onload = function(event) {
+                props.data = event.target.result
+                image.src = event.target.result
+            }
             image.onload = function(){
                 updatePreview(this)
-                $sizeEl.text(size).prependTo('.specs')
-                $nameEl.text(file.name + ': ').prependTo('.specs')
+//                $sizeEl.text(size).prependTo('.specs')
+//                $nameEl.text(file.name + ': ').prependTo('.specs')
             }
-            image.src = event.target.result
-            if (!Modernizr.filereader){
-                imgProps.image = event.target.result
-            }
-        }
-//        c('setting onloadend callback for reader')
-        if (!Modernizr.filereader){
             reader.onloadend = function(){
-                prepInputs()
+                prepInputs(file)
+            }
+        } else {
+            reader.onload = function(event) {
+                updatePreview()
+                props.data = event.target.result
+            }
+            reader.onloadend = function(){
+                prepInputs(file)
             }
         }
-//        c('loading filereader with file object')
+    /*     console.log('loading filereader with file object') */
+        reader.readAsDataURL(file)
+    }
+
+    modernProcessor = function(filelist){
+        c('calling processFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+        var file = filelist[0]
+        var reader = new FileReader()
+        if (!sizeCheck(file)){
+            return false
+        } else {
+            $sizeEl.text(size).prependTo('.specs')
+            $nameEl.text(file.name + ': ').prependTo('.specs')
+            $preview.append($clearButton)
+        }
+        if (file.type.match('image')){
+            var image = new Image()
+            reader.onload = function(event) {
+//                props.data = event.target.result
+                image.src = event.target.result
+            }
+            image.onload = function(){
+                updatePreview(this)
+//                $sizeEl.text(size).prependTo('.specs')
+//                $nameEl.text(file.name + ': ').prependTo('.specs')
+            }
+//            reader.onloadend = function(){
+//                prepInputs(file)
+//            }
+        } else {
+            reader.onload = function(event) {
+                updatePreview()
+//                props.data = event.target.result
+            }
+//            reader.onloadend = function(){
+//                prepInputs(file)
+//            }
+        }
+    /*     console.log('loading filereader with file object') */
         reader.readAsDataURL(file)
     }
     
@@ -267,7 +300,7 @@ if (!!window.console){
         if (!!$('.full-profile').length){
             $clearButton.html('Revert')
         }
-        $preview.find('.specs').append($clearButton)
+//        $preview.find('.specs').append($clearButton)
         $preview.addClass('loaded')
         $camera.toggleClass('visuallyhidden')
     }
@@ -281,6 +314,37 @@ if (!!window.console){
         }
         
         return output  
+    }
+    
+    sizeCheck = function(file){
+        var redableLimit, rawLimit, limit, id
+        size = getSize(file.size)
+        
+        if (file.type.match("image")) {
+            rawLimit = 2500000
+            limit = '2.5 MB'
+            id = 'images'
+        } else if (file.type.match("audio")) {
+            rawLimit = 5000000
+            limit = '5 MB'
+            id = 'audio clips'
+        } else if (file.type.match("video")) {
+            rawLimit = 15000000
+            limit = '15 MB'
+            id = 'videos'
+        } else {
+            alert('Only image, video, and audio file types are allowed.')
+            return false
+        }
+        
+        if (file.size > rawLimit) {
+            readableLimit = getSize(rawLimit)
+            fileClear()
+            $sizeEl.text('Sorry, but the maximum file size for ' + id + ' is ' + readableLimit + '. ' + file.name + ' is ' + size).prependTo('.specs')
+            return false
+        } else {
+            return true
+        }   
     }
 
     fileClear = function(){
@@ -375,25 +439,31 @@ if (!!window.console){
     $unsupported = $('.no-filereader input[type=file]')
     $unsupported.removeClass('visuallyhidden')
     $unsupported.change(function(e){
-        disabler(this)
+//        disabler(this)
 //        var fileName = $(this).val().split('/').pop().split('\\').pop();
 //        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
     })
-    prepInputs = function() {    
-        if (!!oldInputs) {
-            $(oldInputs).remove()
+    
+    prepInputs = function(file) {    
+        oldInputs = []
+        
+        for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i++){
+            if (file.type.match(types[i])) {
+                phpName = types[i]
+                break
+            }
         }
-        for (prop in imgProps) {
+        
+        for (prop in props) {
             var toPHP = document.createElement('input')
-            if (imgProps.hasOwnProperty(prop)) {
+            if (props.hasOwnProperty(prop)) {
                 toPHP.type = 'hidden'
-                toPHP.name = 'images['+prop+']'
-                toPHP.value = imgProps[prop]
+                toPHP.name = phpName + '['+prop+']'
+                toPHP.value = props[prop]
                 form.appendChild(toPHP)
                 oldInputs.push(toPHP)
             }
         }
-//        $modernPhotoInput[0].value = "";
         return oldInputs
     
     }
@@ -444,50 +514,23 @@ if (!!window.console){
         test : Modernizr.filereader,
         nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
         complete : function() {
-//                c('completed modernizr testing')
-//                c('filereader api is not supported. loading filereader polyfill')
-
-                /*
-if (!!$('#profile-select').length) {
-                    $('#profile-select').fileReader({
+                c('completed modernizr testing')
+                if (!Modernizr.filereader && !$('.setup').length){
+                    c('filereader api is not supported. loading filereader polyfill')
+                    $('input[type=file]').fileReader({
                         id : 'fileReaderSWF',
                         filereader : '/introductions/js/vendor/filereader/filereader.swf',
                         expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                        debugMode : false,
-                        callback : function(){  c('filereader polyfill loaded on profile') }
+                        debugMode : true,
+                        callback : function(){  c('filereader polyfill loaded on post photos') }
                     })
-    
-                } else {
-*/
-/*
-                }
-    
-    
-                $('#profile-input').on('change', function(evt) {
-                    //c('change event triggered on #profile-input')
-                    if (!!$('#preview').find('img').length) { 
-                        // CLEAR ANY IMAGES INSIDE PREVIEW
-                        oldPhoto = $('#preview').find('img').detach()
-                           c('detaching placeholder image')
-                    }
-                    profileImages(evt.target.files)
-                    updatePreview(evt.target.files[0])
-                })
-*/
-                if (!Modernizr.filereader){
-                    $('#photo-input').fileReader({
-                        id : 'fileReaderSWF',
-                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
-                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                        debugMode : false,
-                        callback : function(){  /* c('filereader polyfill loaded on post photos') */ }
-                    })
-                    $('#photo-input').change(function(evt) {
-                        imgProps = {}
-                        var files = evt.files
-                        imgProps['name'] = files[0].name
-                        imgProps['type'] = files[0].type        
-                        profileImages(files)
+                    $('input[type=file]').change(function(evt) {
+                        disabler(this)
+                        window.evt = evt
+                        var filelist = evt.target.files
+                        props['name'] = filelist[0].name
+                        props['type'] = filelist[0].type        
+                        outdatedProcessor(filelist)
                     })
                 }        
             }
@@ -683,8 +726,10 @@ $(document).ready(function(){
     
 
     $('.formvalidation form').submit(function(e){
+        $this = $(this)
         if (this.checkValidity()) {
-            $(this).find('input[type=submit]').prop('disabled', 'true')
+            $this.find('input[type=submit]').prop('disabled', 'true')
+            $this.find('input[type=submit]').before('<span class="loading" />')
         } else {
             if (this.id='setup-form'){$.fancybox($requiredMessage)}
             return false;

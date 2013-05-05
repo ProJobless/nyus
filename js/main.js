@@ -481,8 +481,10 @@ if (!!window.console){
                 $form = $(this.form)
                 if (errors.length === 0) {
                     $form.find('input[type=submit]').prop('disabled', 'true')
+                    $form.find('input[type=submit]').before('<span class="loading" />')
                 } else {
-                    
+                    $form.prepend('<div class="required" />')
+                    $('.required').html('Please include a message and try submitting again.').delay(2000).fadeOut(750);
                 }
             })
             setupValidator = new FormValidator('setup-form', [{
@@ -521,7 +523,7 @@ if (!!window.console){
                         id : 'fileReaderSWF',
                         filereader : '/introductions/js/vendor/filereader/filereader.swf',
                         expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
-                        debugMode : true,
+                        debugMode : false,
                         callback : function(){  c('filereader polyfill loaded on post photos') }
                     })
                     $('input[type=file]').change(function(evt) {

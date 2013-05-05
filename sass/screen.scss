@@ -288,6 +288,16 @@ body {
 
 }
 
+.notifications-page {
+    li a {
+        @include grid-row(nest-collapse);
+        
+        .user-img { @include grid-column (3);}
+        p {@include grid-column(9);}
+    }   
+    
+}
+
 .notifications-count,
 .actions-count {
     @include purple-notice-bubble;
@@ -888,7 +898,7 @@ body {
         display: inline-block; 
         position: relative;
         top: 10px;
-        background: url(../img/loading.gif); 
+        background: url(../img/loading.gif) no-repeat; 
         height: 32px; 
         width: 32px;
     }

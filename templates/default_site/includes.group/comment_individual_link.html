@@ -13,7 +13,7 @@ exp_channel_data.field_id_4='{embed:originalPostID}' Limit 1
 
 	{exp:user:stats member_id='{embed:commenter}' dynamic="off"}
 	<li>
-		<a href="{path='includes/view-status'}/{author_status}/{embed:originalPostID}" data-member="{embed:user}" data-related-status="{embed:originalPostID}">
+		<a href="{path='includes/view-status'}/{author_status}/{embed:originalPostID}" class="notification" data-member="{embed:user}" data-related-status="{embed:originalPostID}">
 			<div class="user-img"><img src="{photo_url}{photo_filename}?<?php echo time(); ?>"></div>
 			<p>
 			<span>{screen_name}</span>

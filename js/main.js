@@ -628,7 +628,21 @@ $(document).ready(function(){
     })
 
     // FANCYBOX FOR NOTIFICATIONS
-    $('#notifications a').click(function(e){
+    $('#notifications a.notification').click(function(e){
+        e.preventDefault()
+        memberId = $(this).attr('data-member')
+        statusToLoad = $(this).attr('data-related-status')
+        $.fancybox(this, {
+            type : 'ajax',
+            ajax : {
+                type : 'POST',
+                data : 'memberid=' + memberId + '&status=' + statusToLoad
+            },
+            helpers : commonHelpers
+        })
+    })
+    
+    $('.notifications-page a').click(function(e){
         e.preventDefault()
         memberId = $(this).attr('data-member')
         statusToLoad = $(this).attr('data-related-status')

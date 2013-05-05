@@ -1,5 +1,6 @@
 
 <section class="student-list">
+    <ul class="notifications-page">
     		{exp:user:stats dynamic="off"}
         		{exp:query sql="
                     SELECT
@@ -15,5 +16,6 @@
                 {/exp:query}
                 
             {/exp:user:stats}
+    </ul>
 </section>            
 

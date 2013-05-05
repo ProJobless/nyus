@@ -884,6 +884,14 @@ body {
     }
     .size { @include adjust-font-size-to(14px); display: inline-block; color: $black; text-align: center; margin-top: 1em; }
     .clear {padding: 0.7em 1em; margin: 1em 0 0 0.5em; }
+    .loading { 
+        display: inline-block; 
+        position: relative;
+        top: 10px;
+        background: url(../img/loading.gif); 
+        height: 32px; 
+        width: 32px;
+    }
         
     textarea {
         resize: none;

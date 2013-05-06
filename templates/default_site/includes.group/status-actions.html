@@ -15,12 +15,15 @@
 		exp_channel_titles.entry_id=exp_channel_data.entry_id AND 
 		exp_channel_data.channel_id='3'
 		"}
-			
-		{if cat_id!='1'}		
+
+		
+		{if cat_id!='1'}
         <article class="action-post section-container accordion" data-section="accordion">
-        	<div class="details info">
-        		<h4><a href="{path='actions'}/{entry_id}" >{title}</a></h4>
-        	</div>
+
+ 
+	        {embed="includes/action_list_pendent" entry_id="{entry_id}" title_action="{title}"}
+		    
+
             <div class="status post-content">
         			<p>	
         				{description}<br>
@@ -42,7 +45,7 @@
                 </div> <!-- .action-feed -->				    
             </section> <!-- .comments -->   
         </article> <!-- .action-post -->
-				    
+
 		
 		{paginate}
 			{!--{exp:infinite_scroll:next_chunk_link}--}

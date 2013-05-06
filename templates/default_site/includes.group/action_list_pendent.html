@@ -1,0 +1,23 @@
+
+{exp:user:stats dynamic="off"}
+{exp:query sql="
+SELECT count(*) as flag 
+FROM  exp_channel_data  
+WHERE  
+channel_id='4' AND 
+field_id_16='{member_id}' AND 
+field_id_15='{embed:entry_id}'
+"}
+        	<div class="details info">
+        		<h4>
+        		{if flag==0}
+        		<a href="{path='actions'}/{embed:entry_id}" >
+        		{/if}
+        		{embed:title_action}
+        		{if flag==0}
+        		</a>
+        		{/if}
+        		</h4>
+        	</div>
+{/exp:query}
+{/exp:user:stats}

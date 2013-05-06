@@ -539,7 +539,7 @@ body {
 }
 
 .action-wall {
-    @extend .notifications-page;
+    @extend .great-wall;
 }
 
 .post {
@@ -1399,10 +1399,7 @@ b.disabled {
             @include grid-column(1.5);
         }          
     }
-    
-    .notifications-page {
-         @include grid-column(8, $push: 4);
-    }
+
 // ***********************************************************************************************************************//
 // DESKTOP SPRITES
 

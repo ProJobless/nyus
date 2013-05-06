@@ -85,7 +85,7 @@ body {
     @include box-shadow(0em 0.7em 1em 0em rgba(0, 0, 0, 0.25));
 }
 
-.logo { background: url(../img/logo.png) no-repeat;}
+.logo { background: url(../img/tgw.png) no-repeat; width: 290px; height: 43px;}
 
 #ajax_container {
 	display:block; 
@@ -290,6 +290,7 @@ body {
 
 .notifications-page {
     @include panel;
+    margin-top: 6em;
     list-style: none;
     li a {
         @include grid-row(nest-collapse);
@@ -1398,7 +1399,10 @@ b.disabled {
             @include grid-column(1.5);
         }          
     }
-         
+    
+    .notifications-page {
+         @include grid-column(8, $push: 4);
+    }
 // ***********************************************************************************************************************//
 // DESKTOP SPRITES
 

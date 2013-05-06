@@ -473,45 +473,46 @@ if (!!window.console){
         test : Modernizr.formvalidation,
         nope : '/introductions/js/vendor/validate.min.js',
         complete : function(){
-            validator = new FormValidator('new-post', [{
-                name : 'friends_status',
-                display : 'Post',
-                rules : 'required'
-            }], function(errors, event){
-                $form = $(this.form)
-                if (errors.length === 0) {
-                    $form.find('input[type=submit]').prop('disabled', 'true')
-                    $form.find('input[type=submit]').before('<span class="loading" />')
-                } else {
-                    if (!$('.required').length) {
-                        $form.prepend('<div class="required" />')
-                        $('.required').html('Please include a message and try submitting again.');
+            if (!Modernizr.formvalidation){
+                validator = new FormValidator('new-post', [{
+                    name : 'friends_status',
+                    display : 'Post',
+                    rules : 'required'
+                }], function(errors, event){
+                    $form = $(this.form)
+                    if (errors.length === 0) {
+                        $form.find('input[type=submit]').prop('disabled', 'true')
+                        $form.find('input[type=submit]').before('<span class="loading" />')
+                    } else {
+                        if (!$('.required').length) {
+                            $form.prepend('<div class="required" />')
+                            $('.required').html('Please include a message and try submitting again.');
+                        }
                     }
-                }
-            })
-            setupValidator = new FormValidator('setup-form', [{
-                name : 'photo_filename',
-                display : 'Photo',
-                rules : 'required'
-            }, {
-                name : 'location',
-                display : 'Hometown',
-                rules : 'required'
-            }, {
-                name : 'occupation',
-                display : 'Current City',
-                rules : 'required'
-            }, {
-                name  : 'interests',
-                display : 'Interests',
-                rules : 'required'
-            }], function(errors, event) {
-                $form = $(this.form)
-                if (errors.length > 0) {
-                    $.fancybox($requiredMessage)
-                }
-                
-            })
+                })
+                setupValidator = new FormValidator('setup-form', [{
+                    name : 'photo_filename',
+                    display : 'Photo',
+                    rules : 'required'
+                }, {
+                    name : 'location',
+                    display : 'Hometown',
+                    rules : 'required'
+                }, {
+                    name : 'occupation',
+                    display : 'Current City',
+                    rules : 'required'
+                }, {
+                    name  : 'interests',
+                    display : 'Interests',
+                    rules : 'required'
+                }], function(errors, event) {
+                    $form = $(this.form)
+                    if (errors.length > 0) {
+                        $.fancybox($requiredMessage)
+                    }
+                })
+            }
         }
     },
     { 

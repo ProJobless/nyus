@@ -687,7 +687,7 @@ $(document).ready(function(){
     })    
     
     $('#actions-icon').click(function(){
-        $('.actions-count').addClass('viewed')
+        //$('.actions-count').addClass('viewed')
         var t = new Date()
         $.cookie('last_viewed_actions', t.getTime(), {expires: 365, path : '/'})
     })

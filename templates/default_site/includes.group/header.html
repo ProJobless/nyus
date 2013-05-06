@@ -145,11 +145,12 @@
 							<!--gets the cookie value-->
 							<?php $last_viewed_actions = $_COOKIE["last_viewed_actions"]; ?> 
 
-							<?php //echo $counter_action; ?>	
-							<?php //echo $counter_not_take_action; ?>
+							<?php $counter_action; ?>	
+							<?php $counter_not_take_action; ?>
+							
 							<!--generates the final count-->
 							<?php if ($counter_action > 1) { ?>
-							<?php echo $counter_action=$counter_action-$counter_not_take_action; ?> 
+							<?php $counter_action=$counter_action-$counter_not_take_action; ?> 
 							<?php } ?>
 							
 							<?php if ($counter_action > 0) { ?>

@@ -1,7 +1,7 @@
 {if embed:action_id}
 
 	{exp:query sql="
-		SELECT 
+		SELECT DISTINCT
 		exp_members.screen_name,
 		exp_members.photo_filename,
 		exp_members.member_id
@@ -32,7 +32,7 @@
 {if segment_2}
 
 	{exp:query sql="
-		SELECT 
+		SELECT DISTINCT
 		exp_members.screen_name,
 		exp_members.photo_filename,
 		exp_members.member_id

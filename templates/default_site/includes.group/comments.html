@@ -10,10 +10,9 @@
 <article class="most-recent">
 {exp:user:stats member_id='{author_id}'}
     <h5><a href="{path='profile'}/{member_id}">{screen_name}</a></h5>
-    <p>
-        {exp:char_limit total="47" exact="yes"}
-        {thepost}
-        {/exp:char_limit}</p>
+    {exp:ce_str:ing truncate="50"}
+    <p>{thepost}</p>
+    {/exp:ce_str:ing}
 <!--     <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span> -->
 {/exp:user:stats}
 </article> <!-- .most-recent -->

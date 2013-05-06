@@ -200,7 +200,7 @@ if (!!window.console){
     
     $modernPhotoInput = $('.filereader .photo-input')
     $modernPhotoInput.change(function(e){
-        c('file api supported, calling change event on .filereader #photo-input')
+/*         c('file api supported, calling change event on .filereader #photo-input') */
         disabler(this)
         var file = this.files[0]     
                 
@@ -256,7 +256,7 @@ if (!!window.console){
     }
 
     modernProcessor = function(filelist){
-        c('calling processFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+/*         c('calling processFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api') */
         var file = filelist[0]
         var reader = new FileReader()
         if (!sizeCheck(file)){
@@ -473,60 +473,61 @@ if (!!window.console){
         test : Modernizr.formvalidation,
         nope : '/introductions/js/vendor/validate.min.js',
         complete : function(){
-            validator = new FormValidator('new-post', [{
-                name : 'friends_status',
-                display : 'Post',
-                rules : 'required'
-            }], function(errors, event){
-                $form = $(this.form)
-                if (errors.length === 0) {
-                    $form.find('input[type=submit]').prop('disabled', 'true')
-                    $form.find('input[type=submit]').before('<span class="loading" />')
-                } else {
-                    if (!$('.required').length) {
-                        $form.prepend('<div class="required" />')
-                        $('.required').html('Please include a message and try submitting again.');
+            if (!Modernizr.formvalidation){
+                validator = new FormValidator('new-post', [{
+                    name : 'friends_status',
+                    display : 'Post',
+                    rules : 'required'
+                }], function(errors, event){
+                    $form = $(this.form)
+                    if (errors.length === 0) {
+                        $form.find('input[type=submit]').prop('disabled', 'true')
+                        $('.loading').addClass('begin')
+                    } else {
+                        if (!$('.required').length) {
+                            $form.prepend('<div class="required" />')
+                            $('.required').html('Please include a message and try submitting again.');
+                        }
                     }
-                }
-            })
-            setupValidator = new FormValidator('setup-form', [{
-                name : 'photo_filename',
-                display : 'Photo',
-                rules : 'required'
-            }, {
-                name : 'location',
-                display : 'Hometown',
-                rules : 'required'
-            }, {
-                name : 'occupation',
-                display : 'Current City',
-                rules : 'required'
-            }, {
-                name  : 'interests',
-                display : 'Interests',
-                rules : 'required'
-            }], function(errors, event) {
-                $form = $(this.form)
-                if (errors.length > 0) {
-                    $.fancybox($requiredMessage)
-                }
-                
-            })
+                })
+                setupValidator = new FormValidator('setup-form', [{
+                    name : 'photo_filename',
+                    display : 'Photo',
+                    rules : 'required'
+                }, {
+                    name : 'location',
+                    display : 'Hometown',
+                    rules : 'required'
+                }, {
+                    name : 'occupation',
+                    display : 'Current City',
+                    rules : 'required'
+                }, {
+                    name  : 'interests',
+                    display : 'Interests',
+                    rules : 'required'
+                }], function(errors, event) {
+                    $form = $(this.form)
+                    if (errors.length > 0) {
+                        $.fancybox($requiredMessage)
+                    }
+                })
+            }
         }
     },
     { 
         test : Modernizr.filereader,
         nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
         complete : function() {
-                c('completed modernizr testing')
+/*                 c('completed modernizr testing') */
                 if (!Modernizr.filereader && !$('.setup').length){
-                    c('filereader api is not supported. loading filereader polyfill')
+/*                     c('filereader api is not supported. loading filereader polyfill') */
                     $('input[type=file]').fileReader({
                         id : 'fileReaderSWF',
                         filereader : '/introductions/js/vendor/filereader/filereader.swf',
                         expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
                         debugMode : false,
-                        callback : function(){  c('filereader polyfill loaded on post photos') }
+                        callback : function(){  /* c('filereader polyfill loaded on post photos')  */}
                     })
                     $('input[type=file]').change(function(evt) {
                         disabler(this)
@@ -764,7 +765,7 @@ $(document).ready(function(){
         $this = $(this)
         if (this.checkValidity()) {
             $this.find('input[type=submit]').prop('disabled', 'true')
-            $this.find('input[type=submit]').before('<span class="loading" />')
+            $('.loading').addClass('begin')
         } else {
             if (this.id='setup-form'){$.fancybox($requiredMessage)}
             return false;

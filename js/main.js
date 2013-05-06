@@ -482,7 +482,7 @@ if (!!window.console){
                     $form = $(this.form)
                     if (errors.length === 0) {
                         $form.find('input[type=submit]').prop('disabled', 'true')
-                        $form.find('input[type=submit]').before('<span class="loading" />')
+//                        $form.find('input[type=submit]').before('<span class="loading" />')
                     } else {
                         if (!$('.required').length) {
                             $form.prepend('<div class="required" />')
@@ -765,7 +765,7 @@ $(document).ready(function(){
         $this = $(this)
         if (this.checkValidity()) {
             $this.find('input[type=submit]').prop('disabled', 'true')
-            $this.find('input[type=submit]').before('<span class="loading" />')
+//            $this.find('input[type=submit]').before('<span class="loading" />')
         } else {
             if (this.id='setup-form'){$.fancybox($requiredMessage)}
             return false;

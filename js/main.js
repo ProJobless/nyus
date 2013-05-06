@@ -483,8 +483,10 @@ if (!!window.console){
                     $form.find('input[type=submit]').prop('disabled', 'true')
                     $form.find('input[type=submit]').before('<span class="loading" />')
                 } else {
-                    $form.prepend('<div class="required" />')
-                    $('.required').html('Please include a message and try submitting again.').delay(2000).fadeOut(750);
+                    if (!$('.required').length) {
+                        $form.prepend('<div class="required" />')
+                        $('.required').html('Please include a message and try submitting again.');
+                    }
                 }
             })
             setupValidator = new FormValidator('setup-form', [{
@@ -628,6 +630,23 @@ $(document).ready(function(){
             helpers : commonHelpers
         })
     })
+    
+    // CATCH FOR FANCYBOXES WITHIN FANCYBOXES
+    $('body').on('click', '.fancybox-overlay .posted-audio, .fancybox-overlay .posted-video', function(e){
+        e.preventDefault()
+        $.fancybox.close()
+        path = $(this).attr('data-path')
+        audio = $(this).attr('data-audio')
+        width = window.innerWidth
+        $.fancybox(this, {
+            type : 'ajax',
+            ajax : {
+                type : 'POST',
+                data : 'path=' + path + '&audio=' + audio + '&width=' + width
+            },
+            helpers : commonHelpers
+        })
+    })
 
     // FANCYBOX FOR NOTIFICATIONS
     $('#notifications a.notification').click(function(e){
@@ -668,7 +687,7 @@ $(document).ready(function(){
     })    
     
     $('#actions-icon').click(function(){
-        $('.actions-count').addClass('viewed')
+        //$('.actions-count').addClass('viewed')
         var t = new Date()
         $.cookie('last_viewed_actions', t.getTime(), {expires: 365, path : '/'})
     })

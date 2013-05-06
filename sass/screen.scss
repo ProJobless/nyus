@@ -85,7 +85,7 @@ body {
     @include box-shadow(0em 0.7em 1em 0em rgba(0, 0, 0, 0.25));
 }
 
-.logo { color: $white; font-weight: normal;}
+.logo { background: url(../img/tgw.png) no-repeat; width: 290px; height: 43px;}
 
 #ajax_container {
 	display:block; 
@@ -290,6 +290,7 @@ body {
 
 .notifications-page {
     @include panel;
+    margin-top: 6em;
     list-style: none;
     li a {
         @include grid-row(nest-collapse);
@@ -543,7 +544,7 @@ body {
 
 .post {
 /*     @include grid-row(nest); */
-    @include panel($padding:1em 0 0 0);
+    @include panel($padding:.5em 0 0 0);
     @include shadow;
 //    @extend .section-container;
     margin: 0 auto 1em;
@@ -560,7 +561,7 @@ body {
     .author {
         @include grid-row;
         border-bottom: 1px solid $light-gray;
-        padding-bottom: 1em;
+        padding-bottom: .5em;
     }
         
     .question {
@@ -580,7 +581,7 @@ body {
             color: $purple;
             @include adjust-font-size-to(16px, .5);
             margin-top: 0;
-            margin-bottom: .7em;
+            margin-bottom: 0;
         }
 
         span {
@@ -604,6 +605,7 @@ body {
         
         .media-container {
             @include grid-column(12);
+            margin-bottom: .5em;
         }
         
         .post-img { 
@@ -1133,6 +1135,9 @@ b.disabled {
     
     .global { position: fixed;}
     
+    .header-left {@include grid-column(11, $collapse: true);}
+    .header-right {@include grid-column(1, $collapse: true);}
+    
     .drop { max-width: 400px;}
     
     .notifications-icon {
@@ -1394,7 +1399,7 @@ b.disabled {
             @include grid-column(1.5);
         }          
     }
-         
+
 // ***********************************************************************************************************************//
 // DESKTOP SPRITES
 
@@ -1605,16 +1610,11 @@ b.disabled {
         }
     }
         
-//    .profile-header {
-//        @include grid-row(collapse);
-//        
-//        .user-img {
-//            @include grid-column(4, $collapse: true);
-//        }
-//        .name {
-//            @include grid-column(8);
-//        }
-//    }
+    .profile-header {
+        .name {
+            @include grid-column(8);
+        }
+    }
 }
 
 @media 

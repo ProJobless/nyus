@@ -129,16 +129,7 @@
 								<?php $counter_action='{total_results}'; ?>                        
 							{/exp:channel:entries}
 
-							{exp:query sql="
-									SELECT 
-									entry_date
-									FROM 
-									exp_channel_titles
-									WHERE 
-									channel_id='3'
-									ORDER BY entry_date DESC
-									Limit 1 
-							"}
+							{exp:query sql=" SELECT  entry_date FROM  exp_channel_titles WHERE  channel_id='3' ORDER BY entry_date DESC Limit 1 "}
 									<?php $last_action_published='{entry_date}'; ?>
 							{/exp:query}
 						
@@ -149,21 +140,17 @@
 							{/exp:user:stats}
 							
 							<!--gets the cookie value-->
-							<?php $last_viewed_actions = $_COOKIE["last_viewed_actions"]/1000; ?> 
+							<?php $last_viewed_actions = $_COOKIE["last_viewed_actions"]; ?> 
 
 							<!--generates the final count-->
-							<?php //$counter_action; ?>
-							<?php //$counter_not_take_action=$counter_not_taken_action+1; ?>
-							<?php //$counter_action=$counter_action-$counter_not_take_action; ?> 
-							<?php //$counter_action=abs($counter_action); ?>
+							<?php $counter_action=$counter_action-$counter_not_take_action; ?> 
 							
-							<?php //if ($counter_action > 0) { ?>
-							<?php if ($counter_not_take_action > 0) { ?>
-								<?php if ($last_action_published > $last_viewed_actions) { ?>
+							<?php if ($counter_action > 0) { ?>
+								<?php //if ($last_action_published > $last_viewed_actions) { ?>
 						  		<div class="actions-count" id="actions-count">
-						  			<span><?php //echo $counter_action; ?> <?php echo $counter_not_take_action; ?></span>
+						  			<span><?php echo $counter_action; ?></span>
 						  		</div>
-						  		<?php } ?>
+						  		<?php //} ?>
 						  	<?php } ?>	
 						  	
 						  	
@@ -171,9 +158,9 @@
 						  	
 						  
 						  	<?php if ($counter_action > 0) { ?>	
-						  		<a href="#" class="actions-icon"   data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
+						  		<a href="#" class="actions-icon" data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
 						  	<?php } else { ?>
-						  		<a href="#" class="actions-icon" id="actions-icon" rel="ignore" title="Actions"></a>
+						  		<a href="#" class="actions-icon disable" id="actions-icon" rel="ignore" title="Actions"></a>
 						  	<?php } ?>	
 	                      
 	                          

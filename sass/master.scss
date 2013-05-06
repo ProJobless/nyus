@@ -1303,6 +1303,11 @@ body {
         height: 32px; 
         width: 32px;
         opacity: 0;
+        @include single-transition;
+        
+        &.begin {
+            opacity: 1;
+        }
     }
         
     textarea {

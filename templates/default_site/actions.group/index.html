@@ -1,19 +1,24 @@
 {embed='includes/header' loc="actions"}
 
 {if segment_2}
-<section class="student-list">
+<section class="action-wall">
                 {exp:channel:entries channel="actions" limit="1" entry_id='{segment_2}' disable="pagination|member_data|category_fields|categories"}
-				 <div class="student">
-	                <div class="name">
+				 <div class="action-post">
+				    <div class="details info">
 	                    <h3>{title}</h3>
+				    </div> <!-- .details.info -->
+				    <div class="status post-content">
 	                    <p>{description}</p>
-	                </div>
-	             </div> <!-- .student -->    
+				    </div> <!--.status.post-content-->
+	             </div> <!-- .action-post -->    
 			    {/exp:channel:entries}
 			    
 			    {embed="includes/new-post" action_id="{segment_2}"}
 			    
+			    
+			    <div class="action-post">
 			    {embed="includes/member-list-action"}
+			    </div> <!-- .action-feed -->
 </section>
 {if:else}
 {embed='includes/status-actions'}

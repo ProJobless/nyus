@@ -483,8 +483,10 @@ if (!!window.console){
                     $form.find('input[type=submit]').prop('disabled', 'true')
                     $form.find('input[type=submit]').before('<span class="loading" />')
                 } else {
-                    $form.prepend('<div class="required" />')
-                    $('.required').html('Please include a message and try submitting again.').delay(2000).fadeOut(750);
+                    if (!$('.required').length) {
+                        $form.prepend('<div class="required" />')
+                        $('.required').html('Please include a message and try submitting again.');
+                    }
                 }
             })
             setupValidator = new FormValidator('setup-form', [{
@@ -616,6 +618,23 @@ $(document).ready(function(){
     // FANCYBOX FOR AUDIO AND VIDEO OBJECTS ON GREAT WALL
     $('.posted-audio, .posted-video').click(function(e){
         e.preventDefault()
+        path = $(this).attr('data-path')
+        audio = $(this).attr('data-audio')
+        width = window.innerWidth
+        $.fancybox(this, {
+            type : 'ajax',
+            ajax : {
+                type : 'POST',
+                data : 'path=' + path + '&audio=' + audio + '&width=' + width
+            },
+            helpers : commonHelpers
+        })
+    })
+    
+    // CATCH FOR FANCYBOXES WITHIN FANCYBOXES
+    $('body').on('click', '.fancybox-overlay .posted-audio, .fancybox-overlay .posted-video', function(e){
+        e.preventDefault()
+        $.fancybox.close()
         path = $(this).attr('data-path')
         audio = $(this).attr('data-audio')
         width = window.innerWidth

@@ -1,3 +1,6 @@
+{if logged_out}
+    {redirect='content/sso'}
+{/if}
 {exp:cookie_plus:set name="first_load" value="1" seconds="30"}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -40,7 +43,10 @@
                         {if:else}
                             <a href="#nav" class="menu-btn" id="menu-btn" rel="ignore"><span class="visuallyhidden">Navigate</span></a>           
                         {/if}
-                            <h1 class="logo">Introductions</h1>
+                            <h1 class="logo ir">Introductions</h1>
+                        {if segment_2=='' || segment_2=="content"}
+                            <h2 class="sub-head ir">The Great Wall</h2>
+                        {/if}
                         </div> <!-- .menu -->
                                                 
                         {if segment_1=='setup' || segment_2=='terms'}
@@ -171,9 +177,9 @@
 						  	
 						  
 						  	<?php if ($counter_action > 0) { ?>	
-						  		<a href="#" class="actions-icon"   data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
+						  		<a href="#" class="actions-icon" data-dropdown="actions"  id="actions-icon" rel="ignore" title="Actions"></a>
 						  	<?php } else { ?>
-						  		<a href="#" class="actions-icon" id="actions-icon" rel="ignore" title="Actions"></a>
+						  		<a href="#" class="actions-icon disabled" id="actions-icon" rel="ignore" title="Actions"></a>
 						  	<?php } ?>	
 	                      
 	                          

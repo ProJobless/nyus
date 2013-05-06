@@ -1,6 +1,6 @@
 {exp:query limit="10" sql="
-		SELECT 
-		count(*) as counter
+		SELECT
+		count(DISTINCT field_id_16) as counter
 		FROM 
 		exp_channel_data 
 		WHERE 

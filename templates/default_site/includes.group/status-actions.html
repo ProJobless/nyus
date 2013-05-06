@@ -4,16 +4,19 @@
 		exp_channel_titles.title as title,
 		exp_channel_titles.entry_date as entry_date, 
 		exp_channel_data.field_id_11 as description, 
-		exp_channel_data.entry_id as entry_id
+		exp_channel_data.entry_id as entry_id,
+		exp_category_posts.cat_id as cat_id
 		FROM 
 		exp_channel_titles,
-		exp_channel_data 
+		exp_channel_data LEFT JOIN
+		exp_category_posts ON
+		exp_category_posts.entry_id=exp_channel_data.entry_id 
 		WHERE 
 		exp_channel_titles.entry_id=exp_channel_data.entry_id AND 
 		exp_channel_data.channel_id='3'
 		"}
-		
 			
+		{if cat_id!='1'}	
         <article class="action-post section-container accordion" data-section="accordion">
         	<div class="details info">
         		<h4><a href="{path='actions'}/{entry_id}" >{title}</a></h4>
@@ -48,6 +51,7 @@
 				{/if}
 			{!--{/exp:infinite_scroll:next_chunk_link}--}
 		{/paginate}
+		{/if}
 		
 		{/exp:query}
 </section>

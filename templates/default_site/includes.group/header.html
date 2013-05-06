@@ -145,8 +145,12 @@
 							<!--gets the cookie value-->
 							<?php $last_viewed_actions = $_COOKIE["last_viewed_actions"]; ?> 
 
+							<?php //echo $counter_action; ?>	
+							<?php //echo $counter_not_take_action; ?>
 							<!--generates the final count-->
-							<?php $counter_action=$counter_action-$counter_not_take_action; ?> 
+							<?php if ($counter_action > 1) { ?>
+							<?php echo $counter_action=$counter_action-$counter_not_take_action; ?> 
+							<?php } ?>
 							
 							<?php if ($counter_action > 0) { ?>
 								<?php //if ($last_action_published > $last_viewed_actions) { ?>
@@ -189,10 +193,9 @@
                         
                             <ul>
                                 <li>Filter By</li>
-                                    <li><a href="{path='content/index'}" {if embed:loc =="great_wall"}class="current"{/if} id="nav-all">All</a></li>
+                                    <li><a href="{path=''}" {if embed:loc =="great_wall"}class="current"{/if} id="nav-all">All</a></li>
                                  <li><a href="{path='content/question'}" {if embed:loc =="questions"}class="current"{/if} id="nav-questions">Questions</a></li>
                                 <li><a href="{path='actions'}" {if embed:loc =="actions"}class="current"{/if} id="nav-actions">Actions</a></li>
-<!--                                 <li><a href="{path='member-list'}" {if embed:loc ==""}class="current"{/if} id="nav-yours">Your Posts</a></li> -->
                                 <li><a href="{path='member-list'}" {if embed:loc =="students"}class="current"{/if} id="nav-students">Student List</a></li>
                                 <li><a href="{path='profile'}/{logged_in_member_id}" {if embed:loc =="profile"}class="current"{/if} id="nav-profile">Your Profile</a></li>
                                {if logged_in}<li><a href="https://shanghai.nyu.edu/Shibboleth.sso/Logout?return=https://login.nyu.edu/sso/UI/Logout" id="nav-logout">Log Out</a></li>{/if}

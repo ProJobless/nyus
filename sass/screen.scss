@@ -290,14 +290,11 @@ body {
 
 .notifications-page {
     @include panel;
-    margin-top: 6em;
     list-style: none;
     li a {
         @include grid-row(nest-collapse);
         display: block;
-        padding-bottom: 1em;
-        
-        &:last-child {padding-bottom: 0;}
+        margin-bottom: 1em;
         
         .user-img { @include grid-column (3);}
         p {@include grid-column(9);}
@@ -1331,7 +1328,7 @@ b.disabled {
 
     .comment {
         .comment-text {@include grid-column(9, $collapse: true); padding-left:18px;}
-        .user-img { @include grid-column(1.5, $collapse: true); }
+        .user-img { @include grid-column(1.5, $collapse: true); margin-right: 1em;}
     }
     
     .new-comment {

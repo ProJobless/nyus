@@ -179,7 +179,7 @@ if (!!window.console){
 
 (function(){
     var canvas = document.createElement('canvas')
-    var form = document.getElementById('form')
+    var form = document.getElementById('form') || document.getElementById('setup-form')
     
     var $clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Clear') // user-intent to clear current inputs
     var $sizeEl = $('<span/>').addClass('size').attr('id','size')
@@ -190,6 +190,8 @@ if (!!window.console){
     var $camera = $('#profile-select')
     var oldInputs = []
     var props = {}
+    var validProfile = false
+    var validForm = true
     
 //    var image = new Image()
     var TO_RADIANS = Math.PI/180
@@ -199,8 +201,9 @@ if (!!window.console){
     window.URL = window.URL || window.webkitURL
     
     $modernPhotoInput = $('.filereader .photo-input')
+
     $modernPhotoInput.change(function(e){
-/*         c('file api supported, calling change event on .filereader #photo-input') */
+
         disabler(this)
         var file = this.files[0]     
                 
@@ -215,9 +218,10 @@ if (!!window.console){
         modernProcessor(this.files)
         
     })
+
     
-    outdatedProcessor = function(filelist) {
-        //    console.log('calling procesFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+    outdatedProcessor = function(filelist, self) {
+//            c('calling procesFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
         var file = filelist[0]
         var reader = new FileReader()
         if (!sizeCheck(file)){
@@ -240,7 +244,7 @@ if (!!window.console){
 //                $nameEl.text(file.name + ': ').prependTo('.specs')
             }
             reader.onloadend = function(){
-                prepInputs(file)
+                prepInputs(file, self)
             }
         } else {
             reader.onload = function(event) {
@@ -248,7 +252,7 @@ if (!!window.console){
                 props.data = event.target.result
             }
             reader.onloadend = function(){
-                prepInputs(file)
+                prepInputs(file, self)
             }
         }
     /*     console.log('loading filereader with file object') */
@@ -354,22 +358,20 @@ if (!!window.console){
             $(oldInputs).remove()
         }
         if (!!oldPhoto) {
+            // Regular Post
             $preview.append(oldPhoto)   
         } else {
+            // Profile setup
             $preview.removeClass('loaded')
         }
         if (!!$('canvas').length){
             $('canvas').remove()
-        }
-        if (!!$('#profile-input').length){
-            $('#profile-input')[0].flag = false
         }
                 
         var $inputs = $('input[type=file]')
         $inputs.val('').prop('disabled', false)
         $inputs.parent().removeClass('disabled')
         
-        $camera.toggleClass('visuallyhidden')
     }
     
     imageCheck = function(file) {
@@ -444,21 +446,28 @@ if (!!window.console){
 //        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
     })
     
-    prepInputs = function(file) {    
+    prepInputs = function(file, self) {    
         oldInputs = []
-        
-        for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i++){
+        var name = self.name
+//        c('setting up inputs')
+        /*
+for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i++){
             if (file.type.match(types[i])) {
                 phpName = types[i]
                 break
             }
         }
+*/
         
+//        c('array name is: ' + name)
+        
+//        c('looping through')
         for (prop in props) {
             var toPHP = document.createElement('input')
             if (props.hasOwnProperty(prop)) {
+//                c('testing: ' + prop)
                 toPHP.type = 'hidden'
-                toPHP.name = phpName + '['+prop+']'
+                toPHP.name = name + '['+prop+']'
                 toPHP.value = props[prop]
                 form.appendChild(toPHP)
                 oldInputs.push(toPHP)
@@ -491,10 +500,6 @@ if (!!window.console){
                     }
                 })
                 setupValidator = new FormValidator('setup-form', [{
-                    name : 'photo_filename',
-                    display : 'Photo',
-                    rules : 'required'
-                }, {
                     name : 'location',
                     display : 'Hometown',
                     rules : 'required'
@@ -507,9 +512,19 @@ if (!!window.console){
                     display : 'Interests',
                     rules : 'required'
                 }], function(errors, event) {
-                    $form = $(this.form)
-                    if (errors.length > 0) {
+                        $form = $(this.form)
+                        if (errors.length > 0) {
+                            $.fancybox($requiredMessage)
+                            validForm = false
+                        } else {
+                            validForm = true
+                        }
+                    }
+                )
+                $('#setup-form').submit(function(e) {
+                    if (!validProfile || !validForm){
                         $.fancybox($requiredMessage)
+                        return false
                     }
                 })
             }
@@ -520,7 +535,7 @@ if (!!window.console){
         nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
         complete : function() {
 /*                 c('completed modernizr testing') */
-                if (!Modernizr.filereader && !$('.setup').length){
+                if (!Modernizr.filereader){
 /*                     c('filereader api is not supported. loading filereader polyfill') */
                     $('input[type=file]').fileReader({
                         id : 'fileReaderSWF',
@@ -529,13 +544,22 @@ if (!!window.console){
                         debugMode : false,
                         callback : function(){  /* c('filereader polyfill loaded on post photos')  */}
                     })
-                    $('input[type=file]').change(function(evt) {
+                    $('input[type=file]').on('change', function(evt) {
                         disabler(this)
-                        window.evt = evt
+                        if (this.name === 'photo_filename') {
+                            if (!!$preview.find('img').length) { 
+                                // CLEAR ANY IMAGES INSIDE PREVIEW
+                                oldPhoto = $preview.find('img').detach()
+                //                    c('detaching placeholder image')
+                            }
+                        }
+                        validProfile = true
                         var filelist = evt.target.files
+                        filelist[0].input = this.id
                         props['name'] = filelist[0].name
-                        props['type'] = filelist[0].type        
-                        outdatedProcessor(filelist)
+                        props['type'] = filelist[0].type
+                        props['size'] = filelist[0].size        
+                        outdatedProcessor(filelist, this)
                     })
                 }        
             }
@@ -586,6 +610,8 @@ $(document).ready(function(){
             $('#fields, #instructions').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('#profile-select').toggleClass('visuallyhidden')
+            } else {
+                $('#clear').toggleClass('visuallyhidden')
             }
             $('#next').prop('disabled', false)
         
@@ -593,6 +619,8 @@ $(document).ready(function(){
             $('#profile-form, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('#profile-select').toggleClass('visuallyhidden')
+            } else {
+                $('#clear').toggleClass('visuallyhidden')
             }
         }
         
@@ -750,6 +778,9 @@ $(document).ready(function(){
         } catch(e) {
             fileClear()
         }
+        if (!!$('#profile-select').length) {
+            $('#profile-select').toggleClass('visuallyhidden')
+        }
         $(this).detach() 
     })
     
@@ -760,16 +791,16 @@ $(document).ready(function(){
     // FORM VALIDATION
     $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
     
-
     $('.formvalidation form').submit(function(e){
         $this = $(this)
         if (this.checkValidity()) {
             $this.find('input[type=submit]').prop('disabled', 'true')
             $('.loading').addClass('begin')
         } else {
-            if (this.id='setup-form'){$.fancybox($requiredMessage)}
+            if (this.id === 'setup-form'){$.fancybox($requiredMessage)}
             return false;
         }
+
     })
     
     

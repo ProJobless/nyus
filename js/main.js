@@ -586,7 +586,7 @@ $(document).ready(function(){
             }
         }
         $disable = $('.setup').find(selector)
-        $disable.addClass('disable').attr('rel', 'ignore')
+        $disable.addClass('disable').attr({'rel':'ignore', 'href' : ''})
     }
 
             

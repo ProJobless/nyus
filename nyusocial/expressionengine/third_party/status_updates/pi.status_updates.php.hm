@@ -1,0 +1,146 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+ * Status_Updates Class
+ *
+ * @package     ExpressionEngine
+ * @category    Plugin
+ * @author      Herman Marin
+ * @copyright   Copyright (c) 2013, Herman Marin
+ * @link        http://ayuinc.com/plugins/status-update
+ */
+
+$plugin_info = array(
+  'pi_name'         => 'Status Updates',
+  'pi_version'      => '1.0',
+  'pi_author'       => 'Herman Marin',
+  'pi_author_url'   => 'http://ayuinc.com/',
+  'pi_description'  => 'Submit a new status adding Images, Videos or Audio files to it. It also has a feature to categorize the entry',
+  'pi_usage'        => Status_Updates::usage()
+);
+
+class Status_Updates
+{
+
+    public $return_data = "";
+    
+    public function __construct()
+    {
+        $this->EE =& get_instance();
+    	$author_id = $this->EE->TMPL->fetch_param('author_id');
+    	$date_of_entry = $this->EE->TMPL->fetch_param('date_of_entry');
+    	$friends_status = $this->EE->input->post('friends_status');
+    	$question = $this->EE->input->post('question');
+
+		$media_images_file = isset($_FILES['media_images']['name']);
+		$media_audio_file = isset($_FILES['media_audio']['name']);
+		$media_video_file = isset($_FILES['media_video']['name']);
+
+		$random = substr(number_format(time() * rand(),0,'',''),0,100); //Random number
+		 	
+    	//images
+    	if (($media_images_file==1) && ($media_audio_file!=1) && ($media_video_file!=1)) {	
+	    	$pic1= pathinfo($_FILES['media_images']['name'], PATHINFO_EXTENSION);
+	    	$target_image = "images/media_images/".$random.'.'.$pic1; 
+	    	$target_image_file = $random.'.'.$pic1;
+	    	move_uploaded_file($_FILES['media_images']['tmp_name'], $target_image);    	
+    	}
+    	
+    	//audio
+    	if (($media_audio_file!='') && ($media_images_file!=1) && ($media_video_file!=1)) {
+	    	$audio1= pathinfo($_FILES['media_audio']['name'], PATHINFO_EXTENSION);
+	    	$target_audio = "images/media_audio/".$random.'.'.$audio1;
+	    	$target_audio_file = $random.'.'.$audio1;
+	    	move_uploaded_file($_FILES['media_audio']['tmp_name'], $target_audio); 
+    	}
+    	
+    	//video
+    	if (($media_video_file!='') && ($media_audio_file!=1) && ($media_images_file!=1)) {
+	    	$video1= pathinfo($_FILES['media_video']['name'], PATHINFO_EXTENSION);
+	    	$target_video = "images/media_videos/".$random.'.'.$video1;
+	    	$target_video_file = $random.'.'.$video1;
+	    	move_uploaded_file($_FILES['media_video']['tmp_name'], $target_video);
+    	}
+    	
+    	
+    	//convert message in a secure string
+    	$friends_status = mysql_real_escape_string($friends_status);
+
+		$this->EE->db->query("INSERT into exp_friends_status value ('','$author_id','1','1','$friends_status','$date_of_entry','n')");
+		
+		$query = $this->EE->db->query("SELECT status_id  FROM exp_friends_status WHERE member_id='$author_id' order by status_date DESC limit 1 ");
+    	
+    	foreach ($query->result() as $row)
+    	{
+	    	$status_id = $row->status_id;
+    	}
+
+    		//open the Framework API
+			$this->EE->load->library('api');
+			$this->EE->api->instantiate('channel_entries');
+			$this->EE->api->instantiate('channel_fields');
+			
+			$data = array(
+				        'title'         => 'Status Media Elements',
+				        'entry_date'    => $date_of_entry,
+				        'edit_date'     => $date_of_entry,
+				        'field_id_4'    => $status_id,
+				        'field_id_5'    => $question
+				    );
+        			if (isset($target_image_file)) { 
+        				    $data['field_id_8'] = $target_image_file;
+				    }
+        			if (isset($target_audio_file)) {
+        			         $data['field_id_9'] = $target_audio_file;
+        			}
+        			if (isset($target_video_file)) {
+        			         $data['field_id_10'] = $target_video_file;
+        			}
+
+			
+			$this->EE->api_channel_fields->setup_entry_settings('2', $data);
+			
+			if ($this->EE->api_channel_entries->submit_new_entry('2', $data) === FALSE)
+			{
+			        show_error('An Error Occurred Creating the Entry');
+			}  
+		
+		  				
+			
+    	
+    }
+    
+
+
+    // --------------------------------------------------------------------
+
+    /**
+     * Usage
+     *
+     * This function describes how the plugin is used.
+     *
+     * @access  public
+     * @return  string
+     */
+    public static function usage()
+    {
+        ob_start();  ?>
+
+The Memberlist Plugin simply outputs a
+list of 15 members of your site.
+
+    {exp:status_updates}
+
+This is an incredibly simple Plugin.
+
+
+    <?php
+        $buffer = ob_get_contents();
+        ob_end_clean();
+
+        return $buffer;
+    }
+    // END
+}
+/* End of file pi.status_updates.php */
+/* Location: ./system/expressionengine/third_party/status_updates/pi.status_updates.php */

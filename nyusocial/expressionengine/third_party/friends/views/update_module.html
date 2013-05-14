@@ -1,0 +1,10 @@
+<form action='<?php echo $form_url;?>' method='post'>
+	<input type="hidden" name="XID" value="<?=$XID_SECURE_HASH?>" />
+	<div>
+		<input type="hidden" name="run_update" value="y" />
+	</div>
+
+	<p><strong><?php echo lang('friends_update_message'); ?></strong></p>
+	<p><input  type='submit' class='submit' value='<?php echo lang('update');?>'  /></p>
+
+</form>

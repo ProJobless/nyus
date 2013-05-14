@@ -1,0 +1,203 @@
+{embed='includes/header'}
+  
+<!-- End Header and Nav -->
+
+    <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+    <div class="page">
+        <div class="great-wall">
+        	
+          {if logged_out}
+          <article class="post">
+          	<div class="content">
+				<p><strong>Sign In</strong></p>
+				{exp:member:login_form return="/profile/index"}
+				<p>
+				<label>Username</label><br>
+				<input type="text" name="username" value="" maxlength="32" size="25">
+				</p>
+				
+				<p>
+				<label>Password</label><br>
+				<input type="password" name="password" value="" maxlength="32" size="25">
+				</p>
+				        
+				{if auto_login}
+				<p><input type="checkbox" name="auto_login" value="1"> Auto-login on future visits</p>
+				{/if}
+				
+				<p><input type="checkbox" name="anon" value="1" checked="checked"> Show my name in the online users list</p>
+				<p><input type="submit" name="submit" value="Submit"></p>
+				{/exp:member:login_form}	
+			</div>	
+        </article>
+		{if:else}
+		
+		{/if}
+
+          <!-- Great Wall Entry. A .post container contains 1 .user-img div and 1 .content div. 0 or more .comment divs may be nested within .content -->
+          
+            <article class="post">          
+	            <div class="content" style="width:100%;">
+					<h3>Submit a new Status:</h3>
+					 
+					{exp:friends:status_form return="content/index" form_name="status_form" form_id="status" }
+					    <p>
+					        {friends_screen_name}
+					        <input type="text" name="friends_status" value="is " />
+					        <input type="hidden" name="friends_status_private" id="friends_status_private" value="y" />
+					        <br>
+					        <input type="submit" name="submit" value="Add" />
+					    </p>
+					{/exp:friends:status_form}
+		            
+		            <h3>All Friends’ Statuses:</h3>
+ 
+					<ul>
+					{exp:friends:status limit="25" dynamic=“no” member_id="CURRENT_MEMBER"}
+					    {if friends_no_results}
+					    	Sorry, no results were found.
+					    {/if}
+					    <li class="{friends_switch="one|two"}">
+					        {friends_screen_name}: {friends_status}
+					        ({friends_status_date format="%F %j, %Y"})
+					    </li>
+					    
+					{/exp:friends:status}
+					</ul>
+		            
+	            </div>
+
+     
+                <div class="user-img">
+                    <img src="http://placehold.it/80x80&text=[img]" />
+                </div> <!-- .user-img -->
+                <div class="content">
+                    <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
+                    
+                    <!-- Action links can be contained in a ul.inline-list directly after the final content tag -->
+                    <ul class="inline-list">
+                        <li><a href="">Reply</a></li>
+                        <li><a href="">Share</a></li>
+                    </ul>
+                
+                    <!-- A comment is contained by a .comment div; only one comment per .comment div. 0 or more .comment divs are allowed. All .comment divs are nested within a parent .content and start with an <h6> tag. Comments have the same structure as posts: 1 .user-img div followd by 1 .content with 0 or more .comment divs to follow -->
+                    
+                    <h6>2 Comments</h6>
+                    <div class="comment">
+                        <div class="user-img">
+                            <img src="http://placehold.it/50x50&text=[img]" />
+                        </div> <!-- .user-img -->
+                        <div class="content">
+                            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p>
+                        </div> <!-- .content -->
+                    </div> <!-- .comment -->
+                    <div class="comment">
+                        <div class="user-img"> 
+                            <img src="http://placehold.it/50x50&text=[img]" />
+                        </div> <!-- .user-img -->
+                        <div class="content">
+                            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p>
+                        </div> <!-- .content -->
+                    </div> <!-- .comment -->
+                </div> <!-- parent .content -->
+            </article> <!-- .post -->
+            <!-- End Feed Entry -->
+            
+            <hr />
+            
+            <!-- Feed Entry -->
+            <article class="post">
+                <div class="user-img">
+                    <img src="http://placehold.it/80x80&text=[img]" />
+                </div>
+                <div class="content">
+                
+                    <!-- images can just go right into the .content div as the first element -->
+                    <img src="http://placehold.it/500x900&text=[img]" />
+                    <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
+                    <ul class="inline-list">
+                        <li><a href="">Reply</a></li>
+                        <li><a href="">Share</a></li>
+                    </ul>
+                </div>
+            </article>
+            <!-- End Feed Entry -->
+            
+            <hr />
+            
+            <!-- Feed Entry -->
+            <article class="post">
+                <div class="user-img">
+                    <img src="http://placehold.it/80x80&text=[img]" />
+                </div>
+                <div class="content">
+                    
+                    <!-- videos require a containing element with a system-wide unique ID in that can be targeted by jwplayer inside a div of class flex-video -->
+                    <!-- all videos need to be loaded by a call to jwplayer("div id").setup({configuration options}). Configuration options MUST include file: 'path/to/file', image: 'path/to/poster/image', and width: '100%'. -->
+                    <div class="flex-video" id="v1">
+                        Loading...
+                    </div>
+                    <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
+                    <ul class="inline-list">
+                        <li><a href="">Reply</a></li>
+                        <li><a href="">Share</a></li>
+                    </ul>
+                
+                
+                    <h6>2 Comments</h6>
+                    <div class="comment">
+                        <div class="user-img">
+                            <img src="http://placehold.it/50x50&text=[img]" />
+                        </div>
+                        <div class="content">
+                            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <!-- End Feed Entry -->
+            
+            <hr />
+            
+            <!-- Feed Entry -->
+            <article class="post">
+                <div class="user-img">
+                    <img src="http://placehold.it/80x80&text=[img]" />
+                </div>
+                <div class="content">
+                
+                    <!-- audio requires a containing element with a system-wide unique ID that can be targeted by jwplayer. unlike a video, no .flex-video class is required -->
+                    <!-- just like video, every audio piece requires a new call to jwplayer('div id').setup({configuration options}). UNLIKE VIDEO, audio MUST be set to a height of 30, along with file: 'path/to/file' and width: '100%' -->
+                    <div id="a1">
+                        Loading...
+                    </div>
+                    <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
+                    <ul class="inline-list">
+                        <li><a href="">Reply</a></li>
+                        <li><a href="">Share</a></li>
+                    </ul>
+                </div>
+            </article>
+            <!-- End Feed Entry -->
+        
+        
+        
+        </div> <!-- .great-wall -->
+        <!-- This is source ordered to be pulled to the left on larger screens -->
+        <div class="profile-container">
+	        
+	        {exp:user:stats}
+            <div class="panel">
+                {if photo_filename}
+                <img src="{photo_url}{photo_filename}">
+                {if:else}
+                <img src="http://placehold.it/300x240&text=[PROFILE]" />
+                {/if}
+                <h5><a href="#">{screen_name}</a></h5>
+            </div> <!-- Profile Picture-->
+            {/exp:user:stats}
+    
+        </div>
+    </div>
+
+{embed='includes/footer'}

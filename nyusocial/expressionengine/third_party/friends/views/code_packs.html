@@ -1,0 +1,44 @@
+<?php echo $this->view('header.html');?>
+	
+	<div class="itemWrapper">
+		
+		<div class="tableHeadingAlt"><?=$LANG->line('code_packs_explanation'); ?></div>
+<?php if ( count( $code_packs ) == 0 ) : ?>
+		<div class="mainTable padTable">
+			<div class="odd">
+				<?=$LANG->line('no_code_packs'); ?>
+			</div>
+		</div>
+<?php else: ?>
+		<form method="post" action="<?php echo $this->output($base_uri.'&method=code_pack_install');?>">
+		<table class="mainTable padTable" style="width:100%;" cellspacing="0" cellpadding="0" border="0">
+			<tr>
+				<td class="odd" style="width:10%;"><?=$LANG->line('prefix'); ?></td>
+				<td class="odd" style="width:20%;">
+					<input name="prefix" />
+				</td>
+				<td class="odd"><?=$LANG->line('prefix_exp'); ?></td>
+			</tr>
+<?php foreach ( $code_packs as $key => $val ) : ?>
+<?php $switch = $this->cycle('even', 'odd'); ?>
+			<tr>
+				<td class="<?=$switch; ?>">
+					<input type="radio" name="pack_name" value="<?=$key; ?>" id="<?=$key; ?>" /> <label for="<?=$key; ?>"><?=$val['name']; ?></label>
+				</td>
+				<td class="<?=$switch; ?>">
+<?php if ( ! empty( $val['img_url'] ) ) : ?>
+					<img src="<?=$val['img_url']; ?>" alt="<?=$val['name'] ?>" border="0" style="width:200px;height:auto;" />
+<?php endif; ?>
+				</td>
+				<td class="<?=$switch; ?>">
+					<?=$val['description']; ?>
+				</td>
+			</tr>
+<?php endforeach; ?>
+		</table>
+		<input type="submit" value="<?=$LANG->line('submit'); ?>" />
+		</form>
+<?php endif; ?>
+	</div>
+	
+<?php echo $this->view('footer.html'); ?>

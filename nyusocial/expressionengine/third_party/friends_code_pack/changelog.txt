@@ -1,0 +1,9 @@
+Solspace - Friends Code Pack - Change Log
+
+1.1.0 (October 21, 2010)
+ - Updated code pack for compatibility with EE 2.x.
+ - Revised code pack to include usage of new Comment Wall features.
+ - Fixed several template code errors.
+
+1.0.0 (December 29, 2009)
+ - Initial release.

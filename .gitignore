@@ -1,5 +1,5 @@
 # Main Site File
-# Commented out SSO redirect for local machines
+# Commented out SSO redirect for local machines and staging site
 templates/default_site/content.group/index.html
 
 # System Files
@@ -35,3 +35,5 @@ pma/
 # index.php
 uploads/
 # images/
+nyusocial/expressionengine/config/config.php
+nyusocial/expressionengine/config/database.php

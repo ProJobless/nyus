@@ -28,11 +28,10 @@ _thumbs/
 codekit-config.json
 
 # EE Files 
-nyusocial/
+# nyusocial/
 pma/
-themes/
-assets/
-cms.php
-index.php
+# themes/
+# cms.php
+# index.php
 uploads/
 # images/

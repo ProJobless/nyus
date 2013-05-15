@@ -1672,6 +1672,7 @@ b.disabled {
                             
                             .attach-media {
                                 color: $medium-gray;
+                                &:before { opacity: 0.2; }
                             }
                             
                         }

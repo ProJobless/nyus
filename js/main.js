@@ -175,6 +175,8 @@ if (!!window.console){
 }
 $(document).ready(function(){
 //(function(){
+    $('.loading').addClass('begin')
+    
     var canvas = document.createElement('canvas')
     var form = document.getElementById('form') || document.getElementById('setup-form')
     
@@ -189,6 +191,8 @@ $(document).ready(function(){
     var props = {}
     var validProfile = false
     var validForm = true
+    var fileReaderFlag = false
+    var validatorFlag = false
     
 //    var image = new Image()
     var TO_RADIANS = Math.PI/180
@@ -198,6 +202,128 @@ $(document).ready(function(){
     window.URL = window.URL || window.webkitURL
     
     $modernPhotoInput = $('.filereader .photo-input')
+    
+    
+    
+    Modernizr.load([{
+ 
+        test : Modernizr.formvalidation,
+        nope : root+'/js/vendor/validate.min.js',
+        complete : function(){
+            if (!Modernizr.formvalidation){
+                validator = new FormValidator('new-post', [{
+                    name : 'friends_status',
+                    display : 'Post',
+                    rules : 'required'
+                }], function(errors, event){
+                    $form = $(this.form)
+                    if (errors.length === 0) {
+                        $form.find('input[type=submit]').prop('disabled', 'true')
+                        $clearButton.detach()
+                        $('.loading').addClass('begin')
+                    } else {
+                        if (!$('.required').length) {
+                            $form.prepend('<div class="required" />')
+                            $('.required').html('Please include a message and try submitting again.');
+                        }
+                    }
+                })
+                setupValidator = new FormValidator('setup-form', [{
+                    name : 'location',
+                    display : 'Hometown',
+                    rules : 'required'
+                }, {
+                    name : 'occupation',
+                    display : 'Current City',
+                    rules : 'required'
+                }, {
+                    name  : 'interests',
+                    display : 'Interests',
+                    rules : 'required'
+                }], function(errors, event) {
+                        $form = $(this.form)
+                        if (errors.length > 0) {
+                            $.fancybox($requiredMessage)
+                            validForm = false
+                        } else {
+                            validForm = true
+                        }
+                    }
+                )
+                $('#setup-form').submit(function(e) {
+                    if (!validProfile || !validForm){
+                        $.fancybox($requiredMessage)
+                        return false
+                    }
+                })
+                // enable post button
+                $('.post-form #submit').prop('disabled', false)
+            } else {
+                // enable post button
+                $('.post-form #submit').prop('disabled', false)
+            }
+            validatorFlag = true
+            if (validatorFlag && fileReaderFlag) {
+                // get rid of loading animation
+                $('.loading').removeClass('begin')
+            }
+        }
+    }, { 
+        test : Modernizr.filereader,
+        nope : [root+'/js/vendor/jquery-ui/jquery-ui-position.js', root+'/js/vendor/filereader/jquery.FileReader.js', root+'/js/vendor/swfobject/swfobject.js' ],
+        complete : function() {
+/*                 c('completed modernizr testing') */
+                if (!Modernizr.filereader){
+/*                     c('filereader api is not supported. loading filereader polyfill') */
+                    $('input[type=file]').fileReader({
+                        id : 'fileReaderSWF',
+                        filereader : root+'/js/vendor/filereader/filereader.swf',
+                        expressInstall : root+'/js/vendor/swfobject/expressInstall.swf',
+                        debugMode : false,
+                        callback : function(){  
+                             // enable upload buttons
+                            var $inputs = $('input[type=file]')
+                            $inputs.prop('disabled', false)
+                            $inputs.parent().removeClass('disabled')
+                            fileReaderFlag = true
+                            if (validatorFlag && fileReaderFlag) {
+                                // get rid of loading animation
+                                $('.loading').removeClass('begin')
+                            }
+                        }
+                    })
+                    $('input[type=file]').on('change', function(evt) {
+                        disabler(this)
+                        if (this.name === 'photo_filename') {
+                            if (!!$preview.find('img').length) { 
+                                // CLEAR ANY IMAGES INSIDE PREVIEW
+                                oldPhoto = $preview.find('img').detach()
+                //                    c('detaching placeholder image')
+                            }
+                        }
+//                        validProfile = true
+                        var filelist = evt.target.files
+                        filelist[0].input = this.id
+                        props['name'] = filelist[0].name
+                        props['type'] = filelist[0].type
+                        props['size'] = filelist[0].size        
+                        outdatedProcessor(filelist, this)
+                    })
+                } else {
+                    fileReaderFlag = true
+                     // enable upload buttons
+                    var $inputs = $('input[type=file]')
+                    $inputs.prop('disabled', false)
+                    $inputs.parent().removeClass('disabled')
+                    if (validatorFlag && fileReaderFlag) {
+                        // get rid of loading animation
+                        $('.loading').removeClass('begin')
+                    }
+                }
+                 
+            }
+        }
+    ])
 
     $modernPhotoInput.change(function(e){
 
@@ -219,9 +345,11 @@ $(document).ready(function(){
     
     outdatedProcessor = function(filelist, self) {
 //            c('calling procesFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api')
+        $('.loading').addClass('begin')
         var file = filelist[0]
         var reader = new FileReader()
         if (!sizeCheck(file)){
+            $('.loading').removeClass('begin')
             return false
         } else {
             $sizeEl.text(size).prependTo('.specs')
@@ -242,6 +370,7 @@ $(document).ready(function(){
             }
             reader.onloadend = function(){
                 prepInputs(file, self)
+                $('.loading').removeClass('begin')
             }
         } else {
             reader.onload = function(event) {
@@ -250,6 +379,7 @@ $(document).ready(function(){
             }
             reader.onloadend = function(){
                 prepInputs(file, self)
+                $('.loading').removeClass('begin')
             }
         }
     /*     console.log('loading filereader with file object') */
@@ -258,9 +388,11 @@ $(document).ready(function(){
 
     modernProcessor = function(filelist){
 /*         c('calling processFile() on filelist object. unknown if passed via filereader polyfill or html 5 file api') */
+        $('.loading').addClass('begin')
         var file = filelist[0]
         var reader = new FileReader()
         if (!sizeCheck(file)){
+            $('.loading').removeClass('begin')
             return false
         } else {
             $sizeEl.text(size).prependTo('.specs')
@@ -289,6 +421,9 @@ $(document).ready(function(){
 //            reader.onloadend = function(){
 //                prepInputs(file)
 //            }
+        }
+        reader.onloadend = function() {
+            $('.loading').removeClass('begin')
         }
     /*     console.log('loading filereader with file object') */
         reader.readAsDataURL(file)
@@ -473,95 +608,6 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
         return oldInputs
     
     }
-        
-    Modernizr.load([{
- 
-        test : Modernizr.formvalidation,
-        nope : root+'/js/vendor/validate.min.js',
-        complete : function(){
-            if (!Modernizr.formvalidation){
-                validator = new FormValidator('new-post', [{
-                    name : 'friends_status',
-                    display : 'Post',
-                    rules : 'required'
-                }], function(errors, event){
-                    $form = $(this.form)
-                    if (errors.length === 0) {
-                        $form.find('input[type=submit]').prop('disabled', 'true')
-                        $('.loading').addClass('begin')
-                    } else {
-                        if (!$('.required').length) {
-                            $form.prepend('<div class="required" />')
-                            $('.required').html('Please include a message and try submitting again.');
-                        }
-                    }
-                })
-                setupValidator = new FormValidator('setup-form', [{
-                    name : 'location',
-                    display : 'Hometown',
-                    rules : 'required'
-                }, {
-                    name : 'occupation',
-                    display : 'Current City',
-                    rules : 'required'
-                }, {
-                    name  : 'interests',
-                    display : 'Interests',
-                    rules : 'required'
-                }], function(errors, event) {
-                        $form = $(this.form)
-                        if (errors.length > 0) {
-                            $.fancybox($requiredMessage)
-                            validForm = false
-                        } else {
-                            validForm = true
-                        }
-                    }
-                )
-                $('#setup-form').submit(function(e) {
-                    if (!validProfile || !validForm){
-                        $.fancybox($requiredMessage)
-                        return false
-                    }
-                })
-            }
-        }
-    },
-    { 
-        test : Modernizr.filereader,
-        nope : [root+'/js/vendor/jquery-ui/jquery-ui-position.js', root+'/js/vendor/filereader/jquery.FileReader.js', root+'/js/vendor/swfobject/swfobject.js' ],
-        complete : function() {
-/*                 c('completed modernizr testing') */
-                if (!Modernizr.filereader){
-/*                     c('filereader api is not supported. loading filereader polyfill') */
-                    $('input[type=file]').fileReader({
-                        id : 'fileReaderSWF',
-                        filereader : root+'/js/vendor/filereader/filereader.swf',
-                        expressInstall : root+'/js/vendor/swfobject/expressInstall.swf',
-                        debugMode : false,
-                        callback : function(){  /* c('filereader polyfill loaded on post photos')  */}
-                    })
-                    $('input[type=file]').on('change', function(evt) {
-                        disabler(this)
-                        if (this.name === 'photo_filename') {
-                            if (!!$preview.find('img').length) { 
-                                // CLEAR ANY IMAGES INSIDE PREVIEW
-                                oldPhoto = $preview.find('img').detach()
-                //                    c('detaching placeholder image')
-                            }
-                        }
-//                        validProfile = true
-                        var filelist = evt.target.files
-                        filelist[0].input = this.id
-                        props['name'] = filelist[0].name
-                        props['type'] = filelist[0].type
-                        props['size'] = filelist[0].size        
-                        outdatedProcessor(filelist, this)
-                    })
-                }        
-            }
-        }
-    ])
 
 //}())
     
@@ -799,7 +845,8 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
     $('.formvalidation form').submit(function(e){
         $this = $(this)
         if (this.checkValidity()) {
-            $this.find('input[type=submit]').prop('disabled', 'true')
+            $this.find('input[type=submit]').prop('disabled', true)
+            $clearButton.detach()
             $('.loading').addClass('begin')
         } else {
             if (this.id === 'setup-form'){$.fancybox($requiredMessage)}

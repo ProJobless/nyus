@@ -168,16 +168,13 @@ function infiniteScroll() {
 }
 
 // ***********************************************************************************************************************//
-// IMAGE RESIZING IN BROWSER USING HTML5 CANVAS
-// SEE MORE HERE: http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas
 
-// this is where it starts. event triggered when user selects files
 if (!!window.console){
     function c(a) { console.log(a) }
     function d(a) { console.dir(a) }
 }
-
-(function(){
+$(document).ready(function(){
+//(function(){
     var canvas = document.createElement('canvas')
     var form = document.getElementById('form') || document.getElementById('setup-form')
     
@@ -480,7 +477,7 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
     Modernizr.load([{
  
         test : Modernizr.formvalidation,
-        nope : '/introductions/js/vendor/validate.min.js',
+        nope : root+'/js/vendor/validate.min.js',
         complete : function(){
             if (!Modernizr.formvalidation){
                 validator = new FormValidator('new-post', [{
@@ -532,15 +529,15 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
     },
     { 
         test : Modernizr.filereader,
-        nope : ['/introductions/js/vendor/jquery-ui/jquery-ui-position.js', '/introductions/js/vendor/filereader/jquery.FileReader.js', '/introductions/js/vendor/swfobject/swfobject.js' ],
+        nope : [root+'/js/vendor/jquery-ui/jquery-ui-position.js', root+'/js/vendor/filereader/jquery.FileReader.js', root+'/js/vendor/swfobject/swfobject.js' ],
         complete : function() {
 /*                 c('completed modernizr testing') */
                 if (!Modernizr.filereader){
 /*                     c('filereader api is not supported. loading filereader polyfill') */
                     $('input[type=file]').fileReader({
                         id : 'fileReaderSWF',
-                        filereader : '/introductions/js/vendor/filereader/filereader.swf',
-                        expressInstall : '/introductions/js/vendor/swfobject/expressInstall.swf',
+                        filereader : root+'/js/vendor/filereader/filereader.swf',
+                        expressInstall : root+'/js/vendor/swfobject/expressInstall.swf',
                         debugMode : false,
                         callback : function(){  /* c('filereader polyfill loaded on post photos')  */}
                     })
@@ -553,7 +550,7 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
                 //                    c('detaching placeholder image')
                             }
                         }
-                        validProfile = true
+//                        validProfile = true
                         var filelist = evt.target.files
                         filelist[0].input = this.id
                         props['name'] = filelist[0].name
@@ -566,11 +563,11 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
         }
     ])
 
-}())
+//}())
     
 
 
-$(document).ready(function(){   
+//$(document).ready(function(){   
         
     // ***********************************************************************************************************************//
     // PROFILE SETUP PROCESS
@@ -588,17 +585,25 @@ $(document).ready(function(){
         $disable = $('.setup').find(selector)
         $disable.addClass('disable').attr({'rel':'ignore', 'href' : ''})
     }
-
+    
+    if (!Modernizr.formvalidation) {
+        $('#profile-input').on('change', function(){
+            validProfile = true  
+        })
+    }
+    
             
-            // Fancybox blocks the first click on modals, so we have to manually handle the first event.
-            $('body').one('click', '#terms-content', function(){ 
-                window.open(this.href, '_blank') 
-            })
+    // Fancybox blocks the first click on modals, so we have to manually handle the first event.
+    $('body').one('click', '#terms-content', function(){ 
+        window.open(this.href, '_blank') 
+    })
 
     
     $('#back-to-one').click(function(){
         window.location = 'https://shanghai.nyu.edu/introductions/setup/step-one'
     })
+    
+    
     
     // ***********************************************************************************************************************//
     // EDIT PROFILE FORM

@@ -17,6 +17,13 @@
         <link rel="icon" type="image/ico" href="{site_url}favicon.ico">
         
         <link type="text/css" rel="stylesheet" href="{site_url}css/master.css">
+        <script type="text/javascript">
+            if (document.URL.match(/stage.shanghai.nyu.edu/)) { 
+                var root = "/dev" 
+            } else if (document.URL.match(/localhost/)) {
+                var root = "/shanghai/dev"
+            } else { var root = "/introductions" }
+        </script>
         <script src="{site_url}js/vendor/custom.modernizr.js"></script>
         
     </head>

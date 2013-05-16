@@ -13,7 +13,7 @@
 	WHERE 
 	site_id ='1' AND 
 	member_id='{segment_3}' 
-	ORDER BY status_date DESC
+	ORDER BY update_date DESC
 	"}
 
 {exp:user:stats member_id="{segment_3}" dynamic='off'}
@@ -98,7 +98,7 @@
 	WHERE 
 	site_id ='1' AND 
 	member_id='{segment_2}' 
-	ORDER BY status_date DESC
+	ORDER BY update_date DESC
 	"}
 
 {exp:user:stats member_id="{segment_2}" dynamic='off'}

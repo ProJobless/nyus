@@ -164,7 +164,7 @@ class Status_Updates
     	//convert message in a secure string
     	$friends_status = mysql_real_escape_string($friends_status);
 
-		$this->EE->db->query("INSERT into exp_friends_status value ('','$author_id','1','1','$friends_status','$date_of_entry','n','$date_of_entry')");
+		$this->EE->db->query("INSERT into exp_friends_status value ('','$author_id','1','1','$friends_status','$date_of_entry','n','$date_of_entry','')");
 		
 		$query = $this->EE->db->query("SELECT status_id  FROM exp_friends_status WHERE member_id='$author_id' order by status_date DESC limit 1 ");
     	

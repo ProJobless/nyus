@@ -30,9 +30,17 @@ class Status_Action_Updates
     	$id_member = $this->EE->input->post('id_member');
     	$action_id = $this->EE->input->post('action_id');
     	$date_of_entry = $this->EE->TMPL->fetch_param('date_of_entry');
+    	
+    	
+    	$query = $this->EE->db->query("SELECT status_id  FROM exp_friends_status WHERE member_id='$id_member' order by status_id DESC limit 1 ");
+    	
+    	foreach ($query->result() as $row)
+    	{
+	    	$status_id = $row->status_id;
+    	}
 
     	if ($action_id!='') { 
-	    	$this->return_data = "Si hay valor".$id_member;
+	    	//$this->return_data = "Si hay valor".$id_member;
 	    	
 	    	//open the Framework API
 			$this->EE->load->library('api');
@@ -44,7 +52,8 @@ class Status_Action_Updates
 				        'entry_date'    => $date_of_entry,
 				        'edit_date'     => $date_of_entry,
 				        'field_id_15'    => $action_id,
-				        'field_id_16'    => $id_member
+				        'field_id_16'    => $id_member,
+				        'field_id_23'    => $status_id 
 				);
 			
 			$this->EE->api_channel_fields->setup_entry_settings('4', $data);

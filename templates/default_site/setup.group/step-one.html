@@ -3,7 +3,7 @@
     <section class="profile-setup">
         {setup_directions}
         {exp:user:edit override_return='setup/to-do/2' return="setup/to-do/2" password_required='n' form:class="step-one clearfix" form:id="setup-form" form:name="setup-form"}
-        <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
+        <b><input class="approve" name="next" id="next" type="submit" value="Next" ></b>
         <div class="profile-header clearfix">
             <!-- takes up the left column on larger screens, stacks on smaller screens -->
             <div class="user-img" id="preview">
@@ -14,8 +14,9 @@
                 <div class="name">
                     <h4>{screen_name}</h4>
                 </div> <!-- .name -->
+                <input accept="image/*" class="photo-input" id="profile-input" name="photo_filename" required type="file">
                 <div class="profile-select-wrapper">
-                    <input accept="image/*" class="photo-input visuallyhidden" id="profile-input" name="photo_filename" required type="file">
+                    
                     <a href="#" class="edit-photo visuallyhidden" id="profile-select"><span class="visuallyhidden">Edit Your Profile Photo</span></a>           
                 </div> <!-- .profile-select-wrapper -->
             </div> <!-- .profile-right -->

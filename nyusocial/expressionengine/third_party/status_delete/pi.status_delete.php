@@ -28,10 +28,21 @@ class Status_Delete
     {
         $this->EE =& get_instance();
         $status_id = $this->EE->TMPL->fetch_param('status_id');
+        $member_id = $this->EE->TMPL->fetch_param('member_id');
         
-        $this->return_data = $status_id;
         
-        $query = $this->EE->db->query("UPDATE exp_friends_status SET visible='1' where status_id='$status_id'");
+        
+        $this->EE->db->query("UPDATE exp_friends_status SET visible='1' where status_id='$status_id'");
+        
+        $query = $this->EE->db->query("SELECT * FROM exp_channel_data WHERE field_id_23='$status_id' AND field_id_16='$member_id' limit 1 ");
+    	
+    	foreach ($query->result() as $row)
+    	{
+	    	$entry_id = $row->entry_id;
+	    	//$this->return_data = $row->entry_id;
+	    	$this->EE->db->query("DELETE from exp_channel_data where entry_id='$entry_id'");
+	    	$this->EE->db->query("DELETE from exp_channel_titles where entry_id='$entry_id'");
+    	}
     
     }
     

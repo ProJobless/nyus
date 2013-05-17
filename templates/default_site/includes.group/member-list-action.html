@@ -12,7 +12,8 @@
 		exp_friends_status
 		WHERE
 		exp_members.member_id=exp_channel_data.field_id_16 AND
-		exp_channel_data.field_id_15 = '{embed:action_id}'
+		exp_channel_data.field_id_15 = '{embed:action_id}' AND
+		exp_friends_status.visible='0'
 	"}            
 	<div class="action">
 	    <div class="user-img">
@@ -43,7 +44,7 @@
 		exp_channel_data
 		WHERE
 		exp_members.member_id=exp_channel_data.field_id_16 AND
-		exp_channel_data.field_id_15 = '{segment_2}'
+		exp_channel_data.field_id_15 = '{segment_2}' 
 	"}            
 	            
 	<div class="action">

@@ -31,15 +31,15 @@ ORDER BY update_date DESC "}
         <div class="details info">
             <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
             <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
+				            {if logged_in_member_id==member_id}
+				            <a href="{path=delete}/{status_id}/{member_id}" class="delete">X</a>
+				            {/if}
         </div> <!-- .info -->
         {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}
         {if question}
         <div class="question"></div>
         {/if}
         {/exp:channel:entries} 
-        {if logged_in_member_id==member_id}
-        <a href="{path=delete}/{status_id}" class="delete" title="Delete Post">x</a>
-        {/if}
     </div><!-- .author -->
             
     <div class="status post-content">

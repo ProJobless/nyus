@@ -8,12 +8,12 @@
 		exp_channel_data.field_id_23 as id_status_action
 		FROM 
 		exp_members, 
-		exp_channel_data
+		exp_channel_data,
+		exp_friends_status
 		WHERE
 		exp_members.member_id=exp_channel_data.field_id_16 AND
 		exp_channel_data.field_id_15 = '{embed:action_id}'
 	"}            
-	            
 	<div class="action">
 	    <div class="user-img">
 	        <a href="{path='profile'}/{member_id}">

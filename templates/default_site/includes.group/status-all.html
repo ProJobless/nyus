@@ -30,9 +30,6 @@
 				            </a>
 				        </div> <!-- .photo -->
 				        <div class="details info">
-				            {if logged_in_member_id==member_id}
-				            <a href="{path=delete}/{status_id}" class="delete" title="Delete Post">x</a>
-				            {/if}
 				            <h4><a href="{path='profile'}/{member_id}">{screen_name}</a></h4>
 				            <span>{status_date format="%F %j, %Y at %h:%i %a"}<br>from {occupation}</span>
 				        </div> <!-- .info -->
@@ -40,6 +37,9 @@
 				        {if question}
 				        <div class="question"></div>
 				        {/if}
+				        {if logged_in_member_id==member_id}
+			            <a href="{path=delete}/{status_id}" class="delete" title="Delete Post">x</a>
+			            {/if}
 				        {/exp:channel:entries} 
 				    </div><!-- .author -->
 				    

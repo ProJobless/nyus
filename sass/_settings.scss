@@ -463,8 +463,12 @@ input:not([type='file'])[disabled] {
 
 .delete {
     opacity: 0;
-    background: none;
+    position: absolute;
+    top: 0.5em;
+    right: 0;
+    background: transparent;
     background-image: none;
+    background-size: 100%;
     border: 1px solid transparent;
     display: block;
     color: rgb(102, 102, 102);

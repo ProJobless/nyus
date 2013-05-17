@@ -885,8 +885,12 @@ input:not([type='file'])[disabled] {
 
 .delete {
   opacity: 0;
-  background: none;
+  position: absolute;
+  top: 0.5em;
+  right: 0;
+  background: transparent;
   background-image: none;
+  background-size: 100%;
   border: 1px solid transparent;
   display: block;
   color: #666666;
@@ -4172,6 +4176,9 @@ body {
 .post .delete, .action-post .delete {
   float: right;
   margin-right: 0.5em;
+}
+.post .question ~ .delete, .action-post .question ~ .delete {
+  margin-right: 5em;
 }
 .post:hover .delete, .action-post:hover .delete {
   opacity: 1;

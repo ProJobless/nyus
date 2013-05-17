@@ -949,6 +949,10 @@ body {
         margin-right: 0.5em;
     }
     
+    .question ~ .delete {
+        margin-right: 5em;
+    }
+    
     &:hover .delete {
         opacity: 1;
         

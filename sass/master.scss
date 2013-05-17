@@ -935,10 +935,6 @@ body {
     @extend .great-wall;
 }
 
-.delete {
-    display: none;
-}
-
 .post {
 /*     @include grid-row(nest); */
     @include panel($padding:.5em 0 0 0);
@@ -948,8 +944,17 @@ body {
     position: relative;
     clear: both;
     
+    .delete {
+        float: right;
+        margin-right: 0.5em;
+    }
+    
     &:hover .delete {
-        display: block;
+        opacity: 1;
+        
+        &:hover {
+//            font-weight: bold;
+        }
     }
     
     .post-header {

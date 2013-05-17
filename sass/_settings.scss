@@ -461,6 +461,25 @@ input:not([type='file'])[disabled] {
     @extend .great-wall;
 }
 
+.delete {
+    opacity: 0;
+    background: none;
+    background-image: none;
+    border: 1px solid transparent;
+    display: block;
+    color: rgb(102, 102, 102);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    @include adjust-leading-to(1);
+    @include transition-property(opacity,background, background-image, border);
+    @include transition-duration(0.25s);
+}
+
+.delete:hover {
+    @include small-gray-square;
+}
+
 // ***********************************************************************************************************************//
 // MEDIA QUERIES
 

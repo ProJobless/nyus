@@ -127,7 +127,7 @@
                         
                         <div class="second ribbon"> 
                         
-                        	<!--COunter variables setup-->  
+                        	<!--Counter variables setup-->  
                             <?php $counter_action=0; ?> 
                             <?php $counter_not_take_action=0; ?>
                             
@@ -152,8 +152,8 @@
 							<?php $counter_not_take_action; ?>
 							
 							<!--generates the final count-->
-							<?php if ($counter_action > 1) { ?>
-							<?php $counter_action=$counter_action-$counter_not_take_action; ?> 
+							<?php if ($counter_action >= 1) { ?>
+							<?php $counter_action=$counter_action-$counter_not_take_action; ?>
 							<?php } ?>
 							
 							<?php if ($counter_action > 0) { ?>

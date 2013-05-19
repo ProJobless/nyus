@@ -232,6 +232,10 @@ $sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
     height: 100%;
 }
 
+.overflow {
+    display: none;
+}
+
 // ***********************************************************************************************************************//
 // GLOBAL CLASSES
 

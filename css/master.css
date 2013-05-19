@@ -433,6 +433,10 @@ table {
   color: #909090 !important;
 }
 
+.overflow {
+  display: none;
+}
+
 .white-stripes {
   background: url(../img/pinstripes-white.png);
   float: left;
@@ -4143,7 +4147,6 @@ body {
 }
 
 .post, .action-post {
-  /*     @include grid-row(nest); */
   border-style: solid;
   border-width: 1px;
   border-color: #d9d9d9;
@@ -4314,7 +4317,61 @@ body {
 }
 
 .comments {
+  border: 1px solid #cccccc;
+  border-top: none;
+  border: none;
   border-top: 1px solid #dedede;
+  margin-bottom: 0;
+}
+.comments > section {
+  position: relative;
+}
+.comments > section > .controls {
+  background-color: #efefef;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.comments > section > .controls a {
+  padding: 0.9375em;
+  display: inline-block;
+  color: #333333;
+  font-size: 0.875em;
+  white-space: nowrap;
+}
+.comments > section > .controls:hover {
+  background-color: #e2e2e2;
+}
+.comments > section .comment-feed, .comments > section .action-post .action-feed, .action-post .comments > section .action-feed {
+  display: none;
+  padding: 0.25em 0.25em 0;
+  background-color: white;
+}
+.comments > section .comment-feed > *:last-child, .comments > section .action-post .action-feed > *:last-child, .action-post .comments > section .action-feed > *:last-child {
+  margin-bottom: 0;
+}
+.comments > section .comment-feed > *:first-child, .comments > section .action-post .action-feed > *:first-child, .action-post .comments > section .action-feed > *:first-child {
+  padding-top: 0;
+}
+.comments > section .comment-feed > *:last-child, .comments > section .action-post .action-feed > *:last-child, .action-post .comments > section .action-feed > *:last-child {
+  padding-bottom: 0;
+}
+.comments > section.active > .comment-feed, .action-post .comments > section.active > .action-feed {
+  display: block;
+}
+.comments > section.active > .controls {
+  background: #d5d5d5;
+}
+.comments > section.active > .controls a {
+  color: #333333;
+}
+.comments > section > .controls {
+  top: 0;
+  width: 100%;
+  margin: 0;
+  border-top: solid 1px #cccccc;
+}
+.comments > section > .controls a {
+  width: 100%;
 }
 .comments .controls {
   padding: 0.5em 0;
@@ -4398,7 +4455,7 @@ body {
   max-width: 62.5em;
   *zoom: 1;
   background: #dedede;
-  padding: 0.5em;
+  padding: 0.5em !important;
   margin-bottom: .25em;
 }
 .comment:before, .new-comment:before, .action-post .action:before, .student-list .student:before, .comment:after, .new-comment:after, .action-post .action:after, .student-list .student:after {
@@ -4445,6 +4502,33 @@ body {
   display: inline;
   padding: 0;
   color: #60128f;
+}
+
+.recent-three {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d9d9d9;
+  margin-bottom: 1.25em;
+  padding: 0.25em;
+  background: #f2f2f2;
+  border: none;
+  background: white;
+}
+.recent-three h1, .recent-three h2, .recent-three h3, .recent-three h4, .recent-three h5, .recent-three h6, .recent-three p {
+  color: #333333;
+}
+.recent-three > :first-child {
+  margin-top: 0;
+}
+.recent-three > :last-child {
+  margin-bottom: 0;
+}
+.recent-three h1, .recent-three h2, .recent-three h3, .recent-three h4, .recent-three h5, .recent-three h6 {
+  line-height: 1;
+  margin-bottom: 0.625em;
+}
+.recent-three h1.subheader, .recent-three h2.subheader, .recent-three h3.subheader, .recent-three h4.subheader, .recent-three h5.subheader, .recent-three h6.subheader {
+  line-height: 1.4;
 }
 
 .new-comment .user-img {
@@ -5184,39 +5268,12 @@ b.disabled {
     margin-top: 6em;
     font-size: 1.125em;
     line-height: 1.33333em;
-    /*
-            position: relative;
-            padding-top: 0;
-    */
   }
 
-    /*
-.nav .close-btn {
-        border: 0;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-*/
   .nav ul {
     list-style: none;
-    /*
-            text-align: center;
-            white-space: nowrap;
-            @include block-grid(5, $base-style: false);
-    */
   }
 
-  /*
-      .profile-container { // contains the profile on the great wall
-          @include grid-column(2.75, $pull: 9);
-          margin-top: 1em;
-      }
-  */
   .great-wall, .page-block, .action-wall, .step-two,
   .step-three,
   .student-list {

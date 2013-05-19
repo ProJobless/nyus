@@ -218,9 +218,13 @@ $(document).ready(function(){
                 }], function(errors, event){
                     $form = $(this.form)
                     if (errors.length === 0) {
-                        $form.find('input[type=submit]').prop('disabled', 'true')
+                        $form.find('input[type=submit]').prop('disabled', true)
                         $clearButton.detach()
                         $('.loading').addClass('begin')
+                        $form.submit(function(){
+                            return false
+                        })
+                        return true
                     } else {
                         if (!$('.required').length) {
                             $form.prepend('<div class="required" />')
@@ -572,26 +576,11 @@ $(document).ready(function(){
     // FALLBACK TO DEFAULT INPUT FOR OLDER BROWSERS
     $unsupported = $('.no-filereader input[type=file]')
     $unsupported.removeClass('visuallyhidden')
-    $unsupported.change(function(e){
-//        disabler(this)
-//        var fileName = $(this).val().split('/').pop().split('\\').pop();
-//        $nameEl.text('File: ' + fileName + ' -- ').prependTo('.specs')
-    })
     
     prepInputs = function(file, self) {    
         oldInputs = []
         var name = self.name
 //        c('setting up inputs')
-        /*
-for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i++){
-            if (file.type.match(types[i])) {
-                phpName = types[i]
-                break
-            }
-        }
-*/
-        
-//        c('array name is: ' + name)
         
 //        c('looping through')
         for (prop in props) {
@@ -608,12 +597,7 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
         return oldInputs
     
     }
-
-//}())
-    
-
-
-//$(document).ready(function(){   
+     
         
     // ***********************************************************************************************************************//
     // PROFILE SETUP PROCESS
@@ -803,6 +787,15 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
         $(this).find('input[name=comment_date]').val(t.getTime())
     })
     
+    // LENGTHY COMMENT SWAPPERS
+    $('.see-more').click(function(e){ 
+        var $this = $(this)
+        var fullText = $this.next('.overflow').text()
+        $this.parent().text(fullText)
+        e.stopPropagation()
+        e.preventDefault()
+    })
+    
     //**********************************************************************************************************************//    
     // FILE INPUTS
     
@@ -842,12 +835,16 @@ for (var types = ['audio','image','video'], i = 0, phpName; i < types.length; i+
     // FORM VALIDATION
     $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
     
-    $('.formvalidation form').submit(function(e){
+    $('.formvalidation').on('submit', 'form', function(e){
         $this = $(this)
         if (this.checkValidity()) {
             $this.find('input[type=submit]').prop('disabled', true)
             $clearButton.detach()
             $('.loading').addClass('begin')
+            $this.submit(function(){
+                return false
+            })
+            return true
         } else {
             if (this.id === 'setup-form'){$.fancybox($requiredMessage)}
             return false;

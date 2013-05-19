@@ -53,7 +53,9 @@
 -->
         <script type="text/javascript" src="{site_url}js/plugins.min.js"></script>        
         <script>
-            $(document).foundation()
+            $(function(){
+                $(document).foundation('forms dropdown cookie').foundation('section',{one_up : false})
+            })
         </script>        
         <script type="text/javascript" src="{site_url}js/main.js?<?php echo time(); ?>"></script>
         

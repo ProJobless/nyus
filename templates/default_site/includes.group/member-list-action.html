@@ -4,15 +4,17 @@
 		SELECT DISTINCT
 		exp_members.screen_name,
 		exp_members.photo_filename,
-		exp_members.member_id
+		exp_members.member_id,
+		exp_channel_data.field_id_23 as id_status_action
 		FROM 
 		exp_members, 
-		exp_channel_data
+		exp_channel_data,
+		exp_friends_status
 		WHERE
 		exp_members.member_id=exp_channel_data.field_id_16 AND
-		exp_channel_data.field_id_15 = '{embed:action_id}'
+		exp_channel_data.field_id_15 = '{embed:action_id}' AND
+		exp_friends_status.visible='0'
 	"}            
-	            
 	<div class="action">
 	    <div class="user-img">
 	        <a href="{path='profile'}/{member_id}">
@@ -22,6 +24,7 @@
 	    <div class="action-text">
 	        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
 	    </div>
+	    {embed="includes/action-list-post" status_id="{id_status_action}" member_id="{member_id}"}
 	</div> <!-- .student -->
 	
 	{/exp:query}
@@ -41,7 +44,7 @@
 		exp_channel_data
 		WHERE
 		exp_members.member_id=exp_channel_data.field_id_16 AND
-		exp_channel_data.field_id_15 = '{segment_2}'
+		exp_channel_data.field_id_15 = '{segment_2}' 
 	"}            
 	            
 	<div class="action">

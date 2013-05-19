@@ -30,7 +30,7 @@ class Status_Filter
         $current_date = $this->EE->TMPL->fetch_param('current_date');
         $status_owner = $this->EE->TMPL->fetch_param('status_owner');
         
-        $query = $this->EE->db->query("UPDATE exp_friends_status SET status_date='$current_date' where status_id='$status_owner'");
+        $query = $this->EE->db->query("UPDATE exp_friends_status SET update_date='$current_date' where status_id='$status_owner'");
     
     }
     

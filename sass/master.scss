@@ -936,13 +936,24 @@ body {
 }
 
 .post {
-/*     @include grid-row(nest); */
     @include panel($padding:.5em 0 0 0);
     @include shadow;
-//    @extend .section-container;
     margin: 0 auto 1em;
     position: relative;
     clear: both;
+    
+    .delete {
+        float: right;
+        margin-right: 0.5em;
+    }
+    
+    .question ~ .delete {
+        margin-right: 5em;
+    }
+    
+    &:hover .delete {
+        opacity: 1;
+    }
     
     .post-header {
         .user-img { @include grid-column(4); }
@@ -1014,8 +1025,14 @@ body {
 }
 
 .comments {
-//        @extend .section;
+    @include section-container($base-style: false, $section-type: accordion);
+    border: none;
     border-top: 1px solid $light-gray;
+    margin-bottom: 0;
+    
+    & > section {
+        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".comment-feed", $content-padding: .25em .25em 0 );
+    }
     
     .controls {
         padding: 0.5em 0;
@@ -1075,7 +1092,7 @@ body {
 .comment {
     @include grid-row;
     background: $light-gray;
-    padding: 0.5em;
+    padding: 0.5em !important;
     margin-bottom: .25em;
     
     .user-img {
@@ -1107,6 +1124,12 @@ body {
         padding: 0;
         color: $purple;
     }
+}
+
+.recent-three {
+    @include panel($padding: .25em);
+    border: none;
+    background: white;
 }
 
 .new-comment {
@@ -1569,54 +1592,11 @@ b.disabled {
         background: none;
         margin-top: 6em;
         @include adjust-font-size-to(18px);
-        
-/*
-        position: relative;
-        padding-top: 0;
-*/
     }
-    
-    /*
-.nav .close-btn {
-        border: 0;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-*/
     
     .nav ul {
         list-style: none;
-/*
-        text-align: center;
-        white-space: nowrap;
-        @include block-grid(5, $base-style: false);
-*/
     }
-    .nav li {
-//        display: inline-block;
-//        padding: 0.42857em 0.85714em;
-//        border-right: 1px solid rgba(255, 255, 255, 0.1);
-//        border-top: none;
-    }
-    .nav li:last-child {
-//        border: none;
-    }
-    
-    .drop {
-//        max-width: 500px;
-    }
-    
-/*
-    .profile-container { // contains the profile on the great wall
-        @include grid-column(2.75, $pull: 9);
-        margin-top: 1em;
-    }
-*/
     
     .great-wall,
     .student-list {

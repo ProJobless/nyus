@@ -232,6 +232,10 @@ $sprites2x: sprite-map("icons2x/*.png"); // Import 2x sprites for retina mobile
     height: 100%;
 }
 
+.overflow {
+    display: none;
+}
+
 // ***********************************************************************************************************************//
 // GLOBAL CLASSES
 
@@ -459,6 +463,29 @@ input:not([type='file'])[disabled] {
 
 .page-block {
     @extend .great-wall;
+}
+
+.delete {
+    opacity: 0;
+    position: absolute;
+    top: 0.5em;
+    right: 0;
+    background: transparent;
+    background-image: none;
+    background-size: 100%;
+    border: 1px solid transparent;
+    display: block;
+    color: rgb(102, 102, 102);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    @include adjust-leading-to(1);
+    @include transition-property(opacity,background, background-image, border);
+    @include transition-duration(0.25s);
+}
+
+.delete:hover {
+    @include small-gray-square;
 }
 
 // ***********************************************************************************************************************//

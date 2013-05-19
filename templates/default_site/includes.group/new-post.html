@@ -1,5 +1,5 @@
 <section class="new-post">
-	<form action="{path='post/post'}/{logged_in_member_id}" class="post-form" id="form" enctype="multipart/form-data" method="post" name="new-post">
+	<form action="{path='post/post'}/{logged_in_member_id}" class="post-form" enctype="multipart/form-data" method="post" name="new-post">
     	{if embed:next-step}
         <input type="hidden" name="next-step" value="{embed:next-step}">
         {/if}

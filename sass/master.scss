@@ -1036,7 +1036,7 @@ body {
     margin-bottom: 0;
     
     & > section {
-        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".comment-feed", $content-padding: .25em, $content-bg: "transparent" );
+        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".feed", $content-padding: .25em, $content-bg: "transparent" );
     }
     
     .controls {
@@ -1079,17 +1079,17 @@ body {
         }
     }
     
-    .comment-feed {
+    .feed {
 //            @extend .content;
         background: none;
         
-        .comment:first-child { //override foundation defaults
+        .feed-item:first-child { //override foundation defaults
             padding-top: .25em;
         }
     }
 }
 
-.comment {
+.feed-item {
     @include grid-row;
     background: $light-gray;
     padding: 0.5em !important;
@@ -1099,7 +1099,7 @@ body {
         @include grid-column(2, $collapse: true);
     }
     
-    .comment-text { 
+    .feed-text { 
         @include grid-column(9);
 //        padding: 0 .1em;
         @include adjust-font-size-to(12px, .5);
@@ -1133,7 +1133,7 @@ body {
 }
 
 .new-comment {
-    @extend .comment;
+    @extend .feed-item;
     
     
     .user-img {
@@ -1177,12 +1177,12 @@ body {
     .info { @include grid-column(12); }
     
     .action-participants { @extend .comments; }
-    .action-feed { @extend .comment-feed; }
-    .action { @extend .comment; }
-    .action-text { 
-        @extend .comment-text; 
-        @include adjust-font-size-to(26px);
-    }
+//    .action-feed { @extend .comment-feed; }
+//    .action { @extend .comment; }
+//    .action-text { 
+//        @extend .comment-text; 
+//        @include adjust-font-size-to(26px);
+//    }
 }
 
 .full-profile { // nested within .page on your-profile.php
@@ -1515,7 +1515,7 @@ b.disabled {
     @include teeth;
     
     .student {
-        @extend .comment;
+        @extend .feed-item;
 //        margin-bottom: 1em;
         @include panel($padding:.5em);
         @include shadow;
@@ -1525,7 +1525,7 @@ b.disabled {
         img { @include shadow; }
         
         .name {
-            @extend .comment-text;
+            @extend .feed-text;
             @include adjust-font-size-to(16px, 1);
 //            border-bottom: 1px $medium-gray solid;
 //            display: block;
@@ -1715,8 +1715,8 @@ b.disabled {
         }
     }
 
-    .comment {
-        .comment-text {@include grid-column(9, $collapse: true); padding-left:18px;}
+    .feed-item {
+        .feed-text {@include grid-column(9, $collapse: true); padding-left:18px;}
         .user-img { @include grid-column(1.5, $collapse: true);}
     }
     

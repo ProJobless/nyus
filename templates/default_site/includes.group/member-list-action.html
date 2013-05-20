@@ -15,13 +15,13 @@
 		exp_channel_data.field_id_15 = '{embed:action_id}' AND
 		exp_friends_status.visible='0'
 	"}            
-	<div class="action">
+	<div class="feed-item">
 	    <div class="user-img">
 	        <a href="{path='profile'}/{member_id}">
 	        	<img src="{site_url}/images/member_photos/{photo_filename}">
 	        </a>
 	    </div> <!-- .user-img -->
-	    <div class="action-text">
+	    <div class="feed-text">
 	        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
 	    </div>
 	    {!--embed="includes/action-list-post" status_id="{id_status_action}" member_id="{member_id}"--}
@@ -55,8 +55,8 @@
 	    </div> <!-- .user-img -->
 	    <div class="action-text">
 	        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
-	    </div>
-	</div> <!-- .student -->
+	    </div> <!-- .action-text -->
+	</div> <!-- .action -->
 	
 	{/exp:query}
 

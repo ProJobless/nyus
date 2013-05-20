@@ -4270,7 +4270,7 @@ body {
   padding-right: 0.9375em;
   width: 100%;
   float: left;
-  line-height: 1.2em;
+  line-height: 1.35em;
   margin-bottom: 0.5em;
 }
 .post .post-content .media-container, .action-post .post-content .media-container {
@@ -4334,21 +4334,21 @@ body {
 .comments > section > .controls:hover, .action-post .action-participants > section > .controls:hover {
   background-color: #e2e2e2;
 }
-.comments > section .comment-feed, .action-post .action-participants > section .comment-feed, .comments > section .action-post .action-feed, .action-post .comments > section .action-feed, .action-post .action-participants > section .action-feed {
+.comments > section .feed, .action-post .action-participants > section .feed {
   display: none;
   padding: 0.25em;
   background-color: "transparent";
 }
-.comments > section .comment-feed > *:last-child, .action-post .action-participants > section .comment-feed > *:last-child, .comments > section .action-post .action-feed > *:last-child, .action-post .comments > section .action-feed > *:last-child, .action-post .action-participants > section .action-feed > *:last-child {
+.comments > section .feed > *:last-child, .action-post .action-participants > section .feed > *:last-child {
   margin-bottom: 0;
 }
-.comments > section .comment-feed > *:first-child, .action-post .action-participants > section .comment-feed > *:first-child, .comments > section .action-post .action-feed > *:first-child, .action-post .comments > section .action-feed > *:first-child, .action-post .action-participants > section .action-feed > *:first-child {
+.comments > section .feed > *:first-child, .action-post .action-participants > section .feed > *:first-child {
   padding-top: 0;
 }
-.comments > section .comment-feed > *:last-child, .action-post .action-participants > section .comment-feed > *:last-child, .comments > section .action-post .action-feed > *:last-child, .action-post .comments > section .action-feed > *:last-child, .action-post .action-participants > section .action-feed > *:last-child {
+.comments > section .feed > *:last-child, .action-post .action-participants > section .feed > *:last-child {
   padding-bottom: 0;
 }
-.comments > section.active > .comment-feed, .action-post .action-participants > section.active > .comment-feed, .action-post .comments > section.active > .action-feed, .action-post .action-participants > section.active > .action-feed {
+.comments > section.active > .feed, .action-post .action-participants > section.active > .feed {
   display: block;
 }
 .comments > section.active > .controls, .action-post .action-participants > section.active > .controls {
@@ -4431,14 +4431,14 @@ body {
   font-size: 1.125em;
   line-height: 0.66667em;
 }
-.comments .comment-feed, .action-post .action-participants .comment-feed, .comments .action-post .action-feed, .action-post .comments .action-feed, .action-post .action-participants .action-feed {
+.comments .feed, .action-post .action-participants .feed {
   background: none;
 }
-.comments .comment-feed .comment:first-child, .action-post .action-participants .comment-feed .comment:first-child, .comments .action-post .action-feed .comment:first-child, .action-post .comments .action-feed .comment:first-child, .action-post .action-participants .action-feed .comment:first-child, .comments .comment-feed .new-comment:first-child, .action-post .action-participants .comment-feed .new-comment:first-child, .comments .action-post .action-feed .new-comment:first-child, .action-post .comments .action-feed .new-comment:first-child, .action-post .action-participants .action-feed .new-comment:first-child, .comments .comment-feed .action-post .action:first-child, .action-post .comments .comment-feed .action:first-child, .action-post .action-participants .comment-feed .action:first-child, .comments .action-post .action-feed .action:first-child, .action-post .comments .action-feed .action:first-child, .action-post .action-participants .action-feed .action:first-child, .comments .comment-feed .student-list .student:first-child, .student-list .comments .comment-feed .student:first-child, .action-post .action-participants .comment-feed .student-list .student:first-child, .student-list .action-post .action-participants .comment-feed .student:first-child, .comments .action-post .action-feed .student-list .student:first-child, .student-list .comments .action-post .action-feed .student:first-child, .action-post .comments .action-feed .student-list .student:first-child, .student-list .action-post .comments .action-feed .student:first-child, .action-post .action-participants .action-feed .student-list .student:first-child, .student-list .action-post .action-participants .action-feed .student:first-child {
+.comments .feed .feed-item:first-child, .action-post .action-participants .feed .feed-item:first-child, .comments .feed .new-comment:first-child, .action-post .action-participants .feed .new-comment:first-child, .comments .feed .student-list .student:first-child, .student-list .comments .feed .student:first-child, .action-post .action-participants .feed .student-list .student:first-child, .student-list .action-post .action-participants .feed .student:first-child {
   padding-top: .25em;
 }
 
-.comment, .new-comment, .action-post .action, .student-list .student {
+.feed-item, .new-comment, .student-list .student {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -4450,21 +4450,21 @@ body {
   padding: 0.5em !important;
   margin-bottom: .25em;
 }
-.comment:before, .new-comment:before, .action-post .action:before, .student-list .student:before, .comment:after, .new-comment:after, .action-post .action:after, .student-list .student:after {
+.feed-item:before, .new-comment:before, .student-list .student:before, .feed-item:after, .new-comment:after, .student-list .student:after {
   content: " ";
   display: table;
 }
-.comment:after, .new-comment:after, .action-post .action:after, .student-list .student:after {
+.feed-item:after, .new-comment:after, .student-list .student:after {
   clear: both;
 }
-.comment .user-img, .new-comment .user-img, .action-post .action .user-img, .student-list .student .user-img {
+.feed-item .user-img, .new-comment .user-img, .student-list .student .user-img {
   position: relative;
   padding-left: 0;
   padding-right: 0;
   width: 16.66667%;
   float: left;
 }
-.comment .comment-text, .new-comment .comment-text, .action-post .action .comment-text, .student-list .student .comment-text, .comment .action-post .action-text, .action-post .comment .action-text, .new-comment .action-post .action-text, .action-post .new-comment .action-text, .action-post .action .action-text, .student-list .student .action-post .action-text, .action-post .student-list .student .action-text, .comment .student-list .student .name, .student-list .student .comment .name, .new-comment .student-list .student .name, .student-list .student .new-comment .name, .action-post .action .student-list .student .name, .student-list .student .action-post .action .name, .student-list .student .name {
+.feed-item .feed-text, .new-comment .feed-text, .student-list .student .feed-text, .feed-item .student-list .student .name, .student-list .student .feed-item .name, .new-comment .student-list .student .name, .student-list .student .new-comment .name, .student-list .student .name {
   position: relative;
   padding-left: 0.9375em;
   padding-right: 0.9375em;
@@ -4473,24 +4473,24 @@ body {
   font-size: 0.75em;
   line-height: 1em;
 }
-.comment .comment-text h4, .new-comment .comment-text h4, .action-post .action .comment-text h4, .student-list .student .comment-text h4, .comment .action-post .action-text h4, .action-post .comment .action-text h4, .new-comment .action-post .action-text h4, .action-post .new-comment .action-text h4, .action-post .action .action-text h4, .student-list .student .action-post .action-text h4, .action-post .student-list .student .action-text h4, .comment .student-list .student .name h4, .student-list .student .comment .name h4, .new-comment .student-list .student .name h4, .student-list .student .new-comment .name h4, .action-post .action .student-list .student .name h4, .student-list .student .action-post .action .name h4, .student-list .student .name h4 {
+.feed-item .feed-text h4, .new-comment .feed-text h4, .student-list .student .feed-text h4, .feed-item .student-list .student .name h4, .student-list .student .feed-item .name h4, .new-comment .student-list .student .name h4, .student-list .student .new-comment .name h4, .student-list .student .name h4 {
   float: left;
   margin: 0;
   margin-bottom: -4px;
 }
-.comment .comment-text h4 a, .new-comment .comment-text h4 a, .action-post .action .comment-text h4 a, .student-list .student .comment-text h4 a, .comment .action-post .action-text h4 a, .action-post .comment .action-text h4 a, .new-comment .action-post .action-text h4 a, .action-post .new-comment .action-text h4 a, .action-post .action .action-text h4 a, .student-list .student .action-post .action-text h4 a, .action-post .student-list .student .action-text h4 a, .comment .student-list .student .name h4 a, .student-list .student .comment .name h4 a, .new-comment .student-list .student .name h4 a, .student-list .student .new-comment .name h4 a, .action-post .action .student-list .student .name h4 a, .student-list .student .action-post .action .name h4 a, .student-list .student .name h4 a {
+.feed-item .feed-text h4 a, .new-comment .feed-text h4 a, .student-list .student .feed-text h4 a, .feed-item .student-list .student .name h4 a, .student-list .student .feed-item .name h4 a, .new-comment .student-list .student .name h4 a, .student-list .student .new-comment .name h4 a, .student-list .student .name h4 a {
   vertical-align: text-top;
 }
-.comment .comment-text p, .new-comment .comment-text p, .action-post .action .comment-text p, .student-list .student .comment-text p, .comment .action-post .action-text p, .action-post .comment .action-text p, .new-comment .action-post .action-text p, .action-post .new-comment .action-text p, .action-post .action .action-text p, .student-list .student .action-post .action-text p, .action-post .student-list .student .action-text p, .comment .student-list .student .name p, .student-list .student .comment .name p, .new-comment .student-list .student .name p, .student-list .student .new-comment .name p, .action-post .action .student-list .student .name p, .student-list .student .action-post .action .name p, .student-list .student .name p {
+.feed-item .feed-text p, .new-comment .feed-text p, .student-list .student .feed-text p, .feed-item .student-list .student .name p, .student-list .student .feed-item .name p, .new-comment .student-list .student .name p, .student-list .student .new-comment .name p, .student-list .student .name p {
   line-height: 1.35em;
   margin-bottom: 0;
 }
-.comment .comment-text span, .new-comment .comment-text span, .action-post .action .comment-text span, .student-list .student .comment-text span, .comment .action-post .action-text span, .action-post .comment .action-text span, .new-comment .action-post .action-text span, .action-post .new-comment .action-text span, .action-post .action .action-text span, .student-list .student .action-post .action-text span, .action-post .student-list .student .action-text span, .comment .student-list .student .name span, .student-list .student .comment .name span, .new-comment .student-list .student .name span, .student-list .student .new-comment .name span, .action-post .action .student-list .student .name span, .student-list .student .action-post .action .name span, .student-list .student .name span {
+.feed-item .feed-text span, .new-comment .feed-text span, .student-list .student .feed-text span, .feed-item .student-list .student .name span, .student-list .student .feed-item .name span, .new-comment .student-list .student .name span, .student-list .student .new-comment .name span, .student-list .student .name span {
   font-size: 0.75em;
   line-height: 1.2em;
   color: #bcbcbc;
 }
-.comment a, .new-comment a, .action-post .action a, .student-list .student a {
+.feed-item a, .new-comment a, .student-list .student a {
   display: inline;
   padding: 0;
   color: #60128f;
@@ -4584,10 +4584,6 @@ body {
   padding-right: 0.9375em;
   width: 100%;
   float: left;
-}
-.action-post .action-text {
-  font-size: 1.625em;
-  line-height: 1.84615em;
 }
 
 .full-profile, .profile-setup {
@@ -5551,7 +5547,7 @@ b.disabled {
     line-height: 1.5em;
   }
 
-  .comment .comment-text, .new-comment .comment-text, .action-post .action .comment-text, .student-list .student .comment-text, .comment .action-post .action-text, .action-post .comment .action-text, .new-comment .action-post .action-text, .action-post .new-comment .action-text, .action-post .action .action-text, .student-list .student .action-post .action-text, .action-post .student-list .student .action-text, .comment .student-list .student .name, .student-list .student .comment .name, .new-comment .student-list .student .name, .student-list .student .new-comment .name, .action-post .action .student-list .student .name, .student-list .student .action-post .action .name, .student-list .student .name {
+  .feed-item .feed-text, .new-comment .feed-text, .student-list .student .feed-text, .feed-item .student-list .student .name, .student-list .student .feed-item .name, .new-comment .student-list .student .name, .student-list .student .new-comment .name, .student-list .student .name {
     position: relative;
     padding-left: 0;
     padding-right: 0;
@@ -5559,7 +5555,7 @@ b.disabled {
     float: left;
     padding-left: 18px;
   }
-  .comment .user-img, .new-comment .user-img, .action-post .action .user-img, .student-list .student .user-img {
+  .feed-item .user-img, .new-comment .user-img, .student-list .student .user-img {
     position: relative;
     padding-left: 0;
     padding-right: 0;

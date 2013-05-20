@@ -18,8 +18,8 @@
 
 		
 		{if cat_id!='1'}
-        <article class="action-post section-container accordion" data-section="accordion">
-
+        <article class="action-post">
+            
  
 	        {embed="includes/action_list_pendent" entry_id="{entry_id}" title_action="{title}"}
 		    
@@ -30,17 +30,18 @@
         				<small>{entry_date format="%F %j, %Y at %h:%i %a"}</small>
         			</p>
             </div> <!-- .post-content -->	
-            <section class="comments section">
-                <div class="controls title">
-                	
-                    <a href="#" class="comment-icon" rel="ignore">
-        	           {embed="includes/action-counter" action_id="{entry_id}"}
-                    </a>
-                </div> <!-- .comment-count -->
-                <div class="action-feed content">
-                    {embed='includes/member-list-action' action_id="{entry_id}"} 
-                </div> <!-- .action-feed -->				    
-            </section> <!-- .comments -->   
+            <div class="action-participants" data-section="accordion">
+                <section>
+                    <div class="controls" data-section-title>
+                        <div class="comment-icon">
+            	           {embed="includes/action-counter" action_id="{entry_id}"}
+                        </div> <!-- .comment-icon -->
+                    </div> <!-- .controls -->
+                    <div class="action-feed" data-section-content>
+                        {embed='includes/member-list-action' action_id="{entry_id}"} 
+                    </div> <!-- .action-feed -->
+                </section>
+            </div> <!-- .comments -->   
         </article> <!-- .action-post -->
 
 		

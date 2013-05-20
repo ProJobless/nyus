@@ -1036,7 +1036,7 @@ body {
     margin-bottom: 0;
     
     & > section {
-        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".feed", $content-padding: .25em, $content-bg: "transparent" );
+        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".feed", $content-padding: .25em, $content-bg: transparent );
     }
     
     .controls {
@@ -1087,6 +1087,16 @@ body {
             padding-top: .25em;
         }
     }
+}
+
+.comments section span:not(.none):before {
+    content: "Show";
+    display: inline-block;
+}
+
+.comments section.active span:not(.none):before {
+    content: "Hide";
+    display: inline-block;
 }
 
 .feed-item {
@@ -1175,14 +1185,16 @@ body {
     @extend .post;
     
     .info { @include grid-column(12); }
-    
-    .action-participants { @extend .comments; }
-//    .action-feed { @extend .comment-feed; }
-//    .action { @extend .comment; }
-//    .action-text { 
-//        @extend .comment-text; 
-//        @include adjust-font-size-to(26px);
-//    }
+}
+.action-participants { 
+    @extend .comments; 
+    .post-img { @include grid-column(3, $float: right);}
+    p { clear: both; float: left; }
+    p:nth-of-type(1) {@include timestamp; @include adjust-font-size-to(14px, 1);}
+    p:nth-of-type(2) {@include adjust-font-size-to(22px, 1); }
+}
+.action-wall {
+    .action-post ~ .feed { padding: 0.25em; float: left; background: white; &:empty {display: none;}}
 }
 
 .full-profile { // nested within .page on your-profile.php
@@ -1703,11 +1715,9 @@ b.disabled {
         .comment-icon {
             //@include grid-column(3.5, $push: 0);
             text-align: left;
-             
+            &:before { vertical-align: bottom;}
             span {
                 @include adjust-font-size-to(16px, 1.5);
-                
-                &:before { vertical-align: bottom;}
             }
         }
         .most-recent {
@@ -1719,6 +1729,8 @@ b.disabled {
         .feed-text {@include grid-column(9, $collapse: true); padding-left:18px;}
         .user-img { @include grid-column(1.5, $collapse: true);}
     }
+    
+    .action-participants .feed-text { @include grid-column(10.5); }
     
     .new-comment {
         .user-img { // bringing it back from display none
@@ -1791,7 +1803,7 @@ b.disabled {
         @include retina-sprite(QuestionRibbon_Desktop);
         top: -9px;
     }
-    .comment-icon span:before {
+    .comment-icon:before {
         @include retina-sprite(Comment_Desktop);
     }
     .actions li:not(:first-child):before { 

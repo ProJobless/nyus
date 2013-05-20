@@ -449,14 +449,14 @@ input:not([type='file'])[disabled] {
 }
 
 .comment-icon {
-    text-align: right;
+//    text-align: right;
 //    height: 31px;
     
     span:before {
         content: '';
         @include retina-sprite(Comment_Phone);
         display: inline-block;
-        vertical-align: text-top;
+        vertical-align: text-bottom;
         margin-right: .5em;
     }
 }

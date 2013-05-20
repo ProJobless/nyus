@@ -79,24 +79,9 @@ ORDER BY update_date DESC "}
 	
         {/exp:channel:entries}   
     </div> <!-- .post-content -->	
-    <div class="comments" data-section="accordion">
-        <section>
-            <div class="controls" data-section-title>
-                <div class="comment-icon">
-                    {embed='includes/comment-counter' id_status='{status_id}'}<!-- Counter of Comments -->
-                </div>
-                {!--{embed='includes/comments' id_member='{member_id}' id_status='{status_id}' summary='yes'}--}
-                See Previous Comments
-            </div> <!-- .controls -->
-            <div class="comment-feed" data-section-content>
-                {embed='includes/comments' id_member='{member_id}' id_status='{status_id}'}
-            </div> <!-- .comment-feed -->
-        </section>
-    </div> <!-- .comments -->   
-    <div class="recent-three">
-        {embed='includes/comments' id_member='{member_id}' id_status='{status_id}' recent='yes'}
-        {comment_form}
-    </div> <!-- .recent-three -->
+    
+    {embed='includes/comments' id_status='{status_id}' id_member='{member_id}'}
+    
 </article> <!-- .post -->
 {/exp:user:stats}
 

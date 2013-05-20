@@ -1185,6 +1185,7 @@ body {
     @extend .post;
     
     .info { @include grid-column(12); }
+
 }
 .action-participants { 
     @extend .comments; 

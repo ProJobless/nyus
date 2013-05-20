@@ -23,19 +23,19 @@
                 
             </div> <!-- .comment-icon -->
         </div> <!-- .controls -->
-        <div class="comment-feed" data-section-content>
+        <div class="feed" data-section-content>
         
             {exp:reverse_these}
             {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off' offset="3"}
             {reverse_these_item}
-            <article class="comment">
+            <article class="feed-item">
             	{exp:user:stats}
                     <div class="user-img">
                         <a href="{path='profile'}/{member_id}">
                 	    	<img src="{photo_url}?<?php echo time(); ?>">
                         </a>
                     </div> <!-- .user-img -->
-                    <div class="comment-text">
+                    <div class="feed-text">
                         <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
                         {exp:ce_str:ing php}
                         <?php  if  ({exp:ce_str:ing:count strlen}{thepost}{/exp:ce_str:ing:count} > 600) { ?>
@@ -53,13 +53,13 @@
                         <?php } ?>
                         {/exp:ce_str:ing}
                         <span>{entry_date format="%F %j at %h:%i %a"}</span>
-                    </div> <!-- .comment-text -->	
+                    </div> <!-- .feed-text -->	
                 {/exp:user:stats}
-            </article>
+            </article> <!-- .feed-item -->
             {/reverse_these_item}
             {/exp:channel:entries}
             {/exp:reverse_these}
-        </div> <!-- .comment-feed -->
+        </div> <!-- .feed -->
     </section>
 </div> <!-- .comments -->
 {/if}
@@ -68,14 +68,14 @@
     {exp:reverse_these}
     {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='entry_id' sort='desc' dynamic='off' limit='3'}
     {reverse_these_item}
-    <article class="comment">
+    <article class="feed-item">
     	{exp:user:stats}
             <div class="user-img">
                 <a href="{path='profile'}/{member_id}">
         	    	<img src="{photo_url}?<?php echo time(); ?>">
                 </a>
             </div> <!-- .user-img -->
-            <div class="comment-text">
+            <div class="feed-text">
                 <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
                 {exp:ce_str:ing php}
                 <?php  if  ({exp:ce_str:ing:count strlen}{thepost}{/exp:ce_str:ing:count} > 600) { ?>
@@ -93,7 +93,7 @@
                 <?php } ?>
                 {/exp:ce_str:ing}
                 <span>{entry_date format="%F %j at %h:%i %a"}</span>
-            </div> <!-- .comment-text -->	
+            </div> <!-- .feed-text -->	
         {/exp:user:stats}
     </article>
     {/reverse_these_item}

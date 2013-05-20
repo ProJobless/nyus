@@ -1000,10 +1000,11 @@ body {
     
     .post-content {
         @include grid-row;
-        padding-top: 0.5em; 
+        padding-top: 1em; 
         
         p { 
-            @include grid-column(12); 
+            @include grid-column(12);
+            @include adjust-leading-to(0.9);
             margin-bottom: 0.5em;
         }
         
@@ -1035,7 +1036,7 @@ body {
     margin-bottom: 0;
     
     & > section {
-        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".comment-feed", $content-padding: .25em .25em 0, $content-bg: "transparent" );
+        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".comment-feed", $content-padding: .25em, $content-bg: "transparent" );
     }
     
     .controls {
@@ -1175,12 +1176,7 @@ body {
     
     .info { @include grid-column(12); }
     
-    .comments .controls {
-    
-//        .most-recent { @include grid-column(6, $pull:6);}
-//        .comment-icon{ @include grid-column(6, $push:6);}
-    }
-    
+    .action-participants { @extend .comments; }
     .action-feed { @extend .comment-feed; }
     .action { @extend .comment; }
     .action-text { 

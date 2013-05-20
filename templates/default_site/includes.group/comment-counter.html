@@ -1,9 +1,11 @@
 {exp:query sql="SELECT count(*) as comment_count FROM exp_channel_data where field_id_2='{embed:id_status}' "}
 
 {if comment_count > 99}
-<span>99+</span>
-{if:else}
-<span>{comment_count}</span>
+<span>See previous 99+ Comments</span>
+{if:elseif comment_count == 0}
+<span>Be the first to leave a comment</span>
+{if:elseif comment_count >= 3}
+<span>See previous {comment_count} comments</span>
 {/if}
 
 {/exp:query}

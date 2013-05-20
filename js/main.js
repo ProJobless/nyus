@@ -1,3 +1,8 @@
+if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+        return this.replace(/^\s*(\S*(?:\s+\S+)*)\s*$/, "$1");
+    };
+}
 /*!
 *
 * Copyright (c) David Bushell | http://dbushell.com/
@@ -217,7 +222,7 @@ $(document).ready(function(){
                     rules : 'required'
                 }], function(errors, event){
                     $form = $(this.form)
-                    if (errors.length === 0) {
+                    if (errors.length === 0 || $form.find('input[name=friends_status]')[0].value.trim()!=='') {
                         $form.find('input[type=submit]').prop('disabled', true)
                         $clearButton.detach()
                         $('.loading').addClass('begin')
@@ -837,7 +842,7 @@ $(document).ready(function(){
     
     $('.formvalidation').on('submit', 'form', function(e){
         $this = $(this)
-        if (this.checkValidity()) {
+        if (this.checkValidity() || this.value.trim()!=='') {
             $this.find('input[type=submit]').prop('disabled', true)
             $clearButton.detach()
             $('.loading').addClass('begin')

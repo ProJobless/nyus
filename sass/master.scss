@@ -994,8 +994,8 @@ body {
         }
     }
     
-    .comments .controls {
-        .comment-icon { @include grid-column(3.5, $push: 8.5); } // overriding foundation dropdown styles
+    .comments {
+//        .comment-icon { @include grid-column(3.5, $push: 8.5); } // overriding foundation dropdown styles
     }
     
     .post-content {
@@ -1024,6 +1024,10 @@ body {
     }
 }
 
+.comment-wrapper {
+    padding: 0.25em;
+}
+
 .comments {
     @include section-container($base-style: false, $section-type: accordion);
     border: none;
@@ -1031,27 +1035,22 @@ body {
     margin-bottom: 0;
     
     & > section {
-        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".comment-feed", $content-padding: .25em .25em 0 );
+        @include section($section-type: accordion, $title-selector: ".controls", $content-selector: ".comment-feed", $content-padding: .25em .25em 0, $content-bg: "transparent" );
     }
     
     .controls {
-        padding: 0.5em 0;
+        padding: 0.5em 0.75em;
         @include background-image(linear-gradient(rgba(255,255,255,0.0), #dedede));
         @include grid-row(collapse);
         
-        // COMMENT-ICON IS DEFINED IN _SETTINGS, BUT GRIDS ARE DEFINED AFTER _SETTINGS IS LOADED
-        // SO WE'RE CALLING GRID COLUMNS HERE.
-        
         .comment-icon {
-//           @include grid-column(2.5, $push: 9.5);
-              
             span {
                 display: inline-block;
                 color: $primary-color;
                 @include adjust-font-size-to(14px, 1);
                 font-weight: bold;
                 position: relative;
-                left: 5px;
+//                left: 5px;
             }
         }
         
@@ -1128,8 +1127,8 @@ body {
 
 .recent-three {
     @include panel($padding: .25em);
+    margin-bottom: 0;
     border: none;
-    background: white;
 }
 
 .new-comment {
@@ -1145,11 +1144,10 @@ body {
         @include adjust-font-size-to(12px, .5);
         input { @include adjust-font-size-to(14px, 1); margin: 0; }
     }
-    
+}
     .submit-comment { 
         @include grid-column(3, $collapse: true);
-//        padding: 0 .1em;
-        text-align: right;
+        text-align: center;
         
         input {
             @include adjust-font-size-to(12px, .6);
@@ -1157,7 +1155,11 @@ body {
             margin: 0;
             color: $purple;
             @include background-image(linear-gradient(#fff #d0d0d0));
-    
+            
+            &:hover {
+                color: $light-purple;
+            }
+            
             &:active,
             &.open {
                 color: $black;
@@ -1166,7 +1168,7 @@ body {
             }
         }    
     }
-}
+
 
 .action-post {
     @extend .post;
@@ -1405,6 +1407,7 @@ body {
 
 .comment-form {
     text-align: right;
+    margin-bottom: 0;
 }
 
 /*
@@ -1701,8 +1704,15 @@ b.disabled {
     }
     
     .comments .controls {
-        .comment-icon span {
-            @include adjust-font-size-to(20px, 1.4);
+        .comment-icon {
+            //@include grid-column(3.5, $push: 0);
+            text-align: left;
+             
+            span {
+                @include adjust-font-size-to(16px, 1.5);
+                
+                &:before { vertical-align: bottom;}
+            }
         }
         .most-recent {
             @include adjust-font-size-to(16px);
@@ -1728,7 +1738,6 @@ b.disabled {
         
         .submit-comment {
             @include grid-column(1.5, $collapse: true);
-            text-align: left;
             
             input { @include adjust-font-size-to(14px, 0.8); }
         }

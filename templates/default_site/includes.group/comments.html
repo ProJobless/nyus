@@ -1,94 +1,129 @@
-{if embed:summary=='yes'}
+{exp:query sql="SELECT count(*) as comment_count FROM exp_channel_data where field_id_2='{embed:id_status}' "}
+{if comment_count > 0}
 
-{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' limit='1' dynamic='off'}
-{if no_results}
-    <article class="most-recent">        
-    <p>Be the first to leave a comment</p>
+{if comment_count > 3}
+<div class="comments" data-section="accordion">
+    <section>
+        <div class="controls" data-section-title>
+            <div class="comment-icon">
+
+                {if comment_count > 99}
+                <span>See previous 99+ Comments</span>
+                {if:elseif comment_count == 0}
+                <span>Be the first to leave a comment</span>
+                {if:elseif comment_count == 4}
+                <span>See previous comment</span>
+                {if:elseif comment_count > 4}
+                <span>See previous 
+                    {exp:ce_str:ing php}
+                    <?php echo {comment_count}-3; ?>
+                    {/exp:ce_str:ing} 
+                    comments</span>
+                {/if}
+                
+            </div> <!-- .comment-icon -->
+        </div> <!-- .controls -->
+        <div class="comment-feed" data-section-content>
+        
+            {exp:reverse_these}
+            {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off' offset="3"}
+            {reverse_these_item}
+            <article class="comment">
+            	{exp:user:stats}
+                    <div class="user-img">
+                        <a href="{path='profile'}/{member_id}">
+                	    	<img src="{photo_url}?<?php echo time(); ?>">
+                        </a>
+                    </div> <!-- .user-img -->
+                    <div class="comment-text">
+                        <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
+                        {exp:ce_str:ing php}
+                        <?php  if  ({exp:ce_str:ing:count strlen}{thepost}{/exp:ce_str:ing:count} > 600) { ?>
+                        <p>
+                            {exp:ce_str:ing:content truncate="252" ending="..." exact="yes"}
+                                {thepost}
+                            {/exp:ce_str:ing:content}
+                            <a href="#" class="see-more">See more...</a>
+                            <span class="overflow">{thepost}</span>
+                        </p>
+                        <?php } else { ?>
+                        <p>
+                            {thepost}
+                        </p>
+                        <?php } ?>
+                        {/exp:ce_str:ing}
+                        <span>{entry_date format="%F %j at %h:%i %a"}</span>
+                    </div> <!-- .comment-text -->	
+                {/exp:user:stats}
+            </article>
+            {/reverse_these_item}
+            {/exp:channel:entries}
+            {/exp:reverse_these}
+        </div> <!-- .comment-feed -->
+    </section>
+</div> <!-- .comments -->
+{/if}
+
+<div class="recent-three">
+    {exp:reverse_these}
+    {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='entry_id' sort='desc' dynamic='off' limit='3'}
+    {reverse_these_item}
+    <article class="comment">
+    	{exp:user:stats}
+            <div class="user-img">
+                <a href="{path='profile'}/{member_id}">
+        	    	<img src="{photo_url}?<?php echo time(); ?>">
+                </a>
+            </div> <!-- .user-img -->
+            <div class="comment-text">
+                <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
+                {exp:ce_str:ing php}
+                <?php  if  ({exp:ce_str:ing:count strlen}{thepost}{/exp:ce_str:ing:count} > 600) { ?>
+                <p>
+                    {exp:ce_str:ing:content truncate="252" ending="..." exact="yes"}
+                        {thepost}
+                    {/exp:ce_str:ing:content}
+                    <a href="#" class="see-more">See more...</a>
+                    <span class="overflow">{thepost}</span>
+                </p>
+                <?php } else { ?>
+                <p>
+                    {thepost}
+                </p>
+                <?php } ?>
+                {/exp:ce_str:ing}
+                <span>{entry_date format="%F %j at %h:%i %a"}</span>
+            </div> <!-- .comment-text -->	
+        {/exp:user:stats}
     </article>
+    {/reverse_these_item}
+    {/exp:channel:entries}
+    {/exp:reverse_these}
+
+</div> <!-- .recent-three -->
 {/if}
-
-<article class="most-recent">
-{exp:user:stats member_id='{author_id}'}
-    <h5><a href="{path='profile'}/{member_id}">{screen_name}</a></h5>
-    {exp:ce_str:ing truncate="50"}
-    <p>{thepost}</p>
-    {/exp:ce_str:ing}
-<!--     <span>{entry_date format="%F %j, %Y at %h:%i %a"}</span> -->
-{/exp:user:stats}
-</article> <!-- .most-recent -->
-{/exp:channel:entries}
-
-{if:elseif embed:recent=="yes"}
-
-{exp:reverse_these}
-{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='entry_id' sort='desc' dynamic='off' limit='3'}
-{reverse_these_item}
-<article class="comment">
-	{exp:user:stats}
+{/exp:query}
+<div class="comment-wrapper">
+    {exp:safecracker channel="wall_posts" class="comment-form" return="/{embed:id_status}/{logged_in_member_id}" dynamic="on" safecracker_head="no" secure_action="no" secure_return="no"}
+    <input type="hidden" name="title" id="title" value="a wall post" />
+    <input type="hidden" name="entry_date" value="{entry_date}" />
+    <input type="hidden" name="author_id" value="{logged_in_member_id}" />
+    <input type="hidden" name="url_title" id="url_title" value="{url_title}" />
+    <input type="hidden" name="status_owner" value="{embed:id_status}" /> 
+    <input type="hidden" name="status_id_owner" value="{embed:id_member}" /> 
+    <input type="hidden" name="comment_author" value="{logged_in_member_id}" />
+    <input type="hidden" name="comment_date" value=""/>
+    
+    <div class="new-comment">
         <div class="user-img">
-            <a href="{path='profile'}/{member_id}">
-    	    	<img src="{photo_url}?<?php echo time(); ?>">
-            </a>
+    	    {embed='includes/comments-photo-login-user' id_loggedin_member='{logged_in_member_id}'}
         </div> <!-- .user-img -->
-        <div class="comment-text">
-            <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
-            {exp:ce_str:ing php}
-            <?php  if  ({exp:ce_str:ing:count strlen}{thepost}{/exp:ce_str:ing:count} > 600) { ?>
-            <p>
-                {exp:ce_str:ing:content truncate="252" ending="..." exact="yes"}
-                    {thepost}
-                {/exp:ce_str:ing:content}
-                <a href="#" class="see-more">See more...</a>
-                <span class="overflow">{thepost}</span>
-            </p>
-            <?php } else { ?>
-            <p>
-                {thepost}
-            </p>
-            <?php } ?>
-            {/exp:ce_str:ing}
-            <span>{entry_date format="%F %j at %h:%i %a"}</span>
-        </div> <!-- .comment-text -->	
-    {/exp:user:stats}
-</article>
-{/reverse_these_item}
-{/exp:channel:entries}
-{/exp:reverse_these}
-
-{if:else}
-
-{exp:reverse_these}
-{exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off' offset="3"}
-{reverse_these_item}
-<article class="comment">
-	{exp:user:stats}
-        <div class="user-img">
-            <a href="{path='profile'}/{member_id}">
-    	    	<img src="{photo_url}?<?php echo time(); ?>">
-            </a>
-        </div> <!-- .user-img -->
-        <div class="comment-text">
-            <h4><a href="{path='profile'}/{member_id}">{screen_name}&nbsp;</a></h4>
-            {exp:ce_str:ing php}
-            <?php  if  ({exp:ce_str:ing:count strlen}{thepost}{/exp:ce_str:ing:count} > 600) { ?>
-            <p>
-                {exp:ce_str:ing:content truncate="252" ending="..." exact="yes"}
-                    {thepost}
-                {/exp:ce_str:ing:content}
-                <a href="#" class="see-more">See more...</a>
-                <span class="overflow">{thepost}</span>
-            </p>
-            <?php } else { ?>
-            <p>
-                {thepost}
-            </p>
-            <?php } ?>
-            {/exp:ce_str:ing}
-            <span>{entry_date format="%F %j at %h:%i %a"}</span>
-        </div> <!-- .comment-text -->	
-    {/exp:user:stats}
-</article>
-{/reverse_these_item}
-{/exp:channel:entries}
-{/exp:reverse_these}
-{/if}
+        <div class="comment-field">    
+            <input name="thepost" placeholder="Write something..." required type="text">
+        </div> <!-- .comment-field -->
+        <div class="submit-comment">
+            <input name="submit" type="submit" value="Post">
+        </div> <!-- .submit-comment -->
+    </div>
+    {/exp:safecracker}
+</div> <!-- .comment-wrapper -->

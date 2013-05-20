@@ -1177,8 +1177,8 @@ body {
     
     .comments .controls {
     
-        .most-recent { @include grid-column(6, $pull:6);}
-        .comment-icon{ @include grid-column(6, $push:6);}
+//        .most-recent { @include grid-column(6, $pull:6);}
+//        .comment-icon{ @include grid-column(6, $push:6);}
     }
     
     .action-feed { @extend .comment-feed; }

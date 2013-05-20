@@ -4584,24 +4584,6 @@ body {
   width: 100%;
   float: left;
 }
-.action-post .comments .controls .most-recent {
-  position: relative;
-  padding-left: 0.9375em;
-  padding-right: 0.9375em;
-  width: 50%;
-  right: 50%;
-  left: auto;
-  float: left;
-}
-.action-post .comments .controls .comment-icon {
-  position: relative;
-  padding-left: 0.9375em;
-  padding-right: 0.9375em;
-  width: 50%;
-  left: 50%;
-  right: auto;
-  float: left;
-}
 .action-post .action-text {
   font-size: 1.625em;
   line-height: 1.84615em;

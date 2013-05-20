@@ -23,9 +23,9 @@
 	    </div> <!-- .user-img -->
 	    <div class="feed-text">
 	        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
-	    </div>
-	    {!--embed="includes/action-list-post" status_id="{id_status_action}" member_id="{member_id}"--}
-	</div> <!-- .student -->
+    	    {embed="includes/action-list-post" status_id="{id_status_action}" member_id="{member_id}"}
+	    </div> <!-- .feed-text -->
+	</div> <!-- .feed-item -->
 	
 	{/exp:query}
 
@@ -33,7 +33,7 @@
 
 
 {if segment_2}
-
+    {exp:ce_str:ing swap_breaks="1|1"}
 	{exp:query sql="
 		SELECT DISTINCT
 		exp_members.screen_name,
@@ -46,18 +46,17 @@
 		exp_members.member_id=exp_channel_data.field_id_16 AND
 		exp_channel_data.field_id_15 = '{segment_2}' 
 	"}            
-	            
-	<div class="action">
+	<div class="feed-item">
 	    <div class="user-img">
 	        <a href="{path='profile'}/{member_id}">
 	        	<img src="{site_url}/images/member_photos/{photo_filename}">
 	        </a>
 	    </div> <!-- .user-img -->
-	    <div class="action-text">
+	    <div class="feed-text">
 	        <h4><a href="{path='profile'}/{member_id}" class="name">{screen_name}</a></h4>
-	    </div> <!-- .action-text -->
-	</div> <!-- .action -->
-	
+	    </div> <!-- .feed-text -->
+	    {embed="includes/action-list-post" status_id="{id_status_action}" member_id="{member_id}"}
+	</div> <!-- .feed-item -->
 	{/exp:query}
-
+	{/exp:ce_str:ing}
 {/if}

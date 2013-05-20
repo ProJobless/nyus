@@ -6,19 +6,18 @@
     <section>
         <div class="controls" data-section-title>
             <div class="comment-icon">
-
                 {if comment_count > 99}
-                <span>See previous 99+ Comments</span>
+                <span> previous 99+ comments</span>
                 {if:elseif comment_count == 0}
                 <span>Be the first to leave a comment</span>
                 {if:elseif comment_count == 4}
-                <span>See previous comment</span>
+                <span> 1 previous comment</span>
                 {if:elseif comment_count > 4}
-                <span>See previous 
+                <span> 
                     {exp:ce_str:ing php}
                     <?php echo {comment_count}-3; ?>
                     {/exp:ce_str:ing} 
-                    comments</span>
+                    previous comments</span>
                 {/if}
                 
             </div> <!-- .comment-icon -->

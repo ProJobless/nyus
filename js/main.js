@@ -609,7 +609,7 @@ $(document).ready(function(){
     
     if (!!$('.setup').length) {
         var selector = ''
-        var a = ['all', 'questions', 'actions', 'yours', 'students', 'profile']
+        var a = ['all', 'questions', 'actions', 'yours', 'students', 'profile', 'name']
         for (var i = 0; i<a.length;i++){
             if (i === a.length-1) {
                 selector += '#nav-' + a[i]

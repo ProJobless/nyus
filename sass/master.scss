@@ -1130,6 +1130,11 @@ body {
             margin-top: 0.5em;
         }
         span { @include timestamp; }
+        
+        .media-container {
+            @include grid-column(12);
+            margin-bottom: .5em;
+        }
     }
     
     a {

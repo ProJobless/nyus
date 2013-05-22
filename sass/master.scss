@@ -1125,8 +1125,9 @@ body {
         }
         
         p {
-            @include adjust-leading-to(.9);
+            @include adjust-font-size-to(22px, 1);
             margin-bottom: 0;
+            margin-top: 0.5em;
         }
         span { @include timestamp; }
     }
@@ -1190,11 +1191,11 @@ body {
 }
 .action-participants { 
     @extend .comments; 
-    .post-img { @include grid-column(3, $float: right);}
+    .post-img { margin-top: 0.25em; float: left; }
     p { clear: both; float: left; }
     p:nth-of-type(1) {@include timestamp; @include adjust-font-size-to(14px, .8);}
-    p:nth-of-type(2) {@include adjust-font-size-to(22px, 1); }
-    .feed-text { @include grid-column(10.5); }
+//    p:nth-of-type(2) {@include adjust-font-size-to(22px, 1); }
+//    .feed-text { @include grid-column(10.5); }
 }
 .action-wall {
     .action-post ~ .feed { padding: 0.25em; float: left; background: white; &:empty {display: none;}}
@@ -1467,15 +1468,8 @@ body {
             img { width: auto;}
             &.loaded:before {display: none;}
         }
-        .name {
-        }
     }
-    
     .photo-input { max-width: 250px; }
-        
-    .edit-photo {
-//        float: left;
-    }
 }
 
 .step-one,

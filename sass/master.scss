@@ -1091,12 +1091,12 @@ body {
     }
 }
 
-.comments section span:not(.none):before {
+.comments section .comment-icon span:not(.none):before {
     content: "Show";
     display: inline-block;
 }
 
-.comments section.active span:not(.none):before {
+.comments section.active .comment-icon span:not(.none):before {
     content: "Hide";
     display: inline-block;
 }
@@ -1108,7 +1108,7 @@ body {
     margin-bottom: .25em;
     
     .user-img {
-        @include grid-column(2, $collapse: true);
+        @include grid-column(1, $collapse: true);
     }
     
     .feed-text { 
@@ -1117,23 +1117,24 @@ body {
         @include adjust-font-size-to(12px, .5);
         
         h4 { 
-            float: left; 
             margin: 0;
-            margin-bottom: -4px;
+            margin-bottom: 0.1em;
             
-            a { vertical-align: text-top;}
+//            a { vertical-align: text-top;}
         }
         
         p {
             @include adjust-font-size-to(22px, 1);
             margin-bottom: 0;
-            margin-top: 0.5em;
+            margin-top: 0.25em;
         }
         span { @include timestamp; }
         
         .media-container {
-            @include grid-column(12);
-            margin-bottom: .5em;
+            @include grid-column(12, $collapse: true);
+            margin: .5em 0;
+            
+            a {@include adjust-font-size-to(22px, 1);}
         }
     }
     
@@ -1159,13 +1160,13 @@ body {
     }
     
     .comment-field { 
-        @include grid-column(9, $collapse: true); 
+        @include grid-column(10.5, $collapse: true); 
         @include adjust-font-size-to(12px, .5);
         input { @include adjust-font-size-to(14px, 1); margin: 0; }
     }
 }
     .submit-comment { 
-        @include grid-column(3, $collapse: true);
+        @include grid-column(1.5, $collapse: true);
         text-align: center;
         
         input {
@@ -1729,19 +1730,19 @@ b.disabled {
     }
 
     .feed-item {
-        .feed-text {@include grid-column(9, $collapse: true); padding-left:18px;}
-        .user-img { @include grid-column(1.5, $collapse: true);}
+        .feed-text {@include grid-column(11, $collapse: true); padding-left:18px;}
+//        .user-img { @include grid-column(1.5, $collapse: true);}
     }
     
     .new-comment {
         .user-img { // bringing it back from display none
-            @include grid-column(1.5, $collapse: true);
+//            @include grid-column(1.5, $collapse: true);
             display: block;
 //            padding: 0 .25em;
         }
         
         .comment-field { 
-            @include grid-column(9); 
+            @include grid-column(9.5); 
             @include adjust-font-size-to(16px, .5);
         }
         

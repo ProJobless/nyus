@@ -2,7 +2,10 @@
 
     <section class="profile-setup">
         {setup_directions}
-        {exp:user:edit override_return='setup/to-do/2' return="setup/to-do/2" password_required='n' form:class="step-one clearfix" form:id="setup-form" form:name="setup-form"}
+        {exp:user:edit override_return='setup/step-three' return="setup/step-three" password_required='n' form:class="step-one clearfix" form:id="setup-form" form:name="setup-form"}
+	<input type="hidden" name="member_id" value="{member_id}">
+	<input type="hidden" name="action_id" value="1">
+	<input type="hidden" name="next-position" value="3">
         <b><input class="approve" name="next" id="next" type="submit" value="Next" disabled></b>
         <div class="profile-header clearfix">
             <!-- takes up the left column on larger screens, stacks on smaller screens -->

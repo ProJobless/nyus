@@ -1,19 +1,25 @@
-{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'} <!-- Updates the statusn -->
-
-{exp:status_action_updates date_of_entry='{current_time}'} <!-- Record the users that perfom an action -->
-
 <?php 
-    if (isset($_POST['next-step'])) { 
-    
-        if ($_POST['next-step'] == 'finish'){
-            echo "{exp:user:stats}";
-            echo "{exp:setup_tracker action_id='1299' member_id='{member_id}' position='4'}";
-            echo "{/exp:user:stats}";
-        }
-    
-        echo "{redirect='setup/" . $_POST["next-step"] . "'}"; 
+    if (isset($_POST['next-position'])) { 
+	$position = $_POST['next-position'];
+	$member_id = $_POST['id_member'];
+	$action_id = $_POST['action_id'];
+
+	echo "{exp:setup_tracker action_id='$action_id' member_id='$member_id' next-position='$position'}";
+
+	switch ($position){
+		case 0:
+			echo "{redirect='setup/step-one'}";
+			break;
+		case 4:
+			echo "{redirect='setup/finish'}";	
+			break;
+		default:
+			break;
+	}
     
     } else {
+	echo "{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'} <!-- Updates the statusn -->";
+	echo "{exp:status_action_updates date_of_entry='{current_time}'} <!-- Record the users that perfom an action -->";
         echo "{redirect=''}";
     }
 ?>

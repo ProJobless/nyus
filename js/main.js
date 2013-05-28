@@ -212,10 +212,10 @@ $(document).ready(function(){
     
     Modernizr.load([{
  
-        test : Modernizr.formvalidation,
+        test : Modernizr.formvalidationapi,
         nope : root+'/js/vendor/validate.min.js',
         complete : function(){
-            if (!Modernizr.formvalidation){
+            if (!Modernizr.formvalidationapi){
                 validator = new FormValidator('new-post', [{
                     name : 'friends_status',
                     display : 'Post',
@@ -266,10 +266,25 @@ $(document).ready(function(){
                     }
                 })
                 // enable post button
-                $('.post-form #submit').prop('disabled', false)
+                $('.post-form #submitBtn').prop('disabled', false)
             } else {
-                // enable post button
-                $('.post-form #submit').prop('disabled', false)
+		$('.new-post').on('submit', '.post-form', function(e){
+			$this = $(this)
+			if (this.checkValidity() || this.value.trim()!=='') {
+				$this.find('input[type=submit]').prop('disabled', true)
+				$clearButton.detach()
+				$('.loading').addClass('begin')
+				$this.submit(function(){
+					return false
+				})
+				return true
+			} else {
+				if (this.id === 'setup-form'){$.fancybox($requiredMessage)}
+				return false;
+			}
+		})
+	        // enable post button
+                $('.post-form #submitBtn').prop('disabled', false)
             }
             validatorFlag = true
             if (validatorFlag && fileReaderFlag) {
@@ -621,7 +636,7 @@ $(document).ready(function(){
         $disable.addClass('disable').attr({'rel':'ignore', 'href' : ''})
     }
     
-    if (!Modernizr.formvalidation) {
+    if (!Modernizr.formvalidationapi) {
         $('#profile-input').on('change', function(){
             validProfile = true  
         })
@@ -840,22 +855,6 @@ $(document).ready(function(){
     // FORM VALIDATION
     $requiredMessage = $('<p>Please fill out all fields and choose a profile photo</p>').addClass('required')
     
-    $('.formvalidation').on('submit', 'form', function(e){
-        $this = $(this)
-        if (this.checkValidity() || this.value.trim()!=='') {
-            $this.find('input[type=submit]').prop('disabled', true)
-            $clearButton.detach()
-            $('.loading').addClass('begin')
-            $this.submit(function(){
-                return false
-            })
-            return true
-        } else {
-            if (this.id === 'setup-form'){$.fancybox($requiredMessage)}
-            return false;
-        }
-
-    })
-    
+        
     
 })

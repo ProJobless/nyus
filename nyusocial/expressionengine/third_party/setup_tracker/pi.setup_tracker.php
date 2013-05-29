@@ -34,9 +34,8 @@ class Setup_tracker
         // 2: user has clicked next from to do, return to SETUP/STEP-TWO; this value is set on setup/step-two, embedded into includes/new-post and passed via parameter
         // 3: user has posted step two, return to SETUP/STEP-THREE; this value is passed the same way as step two
         // 4: user has posted step three, they have seen the 'All Set' message, return to THE GREAT WALL; this value is set on post/post and sent via parameter
-        
-        if (isset($_POST['member_id'])) {
-            $member_id = $_POST['member_id'];
+        if (isset($_POST['id_member'])) {
+            $member_id = $_POST['id_member'];
         } else {
             $member_id = ee()->TMPL->fetch_param('member_id');
         }
@@ -46,10 +45,10 @@ class Setup_tracker
         } else {
             $action_id = ee()->TMPL->fetch_param('action_id');
         }
-        if (isset($_POST['position'])) {
-            $position = $_POST['position'];
+        if (isset($_POST['next-position']) || $_POST['next-position'] == 0) {
+            $position = $_POST['next-position'];
         } else {
-            $position = ee()->TMPL->fetch_param('position');
+            $position = ee()->TMPL->fetch_param('next-position');
         }
         
                 

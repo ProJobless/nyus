@@ -1,7 +1,7 @@
 <section class="new-post">
-	<form action="{path='post/post'}/{logged_in_member_id}" class="post-form" enctype="multipart/form-data" method="post" name="new-post">
+	<form action="{path='post/post'}/{logged_in_member_id}" class="post-form" enctype="multipart/form-data" id="new-post" method="post" name="new-post">
     	{if embed:next-step}
-        <input type="hidden" name="next-step" value="{embed:next-step}">
+        <input type="hidden" name="next-position" value="{embed:next-step}">
         {/if}
         
         <!--Record the action-->
@@ -58,7 +58,7 @@
                 </div>	<!-- .question-wrapper -->
             </div> <!-- .post-inputs -->
         <span class="loading"></span>
-    	<input class="submit-post" disabled id="submit" type="submit" value="Post">
+    	<input class="submit-post" disabled id="submitBtn" type="submit" value="Post">
 	</form>
 
 </section> <!-- .new-post -->

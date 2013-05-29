@@ -17,7 +17,7 @@
  // using new global flag on 11925 and 11977 to check for image size and filename
  // using global flag to check for existence of file upload on 12099
  // writing base64 image on 12117
-
+ // tracking setup process on 3374
 require_once 'addon_builder/module_builder.php';
 
 class User extends Module_builder_user
@@ -3370,6 +3370,31 @@ class User extends Module_builder_user
 			);
 			if ($this->EE->extensions->end_script === TRUE) return;
 		}
+		
+		// BEW 05-28-13
+		// Profile setup is part of the first-time login process
+		// Tracking position on form submit
+
+		if (isset($_POST['next-position'])){
+
+		        if (isset($_POST['member_id'])) {
+		            $member_id = $_POST['member_id'];
+		        } else {
+		            $member_id = ee()->TMPL->fetch_param('member_id');
+		        }
+		        
+		        if (isset($_POST['action_id'])) {
+		            $action_id = $_POST['action_id'];
+		        } else {
+		            $action_id = ee()->TMPL->fetch_param('action_id');
+		        }
+		        if (isset($_POST['position'])) {
+		            $position = ee()->TMPL->fetch_param('next-position');
+		        } else {
+		            $position = $_POST['next-position'];
+		        }
+			$this->EE->db->query("INSERT into exp_setup_tracker value ('','$action_id','$member_id','$position')");
+		}			
 
 		//	----------------------------------------
 		//	 Override Return
@@ -11574,7 +11599,6 @@ class User extends Module_builder_user
 		if (isset($_POST["photo_filename"])) {
     		$GLOBALS["flag"] = true;
 		}
-		
 		foreach ( $this->images as $key => $val )
 		{
             if ( (isset( $_FILES[$val] ) AND $_FILES[$val]['name'] != '' ) || (isset( $_POST[$val] ) AND $_POST[$val]['name'] != '' ) )

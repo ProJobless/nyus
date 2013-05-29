@@ -5,6 +5,8 @@
 	$action_id = $_POST['action_id'];
 
 	echo "{exp:setup_tracker action_id='$action_id' member_id='$member_id' next-position='$position'}";
+    echo "{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'}"; // update status
+    echo "{exp:status_action_updates date_of_entry='{current_time}'}";  // record action posts
 
 	switch ($position){
 		case 0:
@@ -18,8 +20,8 @@
 	}
     
     } else {
-	echo "{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'} <!-- Updates the statusn -->";
-	echo "{exp:status_action_updates date_of_entry='{current_time}'} <!-- Record the users that perfom an action -->";
+        echo "{exp:status_updates author_id='{last_segment}' date_of_entry='{current_time}'}"; // update status
+        echo "{exp:status_action_updates date_of_entry='{current_time}'}";  // record action posts
         echo "{redirect=''}";
     }
 ?>

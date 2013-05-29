@@ -174,16 +174,26 @@ function infiniteScroll() {
 
 // ***********************************************************************************************************************//
 
-if (!!window.console){
-    function c(a) { console.log(a) }
-    function d(a) { console.dir(a) }
+function c(a) { 
+    if (!!window.console){ 
+        console.log(a) 
+    } else {
+        return false
+    }
+}
+function d(a) { 
+    if (!!window.console) {
+        console.dir(a) 
+    } else {
+        return false
+    }
 }
 $(document).ready(function(){
 //(function(){
     $('.loading').addClass('begin')
     
     var canvas = document.createElement('canvas')
-    var form = document.getElementById('form') || document.getElementById('setup-form')
+    var form = document.getElementById('new-post') || document.getElementById('setup-form')
     
     var $clearButton = $('<button/>').attr({'class':'clear','id':'clear','type':'button'}).html('Clear') // user-intent to clear current inputs
     var $sizeEl = $('<span/>').addClass('size').attr('id','size')
@@ -212,10 +222,10 @@ $(document).ready(function(){
     
     Modernizr.load([{
  
-        test : Modernizr.formvalidationapi,
+        test : Modernizr.formvalidationapi && Modernizr.formvalidation,
         nope : root+'/js/vendor/validate.min.js',
         complete : function(){
-            if (!Modernizr.formvalidationapi){
+            if (!Modernizr.formvalidationapi || !Modernizr.formvalidation){
                 validator = new FormValidator('new-post', [{
                     name : 'friends_status',
                     display : 'Post',
@@ -268,21 +278,21 @@ $(document).ready(function(){
                 // enable post button
                 $('.post-form #submitBtn').prop('disabled', false)
             } else {
-		$('.new-post').on('submit', '.post-form', function(e){
-			$this = $(this)
-			if (this.checkValidity() || this.value.trim()!=='') {
-				$this.find('input[type=submit]').prop('disabled', true)
-				$clearButton.detach()
-				$('.loading').addClass('begin')
-				$this.submit(function(){
-					return false
-				})
-				return true
-			} else {
-				if (this.id === 'setup-form'){$.fancybox($requiredMessage)}
-				return false;
-			}
-		})
+                $('.new-post').on('submit', '.post-form', function(e){
+                    $this = $(this)
+                    if (this.checkValidity() || this.value.trim()!=='') {
+                        $this.find('input[type=submit]').prop('disabled', true)
+                        $clearButton.detach()
+                        $('.loading').addClass('begin')
+                        $this.submit(function(){
+                            return false
+                        })
+                        return true
+                    } else {
+                        if (this.id === 'setup-form'){$.fancybox($requiredMessage)}
+                        return false;
+                    }
+                })
 	        // enable post button
                 $('.post-form #submitBtn').prop('disabled', false)
             }
@@ -598,15 +608,19 @@ $(document).ready(function(){
     $unsupported.removeClass('visuallyhidden')
     
     prepInputs = function(file, self) {    
+        c('inside prepInputs')
         oldInputs = []
         var name = self.name
-//        c('setting up inputs')
+        c('setting up inputs')
         
-//        c('looping through')
+        c('looping through')
         for (prop in props) {
             var toPHP = document.createElement('input')
             if (props.hasOwnProperty(prop)) {
-//                c('testing: ' + prop)
+                c('testing: ' + prop)
+                c(name)
+                c(props)
+                d(form)
                 toPHP.type = 'hidden'
                 toPHP.name = name + '['+prop+']'
                 toPHP.value = props[prop]
@@ -636,7 +650,7 @@ $(document).ready(function(){
         $disable.addClass('disable').attr({'rel':'ignore', 'href' : ''})
     }
     
-    if (!Modernizr.formvalidationapi) {
+    if (!Modernizr.formvalidationapi || !Modernizr.formvalidation) {
         $('#profile-input').on('change', function(){
             validProfile = true  
         })

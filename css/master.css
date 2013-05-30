@@ -4249,7 +4249,7 @@ body {
   font-size: 1em;
   line-height: 0.75em;
   margin-top: 0;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.3em;
 }
 .post .info span, .action-post .info span {
   font-size: 0.75em;
@@ -4616,7 +4616,8 @@ body {
 }
 
 .action-participants .post-img {
-  margin-top: 0.25em;
+  padding-top: 0.25em;
+  clear: both;
 }
 .action-participants p {
   clear: both;

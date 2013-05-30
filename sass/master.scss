@@ -994,7 +994,7 @@ body {
             color: $purple;
             @include adjust-font-size-to(16px, .5);
             margin-top: 0;
-            margin-bottom: 0.1em;
+            margin-bottom: 0.3em;
         }
 
         span {
@@ -1202,14 +1202,16 @@ body {
 }
 .action-participants { 
     @extend .comments; 
-    .post-img { margin-top: 0.25em; }
+    .post-img { padding-top: 0.25em; clear: both; }
     p { clear: both; float: left; }
     p:nth-of-type(1) {@include timestamp; @include adjust-font-size-to(14px, .8);}
 //    p:nth-of-type(2) {@include adjust-font-size-to(22px, 1); }
 //    .feed-text { @include grid-column(10.5); }
 }
 .action-wall {
-    .action-post ~ .feed { padding: 0.25em; float: left; background: white; &:empty {display: none;}}
+    .action-post ~ .feed { 
+        padding: 0.25em; float: left; background: white; &:empty {display: none;}
+    }
 }
 
 .full-profile { // nested within .page on your-profile.php

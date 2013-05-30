@@ -7,6 +7,9 @@
 	
 	{embed="includes/new-post"}
 	   
+	<?php $counter = 1; ?> 
+	   
+	   
 		{exp:query limit="10" sql="
 		SELECT
 		status_id, 
@@ -19,6 +22,20 @@
 		visible='0'
 		ORDER BY update_date DESC
 		"}
+		
+		
+			<?php //echo 'AQUI'.$counter; ?>
+			<?php if  ($counter==1) { ?>
+				{embed='includes/action-list-wall'}
+			<?php } ?>
+			
+			<?php if ($counter==3) { ?>
+				<?php $counter=1; ?>
+			<?php } else { ?>
+				<?php $counter++; ?>
+			<?php } ?>
+			
+			
 		
 			{exp:user:stats member_id='{member_id}'}
 			
@@ -35,8 +52,10 @@
 				{if next_page}
 					<p><a href="{auto_path}" class="next_chunk_link">More Entries</a></p>
 				{/if}
-			{!--{/exp:infinite_scroll:next_chunk_link}--}
+				{!--{/exp:infinite_scroll:next_chunk_link}--}
 		{/paginate}
+		
+		
 		
 		{/exp:query}
 	

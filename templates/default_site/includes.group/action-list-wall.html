@@ -1,0 +1,45 @@
+		{exp:query sql="
+		SELECT 
+		exp_channel_titles.title as title,
+		exp_channel_titles.entry_date as entry_date, 
+		exp_channel_data.field_id_11 as description, 
+		exp_channel_data.entry_id as entry_id,
+		exp_category_posts.cat_id as cat_id
+		FROM 
+		exp_channel_titles,
+		exp_channel_data LEFT JOIN
+		exp_category_posts ON
+		exp_category_posts.entry_id=exp_channel_data.entry_id 
+		WHERE 
+		exp_channel_titles.entry_id=exp_channel_data.entry_id AND 
+		exp_channel_data.channel_id='3' AND
+		exp_category_posts.cat_id = '3'
+		"}
+
+        <article class="action-post">
+            
+ 
+	        {embed="includes/action_list_pendent" entry_id="{entry_id}" title_action="{title}"}
+		    
+
+            <div class="status post-content">
+        			<p>	
+        				{description}<br>
+        				<small>{entry_date format="%F %j, %Y at %h:%i %a"}</small>
+        			</p>
+            </div> <!-- .post-content -->	
+            <div class="action-participants" data-section="accordion">
+                <section>
+                    <div class="controls" data-section-title>
+                        <div class="comment-icon">
+            	           {embed="includes/action-counter" action_id="{entry_id}"}
+                        </div> <!-- .comment-icon -->
+                    </div> <!-- .controls -->
+                    <div class="feed" data-section-content>
+                        {embed='includes/member-list-action' action_id="{entry_id}"} 
+                    </div> <!-- .feed -->
+                </section>
+            </div> <!-- .comments -->   
+        </article> <!-- .action-post -->
+		
+		{/exp:query}

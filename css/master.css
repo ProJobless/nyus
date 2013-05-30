@@ -618,6 +618,7 @@ input:not([type='file'])[disabled] {
   background-image: linear-gradient(#ffffff, #d0d0d0);
   font-size: 2em;
   line-height: 0.675em;
+  width: 45px;
   /*
       top: 64px;
       left: 104px;
@@ -4742,8 +4743,8 @@ body {
   line-height: 0.975em;
 }
 .full-profile .profile-select-wrapper, .profile-setup .profile-select-wrapper {
-  width: 45px;
-  height: 45px;
+  width: 150px;
+  height: 30px;
   position: absolute;
   bottom: 0;
 }
@@ -5122,6 +5123,14 @@ body {
 }
 .step-one .clear {
   margin: 1em 0 0 0.5em;
+}
+.step-one .photo-input {
+  width: 1px;
+  height: 1px;
+}
+.step-one .edit-photo {
+  position: absolute;
+  top: 0;
 }
 
 .to-do {
@@ -5691,6 +5700,9 @@ b.disabled {
   .profile-setup {
     margin-top: 6em;
   }
+  .profile-setup .profile-select-wrapper {
+    height: 45px;
+  }
 
   .to-do {
     position: relative;
@@ -5783,7 +5795,6 @@ b.disabled {
     background-repeat: no-repeat;
   }
   .edit-photo {
-    width: 45px;
     height: 45px;
     font-size: 3em;
     line-height: 0.8em;

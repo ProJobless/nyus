@@ -348,6 +348,16 @@ input:not([type='file'])[disabled] {
     &:hover { background: none; color: $dark-gray; }
 }
 
+::-webkit-validation-bubble-message {
+//    display:block;
+//    background: black;
+//    position: absolute;
+//    width: 250px;
+//    height: 250px;
+//    margin: 1em;
+//    clip: auto;
+}
+    
 
 // ***********************************************************************************************************************//
 // MODULES
@@ -355,6 +365,7 @@ input:not([type='file'])[disabled] {
 .edit-photo {
     @include small-gray-square;
     @include adjust-font-size-to(32px, .9);
+    width: 45px;
 //    position: absolute;
 //    bottom: 0;
 /*

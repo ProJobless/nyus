@@ -1256,8 +1256,8 @@ body {
     
     .profile-select-wrapper {
 //        @include grid-row(nest-collapse);
-        width: 45px;
-        height: 45px;
+        width: 150px;
+        height: 30px;
         position: absolute;
         bottom: 0;
     }
@@ -1499,6 +1499,14 @@ body {
     background: $white; 
     
     .clear { margin: 1em 0 0 0.5em; }
+    .photo-input {
+        width: 1px;
+        height: 1px;
+    }
+    .edit-photo {
+        position: absolute;
+        top: 0;
+    }
 }
 
 //.step-one > b { text-align: right; z-index: 100;}
@@ -1797,6 +1805,8 @@ b.disabled {
             
     .profile-setup {
         margin-top: 6em;
+        
+        .profile-select-wrapper { height: 45px; }
     }
     
     .to-do { 
@@ -1860,7 +1870,6 @@ b.disabled {
     }
     
     .edit-photo{
-        width: 45px;
         height: 45px;
         @include adjust-font-size-to(48px, 1.6);
         

@@ -1207,14 +1207,16 @@ body {
 
 .action-participants { 
     @extend .comments; 
-    .post-img { margin-top: 0.25em; float: left; }
+    .post-img { padding-top: 0.25em; clear: both; }
     p { clear: both; float: left; }
     p:nth-of-type(1) {@include timestamp; @include adjust-font-size-to(14px, .8);}
 //    p:nth-of-type(2) {@include adjust-font-size-to(22px, 1); }
 //    .feed-text { @include grid-column(10.5); }
 }
 .action-wall {
-    .action-post ~ .feed { padding: 0.25em; float: left; background: white; &:empty {display: none;}}
+    .action-post ~ .feed { 
+        padding: 0.25em; float: left; background: white; &:empty {display: none;}
+    }
 }
 
 .full-profile { // nested within .page on your-profile.php
@@ -1259,8 +1261,8 @@ body {
     
     .profile-select-wrapper {
 //        @include grid-row(nest-collapse);
-        width: 45px;
-        height: 45px;
+        width: 150px;
+        height: 30px;
         position: absolute;
         bottom: 0;
     }
@@ -1502,6 +1504,14 @@ body {
     background: $white; 
     
     .clear { margin: 1em 0 0 0.5em; }
+    .photo-input {
+        width: 1px;
+        height: 1px;
+    }
+    .edit-photo {
+        position: absolute;
+        top: 0;
+    }
 }
 
 //.step-one > b { text-align: right; z-index: 100;}
@@ -1800,6 +1810,8 @@ b.disabled {
             
     .profile-setup {
         margin-top: 6em;
+        
+        .profile-select-wrapper { height: 45px; }
     }
     
     .to-do { 
@@ -1863,7 +1875,6 @@ b.disabled {
     }
     
     .edit-photo{
-        width: 45px;
         height: 45px;
         @include adjust-font-size-to(48px, 1.6);
         

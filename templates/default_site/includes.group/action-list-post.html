@@ -20,8 +20,28 @@
 	        <div class="question"></div>
 	        {/if}
 	        {/exp:channel:entries} 
+            {exp:ce_str:ing php}
 
-            <p>{status}</p>
+            <?php  if  ({exp:ce_str:ing:count strlen}{status}{/exp:ce_str:ing:count} > 600) { ?>
+            <p>
+                {exp:ce_str:ing:short_content truncate="252" ending="..." exact="yes" auto_link="_blank"}
+                {status}
+                {/exp:ce_str:ing:short_content}
+                <a href="#" class="see-more">See more...</a>
+                <span class="overflow">
+                {exp:ce_str:ing:full_content auto_link="_blank"}
+                {status}
+                {/exp:ce_str:ing:full_content}
+                </span>
+            </p>
+            <?php } else { ?>
+            <p>
+                {exp:ce_str:ing:content auto_link="_blank"}
+                {status}
+                {/exp:ce_str:ing:content}
+            </p>
+            <?php } ?>
+            {/exp:ce_str:ing}
 				        
 				        
 				        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}

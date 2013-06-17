@@ -1,5 +1,8 @@
 {embed='includes/header'}
 
+{!-- We removed Step Two from the setup process, so we're just getting catching any people who come directly to this URL --}
+{redirect='setup/step-three'}
+
 {exp:user:stats}
 {exp:setup_tracker action_id="1297" member_id="{member_id}" position="2"}
 {/exp:user:stats}

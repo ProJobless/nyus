@@ -685,7 +685,7 @@ $(document).ready(function(){
             $('#next').prop('disabled', false)
         
         } else if (!!$('#info').length) { // WE'RE ON THE USER'S PROFILE PAGE, WHICH THEY CAN EDIT
-            $('#profile-form, #info').toggleClass('visuallyhidden')
+            $('#profile-fields, #info').toggleClass('visuallyhidden')
             if (!$('#clear').length){
                 $('#profile-select').toggleClass('visuallyhidden')
             } else {

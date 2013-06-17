@@ -27,7 +27,7 @@
             {exp:reverse_these}
             {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='date' sort='desc' dynamic='off' offset="3"}
             {reverse_these_item}
-            <article class="feed-item">
+            <article class="post-item">
             	{exp:user:stats}
                     <div class="user-img">
                         <a href="{path='profile'}/{member_id}">
@@ -60,7 +60,7 @@
                         {/exp:ce_str:ing}
                     </div> <!-- .feed-text -->	
                 {/exp:user:stats}
-            </article> <!-- .feed-item -->
+            </article> <!-- .post-item -->
             {/reverse_these_item}
             {/exp:channel:entries}
             {/exp:reverse_these}
@@ -73,7 +73,7 @@
     {exp:reverse_these}
     {exp:channel:entries channel='wall_posts' search:status_owner='={embed:id_status}' orderby='entry_id' sort='desc' dynamic='off' limit='3'}
     {reverse_these_item}
-    <article class="feed-item">
+    <article class="post-item">
     	{exp:user:stats}
             <div class="user-img">
                 <a href="{path='profile'}/{member_id}">
@@ -106,7 +106,7 @@
                 {/exp:ce_str:ing}
             </div> <!-- .feed-text -->	
         {/exp:user:stats}
-    </article>
+        </article> <!-- .post-item -->
     {/reverse_these_item}
     {/exp:channel:entries}
     {/exp:reverse_these}

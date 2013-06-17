@@ -456,6 +456,60 @@ table {
 
 @include establish-baseline($base-font-size);
 
+// RETROFIT BASE CLASSES
+
+.feed-item {
+    @include grid-row;
+    background: $light-gray;
+    padding: 0.5em !important;
+    margin-bottom: .25em;
+    
+    .user-img {
+        @include grid-column(1.5, $collapse: true);
+    }
+    
+    .feed-text { 
+        @include grid-column(10.5);
+//        padding: 0 .1em;
+        @include adjust-font-size-to(12px, .5);
+        
+        h4 { 
+            margin: 0;
+            margin-bottom: 0.3em;
+            
+//            a { vertical-align: text-top;}
+        }
+        
+        p {
+            @include adjust-font-size-to(22px, 1);
+            margin-bottom: 0;
+            margin-top: 0.25em;
+        }
+        span { @include timestamp; }
+        
+        .media-container {
+            @include grid-column(12, $collapse: true);
+            margin: .5em 0;
+            
+            a {@include adjust-font-size-to(22px, 1);}
+        }
+    }
+    
+    a {
+        display: inline;
+        padding: 0;
+        color: $purple;
+    }
+}
+
+.comments .feed, 
+.recent-three, 
+.comment-wrapper {
+    padding-left: 3em !important;
+}
+
+// BASE MOBILE STYLES
+
 body {
     width: 100%;
     background: #2e2e2e url(../img/pinstripes-black.png) repeat;
@@ -933,8 +987,16 @@ body {
     margin-top: 1em;
 }
 
+.post-item {
+    @extend .feed-item;
+}
+
 .action-wall {
     @extend .great-wall;
+}
+
+.action-item {
+    @extend .feed-item;
 }
 
 .post {
@@ -1104,50 +1166,6 @@ body {
 .comments section.active .comment-icon span:not(.none):before {
     content: "Hide";
     display: inline-block;
-}
-
-.feed-item {
-    @include grid-row;
-    background: $light-gray;
-    padding: 0.5em !important;
-    margin-bottom: .25em;
-    
-    .user-img {
-        @include grid-column(1.5, $collapse: true);
-    }
-    
-    .feed-text { 
-        @include grid-column(10.5);
-//        padding: 0 .1em;
-        @include adjust-font-size-to(12px, .5);
-        
-        h4 { 
-            margin: 0;
-            margin-bottom: 0.3em;
-            
-//            a { vertical-align: text-top;}
-        }
-        
-        p {
-            @include adjust-font-size-to(22px, 1);
-            margin-bottom: 0;
-            margin-top: 0.25em;
-        }
-        span { @include timestamp; }
-        
-        .media-container {
-            @include grid-column(12, $collapse: true);
-            margin: .5em 0;
-            
-            a {@include adjust-font-size-to(22px, 1);}
-        }
-    }
-    
-    a {
-        display: inline;
-        padding: 0;
-        color: $purple;
-    }
 }
 
 .recent-three {

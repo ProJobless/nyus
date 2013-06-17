@@ -3173,6 +3173,80 @@ html {
   line-height: 1.5em;
 }
 
+.feed-item, .post-item, .action-item, .new-comment, .student-list .student {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 62.5em;
+  *zoom: 1;
+  background: #dedede;
+  padding: 0.5em !important;
+  margin-bottom: .25em;
+}
+.feed-item:before, .post-item:before, .action-item:before, .new-comment:before, .student-list .student:before, .feed-item:after, .post-item:after, .action-item:after, .new-comment:after, .student-list .student:after {
+  content: " ";
+  display: table;
+}
+.feed-item:after, .post-item:after, .action-item:after, .new-comment:after, .student-list .student:after {
+  clear: both;
+}
+.feed-item .user-img, .post-item .user-img, .action-item .user-img, .new-comment .user-img, .student-list .student .user-img {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  width: 12.5%;
+  float: left;
+}
+.feed-item .feed-text, .post-item .feed-text, .action-item .feed-text, .new-comment .feed-text, .student-list .student .feed-text, .student-list .student .name {
+  position: relative;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  width: 87.5%;
+  float: left;
+  font-size: 0.75em;
+  line-height: 1em;
+}
+.feed-item .feed-text h4, .post-item .feed-text h4, .action-item .feed-text h4, .new-comment .feed-text h4, .student-list .student .feed-text h4, .student-list .student .name h4 {
+  margin: 0;
+  margin-bottom: 0.3em;
+}
+.feed-item .feed-text p, .post-item .feed-text p, .action-item .feed-text p, .new-comment .feed-text p, .student-list .student .feed-text p, .student-list .student .name p {
+  font-size: 1.375em;
+  line-height: 1.09091em;
+  margin-bottom: 0;
+  margin-top: 0.25em;
+}
+.feed-item .feed-text span, .post-item .feed-text span, .action-item .feed-text span, .new-comment .feed-text span, .student-list .student .feed-text span, .student-list .student .name span {
+  font-size: 0.75em;
+  line-height: 1.2em;
+  color: #bcbcbc;
+}
+.feed-item .feed-text .media-container, .post-item .feed-text .media-container, .action-item .feed-text .media-container, .new-comment .feed-text .media-container, .student-list .student .feed-text .media-container, .student-list .student .name .media-container {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  float: left;
+  margin: .5em 0;
+}
+.feed-item .feed-text .media-container a, .post-item .feed-text .media-container a, .action-item .feed-text .media-container a, .new-comment .feed-text .media-container a, .student-list .student .feed-text .media-container a, .student-list .student .name .media-container a {
+  font-size: 1.375em;
+  line-height: 1.09091em;
+}
+.feed-item a, .post-item a, .action-item a, .new-comment a, .student-list .student a {
+  display: inline;
+  padding: 0;
+  color: #60128f;
+}
+
+.comments .feed, .action-participants .feed,
+.recent-three,
+.comment-wrapper {
+  padding-left: 3em !important;
+}
+
 body {
   width: 100%;
   background: #2e2e2e url(../img/pinstripes-black.png) repeat;
@@ -4444,7 +4518,7 @@ body {
 .comments .feed, .action-participants .feed {
   background: none;
 }
-.comments .feed .feed-item:first-child, .action-participants .feed .feed-item:first-child, .comments .feed .new-comment:first-child, .action-participants .feed .new-comment:first-child, .comments .feed .student-list .student:first-child, .student-list .comments .feed .student:first-child, .action-participants .feed .student-list .student:first-child, .student-list .action-participants .feed .student:first-child {
+.comments .feed .feed-item:first-child, .action-participants .feed .feed-item:first-child, .comments .feed .post-item:first-child, .action-participants .feed .post-item:first-child, .comments .feed .action-item:first-child, .action-participants .feed .action-item:first-child, .comments .feed .new-comment:first-child, .action-participants .feed .new-comment:first-child, .comments .feed .student-list .student:first-child, .student-list .comments .feed .student:first-child, .action-participants .feed .student-list .student:first-child, .student-list .action-participants .feed .student:first-child {
   padding-top: .25em;
 }
 
@@ -4456,74 +4530,6 @@ body {
 .comments section.active .comment-icon span:not(.none):before, .action-participants section.active .comment-icon span:not(.none):before {
   content: "Hide";
   display: inline-block;
-}
-
-.feed-item, .new-comment, .student-list .student {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  max-width: 62.5em;
-  *zoom: 1;
-  background: #dedede;
-  padding: 0.5em !important;
-  margin-bottom: .25em;
-}
-.feed-item:before, .new-comment:before, .student-list .student:before, .feed-item:after, .new-comment:after, .student-list .student:after {
-  content: " ";
-  display: table;
-}
-.feed-item:after, .new-comment:after, .student-list .student:after {
-  clear: both;
-}
-.feed-item .user-img, .new-comment .user-img, .student-list .student .user-img {
-  position: relative;
-  padding-left: 0;
-  padding-right: 0;
-  width: 12.5%;
-  float: left;
-}
-.feed-item .feed-text, .new-comment .feed-text, .student-list .student .feed-text, .student-list .student .name {
-  position: relative;
-  padding-left: 0.9375em;
-  padding-right: 0.9375em;
-  width: 87.5%;
-  float: left;
-  font-size: 0.75em;
-  line-height: 1em;
-}
-.feed-item .feed-text h4, .new-comment .feed-text h4, .student-list .student .feed-text h4, .student-list .student .name h4 {
-  margin: 0;
-  margin-bottom: 0.3em;
-}
-.feed-item .feed-text p, .new-comment .feed-text p, .student-list .student .feed-text p, .student-list .student .name p {
-  font-size: 1.375em;
-  line-height: 1.09091em;
-  margin-bottom: 0;
-  margin-top: 0.25em;
-}
-.feed-item .feed-text span, .new-comment .feed-text span, .student-list .student .feed-text span, .student-list .student .name span {
-  font-size: 0.75em;
-  line-height: 1.2em;
-  color: #bcbcbc;
-}
-.feed-item .feed-text .media-container, .new-comment .feed-text .media-container, .student-list .student .feed-text .media-container, .student-list .student .name .media-container {
-  position: relative;
-  padding-left: 0;
-  padding-right: 0;
-  width: 100%;
-  float: left;
-  margin: .5em 0;
-}
-.feed-item .feed-text .media-container a, .new-comment .feed-text .media-container a, .student-list .student .feed-text .media-container a, .student-list .student .name .media-container a {
-  font-size: 1.375em;
-  line-height: 1.09091em;
-}
-.feed-item a, .new-comment a, .student-list .student a {
-  display: inline;
-  padding: 0;
-  color: #60128f;
 }
 
 .recent-three {
@@ -5635,7 +5641,7 @@ b.disabled {
     line-height: 1.5em;
   }
 
-  .feed-item .feed-text, .new-comment .feed-text, .student-list .student .feed-text, .student-list .student .name {
+  .feed-item .feed-text, .post-item .feed-text, .action-item .feed-text, .new-comment .feed-text, .student-list .student .feed-text, .student-list .student .name {
     position: relative;
     padding-left: 0.9375em;
     padding-right: 0.9375em;
@@ -5643,7 +5649,7 @@ b.disabled {
     float: left;
     padding-left: 18px;
   }
-  .feed-item .user-img, .new-comment .user-img, .student-list .student .user-img {
+  .feed-item .user-img, .post-item .user-img, .action-item .user-img, .new-comment .user-img, .student-list .student .user-img {
     position: relative;
     padding-left: 0;
     padding-right: 0;

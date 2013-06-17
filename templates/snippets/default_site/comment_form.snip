@@ -1,0 +1,22 @@
+{exp:safecracker channel="wall_posts" class="comment-form" return="/{status_id}/{logged_in_member_id}" dynamic="on" safecracker_head="no" secure_action="no" secure_return="no"}
+                            <input type="hidden" name="title" id="title" value="a wall post" />
+                            <input type="hidden" name="entry_date" value="{entry_date}" />
+                            <input type="hidden" name="author_id" value="{logged_in_member_id}" />
+                            <input type="hidden" name="url_title" id="url_title" value="{url_title}" />
+                            <input type="hidden" name="status_owner" value="{status_id}" /> 
+                            <input type="hidden" name="status_id_owner" value="{member_id}" /> 
+                            <input type="hidden" name="comment_author" value="{logged_in_member_id}" />
+                            <input type="hidden" name="comment_date" value=""/>
+                            
+                            <div class="new-comment">
+                                <div class="user-img">
+                            	    {embed='includes/comments-photo-login-user' id_loggedin_member='{logged_in_member_id}'}
+                                </div> <!-- .user-img -->
+                                <div class="comment-field">    
+                                    <input name="thepost" placeholder="Write something..." required type="text">
+                                </div> <!-- .comment-field -->
+                                <div class="submit-comment">
+                                    <input name="submit" type="submit" value="Post">
+                                </div> <!-- .submit-comment -->
+                            </div>
+                            {/exp:safecracker}

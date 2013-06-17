@@ -1,0 +1,35 @@
+{exp:user:stats}
+{exp:query sql="
+        SELECT
+        MAX(position) as position
+        FROM
+        exp_setup_tracker
+        WHERE
+        member_id = '{member_id}'
+    "}
+    
+   <?php 
+        $position = "{position}";
+        switch ($position) {
+            case 4:
+                break;
+            case 0:
+                echo "{redirect='setup/step-one'}";
+                break;
+            case 1:
+                echo "{redirect='setup/to-do'}";
+                break;
+            case 2:
+                echo "{redirect='setup/step-two'}";
+                break;
+            case 3:
+                echo "{redirect='setup/step-three'}";
+                break;
+            default:
+                break;
+        }
+        
+    ?>
+    
+    {/exp:query}
+{/exp:user:stats}

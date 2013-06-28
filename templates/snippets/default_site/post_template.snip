@@ -4,7 +4,7 @@
     				            <a href="{path='profile'}/{member_id}">
         			                <img src="{photo_url}{photo_filename}?<?php echo time(); ?>">
     				            </a>
-    				        </div> <!-- .photo -->
+    				        </div> <!-- .user-img -->
     				        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}
     				        {if question}
     				        <div class="question"></div>
@@ -38,32 +38,32 @@
     				        {if logged_in_member_id==member_id}
     			            <a href="{path=delete}/{status_id}/{member_id}" class="delete" title="Delete Post">x</a>
     			            {/if}
-    				    </div><!-- .author -->				        
-				        {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}
-					        {if media_images}
-       				        <div class="status post-content">
-						        <div class="post-img">
-							    	<a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}?<?php echo time(); ?>"></a>
-						        </div> <!-- .post-img -->
-	    				    </div> <!-- .post-content -->	
-					        {/if}
+                            {exp:channel:entries channel='media' search:status_owner_id='={status_id}' orderby='date' sort='desc' dynamic='off' limit="1" disable="pagination|member_data|category_fields|categories"}
+                                {if media_images}
+                                <div class="status post-content">
+                                    <div class="post-img">
+                                        <a href="{site_url}images/media_images/{media_images}" class="posted-img"><img src="{site_url}images/media_images/{media_images}?<?php echo time(); ?>"></a>
+                                    </div> <!-- .post-img -->
+                                </div> <!-- .post-content -->	
+                                {/if}
 					        
-					        {if media_audio}
-    				        <div class="status post-content">
-					           <div class="media-container">
-					               <a href="{path='includes/player'}" class="posted-audio" data-path="{media_audio}" data-audio="true">click here for audio</a>
-					           </div> <!-- .media-container -->
-	    				    </div> <!-- .post-content -->	
-							{/if}
+                                {if media_audio}
+                                <div class="status post-content">
+                                   <div class="media-container">
+                                       <a href="{path='includes/player'}" class="posted-audio" data-path="{media_audio}" data-audio="true">click here for audio</a>
+                                   </div> <!-- .media-container -->
+                                </div> <!-- .post-content -->	
+                                {/if}
 							
-					        {if media_video}
-    				        <div class="status post-content">
-					           <div class="media-container">
-					               <a href="{path='includes/player'}" class="posted-video" data-path="{media_video}">click here for video</a>
-					           </div> <!-- .media-container -->
-	    				    </div> <!-- .post-content -->	
-							{/if}	
-				        {/exp:channel:entries}     
+                                {if media_video}
+                                <div class="status post-content">
+                                   <div class="media-container">
+                                       <a href="{path='includes/player'}" class="posted-video" data-path="{media_video}">click here for video</a>
+                                   </div> <!-- .media-container -->
+                                </div> <!-- .post-content -->	
+                                {/if}	
+                            {/exp:channel:entries}     
+    				    </div><!-- .author -->				        
                         
                         {embed='includes/comments' id_status='{status_id}' id_member='{member_id}' question='<?php echo $q; ?>'}
 

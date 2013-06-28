@@ -3241,12 +3241,6 @@ html {
   color: #60128f;
 }
 
-.comments .feed, .action-participants .feed,
-.recent-three,
-.comment-wrapper {
-  padding-left: 3em !important;
-}
-
 body {
   width: 100%;
   background: #2e2e2e url(../img/pinstripes-black.png) repeat;
@@ -4298,7 +4292,8 @@ body {
   margin-bottom: 0;
   max-width: 62.5em;
   *zoom: 1;
-  margin-bottom: .5em;
+  border-bottom: 1px solid #dedede;
+  padding-bottom: 0.5em;
 }
 .post .author:before, .action-post .author:before, .post .author:after, .action-post .author:after {
   content: " ";
@@ -4340,6 +4335,8 @@ body {
   margin-bottom: 0;
   max-width: 62.5em;
   *zoom: 1;
+  padding-top: 0.5em;
+  clear: both;
 }
 .post .post-content:before, .action-post .post-content:before, .post .post-content:after, .action-post .post-content:after {
   content: " ";
@@ -4364,7 +4361,6 @@ body {
   left: 20.83333%;
   right: auto;
   float: left;
-  margin-bottom: 0.5em;
 }
 .post .post-content .post-img, .action-post .post-content .post-img {
   width: auto;
@@ -4392,6 +4388,7 @@ body {
 
 .comment-wrapper {
   padding: 0.25em;
+  clear: both;
 }
 
 .comments, .action-participants {
@@ -4521,6 +4518,22 @@ body {
 .comments .feed .feed-item:first-child, .action-participants .feed .feed-item:first-child, .comments .feed .post-item:first-child, .action-participants .feed .post-item:first-child, .comments .feed .action-item:first-child, .action-participants .feed .action-item:first-child, .comments .feed .new-comment:first-child, .action-participants .feed .new-comment:first-child, .comments .feed .student-list .student:first-child, .student-list .comments .feed .student:first-child, .action-participants .feed .student-list .student:first-child, .student-list .action-participants .feed .student:first-child {
   padding-top: .25em;
 }
+.comments .post-item, .action-participants .post-item {
+  position: relative;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  width: 91.66667%;
+  left: 8.33333%;
+  right: auto;
+  float: left;
+}
+.comments .post-item .user-img, .action-participants .post-item .user-img {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  width: 8.33333%;
+  float: left;
+}
 
 .comments section .comment-icon span:not(.none):before, .action-participants section .comment-icon span:not(.none):before {
   content: "Show";
@@ -4533,6 +4546,13 @@ body {
 }
 
 .recent-three {
+  position: relative;
+  padding-left: 0.9375em;
+  padding-right: 0.9375em;
+  width: 91.66667%;
+  left: 8.33333%;
+  right: auto;
+  float: left;
   border-style: solid;
   border-width: 1px;
   border-color: #d9d9d9;
@@ -4557,6 +4577,13 @@ body {
 }
 .recent-three h1.subheader, .recent-three h2.subheader, .recent-three h3.subheader, .recent-three h4.subheader, .recent-three h5.subheader, .recent-three h6.subheader {
   line-height: 1.4;
+}
+.recent-three .post-item .user-img {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  width: 8.33333%;
+  float: left;
 }
 
 .new-comment .user-img {
